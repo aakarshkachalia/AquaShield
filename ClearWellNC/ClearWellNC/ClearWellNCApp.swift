@@ -10,6 +10,8 @@ import SwiftData
 
 @main
 struct ClearWellNCApp: App {
+    @State private var tractStore = TractStore()
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
@@ -26,6 +28,9 @@ struct ClearWellNCApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(tractStore)
+                // Parse the bundled tract data once at launch, off the main thread.
+                .task { await tractStore.load() }
         }
         .modelContainer(sharedModelContainer)
     }

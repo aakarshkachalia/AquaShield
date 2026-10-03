@@ -1,0 +1,146 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@: a priority for your area (elevated risk)." : {
+
+    },
+    "%@: a priority for your area (high risk)." : {
+
+    },
+    "%@: include in a standard metals and nitrate panel every 2 years." : {
+
+    },
+    "%@: test at least once; it depends on your home's plumbing." : {
+
+    },
+    "%lld of %lld tested wells in your census tract were above the limit." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld of %2$lld tested wells in your census tract were above the limit."
+          }
+        }
+      }
+    },
+    "10 mg/L (EPA limit)" : {
+
+    },
+    "10 ppb (EPA limit)" : {
+
+    },
+    "15 ppb (EPA action level)" : {
+
+    },
+    "50 ppb (NC standard)" : {
+
+    },
+    "A point-of-use filter certified to NSF/ANSI 53 for lead; replace old brass fittings or lead solder where possible." : {
+
+    },
+    "about 1 in %lld" : {
+
+    },
+    "Add Item" : {
+
+    },
+    "Arsenic" : {
+
+    },
+    "Arsenic comes from certain bedrock. It has no taste or smell, and long-term exposure raises cancer risk." : {
+
+    },
+    "Bacteria (total coliform / E. coli): every year and after any flooding, for every well." : {
+
+    },
+    "Based on %lld tested wells in your census tract plus the model." : {
+
+    },
+    "Elevated" : {
+
+    },
+    "Estimated %@ wells in your area are above %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Estimated %1$@ wells in your area are above %2$@."
+          }
+        }
+      }
+    },
+    "fewer than 1 in 200" : {
+
+    },
+    "High" : {
+
+    },
+    "How: contact %@ County Environmental Health to order a test through the NC State Laboratory of Public Health, or use a state-certified private lab." : {
+
+    },
+    "How: contact your county Environmental Health office to order a test through the NC State Laboratory of Public Health, or use a state-certified private lab." : {
+
+    },
+    "Item at %@" : {
+
+    },
+    "Lead" : {
+
+    },
+    "Lead in well water usually comes from pipes, solder and well parts, not the rock, so it varies from house to house." : {
+
+    },
+    "Low" : {
+
+    },
+    "Lower than typical" : {
+
+    },
+    "Manganese" : {
+
+    },
+    "Manganese comes from rock and soil. It can stain sinks and laundry black, and high levels are a concern for infants." : {
+
+    },
+    "Medium" : {
+
+    },
+    "Nitrate" : {
+
+    },
+    "Nitrate comes from fertilizer, manure and septic systems. It is most dangerous for babies under 6 months." : {
+
+    },
+    "No wells in your census tract have been tested. This is the model's estimate from geology and nearby areas." : {
+
+    },
+    "Only %lld tested wells in your census tract, so this is mostly the model's estimate." : {
+
+    },
+    "Oxidation/filtration (greensand) or a softener rated for manganese; reverse osmosis for drinking water." : {
+
+    },
+    "Reverse osmosis certified to NSF/ANSI 58 for arsenic. An under-sink unit is usually enough for drinking and cooking." : {
+
+    },
+    "Reverse osmosis certified to NSF/ANSI 58 for nitrate. Never boil water to remove nitrate; boiling concentrates it." : {
+
+    },
+    "Select an item" : {
+
+    },
+    "Test regardless" : {
+
+    },
+    "The built-in well data could not be loaded." : {
+
+    },
+    "This is an estimate for your area, not your well. Only a lab test tells you what is in your water." : {
+
+    },
+    "Typical" : {
+
+    }
+  },
+  "version" : "1.0"
+}
