@@ -1,0 +1,76 @@
+{
+  "tract": "37179020202",
+  "county": "Union",
+  "results": [
+    {
+      "contaminant": "Arsenic",
+      "key": "arsenic",
+      "level": "high",
+      "ratio_to_state": 24.27,
+      "estimate": 0.5501,
+      "statewide": 0.0227,
+      "tests_in_area": 182,
+      "confidence": "high",
+      "confidence_note": "based on 182 tested wells in your area plus the model",
+      "sentence": "Estimated about 1 in 2 wells in your area are above 10 ppb (EPA limit) (statewide: about 1 in 44).",
+      "observed": "102 of 182 tested wells in your census tract were above the limit.",
+      "why": "Arsenic comes from certain bedrock. It has no taste or smell; long-term exposure raises cancer risk.",
+      "fix_if_high": "Reverse osmosis certified to NSF/ANSI 58 for arsenic (under-sink is usually enough for drinking and cooking)."
+    },
+    {
+      "contaminant": "Nitrate",
+      "key": "nitrate",
+      "level": "high",
+      "ratio_to_state": 3.05,
+      "estimate": 0.0283,
+      "statewide": 0.0093,
+      "tests_in_area": 63,
+      "confidence": "high",
+      "confidence_note": "based on 63 tested wells in your area plus the model",
+      "sentence": "Estimated about 1 in 35 wells in your area are above 10 mg/L (EPA limit) (statewide: about 1 in 108).",
+      "observed": "2 of 63 tested wells in your census tract were above the limit.",
+      "why": "Nitrate comes from fertilizer, manure and septic systems. It is most dangerous for babies under 6 months.",
+      "fix_if_high": "Reverse osmosis certified to NSF/ANSI 58 for nitrate. Never boil water to remove nitrate - it concentrates it."
+    },
+    {
+      "contaminant": "Manganese",
+      "key": "manganese",
+      "level": "elevated",
+      "ratio_to_state": 1.69,
+      "estimate": 0.4124,
+      "statewide": 0.2434,
+      "tests_in_area": 182,
+      "confidence": "high",
+      "confidence_note": "based on 182 tested wells in your area plus the model",
+      "sentence": "Estimated about 1 in 2 wells in your area are above 50 ppb (NC standard) (statewide: about 1 in 4).",
+      "observed": "75 of 182 tested wells in your census tract were above the limit.",
+      "why": "Manganese comes from rock and soil. It can stain fixtures black; high levels are a concern for infants.",
+      "fix_if_high": "Oxidation/filtration (greensand) or a water softener rated for manganese; reverse osmosis for drinking water."
+    },
+    {
+      "contaminant": "Lead",
+      "key": "lead",
+      "level": "test regardless",
+      "ratio_to_state": 1.15,
+      "estimate": 0.0319,
+      "statewide": 0.0279,
+      "tests_in_area": 182,
+      "confidence": "high",
+      "confidence_note": "based on 182 tested wells in your area plus the model",
+      "sentence": "Estimated about 1 in 31 wells in your area are above 15 ppb (EPA action level) (statewide: about 1 in 36).",
+      "observed": "6 of 182 tested wells in your census tract were above the limit.",
+      "why": "Lead in well water usually comes from pipes, solder and well parts, not the rock, so it varies house to house.",
+      "fix_if_high": "Point-of-use filter certified to NSF/ANSI 53 for lead; replace old brass fittings or lead solder where possible."
+    }
+  ],
+  "test_plan": [
+    "Bacteria (total coliform / E. coli) - every year and after any flooding, for every well.",
+    "Arsenic - priority for your area (high risk).",
+    "Nitrate - priority for your area (high risk).",
+    "Manganese - priority for your area (elevated risk).",
+    "Lead - test at least once; it depends on your home's plumbing.",
+    "How: contact Union County Environmental Health to order a test through the NC State Laboratory of Public Health, or use a state-certified private lab."
+  ],
+  "disclaimer": "This is an estimate for your area, not your well. Only a lab test tells you what is in your water.",
+  "data_source": "NCWELL database (Eaves et al. 2021, UNC Superfund Research Program), 1998-2019"
+}

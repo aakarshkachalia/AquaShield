@@ -1,0 +1,5 @@
+contaminant,county_average,neighbors_only,MODEL_unseen_tract,model_unseen_county
+arsenic,0.3613,0.6717,0.7016,0.1810
+lead,0.0864,0.0666,0.1001,0.0249
+manganese,0.2878,0.4804,0.4832,0.2656
+nitrate,0.0897,0.1416,0.0958,0.0804

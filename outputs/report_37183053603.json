@@ -1,0 +1,76 @@
+{
+  "tract": "37183053603",
+  "county": "Wake",
+  "results": [
+    {
+      "contaminant": "Manganese",
+      "key": "manganese",
+      "level": "elevated",
+      "ratio_to_state": 1.77,
+      "estimate": 0.431,
+      "statewide": 0.2434,
+      "tests_in_area": 3,
+      "confidence": "low",
+      "confidence_note": "only 3 tested well(s) in your area - mostly the model's estimate",
+      "sentence": "Estimated about 1 in 2 wells in your area are above 50 ppb (NC standard) (statewide: about 1 in 4).",
+      "observed": "2 of 3 tested wells in your census tract were above the limit.",
+      "why": "Manganese comes from rock and soil. It can stain fixtures black; high levels are a concern for infants.",
+      "fix_if_high": "Oxidation/filtration (greensand) or a water softener rated for manganese; reverse osmosis for drinking water."
+    },
+    {
+      "contaminant": "Lead",
+      "key": "lead",
+      "level": "test regardless",
+      "ratio_to_state": 1.19,
+      "estimate": 0.0332,
+      "statewide": 0.0279,
+      "tests_in_area": 3,
+      "confidence": "low",
+      "confidence_note": "only 3 tested well(s) in your area - mostly the model's estimate",
+      "sentence": "Estimated about 1 in 30 wells in your area are above 15 ppb (EPA action level) (statewide: about 1 in 36).",
+      "observed": "0 of 3 tested wells in your census tract were above the limit.",
+      "why": "Lead in well water usually comes from pipes, solder and well parts, not the rock, so it varies house to house.",
+      "fix_if_high": "Point-of-use filter certified to NSF/ANSI 53 for lead; replace old brass fittings or lead solder where possible."
+    },
+    {
+      "contaminant": "Arsenic",
+      "key": "arsenic",
+      "level": "lower than typical",
+      "ratio_to_state": 0.54,
+      "estimate": 0.0122,
+      "statewide": 0.0227,
+      "tests_in_area": 3,
+      "confidence": "low",
+      "confidence_note": "only 3 tested well(s) in your area - mostly the model's estimate",
+      "sentence": "Estimated about 1 in 82 wells in your area are above 10 ppb (EPA limit) (statewide: about 1 in 44).",
+      "observed": "0 of 3 tested wells in your census tract were above the limit.",
+      "why": "Arsenic comes from certain bedrock. It has no taste or smell; long-term exposure raises cancer risk.",
+      "fix_if_high": "Reverse osmosis certified to NSF/ANSI 58 for arsenic (under-sink is usually enough for drinking and cooking)."
+    },
+    {
+      "contaminant": "Nitrate",
+      "key": "nitrate",
+      "level": "lower than typical",
+      "ratio_to_state": 0.5,
+      "estimate": 0.0046,
+      "statewide": 0.0093,
+      "tests_in_area": 1,
+      "confidence": "low",
+      "confidence_note": "only 1 tested well(s) in your area - mostly the model's estimate",
+      "sentence": "Estimated fewer than 1 in 200 wells in your area are above 10 mg/L (EPA limit) (statewide: about 1 in 108).",
+      "observed": "0 of 1 tested wells in your census tract were above the limit.",
+      "why": "Nitrate comes from fertilizer, manure and septic systems. It is most dangerous for babies under 6 months.",
+      "fix_if_high": "Reverse osmosis certified to NSF/ANSI 58 for nitrate. Never boil water to remove nitrate - it concentrates it."
+    }
+  ],
+  "test_plan": [
+    "Bacteria (total coliform / E. coli) - every year and after any flooding, for every well.",
+    "Manganese - priority for your area (elevated risk).",
+    "Lead - test at least once; it depends on your home's plumbing.",
+    "Arsenic - include in a standard metals/nitrate panel every 2 years.",
+    "Nitrate - include in a standard metals/nitrate panel every 2 years.",
+    "How: contact Wake County Environmental Health to order a test through the NC State Laboratory of Public Health, or use a state-certified private lab."
+  ],
+  "disclaimer": "This is an estimate for your area, not your well. Only a lab test tells you what is in your water.",
+  "data_source": "NCWELL database (Eaves et al. 2021, UNC Superfund Research Program), 1998-2019"
+}

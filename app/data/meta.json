@@ -1,0 +1,40 @@
+{
+  "generated": "2026-10-02",
+  "statewide": {
+    "arsenic": 0.0227,
+    "manganese": 0.2434,
+    "nitrate": 0.0093,
+    "lead": 0.0279
+  },
+  "data_source": "NCWELL database (Eaves et al. 2021, UNC Superfund Research Program), 1998-2019",
+  "model_scores": [
+    {
+      "contaminant": "arsenic",
+      "county_average": 0.3613,
+      "neighbors_only": 0.6717,
+      "MODEL_unseen_tract": 0.7016,
+      "model_unseen_county": 0.181
+    },
+    {
+      "contaminant": "lead",
+      "county_average": 0.0864,
+      "neighbors_only": 0.0666,
+      "MODEL_unseen_tract": 0.1001,
+      "model_unseen_county": 0.0249
+    },
+    {
+      "contaminant": "manganese",
+      "county_average": 0.2878,
+      "neighbors_only": 0.4804,
+      "MODEL_unseen_tract": 0.4832,
+      "model_unseen_county": 0.2656
+    },
+    {
+      "contaminant": "nitrate",
+      "county_average": 0.0897,
+      "neighbors_only": 0.1416,
+      "MODEL_unseen_tract": 0.0958,
+      "model_unseen_county": 0.0804
+    }
+  ]
+}

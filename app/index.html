@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClearWell NC</title>
+  <meta name="description" content="Estimate what's likely in your private well water in North Carolina, and what to test for first.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-inner">
+      <div class="brand">
+        <svg class="drop" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c-3.6 4.6-6.5 8.3-6.5 11.6a6.5 6.5 0 0 0 13 0c0-3.3-2.9-7-6.5-11.6z"/></svg>
+        <span>ClearWell <strong>NC</strong></span>
+      </div>
+      <nav class="top-nav"><a href="#how">How it works</a></nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>What's likely in your well water?</h1>
+      <p class="lede">About 2.4 million North Carolinians drink from private wells, and only new wells have to be tested once.
+        ClearWell estimates your area's risk from 110,000+ state lab tests and the rock beneath you, then tells you what to test for first.</p>
+    </section>
+
+    <section class="panel" id="well-question">
+      <p class="q">Does your home get water from a private well?</p>
+      <div class="btn-row">
+        <button class="btn primary" data-well="yes">Yes, a private well</button>
+        <button class="btn" data-well="no">No, city or county water</button>
+        <button class="btn" data-well="unsure">Not sure</button>
+      </div>
+      <p class="note" id="well-note" hidden></p>
+    </section>
+
+    <section class="panel" id="search" hidden>
+      <form id="search-form" class="search">
+        <label for="address" class="visually-hidden">Home address</label>
+        <input id="address" type="text" autocomplete="street-address" placeholder="Street address, town, NC" required>
+        <button class="btn primary" type="submit">Check my area</button>
+      </form>
+      <div class="search-alt">
+        <button class="linkish" id="locate" type="button">Use my location</button>
+        <span>or click your home on the map</span>
+      </div>
+      <p class="privacy">Your address is only used to find your area on the map. It is never stored.</p>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="layout" id="results-layout" hidden>
+      <div class="map-col">
+        <div class="map-head">
+          <div class="seg" role="tablist" aria-label="Contaminant shown on map">
+            <button role="tab" data-c="arsenic" aria-selected="true">Arsenic</button>
+            <button role="tab" data-c="manganese" aria-selected="false">Manganese</button>
+            <button role="tab" data-c="nitrate" aria-selected="false">Nitrate</button>
+            <button role="tab" data-c="lead" aria-selected="false">Lead</button>
+          </div>
+        </div>
+        <div id="map" aria-label="Map of estimated well-water risk by census tract"></div>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="report-col">
+        <div id="report" class="report">
+          <div class="empty">
+            <h2>Your area's report</h2>
+            <p>Enter your address above, or click your home on the map.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="how" id="how">
+      <h2>How it works</h2>
+      <div class="how-grid">
+        <div>
+          <h3>1. Real test results</h3>
+          <p>The NC State Laboratory of Public Health tested private wells from 1998 to 2019. UNC researchers geocoded 117,960 of those tests (the NCWELL database). ClearWell uses the census-tract summaries.</p>
+        </div>
+        <div>
+          <h3>2. The rock beneath you</h3>
+          <p>Arsenic follows geology. Tracts on the Carolina Slate Belt's metasedimentary rock have about 12% of wells over the arsenic limit, roughly 5 times the state average.</p>
+        </div>
+        <div>
+          <h3>3. A model that fills the gaps</h3>
+          <p>A gradient-boosted model learns from rock types, location and nearby test results, then estimates every tract in the state, including tracts with few or no tests.</p>
+        </div>
+        <div>
+          <h3>4. Honest confidence</h3>
+          <p>Where many wells were tested, your estimate leans on those tests. Where few were, it leans on the model, and the report tells you so.</p>
+        </div>
+      </div>
+
+      <h3 class="sub">How accurate is it?</h3>
+      <p>Tested on census tracts the model never saw. The score is how much of the gap between a statewide guess (0%) and the best possible area-level estimate (100%) each method closes.</p>
+      <div class="table-scroll"><table class="scores" id="scores"></table></div>
+
+      <div class="figs">
+        <figure><img src="img/arsenic_map.png" alt="Map of North Carolina showing the share of tested wells above the arsenic limit by census tract, with a hotspot east of Charlotte" loading="lazy"><figcaption>Arsenic test results by census tract. The dark band follows the Carolina Slate Belt.</figcaption></figure>
+        <figure><img src="img/calibration.png" alt="Calibration charts: predicted versus actual share of wells above the limit, for four contaminants" loading="lazy"><figcaption>Calibration: when the model says 10%, about 10% of wells are actually above the limit.</figcaption></figure>
+        <figure><img src="img/importance.png" alt="Bar charts of which feature groups drive each contaminant's prediction" loading="lazy"><figcaption>What drives each prediction.</figcaption></figure>
+      </div>
+
+      <h3 class="sub">Data we checked and excluded</h3>
+      <p>While auditing the public data, we found three columns where the lab's reporting limit is above the state standard (silver, cadmium and chromium), which makes almost every test look contaminated. We excluded them. The tract file's manganese health-limit column also duplicates the 50 ppb column, so ClearWell uses the 50 ppb NC standard.</p>
+      <p class="source" id="source"></p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p><strong>ClearWell estimates risk for your area, not your well.</strong> Only a certified lab test tells you what is in your water. Not medical advice.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+contaminant,tracts,tests,statewide_rate,brier_statewide,brier_county,brier_ceiling,county_gap_closed
+arsenic,1938,110383,0.0227,0.02215,0.02057,0.01778,36.1%
+lead,1940,110409,0.0279,0.02708,0.027,0.0261,8.6%
+manganese,1940,110182,0.2434,0.18415,0.17816,0.16334,28.8%
+nitrate,1463,46033,0.0093,0.00919,0.00913,0.00857,9.0%
