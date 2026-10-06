@@ -9,74 +9,43 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @AppStorage(StorageKey.hasOnboarded) private var hasOnboarded = false
 
     var body: some View {
-        NavigationViewWrapper {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-#if os(macOS)
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-#endif
-            .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-#endif
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
+        if hasOnboarded {
+            MainTabView()
+        } else {
+            OnboardingView()
         }
     }
 }
 
-fileprivate struct NavigationViewWrapper<Content: View>: View {
-    let content: () -> Content
-
+struct MainTabView: View {
     var body: some View {
-#if os(macOS)
-        NavigationSplitView {
-            content()
-        } detail: {
-            Text("Select an item")
+        TabView {
+            CheckAreaView()
+                .tabItem { Label("Check My Area", systemImage: "magnifyingglass") }
+            MyWellView()
+                .tabItem { Label("My Well", systemImage: "drop.fill") }
+            // Placeholders until their milestones.
+            NavigationStack {
+                ContentUnavailableView("Reminders", systemImage: "bell",
+                                       description: Text("Filter replacement and testing reminders will appear here."))
+                    .navigationTitle("Reminders")
+            }
+            .tabItem { Label("Reminders", systemImage: "bell.fill") }
+            NavigationStack {
+                ContentUnavailableView("How It Works", systemImage: "info.circle",
+                                       description: Text("How ClearWell NC estimates your area's risk will appear here."))
+                    .navigationTitle("How It Works")
+            }
+            .tabItem { Label("How It Works", systemImage: "info.circle.fill") }
         }
-#else
-        NavigationStack {
-            content()
-        }
-#endif
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .environment(TractStore())
+        .modelContainer(for: SavedWell.self, inMemory: true)
 }

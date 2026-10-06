@@ -13,6 +13,8 @@ What it does, per contaminant (arsenic, lead, manganese, nitrate):
        - UNSEEN TRACT  (main score): hide 10% of tracts at a time; the model may use the tracts
          around them. This is exactly how the app is used - every NC county has test data.
        - UNSEEN COUNTY (stress test): hide whole counties; neighbors come only from other counties.
+         Averaged over 5 random ways of grouping the counties, because one split can hide a whole
+         hotspot (Union + Stanly + Anson) at once and swing the score a lot.
   4. Compares against the Step 2 baselines and a neighbors-only baseline.
   5. Trains a final model on everything and predicts ALL 2,195 tracts, then blends the
      prediction with each tract's own test results (more tests -> trust the data more).
@@ -28,13 +30,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import HistGradientBoostingClassifier
-from sklearn.model_selection import GroupKFold, KFold
+from sklearn.model_selection import KFold
 
 CONTAMINANTS = ["arsenic", "lead", "manganese", "nitrate"]
 K_NEIGHBORS = 10     # nearest tested tracts used for neighbor rates
 WEIGHT_CAP = 200     # a tract counts as at most 200 tests in training, so a few huge tracts can't dominate
 PRIOR_TESTS = 20     # blending: the model prediction counts like 20 extra tests
 N_FOLDS = 10
+COUNTY_REPEATS = 5   # stress test is averaged over this many random county groupings
 SEED = 0
 
 # ---------------------------------------------------------------- 1. load and join
@@ -109,7 +112,17 @@ def brier(p, k, n):
 
 
 # ---------------------------------------------------------------- 2. cross-validation (two tests)
-def cross_validate(c, mode):
+def county_splits(tested, seed):
+    """Randomly assign whole counties to N_FOLDS folds. Uses numpy's generator so results are the
+    same on every computer and scikit-learn version."""
+    counties = np.unique(county[tested])
+    fold_of = dict(zip(np.random.default_rng(seed).permutation(counties), np.arange(len(counties)) % N_FOLDS))
+    folds = np.array([fold_of[x] for x in county[tested]])
+    for f in range(N_FOLDS):
+        yield np.where(folds != f)[0], np.where(folds == f)[0]
+
+
+def cross_validate(c, mode, seed=SEED):
     """Out-of-fold predictions for contaminant c. mode = 'tract' or 'county'."""
     tested = np.where(N[c] > 0)[0]
     k, n = KX[c][tested], N[c][tested]
@@ -117,7 +130,7 @@ def cross_validate(c, mode):
     if mode == "tract":
         splits = KFold(N_FOLDS, shuffle=True, random_state=SEED).split(tested)
     else:
-        splits = GroupKFold(n_splits=N_FOLDS).split(tested, groups=county[tested])
+        splits = county_splits(tested, seed)
     for tr, te in splits:
         tr_idx, te_idx = tested[tr], tested[te]
         X = df[GEO_ROCK + GEO_UNIT + LOCATION].copy()
@@ -135,7 +148,7 @@ rows, oof_all = [], {}
 print("Share of the gap closed (statewide guess = 0%, best possible = 100%):\n")
 for c in CONTAMINANTS:
     tested, oof_t, nbr_t = cross_validate(c, "tract")
-    _, oof_c, _ = cross_validate(c, "county")
+    county_runs = [cross_validate(c, "county", seed)[1] for seed in range(COUNTY_REPEATS)]
     oof_all[c] = pd.Series(oof_t, index=tested)
     k, n = KX[c][tested], N[c][tested]
 
@@ -146,10 +159,14 @@ for c in CONTAMINANTS:
     b_state, b_ceil = brier(np.full(len(k), state), k, n), brier(k / n, k, n)
     gap = lambda p: (b_state - brier(p, k, n)) / (b_state - b_ceil)
     r = {"contaminant": c, "county_average": gap(loo), "neighbors_only": gap(nbr_t),
-         "MODEL_unseen_tract": gap(oof_t), "model_unseen_county": gap(oof_c)}
+         "MODEL_unseen_tract": gap(oof_t),
+         "model_unseen_county": float(np.mean([gap(o) for o in county_runs])),
+         "unseen_county_min": min(gap(o) for o in county_runs),
+         "unseen_county_max": max(gap(o) for o in county_runs)}
     rows.append(r)
     print(f"{c:10s} county avg {r['county_average']:6.1%} | neighbors only {r['neighbors_only']:6.1%} | "
-          f"MODEL {r['MODEL_unseen_tract']:6.1%} | (stress test, unseen county {r['model_unseen_county']:6.1%})")
+          f"MODEL {r['MODEL_unseen_tract']:6.1%} | (stress test, unseen county {r['model_unseen_county']:6.1%}, "
+          f"range {r['unseen_county_min']:.1%}-{r['unseen_county_max']:.1%})")
 
 scores = pd.DataFrame(rows)
 scores.to_csv("outputs/model_scores.csv", index=False, float_format="%.4f")

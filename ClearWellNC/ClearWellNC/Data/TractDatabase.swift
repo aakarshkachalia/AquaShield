@@ -15,6 +15,9 @@ nonisolated struct ModelScore: Decodable, Sendable, Identifiable {
     let neighborsOnly: Double
     let model: Double
     let modelUnseenCounty: Double
+    /// Range of the unseen-county stress test across folds. Optional so older meta.json files still decode.
+    let unseenCountyMin: Double?
+    let unseenCountyMax: Double?
 
     var id: Contaminant { contaminant }
 
@@ -24,6 +27,8 @@ nonisolated struct ModelScore: Decodable, Sendable, Identifiable {
         case neighborsOnly = "neighbors_only"
         case model = "MODEL_unseen_tract"
         case modelUnseenCounty = "model_unseen_county"
+        case unseenCountyMin = "unseen_county_min"
+        case unseenCountyMax = "unseen_county_max"
     }
 }
 

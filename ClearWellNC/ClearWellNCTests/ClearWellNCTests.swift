@@ -114,6 +114,30 @@ final class RiskEngineTests: XCTestCase {
         XCTAssertTrue(Confidence(tests: 3).note.contains("mostly the model's estimate"))
     }
 
+    func testPluralization() {
+        XCTAssertEqual(Confidence(tests: 1).note,
+                       "Only 1 tested well in your census tract, so this is mostly the model's estimate.")
+        XCTAssertEqual(Confidence(tests: 3).note,
+                       "Only 3 tested wells in your census tract, so this is mostly the model's estimate.")
+        let one = ContaminantRisk(contaminant: .arsenic, data: ContaminantData(estimate: 0.1, tests: 1, aboveLimit: 0),
+                                  statewide: 0.0227)
+        XCTAssertEqual(one.observedText, "0 of 1 tested well in your census tract was above the limit.")
+    }
+
+    func testMetaDecodesWithAndWithoutRange() throws {
+        func decode(_ extra: String) throws -> ModelScore {
+            let json = """
+            {"contaminant": "arsenic", "county_average": 0.3613, "neighbors_only": 0.6717,
+             "MODEL_unseen_tract": 0.7016, "model_unseen_county": 0.362\(extra)}
+            """
+            return try JSONDecoder().decode(ModelScore.self, from: Data(json.utf8))
+        }
+        let ranged = try decode(#", "unseen_county_min": 0.328, "unseen_county_max": 0.415"#)
+        XCTAssertEqual(ranged.unseenCountyMin, 0.328)
+        XCTAssertEqual(ranged.unseenCountyMax, 0.415)
+        XCTAssertNil(try decode("").unseenCountyMin)
+    }
+
     func testPointInPolygonWithHole() {
         let square = [(0.0, 0.0), (10, 0), (10, 10), (0, 10), (0, 0)].map { GeoPoint(lon: $0.0, lat: $0.1) }
         let hole = [(4.0, 4.0), (6, 4), (6, 6), (4, 6), (4, 4)].map { GeoPoint(lon: $0.0, lat: $0.1) }

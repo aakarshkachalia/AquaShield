@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@ County" : {
+
+    },
     "%@: a priority for your area (elevated risk)." : {
 
     },
@@ -17,11 +20,36 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$lld of %2$lld tested wells in your census tract were above the limit."
+            "state" : "translated",
+            "value" : "%1$lld of %#@tests@"
+          },
+          "substitutions" : {
+            "tests" : {
+              "argNum" : 2,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg tested well in your census tract was above the limit."
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg tested wells in your census tract were above the limit."
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
+    },
+    "%lld." : {
+
     },
     "10 mg/L (EPA limit)" : {
 
@@ -35,13 +63,16 @@
     "50 ppb (NC standard)" : {
 
     },
+    "A baby under 6 months lives here" : {
+
+    },
     "A point-of-use filter certified to NSF/ANSI 53 for lead; replace old brass fittings or lead solder where possible." : {
 
     },
     "about 1 in %lld" : {
 
     },
-    "Add Item" : {
+    "Address" : {
 
     },
     "Arsenic" : {
@@ -54,6 +85,43 @@
 
     },
     "Based on %lld tested wells in your census tract plus the model." : {
+
+    },
+    "Census tract %@" : {
+
+    },
+    "Check My Area" : {
+
+    },
+    "Check this address" : {
+
+    },
+    "Check your area, then tap Save as My Well on the report." : {
+
+    },
+    "ClearWell NC" : {
+
+    },
+    "Comparison with the statewide rate" : {
+
+    },
+    "Confidence: %@. %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Confidence: %1$@. %2$@"
+          }
+        }
+      }
+    },
+    "Continue" : {
+
+    },
+    "Data: %@" : {
+
+    },
+    "Does your home get water from a private well?" : {
 
     },
     "Elevated" : {
@@ -69,10 +137,28 @@
         }
       }
     },
+    "Explore anyway" : {
+
+    },
     "fewer than 1 in 200" : {
 
     },
+    "Filter replacement and testing reminders will appear here." : {
+
+    },
+    "Find out what your area's well water is likely to contain, and what to test for." : {
+
+    },
     "High" : {
+
+    },
+    "How ClearWell NC estimates your area's risk will appear here." : {
+
+    },
+    "How It Works" : {
+
+    },
+    "How to tell" : {
 
     },
     "How: contact %@ County Environmental Health to order a test through the NC State Laboratory of Public Health, or use a state-certified private lab." : {
@@ -81,13 +167,25 @@
     "How: contact your county Environmental Health office to order a test through the NC State Laboratory of Public Health, or use a state-certified private lab." : {
 
     },
-    "Item at %@" : {
+    "If you get a water bill, you are probably not on a well. If you have a well pump or pressure tank and no water bill, you probably have a well." : {
+
+    },
+    "If your test is high" : {
 
     },
     "Lead" : {
 
     },
     "Lead in well water usually comes from pipes, solder and well parts, not the rock, so it varies from house to house." : {
+
+    },
+    "Loading well data…" : {
+
+    },
+    "Location access is off for ClearWell NC. You can turn it on in Settings, or type an address instead." : {
+
+    },
+    "Looking up your area…" : {
 
     },
     "Low" : {
@@ -105,19 +203,71 @@
     "Medium" : {
 
     },
+    "My Well" : {
+
+    },
     "Nitrate" : {
 
     },
     "Nitrate comes from fertilizer, manure and septic systems. It is most dangerous for babies under 6 months." : {
 
     },
+    "Nitrate is most dangerous for babies under 6 months. Test your well for nitrate before using it to mix infant formula, and use bottled water for formula until you know your result. Never boil water to remove nitrate; boiling concentrates it." : {
+
+    },
+    "No well saved yet" : {
+
+    },
     "No wells in your census tract have been tested. This is the model's estimate from geology and nearby areas." : {
 
     },
+    "No, city or county water" : {
+
+    },
+    "North Carolina" : {
+
+    },
+    "Not sure" : {
+
+    },
     "Only %lld tested wells in your census tract, so this is mostly the model's estimate." : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Only %lld tested well in your census tract, so this is mostly the model's estimate."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Only %lld tested wells in your census tract, so this is mostly the model's estimate."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Open Settings" : {
+
+    },
+    "Optional. This is stored only on this device and adds a nitrate note to your report." : {
 
     },
     "Oxidation/filtration (greensand) or a softener rated for manganese; reverse osmosis for drinking water." : {
+
+    },
+    "Public water systems publish a yearly Consumer Confidence Report that shows what is in your water. Ask your water provider for a copy. You can still explore well-water risk in North Carolina." : {
+
+    },
+    "Reminders" : {
+
+    },
+    "Remove My Well" : {
 
     },
     "Reverse osmosis certified to NSF/ANSI 58 for arsenic. An under-sink unit is usually enough for drinking and cooking." : {
@@ -126,10 +276,28 @@
     "Reverse osmosis certified to NSF/ANSI 58 for nitrate. Never boil water to remove nitrate; boiling concentrates it." : {
 
     },
-    "Select an item" : {
+    "Risk level: %@" : {
+
+    },
+    "Save as My Well" : {
+
+    },
+    "Saved as My Well" : {
+
+    },
+    "Saving keeps this location on this device only. Saving again replaces your current My Well." : {
+
+    },
+    "Statewide: %@" : {
+
+    },
+    "Street address, city or ZIP" : {
 
     },
     "Test regardless" : {
+
+    },
+    "That location is outside North Carolina. ClearWell NC only has well data for North Carolina." : {
 
     },
     "The built-in well data could not be loaded." : {
@@ -138,7 +306,65 @@
     "This is an estimate for your area, not your well. Only a lab test tells you what is in your water." : {
 
     },
+    "Type an address, city or ZIP code first." : {
+
+    },
     "Typical" : {
+
+    },
+    "Understand your area's well-water risk, decide what to test for, and keep track of your results." : {
+
+    },
+    "Use my location" : {
+
+    },
+    "View my area's report" : {
+
+    },
+    "We couldn't find that address. Try including the town and \"NC\", for example \"123 Main St, Monroe, NC\"." : {
+
+    },
+    "We couldn't find your location right now. Try again, or type an address instead." : {
+
+    },
+    "We couldn't look up that address. Check your internet connection and try again." : {
+
+    },
+    "Why it matters and what to do" : {
+
+    },
+    "Yes" : {
+
+    },
+    "You're probably on public water" : {
+
+    },
+    "Your address" : {
+
+    },
+    "Your address or location is only used to find your census tract. It is not saved unless you choose Save as My Well." : {
+
+    },
+    "Your area: %@" : {
+
+    },
+    "Your area: %@ wells. Statewide: %@ wells." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Your area: %1$@ wells. Statewide: %2$@ wells."
+          }
+        }
+      }
+    },
+    "Your area's report" : {
+
+    },
+    "Your current location" : {
+
+    },
+    "Your test plan" : {
 
     }
   },
