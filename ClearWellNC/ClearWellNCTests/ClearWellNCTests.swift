@@ -147,6 +147,78 @@ final class RiskEngineTests: XCTestCase {
         XCTAssertFalse(poly.contains(GeoPoint(lon: 11, lat: 5)))
     }
 
+    // MARK: Well Record
+
+    func testUnitConversion() {
+        XCTAssertEqual(ConcentrationUnit.convert(0.012, from: .mgL, to: .ppb), 12, accuracy: 1e-9)
+        XCTAssertEqual(ConcentrationUnit.convert(5000, from: .ppb, to: .mgL), 5, accuracy: 1e-9)
+    }
+
+    func testLabLimits() {
+        XCTAssertTrue(Analyte.arsenic.evaluate(10).isPass)
+        XCTAssertEqual(Analyte.arsenic.evaluate(10.1).kind, .above)
+        XCTAssertEqual(Analyte.lead.evaluate(16).kind, .above)
+        XCTAssertEqual(Analyte.manganese.evaluate(60).text, "Above the 50 ppb NC standard")
+        XCTAssertEqual(Analyte.manganese.evaluate(301).text, "Above the 300 ppb health advisory")
+        XCTAssertEqual(Analyte.nitrate.evaluate(11).kind, .above)
+        XCTAssertEqual(Analyte.iron.evaluate(400).kind, .notice)
+        XCTAssertTrue(Analyte.pH.evaluate(7).isPass)
+        XCTAssertEqual(Analyte.pH.evaluate(6.4).kind, .above)
+        XCTAssertEqual(Analyte.evaluate(bacteria: .present).kind, .above)
+    }
+
+    // MARK: Reminders
+
+    func testFireDate() {
+        let cal = Calendar.current
+        let now = cal.date(from: DateComponents(year: 2026, month: 10, day: 9, hour: 12))!
+        let future = cal.date(from: DateComponents(year: 2026, month: 12, day: 1))!
+        XCTAssertEqual(ReminderPlanner.fireDate(due: future, now: now),
+                       cal.date(from: DateComponents(year: 2026, month: 12, day: 1, hour: 9)))
+        let past = cal.date(from: DateComponents(year: 2026, month: 9, day: 1))!
+        XCTAssertEqual(ReminderPlanner.fireDate(due: past, now: now),
+                       cal.date(from: DateComponents(year: 2026, month: 10, day: 10, hour: 9)))
+    }
+
+    // MARK: Weather alerts
+
+    func testWellRelevantAlerts() {
+        for event in ["Flood Watch", "Flood Warning", "Flash Flood Warning", "Coastal Flood Watch",
+                      "Hurricane Warning", "Hurricane Watch", "Tropical Storm Warning"] {
+            XCTAssertTrue(WeatherAlert.isWellRelevant(event: event), event)
+        }
+        for event in ["Flood Advisory", "Heat Advisory", "Winter Storm Warning", "Tornado Watch"] {
+            XCTAssertFalse(WeatherAlert.isWellRelevant(event: event), event)
+        }
+    }
+
+    func testParseNWSAlerts() throws {
+        let json = """
+        {"type": "FeatureCollection", "features": [
+          {"id": "https://api.weather.gov/alerts/abc", "properties": {
+            "id": "urn:oid:abc", "event": "Flood Warning", "headline": "Flood Warning issued",
+            "areaDesc": "Union", "ends": "2026-10-11T18:00:00-04:00", "expires": null}}
+        ]}
+        """
+        let alerts = try NWSClient.parse(Data(json.utf8))
+        XCTAssertEqual(alerts.count, 1)
+        XCTAssertEqual(alerts.first?.id, "urn:oid:abc")
+        XCTAssertTrue(alerts.first?.isWellRelevant ?? false)
+        XCTAssertNotNil(alerts.first?.ends)
+    }
+
+    // MARK: How it works
+
+    func testStressTestText() throws {
+        let json = """
+        {"contaminant": "arsenic", "county_average": 0.3613, "neighbors_only": 0.6717,
+         "MODEL_unseen_tract": 0.7016, "model_unseen_county": 0.3619,
+         "unseen_county_min": 0.3276, "unseen_county_max": 0.4153}
+        """
+        let score = try JSONDecoder().decode(ModelScore.self, from: Data(json.utf8))
+        XCTAssertEqual(score.stressTestText, "36.2% (32.8–41.5%)")
+    }
+
     // MARK: Location lookup
 
     func testMonroeIsInUnionCounty() throws {

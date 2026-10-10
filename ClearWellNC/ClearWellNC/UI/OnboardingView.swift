@@ -33,13 +33,14 @@ struct OnboardingView: View {
     @AppStorage(StorageKey.waterSource) private var storedSource = ""
     @AppStorage(StorageKey.infantInHome) private var infantInHome = false
     @State private var answer: WaterSource?
+    @ScaledMetric(relativeTo: .largeTitle) private var iconSize: CGFloat = 48
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 VStack(alignment: .leading, spacing: 12) {
                     Image(systemName: "drop.fill")
-                        .font(.system(size: 48))
+                        .font(.system(size: iconSize))
                         .foregroundStyle(.tint)
                         .accessibilityHidden(true)
                     Text("ClearWell NC")

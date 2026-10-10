@@ -30,6 +30,26 @@ nonisolated struct ModelScore: Decodable, Sendable, Identifiable {
         case unseenCountyMin = "unseen_county_min"
         case unseenCountyMax = "unseen_county_max"
     }
+
+    /// 0.3619 → "36.2%"
+    static func percent(_ value: Double) -> String {
+        value.formatted(.percent.precision(.fractionLength(1)))
+    }
+
+    /// Average with its range when available, e.g. "36.2% (32.8–41.5%)".
+    var stressTestText: String {
+        let average = Self.percent(modelUnseenCounty)
+        guard let low = unseenCountyMin, let high = unseenCountyMax else { return average }
+        let lowNumber = (low * 100).formatted(.number.precision(.fractionLength(1)))
+        return String(localized: "\(average) (\(lowNumber)–\(Self.percent(high)))")
+    }
+
+    /// Spoken form of `stressTestText` for VoiceOver.
+    var stressTestAccessibilityText: String {
+        let average = Self.percent(modelUnseenCounty)
+        guard let low = unseenCountyMin, let high = unseenCountyMax else { return average }
+        return String(localized: "\(average), ranging from \(Self.percent(low)) to \(Self.percent(high))")
+    }
 }
 
 nonisolated struct Meta: Decodable, Sendable {

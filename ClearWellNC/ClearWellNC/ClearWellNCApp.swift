@@ -11,10 +11,13 @@ import SwiftData
 @main
 struct ClearWellNCApp: App {
     @State private var tractStore = TractStore()
+    @State private var alertsStore = WeatherAlertsStore()
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             SavedWell.self,
+            LabResult.self,
+            TreatmentSystem.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -29,6 +32,7 @@ struct ClearWellNCApp: App {
         WindowGroup {
             ContentView()
                 .environment(tractStore)
+                .environment(alertsStore)
                 // Parse the bundled tract data once at launch, off the main thread.
                 .task { await tractStore.load() }
         }

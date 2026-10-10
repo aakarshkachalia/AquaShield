@@ -1,0 +1,254 @@
+//
+//  RemindersView.swift
+//  ClearWellNC
+//
+
+import SwiftData
+import SwiftUI
+import UserNotifications
+
+struct RemindersView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.openURL) private var openURL
+    @Environment(\.scenePhase) private var scenePhase
+    @Query(sort: \TreatmentSystem.lastServiced) private var systems: [TreatmentSystem]
+    @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
+
+    @State private var addingSystem = false
+    @State private var editingSystem: TreatmentSystem?
+    @State private var notificationStatus: UNAuthorizationStatus?
+    /// Bumped when a manual "done" date changes, so well-care rows re-read UserDefaults.
+    @State private var careRevision = 0
+
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    notificationCard
+
+                    sectionHeader("Treatment systems", action: { addingSystem = true },
+                                  actionLabel: "Add system")
+                    if systems.isEmpty {
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text("No treatment systems yet")
+                                .font(.headline)
+                            Text("Add filters, membranes, UV bulbs or softener salt to get a reminder when they're due.")
+                                .foregroundStyle(.secondary)
+                        }
+                        .card()
+                    } else {
+                        ForEach(systems) { system in
+                            TreatmentRow(system: system,
+                                         onEdit: { editingSystem = system },
+                                         onServiced: { markServiced(system) })
+                        }
+                    }
+
+                    Text("Well care")
+                        .font(.title2.bold())
+                        .accessibilityAddTraits(.isHeader)
+                        .padding(.top, 8)
+                    ForEach(WellCareTask.allCases) { task in
+                        CareRow(task: task, results: results, revision: careRevision) {
+                            task.markDone()
+                            careRevision += 1
+                            refresh()
+                        }
+                    }
+                }
+                .padding()
+                .readableWidth()
+            }
+            .background(Color.appBackground)
+            .navigationTitle("Reminders")
+            .sheet(isPresented: $addingSystem) { TreatmentForm() }
+            .sheet(item: $editingSystem) { TreatmentForm(existing: $0) }
+            .task { notificationStatus = await NotificationScheduler.authorizationStatus() }
+            .onChange(of: scenePhase) { _, phase in
+                // Pick up permission changes made in Settings.
+                if phase == .active {
+                    Task { notificationStatus = await NotificationScheduler.authorizationStatus() }
+                }
+            }
+            .onChange(of: addingSystem) { _, isAdding in
+                if !isAdding { Task { notificationStatus = await NotificationScheduler.authorizationStatus() } }
+            }
+        }
+    }
+
+    // MARK: Pieces
+
+    @ViewBuilder
+    private var notificationCard: some View {
+        switch notificationStatus {
+        case .notDetermined?:
+            VStack(alignment: .leading, spacing: 10) {
+                Label("Get reminders on time", systemImage: "bell.badge")
+                    .font(.headline)
+                Text("ClearWell NC can send a notification when a filter is due or it's time to test your well.")
+                Button {
+                    Task {
+                        await NotificationScheduler.requestAuthorization()
+                        notificationStatus = await NotificationScheduler.authorizationStatus()
+                        await ReminderSync.refresh(using: modelContext)
+                    }
+                } label: {
+                    Text("Turn on notifications")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, minHeight: 44)
+                }
+                .buttonStyle(.borderedProminent)
+            }
+            .card()
+        case .denied?:
+            VStack(alignment: .leading, spacing: 10) {
+                Label("Notifications are off", systemImage: "bell.slash")
+                    .font(.headline)
+                Text("Reminders still show here, but you won't get alerts. You can turn notifications on in Settings.")
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    Button("Open Settings") { openURL(url) }
+                        .frame(minHeight: 44)
+                }
+            }
+            .card()
+        default:
+            EmptyView()
+        }
+    }
+
+    private func sectionHeader(_ title: LocalizedStringKey, action: @escaping () -> Void,
+                               actionLabel: LocalizedStringKey) -> some View {
+        let titleView = Text(title).font(.title2.bold()).accessibilityAddTraits(.isHeader)
+        let button = Button(action: action) {
+            Label(actionLabel, systemImage: "plus").frame(minHeight: 44)
+        }
+        .buttonStyle(.bordered)
+        return ViewThatFits(in: .horizontal) {
+            HStack { titleView; Spacer(); button }
+            VStack(alignment: .leading, spacing: 8) { titleView; button }
+        }
+    }
+
+    private func markServiced(_ system: TreatmentSystem) {
+        system.lastServiced = .now
+        try? modelContext.save()
+        refresh()
+    }
+
+    private func refresh() {
+        let context = modelContext
+        Task { await ReminderSync.refresh(using: context) }
+    }
+}
+
+struct TreatmentRow: View {
+    let system: TreatmentSystem
+    let onEdit: () -> Void
+    let onServiced: () -> Void
+
+    var body: some View {
+        let days = DueText.daysRemaining(until: system.dueDate)
+        VStack(alignment: .leading, spacing: 10) {
+            Button(action: onEdit) {
+                HStack(alignment: .top, spacing: 12) {
+                    Image(systemName: system.kind.symbol)
+                        .font(.title2)
+                        .foregroundStyle(.tint)
+                        .frame(width: 32)
+                        .accessibilityHidden(true)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(system.displayName)
+                            .font(.headline)
+                        Text(detail)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                        dueLabel(days: days)
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundStyle(.tertiary)
+                        .accessibilityHidden(true)
+                }
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityElement(children: .combine)
+            .accessibilityHint(Text("Edit or delete this system"))
+
+            Button(action: onServiced) {
+                Label(system.kind.isCheck ? "Mark checked today" : "Mark replaced today",
+                      systemImage: "checkmark.circle")
+                    .frame(maxWidth: .infinity, minHeight: 44)
+            }
+            .buttonStyle(.bordered)
+        }
+        .card()
+    }
+
+    private var detail: String {
+        let date = system.lastServiced.formatted(date: .abbreviated, time: .omitted)
+        return system.kind.isCheck
+            ? String(localized: "Last checked \(date) · every \(system.intervalMonths) months")
+            : String(localized: "Last replaced \(date) · every \(system.intervalMonths) months")
+    }
+
+    private func dueLabel(days: Int) -> some View {
+        Label {
+            Text(DueText.text(daysRemaining: days, isCheck: system.kind.isCheck))
+                .font(.subheadline.weight(.semibold))
+        } icon: {
+            Image(systemName: days < 0 ? "exclamationmark.triangle.fill" : (days <= 7 ? "clock.badge.exclamationmark" : "clock"))
+                .foregroundStyle(days < 0 ? RiskLevel.high.color : Color.accentColor)
+        }
+    }
+}
+
+struct CareRow: View {
+    let task: WellCareTask
+    let results: [LabResult]
+    /// Not displayed; changing it forces a re-read of the manual done date.
+    let revision: Int
+    let onDone: () -> Void
+
+    var body: some View {
+        let last = task.lastDone(results: results)
+        let days = DueText.daysRemaining(until: task.dueDate(results: results))
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .top, spacing: 12) {
+                Image(systemName: task.symbol)
+                    .font(.title2)
+                    .foregroundStyle(.tint)
+                    .frame(width: 32)
+                    .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(task.title)
+                        .font(.headline)
+                    Text(task.frequency)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                    if let last {
+                        Text("Last done \(last.formatted(date: .abbreviated, time: .omitted))")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
+                    Label {
+                        Text(last == nil ? String(localized: "Not recorded yet: due now") : DueText.careText(daysRemaining: days))
+                            .font(.subheadline.weight(.semibold))
+                    } icon: {
+                        Image(systemName: (last == nil || days < 0) ? "exclamationmark.triangle.fill" : "clock")
+                            .foregroundStyle((last == nil || days < 0) ? RiskLevel.high.color : Color.accentColor)
+                    }
+                }
+            }
+            .accessibilityElement(children: .combine)
+
+            Button(action: onDone) {
+                Label("Mark done today", systemImage: "checkmark.circle")
+                    .frame(maxWidth: .infinity, minHeight: 44)
+            }
+            .buttonStyle(.bordered)
+            .accessibilityLabel(Text("Mark \(task.title) done today"))
+        }
+        .card()
+    }
+}

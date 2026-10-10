@@ -30,6 +30,11 @@ nonisolated enum RiskLevel: Int, Comparable, Sendable, CaseIterable {
     /// Lead depends on household plumbing, not location, so it is always "Test regardless".
     static func level(for contaminant: Contaminant, ratio: Double) -> RiskLevel {
         if contaminant == .lead { return .testRegardless }
+        return level(forRatio: ratio)
+    }
+
+    /// Ratio thresholds only, with no lead override. The map uses this so lead tracts still get a color.
+    static func level(forRatio ratio: Double) -> RiskLevel {
         if ratio >= 3 { return .high }
         if ratio >= 1.5 { return .elevated }
         if ratio >= 0.75 { return .typical }
@@ -44,11 +49,13 @@ nonisolated struct Confidence: Sendable, Hashable {
     enum Level: Sendable {
         case high, medium, low
 
-        var label: String {
+        /// Full phrase, e.g. "Confidence: High". Kept separate from the risk-level "High" key because
+        /// some languages inflect the adjective differently (Spanish "Alto" vs "Alta").
+        var phrase: String {
             switch self {
-            case .high: String(localized: "High")
-            case .medium: String(localized: "Medium")
-            case .low: String(localized: "Low")
+            case .high: String(localized: "Confidence: High")
+            case .medium: String(localized: "Confidence: Medium")
+            case .low: String(localized: "Confidence: Low")
             }
         }
     }

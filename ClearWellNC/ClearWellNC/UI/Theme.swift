@@ -79,6 +79,41 @@ extension RiskLevel {
     }
 }
 
+// MARK: - Lab result styling
+
+extension ResultStatus.Kind {
+    var color: Color {
+        switch self {
+        case .pass: .accentColor
+        case .notice: RiskLevel.elevated.color
+        case .above: RiskLevel.high.color
+        }
+    }
+
+    var symbol: String {
+        switch self {
+        case .pass: "checkmark.circle.fill"
+        case .notice: "exclamationmark.circle.fill"
+        case .above: "exclamationmark.triangle.fill"
+        }
+    }
+}
+
+/// Icon + text status line for a lab value.
+struct ResultStatusLabel: View {
+    let status: ResultStatus
+
+    var body: some View {
+        Label {
+            Text(status.text)
+        } icon: {
+            Image(systemName: status.kind.symbol)
+                .foregroundStyle(status.kind.color)
+        }
+        .font(.subheadline)
+    }
+}
+
 /// Level badge: color + icon + text, so color is never the only signal.
 struct RiskBadge: View {
     let level: RiskLevel

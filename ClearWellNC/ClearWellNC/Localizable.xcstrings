@@ -1,20 +1,175 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@ (%@–%@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ (%2$@–%3$@)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%1$@ (%2$@–%3$@)"
+          }
+        }
+      }
+    },
     "%@ County" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Condado de %@"
+          }
+        }
+      }
+    },
+    "%@ results over time" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Resultados de %@ a lo largo del tiempo"
+          }
+        }
+      }
+    },
+    "%@ unit" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Unidad de %@"
+          }
+        }
+      }
+    },
+    "%@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@, %2$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%1$@, %2$@"
+          }
+        }
+      }
+    },
+    "%@, best" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%@, mejor resultado"
+          }
+        }
+      }
+    },
+    "%@, in %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@, in %2$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%1$@, en %2$@"
+          }
+        }
+      }
+    },
+    "%@, ranging from %@ to %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@, ranging from %2$@ to %3$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%1$@, con un rango de %2$@ a %3$@"
+          }
+        }
+      }
     },
     "%@: a priority for your area (elevated risk)." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%@: una prioridad para su zona (riesgo elevado)."
+          }
+        }
+      }
     },
     "%@: a priority for your area (high risk)." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%@: una prioridad para su zona (riesgo alto)."
+          }
+        }
+      }
     },
     "%@: include in a standard metals and nitrate panel every 2 years." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%@: inclúyalo en un panel estándar de metales y nitrato cada 2 años."
+          }
+        }
+      }
     },
     "%@: test at least once; it depends on your home's plumbing." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%@: analícelo al menos una vez; depende de la plomería de su casa."
+          }
+        }
+      }
+    },
+    "%@. %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@. %2$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%1$@. %2$@"
+          }
+        }
+      }
+    },
+    "%lld above a limit" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%lld por encima de un límite"
+          }
+        }
+      }
     },
     "%lld of %lld tested wells in your census tract were above the limit." : {
       "localizations" : {
@@ -45,87 +200,1116 @@
               }
             }
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%1$lld de %#@tests@"
+          },
+          "substitutions" : {
+            "tests" : {
+              "argNum" : 2,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "machine_translated",
+                      "value" : "%arg pozo analizado en su sector censal estaba por encima del límite."
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "machine_translated",
+                      "value" : "%arg pozos analizados en su sector censal estaban por encima del límite."
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     },
     "%lld." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%lld."
+          }
+        }
+      }
     },
-    "10 mg/L (EPA limit)" : {
-
-    },
-    "10 ppb (EPA limit)" : {
-
-    },
-    "15 ppb (EPA action level)" : {
-
-    },
-    "50 ppb (NC standard)" : {
-
-    },
-    "A baby under 6 months lives here" : {
-
-    },
-    "A point-of-use filter certified to NSF/ANSI 53 for lead; replace old brass fittings or lead solder where possible." : {
-
-    },
-    "about 1 in %lld" : {
-
-    },
-    "Address" : {
-
-    },
-    "Arsenic" : {
-
-    },
-    "Arsenic comes from certain bedrock. It has no taste or smell, and long-term exposure raises cancer risk." : {
-
-    },
-    "Bacteria (total coliform / E. coli): every year and after any flooding, for every well." : {
-
-    },
-    "Based on %lld tested wells in your census tract plus the model." : {
-
-    },
-    "Census tract %@" : {
-
-    },
-    "Check My Area" : {
-
-    },
-    "Check this address" : {
-
-    },
-    "Check your area, then tap Save as My Well on the report." : {
-
-    },
-    "ClearWell NC" : {
-
-    },
-    "Comparison with the statewide rate" : {
-
-    },
-    "Confidence: %@. %@" : {
+    "%lld. %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Confidence: %1$@. %2$@"
+            "value" : "%1$lld. %2$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%1$lld. %2$@"
+          }
+        }
+      }
+    },
+    "•" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "•"
+          }
+        }
+      }
+    },
+    "10 mg/L (EPA limit)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "10 mg/L (límite de la EPA)"
+          }
+        }
+      }
+    },
+    "10 mg/L limit" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Límite de 10 mg/L"
+          }
+        }
+      }
+    },
+    "10 ppb (EPA limit)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "10 ppb (límite de la EPA)"
+          }
+        }
+      }
+    },
+    "10 ppb limit" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Límite de 10 ppb"
+          }
+        }
+      }
+    },
+    "15 ppb (EPA action level)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "15 ppb (nivel de acción de la EPA)"
+          }
+        }
+      }
+    },
+    "15 ppb action level" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Nivel de acción de 15 ppb"
+          }
+        }
+      }
+    },
+    "50 ppb (NC standard)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "50 ppb (norma de NC)"
+          }
+        }
+      }
+    },
+    "50 ppb (NC standard); 300 ppb (health advisory)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "50 ppb (norma de NC); 300 ppb (recomendación de salud)"
+          }
+        }
+      }
+    },
+    "50 ppb NC standard" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Norma de NC de 50 ppb"
+          }
+        }
+      }
+    },
+    "300 ppb (staining only, not a health limit)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "300 ppb (solo manchas, no es un límite de salud)"
+          }
+        }
+      }
+    },
+    "300 ppb (staining)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "300 ppb (manchas)"
+          }
+        }
+      }
+    },
+    "300 ppb health advisory" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Recomendación de salud de 300 ppb"
+          }
+        }
+      }
+    },
+    "A baby under 6 months lives here" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "En esta casa vive un bebé menor de 6 meses"
+          }
+        }
+      }
+    },
+    "A gradient-boosted model learns from rock types, location and nearby test results, then estimates every tract in the state, including tracts with few or no tests." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Un modelo de gradient boosting aprende de los tipos de roca, la ubicación y los resultados de análisis cercanos, y luego estima cada sector censal del estado, incluidos los sectores con pocos análisis o ninguno."
+          }
+        }
+      }
+    },
+    "A model that fills the gaps" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Un modelo que llena los vacíos"
+          }
+        }
+      }
+    },
+    "A point-of-use filter certified to NSF/ANSI 53 for lead; replace old brass fittings or lead solder where possible." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Un filtro de punto de uso certificado según NSF/ANSI 53 para plomo; reemplace las conexiones viejas de latón o la soldadura de plomo cuando sea posible."
+          }
+        }
+      }
+    },
+    "about 1 in %lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "aproximadamente 1 de cada %lld"
+          }
+        }
+      }
+    },
+    "Above 300 ppb: can stain, not a health limit" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Más de 300 ppb: puede manchar, no es un límite de salud"
+          }
+        }
+      }
+    },
+    "Above the 10 mg/L EPA limit" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Por encima del límite de la EPA de 10 mg/L"
+          }
+        }
+      }
+    },
+    "Above the 10 ppb EPA limit" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Por encima del límite de la EPA de 10 ppb"
+          }
+        }
+      }
+    },
+    "Above the 15 ppb EPA action level" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Por encima del nivel de acción de la EPA de 15 ppb"
+          }
+        }
+      }
+    },
+    "Above the 50 ppb NC standard" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Por encima de la norma de NC de 50 ppb"
+          }
+        }
+      }
+    },
+    "Above the 300 ppb health advisory" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Por encima de la recomendación de salud de 300 ppb"
+          }
+        }
+      }
+    },
+    "Absent" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ausente"
+          }
+        }
+      }
+    },
+    "Action level: 15 ppb (EPA)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Nivel de acción: 15 ppb (EPA)"
+          }
+        }
+      }
+    },
+    "Add filters, membranes, UV bulbs or softener salt to get a reminder when they're due." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Agregue filtros, membranas, lámparas UV o sal del ablandador de agua para recibir un recordatorio cuando corresponda."
+          }
+        }
+      }
+    },
+    "Add lab result" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Agregar resultado de laboratorio"
+          }
+        }
+      }
+    },
+    "Add system" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Agregar sistema"
+          }
+        }
+      }
+    },
+    "Add treatment system" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Agregar sistema de tratamiento"
+          }
+        }
+      }
+    },
+    "Address" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Dirección"
+          }
+        }
+      }
+    },
+    "After the storm" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Después de la tormenta"
+          }
+        }
+      }
+    },
+    "After you add a treatment system, retest your water to confirm it works." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Después de instalar un sistema de tratamiento, vuelva a analizar su agua para confirmar que funciona."
+          }
+        }
+      }
+    },
+    "Alerts from the National Weather Service." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Alertas del Servicio Meteorológico Nacional."
+          }
+        }
+      }
+    },
+    "All results" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Todos los resultados"
+          }
+        }
+      }
+    },
+    "Arsenic" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Arsénico"
+          }
+        }
+      }
+    },
+    "Arsenic comes from certain bedrock. It has no taste or smell, and long-term exposure raises cancer risk." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "El arsénico proviene de ciertos tipos de roca madre. No tiene sabor ni olor, y la exposición a largo plazo aumenta el riesgo de cáncer."
+          }
+        }
+      }
+    },
+    "Arsenic follows geology. Tracts on the Carolina Slate Belt's metasedimentary rock have about 12% of wells over the arsenic limit, roughly 5 times the state average." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "El arsénico depende de la geología. En los sectores censales sobre la roca metasedimentaria del Cinturón de Pizarra de Carolina (Carolina Slate Belt), aproximadamente el 12 % de los pozos superan el límite de arsénico, unas 5 veces el promedio estatal."
+          }
+        }
+      }
+    },
+    "Arsenic test results by census tract. The dark band follows the Carolina Slate Belt." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Resultados de los análisis de arsénico por sector censal. La franja oscura sigue el Cinturón de Pizarra de Carolina (Carolina Slate Belt)."
+          }
+        }
+      }
+    },
+    "Bacteria" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Bacterias"
+          }
+        }
+      }
+    },
+    "Bacteria (total coliform / E. coli): every year and after any flooding, for every well." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Bacterias (coliformes totales / E. coli): cada año y después de cualquier inundación, para todos los pozos."
+          }
+        }
+      }
+    },
+    "Bacteria test (total coliform / E. coli)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Análisis de bacterias (coliformes totales / E. coli)"
+          }
+        }
+      }
+    },
+    "Bar charts of which feature groups drive each contaminant's prediction" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Gráficos de barras que muestran qué grupos de variables determinan la predicción de cada contaminante"
+          }
+        }
+      }
+    },
+    "Based on %lld tested wells in your census tract plus the model." : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Based on %lld tested well in your census tract plus the model."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Based on %lld tested wells in your census tract plus the model."
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Basado en %lld pozo analizado en su sector censal, más el modelo."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Basado en %lld pozos analizados en su sector censal, más el modelo."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Before the storm" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Antes de la tormenta"
+          }
+        }
+      }
+    },
+    "Bold with a star: best of the first three methods." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "En negrita con una estrella: el mejor de los tres primeros métodos."
+          }
+        }
+      }
+    },
+    "Calibration charts: predicted versus actual share of wells above the limit, for four contaminants" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Gráficos de calibración: proporción prevista frente a proporción real de pozos por encima del límite, para cuatro contaminantes"
+          }
+        }
+      }
+    },
+    "Calibration: when the model says 10%, about 10% of wells are actually above the limit." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Calibración: cuando el modelo indica un 10 %, aproximadamente el 10 % de los pozos realmente están por encima del límite."
+          }
+        }
+      }
+    },
+    "Call your county health department." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Llame al departamento de salud de su condado."
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Cancelar"
+          }
+        }
+      }
+    },
+    "Carbon filter" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Filtro de carbón"
+          }
+        }
+      }
+    },
+    "Census tract %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Sector censal %@"
+          }
+        }
+      }
+    },
+    "Check every %lld months" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Check every %lld month"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Check every %lld months"
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Revisar cada %lld mes"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Revisar cada %lld meses"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Revisar cada %lld meses"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Check in %lld days" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Check in %lld day"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Check in %lld days"
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Revisar en %lld día"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Revisar en %lld días"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Revisar en %lld días"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Check My Area" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Revisar mi zona"
+          }
+        }
+      }
+    },
+    "Check this address" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Revisar esta dirección"
+          }
+        }
+      }
+    },
+    "Check your area, then tap Save as My Well on the report. Your lab results below are kept either way." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Revise su zona y luego toque Guardar como Mi Pozo en el informe. Sus resultados de laboratorio que aparecen abajo se conservan de cualquier forma."
+          }
+        }
+      }
+    },
+    "Checked %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Consultado a las %@"
+          }
+        }
+      }
+    },
+    "Checking the National Weather Service…" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Consultando el Servicio Meteorológico Nacional…"
+          }
+        }
+      }
+    },
+    "ClearWell model" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Modelo de ClearWell"
+          }
+        }
+      }
+    },
+    "ClearWell NC" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "ClearWell NC"
+          }
+        }
+      }
+    },
+    "ClearWell NC can send a notification when a filter is due or it's time to test your well." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "ClearWell NC puede enviarle una notificación cuando toque cambiar un filtro o sea momento de analizar su pozo."
+          }
+        }
+      }
+    },
+    "Comparison with the statewide rate" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Comparación con la tasa estatal"
+          }
+        }
+      }
+    },
+    "Confidence: High" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Confianza: alta"
+          }
+        }
+      }
+    },
+    "Confidence: Low" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Confianza: baja"
+          }
+        }
+      }
+    },
+    "Confidence: Medium" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Confianza: media"
+          }
+        }
+      }
+    },
+    "Contaminant" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Contaminante"
           }
         }
       }
     },
     "Continue" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Continuar"
+          }
+        }
+      }
+    },
+    "County average" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Promedio del condado"
+          }
+        }
+      }
+    },
+    "Data we checked and excluded" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Datos que revisamos y excluimos"
+          }
+        }
+      }
     },
     "Data: %@" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Datos: %@"
+          }
+        }
+      }
+    },
+    "Data: %@. Tract estimates generated %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Data: %1$@. Tract estimates generated %2$@."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Datos: %1$@. Estimaciones por sector censal generadas el %2$@."
+          }
+        }
+      }
+    },
+    "Date" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Fecha"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Eliminar"
+          }
+        }
+      }
+    },
+    "Delete this lab result?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "¿Desea eliminar este resultado de laboratorio?"
+          }
+        }
+      }
+    },
+    "Delete this result" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Eliminar este resultado"
+          }
+        }
+      }
+    },
+    "Delete this system" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Eliminar este sistema"
+          }
+        }
+      }
+    },
+    "Delete this treatment system?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "¿Desea eliminar este sistema de tratamiento?"
+          }
+        }
+      }
+    },
+    "Disinfect your well." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Desinfecte su pozo."
+          }
+        }
+      }
+    },
+    "Do not drink your well water." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "No beba el agua de su pozo."
+          }
+        }
+      }
     },
     "Does your home get water from a private well?" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "¿Su casa recibe agua de un pozo privado?"
+          }
+        }
+      }
+    },
+    "Due in %lld days" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Due in %lld day"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Due in %lld days"
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Vence en %lld día"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Vence en %lld días"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Vence en %lld días"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Due today" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Vence hoy"
+          }
+        }
+      }
+    },
+    "E. coli" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "E. coli"
+          }
+        }
+      }
+    },
+    "E. coli was found in your latest test" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Se encontró E. coli en su análisis más reciente"
+          }
+        }
+      }
+    },
+    "Edit lab result" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Editar resultado de laboratorio"
+          }
+        }
+      }
+    },
+    "Edit or delete this result" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Editar o eliminar este resultado"
+          }
+        }
+      }
+    },
+    "Edit or delete this system" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Editar o eliminar este sistema"
+          }
+        }
+      }
+    },
+    "Edit treatment system" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Editar sistema de tratamiento"
+          }
+        }
+      }
     },
     "Elevated" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Elevado"
+          }
+        }
+      }
+    },
+    "Enter a number of 0 or more." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ingrese un número igual o mayor que 0."
+          }
+        }
+      }
     },
     "Estimated %@ wells in your area are above %@." : {
       "localizations" : {
@@ -134,101 +1318,810 @@
             "state" : "new",
             "value" : "Estimated %1$@ wells in your area are above %2$@."
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Se estima que %1$@ pozos de su zona están por encima de %2$@."
+          }
+        }
+      }
+    },
+    "Every 2 years" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Cada 2 años"
+          }
+        }
+      }
+    },
+    "Every year" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Cada año"
+          }
         }
       }
     },
     "Explore anyway" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Explorar de todos modos"
+          }
+        }
+      }
+    },
+    "Explore the map" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Explore el mapa"
+          }
+        }
+      }
+    },
+    "Faded: no wells tested in that tract (model estimate only)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Atenuado: no hay pozos analizados en ese sector censal (solo estimación del modelo)"
+          }
+        }
+      }
     },
     "fewer than 1 in 200" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "menos de 1 de cada 200"
+          }
+        }
+      }
     },
-    "Filter replacement and testing reminders will appear here." : {
-
+    "Fill clean containers with drinking water." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Llene recipientes limpios con agua potable."
+          }
+        }
+      }
     },
     "Find out what your area's well water is likely to contain, and what to test for." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Averigüe qué es probable que contenga el agua de pozo de su zona y qué debe analizar."
+          }
+        }
+      }
+    },
+    "Get reminders on time" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Reciba los recordatorios a tiempo"
+          }
+        }
+      }
     },
     "High" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Alto"
+          }
+        }
+      }
     },
-    "How ClearWell NC estimates your area's risk will appear here." : {
-
+    "Honest confidence" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Confianza honesta"
+          }
+        }
+      }
+    },
+    "How accurate is it?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "¿Qué tan preciso es?"
+          }
+        }
+      }
     },
     "How It Works" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Cómo funciona"
+          }
+        }
+      }
     },
     "How to tell" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Cómo saberlo"
+          }
+        }
+      }
     },
     "How: contact %@ County Environmental Health to order a test through the NC State Laboratory of Public Health, or use a state-certified private lab." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Cómo: comuníquese con Salud Ambiental del Condado de %@ para solicitar un análisis a través del Laboratorio Estatal de Salud Pública de Carolina del Norte, o use un laboratorio privado certificado por el estado."
+          }
+        }
+      }
     },
     "How: contact your county Environmental Health office to order a test through the NC State Laboratory of Public Health, or use a state-certified private lab." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Cómo: comuníquese con la oficina de Salud Ambiental de su condado para solicitar un análisis a través del Laboratorio Estatal de Salud Pública de Carolina del Norte, o use un laboratorio privado certificado por el estado."
+          }
+        }
+      }
     },
     "If you get a water bill, you are probably not on a well. If you have a well pump or pressure tank and no water bill, you probably have a well." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Si recibe una factura de agua, probablemente no usa un pozo. Si tiene una bomba de pozo o un tanque de presión y no recibe factura de agua, probablemente tiene un pozo."
+          }
+        }
+      }
     },
     "If your test is high" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Si su análisis sale alto"
+          }
+        }
+      }
+    },
+    "If your wellhead was underwater, do not drink the water." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Si el cabezal de su pozo estuvo bajo el agua, no beba el agua."
+          }
+        }
+      }
+    },
+    "In range" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Dentro del rango"
+          }
+        }
+      }
+    },
+    "Installed or last replaced" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Instalado o reemplazado por última vez"
+          }
+        }
+      }
+    },
+    "Iron" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Hierro"
+          }
+        }
+      }
+    },
+    "Know where your well cap is." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Sepa dónde está la tapa de su pozo."
+          }
+        }
+      }
+    },
+    "Lab name (optional)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Nombre del laboratorio (opcional)"
+          }
+        }
+      }
+    },
+    "Last checked" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Última revisión"
+          }
+        }
+      }
+    },
+    "Last checked %@ · every %lld months" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last checked %1$@ · %#@months@"
+          },
+          "substitutions" : {
+            "months" : {
+              "argNum" : 2,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "every %arg month"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "every %arg months"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Última revisión: %1$@ · %#@months@"
+          },
+          "substitutions" : {
+            "months" : {
+              "argNum" : 2,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "machine_translated",
+                      "value" : "cada %arg mes"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "machine_translated",
+                      "value" : "cada %arg meses"
+                    }
+                  },
+                  "zero" : {
+                    "stringUnit" : {
+                      "state" : "machine_translated",
+                      "value" : "cada %arg meses"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Last done %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Realizado por última vez el %@"
+          }
+        }
+      }
+    },
+    "Last replaced %@ · every %lld months" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last replaced %1$@ · %#@months@"
+          },
+          "substitutions" : {
+            "months" : {
+              "argNum" : 2,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "every %arg month"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "every %arg months"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Último reemplazo: %1$@ · %#@months@"
+          },
+          "substitutions" : {
+            "months" : {
+              "argNum" : 2,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "machine_translated",
+                      "value" : "cada %arg mes"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "machine_translated",
+                      "value" : "cada %arg meses"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Latest result" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Resultado más reciente"
+          }
+        }
+      }
     },
     "Lead" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Plomo"
+          }
+        }
+      }
+    },
+    "Lead depends on household plumbing, not location, so every home should test for it." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "El plomo depende de la plomería de la casa, no de la ubicación, por lo que todos los hogares deberían hacer un análisis de plomo."
+          }
+        }
+      }
     },
     "Lead in well water usually comes from pipes, solder and well parts, not the rock, so it varies from house to house." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "El plomo en el agua de pozo suele provenir de las tuberías, la soldadura y las piezas del pozo, no de la roca, por lo que varía de una casa a otra."
+          }
+        }
+      }
+    },
+    "Leave blank anything your lab didn't test. 1 mg/L = 1000 ppb." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Deje en blanco lo que su laboratorio no haya analizado. 1 mg/L = 1000 ppb."
+          }
+        }
+      }
+    },
+    "Limit" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Límite"
+          }
+        }
+      }
+    },
+    "Limit: 10 mg/L (EPA)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Límite: 10 mg/L (EPA)"
+          }
+        }
+      }
+    },
+    "Limit: 10 ppb (EPA)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Límite: 10 ppb (EPA)"
+          }
+        }
+      }
     },
     "Loading well data…" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Cargando datos de pozos…"
+          }
+        }
+      }
     },
     "Location access is off for ClearWell NC. You can turn it on in Settings, or type an address instead." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "El acceso a la ubicación está desactivado para ClearWell NC. Puede activarlo en Configuración o, en su lugar, escribir una dirección."
+          }
+        }
+      }
     },
     "Looking up your area…" : {
-
-    },
-    "Low" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Buscando su zona…"
+          }
+        }
+      }
     },
     "Lower than typical" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Menor que lo típico"
+          }
+        }
+      }
     },
     "Manganese" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Manganeso"
+          }
+        }
+      }
     },
     "Manganese comes from rock and soil. It can stain sinks and laundry black, and high levels are a concern for infants." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "El manganeso proviene de la roca y el suelo. Puede manchar de negro los lavabos y la ropa, y los niveles altos son motivo de preocupación para los bebés."
+          }
+        }
+      }
     },
-    "Medium" : {
-
+    "Map of estimated %@ risk by census tract" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Mapa del riesgo estimado de %@ por sector censal"
+          }
+        }
+      }
+    },
+    "Map of North Carolina showing the share of tested wells above the arsenic limit by census tract, with a hotspot east of Charlotte" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Mapa de Carolina del Norte que muestra la proporción de pozos analizados por encima del límite de arsénico por sector censal, con una zona de concentración al este de Charlotte"
+          }
+        }
+      }
+    },
+    "Mark %@ done today" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Marcar como hecho hoy: %@"
+          }
+        }
+      }
+    },
+    "Mark checked today" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Marcar como revisado hoy"
+          }
+        }
+      }
+    },
+    "Mark done today" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Marcar como hecho hoy"
+          }
+        }
+      }
+    },
+    "Mark replaced today" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Marcar como reemplazado hoy"
+          }
+        }
+      }
+    },
+    "Metals and nitrate test" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Análisis de metales y nitrato"
+          }
+        }
+      }
+    },
+    "Metals, nitrate and pH" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Metales, nitrato y pH"
+          }
+        }
+      }
+    },
+    "mg/L" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "mg/L"
+          }
+        }
+      }
     },
     "My Well" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Mi Pozo"
+          }
+        }
+      }
+    },
+    "Name, for example \"Iron filter\"" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Nombre, por ejemplo, “Filtro de hierro”"
+          }
+        }
+      }
+    },
+    "Nearby tracts only" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Solo sectores censales cercanos"
+          }
+        }
+      }
     },
     "Nitrate" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Nitrato"
+          }
+        }
+      }
     },
     "Nitrate comes from fertilizer, manure and septic systems. It is most dangerous for babies under 6 months." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "El nitrato proviene de fertilizantes, estiércol y sistemas sépticos. Es más peligroso para los bebés menores de 6 meses."
+          }
+        }
+      }
     },
     "Nitrate is most dangerous for babies under 6 months. Test your well for nitrate before using it to mix infant formula, and use bottled water for formula until you know your result. Never boil water to remove nitrate; boiling concentrates it." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "El nitrato es más peligroso para los bebés menores de 6 meses. Analice su pozo para detectar nitrato antes de usar su agua para preparar fórmula infantil, y use agua embotellada para la fórmula hasta que conozca su resultado. Nunca hierva el agua para eliminar el nitrato; hervirla lo concentra."
+          }
+        }
+      }
     },
-    "No well saved yet" : {
-
+    "No flood, hurricane or tropical storm alerts for your well right now." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "En este momento no hay alertas de inundación, huracán ni tormenta tropical para su pozo."
+          }
+        }
+      }
+    },
+    "No health limits exceeded" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "No se superó ningún límite de salud"
+          }
+        }
+      }
+    },
+    "No lab results yet" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Aún no hay resultados de laboratorio"
+          }
+        }
+      }
+    },
+    "No location saved" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "No hay ubicación guardada"
+          }
+        }
+      }
+    },
+    "No treatment systems yet" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Aún no hay sistemas de tratamiento"
+          }
+        }
+      }
     },
     "No wells in your census tract have been tested. This is the model's estimate from geology and nearby areas." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "No se ha analizado ningún pozo en su sector censal. Esta es la estimación del modelo basada en la geología y las zonas cercanas."
+          }
+        }
+      }
     },
     "No, city or county water" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "No, agua de la ciudad o del condado"
+          }
+        }
+      }
     },
     "North Carolina" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Carolina del Norte"
+          }
+        }
+      }
+    },
+    "Not recorded yet: due now" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Aún no registrado: vence ahora"
+          }
+        }
+      }
     },
     "Not sure" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "No estoy seguro"
+          }
+        }
+      }
+    },
+    "Not tested" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Sin analizar"
+          }
+        }
+      }
+    },
+    "Notifications are off" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Las notificaciones están desactivadas"
+          }
+        }
+      }
     },
     "Only %lld tested wells in your census tract, so this is mostly the model's estimate." : {
       "localizations" : {
@@ -249,104 +2142,1016 @@
               }
             }
           }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Solo hay %lld pozo analizado en su sector censal, por lo que esto es principalmente una estimación del modelo."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Solo hay %lld pozos analizados en su sector censal, por lo que esto es principalmente una estimación del modelo."
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Solo hay %lld pozos analizados en su sector censal, por lo que esto es principalmente una estimación del modelo."
+                }
+              }
+            }
+          }
         }
       }
     },
     "Open Settings" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Abrir Configuración"
+          }
+        }
+      }
     },
     "Optional. This is stored only on this device and adds a nitrate note to your report." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Opcional. Esta información se guarda solo en este dispositivo y agrega una nota sobre el nitrato a su informe."
+          }
+        }
+      }
+    },
+    "Other" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Otro"
+          }
+        }
+      }
+    },
+    "Outside 6.5–8.5" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Fuera del rango 6.5–8.5"
+          }
+        }
+      }
+    },
+    "Overdue by %lld days" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Overdue by %lld day"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Overdue by %lld days"
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Con %lld día de retraso"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Con %lld días de retraso"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Con %lld días de retraso"
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "Oxidation/filtration (greensand) or a softener rated for manganese; reverse osmosis for drinking water." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Oxidación/filtración con arena verde (greensand) o un ablandador de agua clasificado para manganeso; ósmosis inversa para el agua potable."
+          }
+        }
+      }
+    },
+    "pH" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "pH"
+          }
+        }
+      }
+    },
+    "Point selected on the map" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Punto seleccionado en el mapa"
+          }
+        }
+      }
+    },
+    "ppb" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "ppb"
+          }
+        }
+      }
+    },
+    "Present" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Presente"
+          }
+        }
+      }
+    },
+    "Present: should be absent" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Presente: debería estar ausente"
+          }
+        }
+      }
     },
     "Public water systems publish a yearly Consumer Confidence Report that shows what is in your water. Ask your water provider for a copy. You can still explore well-water risk in North Carolina." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Los sistemas públicos de agua publican cada año un Informe de Confianza del Consumidor que muestra lo que contiene su agua. Pida una copia a su proveedor de agua. Aun así, puede explorar el riesgo del agua de pozo en Carolina del Norte."
+          }
+        }
+      }
+    },
+    "Range: 6.5–8.5" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Rango: 6.5–8.5"
+          }
+        }
+      }
+    },
+    "Real test results" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Resultados de análisis reales"
+          }
+        }
+      }
     },
     "Reminders" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Recordatorios"
+          }
+        }
+      }
     },
-    "Remove My Well" : {
-
+    "Reminders still show here, but you won't get alerts. You can turn notifications on in Settings." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Los recordatorios seguirán apareciendo aquí, pero no recibirá alertas. Puede activar las notificaciones en Configuración."
+          }
+        }
+      }
+    },
+    "Remove saved location" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Eliminar ubicación guardada"
+          }
+        }
+      }
+    },
+    "Replace every %lld months" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Replace every %lld month"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Replace every %lld months"
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Reemplazar cada %lld mes"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Reemplazar cada %lld meses"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Reemplazar cada %lld meses"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Replace in %lld days" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Replace in %lld day"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Replace in %lld days"
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Reemplazar en %lld día"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Reemplazar en %lld días"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "machine_translated",
+                  "value" : "Reemplazar en %lld días"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Retest to confirm your treatment works" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Vuelva a analizar para confirmar que su tratamiento funciona"
+          }
+        }
+      }
+    },
+    "Retest your water to confirm it works. Add the new result here when you get it." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Vuelva a analizar su agua para confirmar que funciona. Agregue aquí el nuevo resultado cuando lo reciba."
+          }
+        }
+      }
     },
     "Reverse osmosis certified to NSF/ANSI 58 for arsenic. An under-sink unit is usually enough for drinking and cooking." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ósmosis inversa certificada según NSF/ANSI 58 para arsénico. Una unidad debajo del fregadero suele ser suficiente para beber y cocinar."
+          }
+        }
+      }
     },
     "Reverse osmosis certified to NSF/ANSI 58 for nitrate. Never boil water to remove nitrate; boiling concentrates it." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ósmosis inversa certificada según NSF/ANSI 58 para nitrato. Nunca hierva el agua para eliminar el nitrato; hervirla lo concentra."
+          }
+        }
+      }
+    },
+    "Reverse osmosis membrane" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Membrana de ósmosis inversa"
+          }
+        }
+      }
     },
     "Risk level: %@" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Nivel de riesgo: %@"
+          }
+        }
+      }
+    },
+    "Save" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Guardar"
+          }
+        }
+      }
     },
     "Save as My Well" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Guardar como Mi Pozo"
+          }
+        }
+      }
     },
     "Saved as My Well" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Guardado como Mi Pozo"
+          }
+        }
+      }
     },
     "Saving keeps this location on this device only. Saving again replaces your current My Well." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Al guardar, esta ubicación se conserva solo en este dispositivo. Si vuelve a guardar, se reemplaza su Mi Pozo actual."
+          }
+        }
+      }
+    },
+    "Sediment filter" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Filtro de sedimentos"
+          }
+        }
+      }
+    },
+    "Shock-chlorinate your well, then retest." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Haga una cloración de choque de su pozo y luego vuelva a analizarlo."
+          }
+        }
+      }
     },
     "Statewide: %@" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "En todo el estado: %@"
+          }
+        }
+      }
     },
     "Street address, city or ZIP" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Dirección, ciudad o código postal"
+          }
+        }
+      }
+    },
+    "Stress test: unseen county" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Prueba de resistencia: condado no visto"
+          }
+        }
+      }
+    },
+    "Tap a census tract to see its estimate." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Toque un sector censal para ver su estimación."
+          }
+        }
+      }
+    },
+    "Tap a tract to select it. You can also search by address above." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Toque un sector censal para seleccionarlo. También puede buscar por dirección arriba."
+          }
+        }
+      }
+    },
+    "Test date" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Fecha del análisis"
+          }
+        }
+      }
+    },
+    "Test for bacteria before using it again." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Haga un análisis de bacterias antes de volver a usarlo."
+          }
+        }
+      }
     },
     "Test regardless" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Analizar de todos modos"
+          }
+        }
+      }
+    },
+    "Tested on census tracts the model never saw. The score is how much of the gap between a statewide guess (0%) and the best possible area-level estimate (100%) each method closes." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Se evaluó en sectores censales que el modelo nunca vio. La puntuación indica qué parte de la diferencia entre una estimación estatal (0 %) y la mejor estimación posible a nivel de zona (100 %) cierra cada método."
+          }
+        }
+      }
     },
     "That location is outside North Carolina. ClearWell NC only has well data for North Carolina." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Esa ubicación está fuera de Carolina del Norte. ClearWell NC solo tiene datos de pozos de Carolina del Norte."
+          }
+        }
+      }
     },
     "The built-in well data could not be loaded." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "No se pudieron cargar los datos de pozos integrados."
+          }
+        }
+      }
+    },
+    "The NC State Laboratory of Public Health tested private wells from 1998 to 2019. UNC researchers geocoded 117,960 of those tests (the NCWELL database). ClearWell uses the census-tract summaries." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "El Laboratorio Estatal de Salud Pública de Carolina del Norte analizó pozos privados de 1998 a 2019. Investigadores de UNC geocodificaron 117,960 de esos análisis (la base de datos NCWELL). ClearWell usa los resúmenes por sector censal."
+          }
+        }
+      }
+    },
+    "The rock beneath you" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "La roca bajo sus pies"
+          }
+        }
+      }
     },
     "This is an estimate for your area, not your well. Only a lab test tells you what is in your water." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Esta es una estimación para su zona, no para su pozo. Solo un análisis de laboratorio le indica qué contiene su agua."
+          }
+        }
+      }
+    },
+    "Time for your metals and nitrate test (every 2 years)." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Es momento de hacer su análisis de metales y nitrato (cada 2 años)."
+          }
+        }
+      }
+    },
+    "Time for your yearly bacteria test (total coliform / E. coli)." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Es momento de hacer su análisis anual de bacterias (coliformes totales / E. coli)."
+          }
+        }
+      }
+    },
+    "Time for your yearly wellhead inspection." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Es momento de hacer su inspección anual del cabezal del pozo."
+          }
+        }
+      }
+    },
+    "Time to check your water softener salt." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Es momento de revisar la sal de su ablandador de agua."
+          }
+        }
+      }
+    },
+    "Time to replace this. Mark it replaced in ClearWell NC to reset the reminder." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Es momento de reemplazar esto. Márquelo como reemplazado en ClearWell NC para reiniciar el recordatorio."
+          }
+        }
+      }
+    },
+    "Total coliform" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Coliformes totales"
+          }
+        }
+      }
+    },
+    "Treatment systems" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Sistemas de tratamiento"
+          }
+        }
+      }
+    },
+    "Triangles mark results above the limit. Dashed lines show limits." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Los triángulos marcan los resultados por encima del límite. Las líneas discontinuas muestran los límites."
+          }
+        }
+      }
+    },
+    "Try again" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Reintentar"
+          }
+        }
+      }
+    },
+    "Turn on notifications" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Activar notificaciones"
+          }
+        }
+      }
+    },
+    "Type" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Tipo"
+          }
+        }
+      }
     },
     "Type an address, city or ZIP code first." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Primero escriba una dirección, ciudad o código postal."
+          }
+        }
+      }
     },
     "Typical" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Típico"
+          }
+        }
+      }
     },
     "Understand your area's well-water risk, decide what to test for, and keep track of your results." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Conozca el riesgo del agua de pozo en su zona, decida qué analizar y lleve un registro de sus resultados."
+          }
+        }
+      }
+    },
+    "Unit" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Unidad"
+          }
+        }
+      }
+    },
+    "Use bottled water instead." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "En su lugar, use agua embotellada."
+          }
+        }
+      }
     },
     "Use my location" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Usar mi ubicación"
+          }
+        }
+      }
+    },
+    "UV bulb" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Lámpara UV"
+          }
+        }
+      }
+    },
+    "View full report" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ver informe completo"
+          }
+        }
+      }
     },
     "View my area's report" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ver el informe de mi zona"
+          }
+        }
+      }
+    },
+    "Water softener salt" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Sal del ablandador de agua"
+          }
+        }
+      }
+    },
+    "We couldn't check weather alerts. Check your internet connection." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "No pudimos consultar las alertas meteorológicas. Revise su conexión a internet."
+          }
+        }
+      }
     },
     "We couldn't find that address. Try including the town and \"NC\", for example \"123 Main St, Monroe, NC\"." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "No pudimos encontrar esa dirección. Intente incluir el pueblo o la ciudad y “NC”, por ejemplo, “123 Main St, Monroe, NC”."
+          }
+        }
+      }
     },
     "We couldn't find your location right now. Try again, or type an address instead." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "No pudimos encontrar su ubicación en este momento. Vuelva a intentarlo o, en su lugar, escriba una dirección."
+          }
+        }
+      }
     },
     "We couldn't look up that address. Check your internet connection and try again." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "No pudimos buscar esa dirección. Revise su conexión a internet y vuelva a intentarlo."
+          }
+        }
+      }
+    },
+    "Weather alert for your well" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Alerta meteorológica para su pozo"
+          }
+        }
+      }
+    },
+    "Weather alerts" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Alertas meteorológicas"
+          }
+        }
+      }
+    },
+    "Well care" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Cuidado del pozo"
+          }
+        }
+      }
+    },
+    "Well Record" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Registro del pozo"
+          }
+        }
+      }
+    },
+    "Wellhead inspection" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Inspección del cabezal del pozo"
+          }
+        }
+      }
+    },
+    "What drives each prediction." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Qué determina cada predicción."
+          }
+        }
+      }
+    },
+    "When you get your lab report, add the numbers here to compare them with the limits and track them over time." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Cuando reciba su informe de laboratorio, agregue aquí los valores para compararlos con los límites y seguirlos a lo largo del tiempo."
+          }
+        }
+      }
+    },
+    "Where many wells were tested, your estimate leans on those tests. Where few were, it leans on the model, and the report tells you so." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Donde se analizaron muchos pozos, su estimación se basa en esos análisis. Donde se analizaron pocos, se basa en el modelo, y el informe se lo indica."
+          }
+        }
+      }
+    },
+    "While auditing the public data, we found three columns where the lab's reporting limit is above the state standard (silver, cadmium and chromium), which makes almost every test look contaminated. We excluded them. The tract file's manganese health-limit column also duplicates the 50 ppb column, so ClearWell uses the 50 ppb NC standard." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Al revisar los datos públicos, encontramos tres columnas en las que el límite de notificación del laboratorio está por encima de la norma estatal (plata, cadmio y cromo), lo que hace que casi todos los análisis parezcan contaminados. Las excluimos. Además, la columna del límite de salud para el manganeso del archivo de sectores censales duplica la columna de 50 ppb, por lo que ClearWell usa la norma de NC de 50 ppb."
+          }
+        }
+      }
     },
     "Why it matters and what to do" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Por qué es importante y qué hacer"
+          }
+        }
+      }
+    },
+    "Within limit" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Dentro del límite"
+          }
+        }
+      }
     },
     "Yes" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Sí"
+          }
+        }
+      }
+    },
+    "You added a %@ on %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You added a %1$@ on %2$@."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "El %2$@ agregó: %1$@."
+          }
+        }
+      }
     },
     "You're probably on public water" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Probablemente usa agua pública"
+          }
+        }
+      }
     },
     "Your address" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Su dirección"
+          }
+        }
+      }
     },
     "Your address or location is only used to find your census tract. It is not saved unless you choose Save as My Well." : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Su dirección o ubicación solo se usa para encontrar su sector censal. No se guarda a menos que elija Guardar como Mi Pozo."
+          }
+        }
+      }
     },
     "Your area: %@" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Su zona: %@"
+          }
+        }
+      }
     },
     "Your area: %@ wells. Statewide: %@ wells." : {
       "localizations" : {
@@ -355,18 +3160,55 @@
             "state" : "new",
             "value" : "Your area: %1$@ wells. Statewide: %2$@ wells."
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Su zona: %1$@ pozos. En todo el estado: %2$@ pozos."
+          }
         }
       }
     },
     "Your area's report" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Informe de su zona"
+          }
+        }
+      }
     },
     "Your current location" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Su ubicación actual"
+          }
+        }
+      }
+    },
+    "Your saved location is sent to the National Weather Service to check for alerts." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Su ubicación guardada se envía al Servicio Meteorológico Nacional para consultar si hay alertas."
+          }
+        }
+      }
     },
     "Your test plan" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Su plan de análisis"
+          }
+        }
+      }
     }
   },
-  "version" : "1.0"
+  "version" : "1.3"
 }

@@ -14,6 +14,8 @@ struct CheckAreaView: View {
     @State private var isWorking = false
     @State private var error: AreaLookupError?
     @State private var selection: AreaSelection?
+    @State private var mapSelection: AreaSelection?
+    @State private var mapContaminant: Contaminant = .arsenic
     @State private var locationFetcher = LocationFetcher()
     @FocusState private var addressFocused: Bool
 
@@ -31,8 +33,12 @@ struct CheckAreaView: View {
                             .card()
                     case .failed(let message):
                         errorCard(message)
-                    case .loaded:
+                    case .loaded(let db):
                         searchCard
+                        AreaMapSection(database: db,
+                                       contaminant: $mapContaminant,
+                                       selection: $mapSelection,
+                                       onOpenReport: { selection = $0 })
                     }
 
                     if isWorking {
@@ -134,7 +140,9 @@ struct CheckAreaView: View {
         Task {
             defer { isWorking = false }
             do {
-                selection = try await lookup(db)
+                let result = try await lookup(db)
+                mapSelection = result
+                selection = result
             } catch let lookupError as AreaLookupError {
                 error = lookupError
             } catch {

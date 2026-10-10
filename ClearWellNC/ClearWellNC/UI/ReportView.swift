@@ -134,7 +134,7 @@ struct ContaminantCard: View {
                     .foregroundStyle(.secondary)
             }
 
-            Text("Confidence: \(risk.confidence.level.label). \(risk.confidence.note)")
+            Text("\(risk.confidence.level.phrase). \(risk.confidence.note)")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
 
