@@ -121,21 +121,19 @@ struct TrendChart: View {
 
 struct EColiUrgentCard: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Label("E. coli was found in your latest test", systemImage: "exclamationmark.octagon.fill")
-                .font(.headline)
-            VStack(alignment: .leading, spacing: 6) {
-                bullet("Do not drink your well water.")
-                bullet("Use bottled water instead.")
-                bullet("Call your county health department.")
-                bullet("Shock-chlorinate your well, then retest.")
+        UrgentBanner {
+            VStack(alignment: .leading, spacing: 10) {
+                Label("E. coli was found in your latest test", systemImage: "exclamationmark.octagon.fill")
+                    .font(.headline)
+                    .accessibilityAddTraits(.isHeader)
+                VStack(alignment: .leading, spacing: 6) {
+                    bullet("Do not drink your well water.")
+                    bullet("Use bottled water instead.")
+                    bullet("Call your county health department.")
+                    bullet("Shock-chlorinate your well, then retest.")
+                }
             }
         }
-        .foregroundStyle(.white)
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(RiskLevel.high.color, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .accessibilityElement(children: .combine)
     }
 
     private func bullet(_ text: LocalizedStringKey) -> some View {

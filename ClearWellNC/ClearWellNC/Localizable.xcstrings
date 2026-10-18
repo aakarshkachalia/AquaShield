@@ -2225,6 +2225,16 @@
     "Infants, young children and pregnancy. EPA's health goal is zero because no level is known to be safe." : {
 
     },
+    "Insights" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Información"
+          }
+        }
+      }
+    },
     "Installed or last replaced" : {
       "localizations" : {
         "es" : {
@@ -2759,6 +2769,16 @@
     "Month" : {
 
     },
+    "More" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Más"
+          }
+        }
+      }
+    },
     "Most well contaminants have no taste, smell or early symptoms. Testing is the only way to know." : {
 
     },
@@ -3172,6 +3192,16 @@
     "Other tests" : {
 
     },
+    "out of 100" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "de 100"
+          }
+        }
+      }
+    },
     "Outside 6.5–8.5" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3433,6 +3463,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Eliminar ubicación guardada"
+          }
+        }
+      }
+    },
+    "Remove saved location?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "¿Eliminar ubicación guardada?"
           }
         }
       }
@@ -4835,6 +4875,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Su ubicación actual"
+          }
+        }
+      }
+    },
+    "Your lab results are kept." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Sus resultados de laboratorio se conservan."
           }
         }
       }

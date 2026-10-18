@@ -10,10 +10,10 @@ import SwiftUI
 extension Interpretation.Tier {
     var color: Color {
         switch self {
-        case .safe: .accentColor
-        case .watch: Color(hex: 0xB45309)          // dark amber
-        case .above: RiskLevel.high.color
-        case .nuisance: Color(hex: 0x8A5A00)       // brown-amber: practical issue, not a health risk
+        case .safe: .statusSafe
+        case .watch: .statusWatch
+        case .above: .statusAbove
+        case .nuisance: .statusNuisance            // brown-amber: practical issue, not a health risk
         case .info: .secondary
         }
     }
@@ -79,6 +79,9 @@ struct InterpretationBlock: View {
                         .foregroundStyle(.secondary)
                 }
             }
+            if let percent = interpretation.percentOfLimit {
+                LimitMeter(percent: percent, color: interpretation.tier.color)
+            }
             Text(interpretation.limitText)
                 .font(.caption)
                 .foregroundStyle(.secondary)
@@ -88,6 +91,27 @@ struct InterpretationBlock: View {
         }
         .padding(.vertical, 6)
         .accessibilityElement(children: .combine)
+    }
+}
+
+/// Bar showing how close a reading is to its limit. The end of the track is the limit.
+/// Decorative: the "% of limit" text next to the reading says the same thing.
+struct LimitMeter: View {
+    let percent: Double
+    let color: Color
+
+    var body: some View {
+        GeometryReader { geo in
+            let fraction = min(max(percent / 100, 0), 1)
+            ZStack(alignment: .leading) {
+                Capsule().fill(Color.primary.opacity(0.08))
+                Capsule().fill(color)
+                    .frame(width: max(geo.size.width * fraction, fraction > 0 ? 6 : 0))
+            }
+        }
+        .frame(height: 6)
+        .frame(maxWidth: 260)
+        .accessibilityHidden(true)
     }
 }
 

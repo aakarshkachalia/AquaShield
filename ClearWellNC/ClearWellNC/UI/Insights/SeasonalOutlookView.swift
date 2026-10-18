@@ -56,6 +56,8 @@ struct SeasonalOutlookView: View {
             Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(Interpretation.Tier.watch.color)
         }
         .card()
+        .overlay(RoundedRectangle(cornerRadius: Radius.card, style: .continuous)
+            .strokeBorder(Color.statusWatch.opacity(0.5)))
         .accessibilityElement(children: .combine)
     }
 
@@ -109,24 +111,24 @@ struct SeasonalOutlookView: View {
     }
 
     private func legend(showPersonal: Bool) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            legendRow(symbol: "line.diagonal", text: String(localized: "Thin gray line: county median from past tests"))
-            legendRow(symbol: "line.diagonal", text: String(localized: "Thick line: moving average (the trend)"))
-            legendRow(symbol: "ellipsis", text: String(localized: "Dashed line and shaded band: forecast and its likely range. Predicted — not a test result."))
-            legendRow(symbol: "minus", text: String(localized: "Red line: the limit"))
+        VStack(alignment: .leading, spacing: 6) {
+            legendRow(.history, text: String(localized: "Thin gray line: county median from past tests"))
+            legendRow(.trend, text: String(localized: "Thick line: moving average (the trend)"))
+            legendRow(.forecast, text: String(localized: "Dashed line and shaded band: forecast and its likely range. Predicted — not a test result."))
+            legendRow(.limit, text: String(localized: "Red line: the limit"))
             if showPersonal {
-                legendRow(symbol: "square.fill", text: String(localized: "Squares: your own test results"))
+                legendRow(.personal, text: String(localized: "Squares: your own test results"))
             }
         }
         .font(.caption)
         .accessibilityElement(children: .combine)
     }
 
-    private func legendRow(symbol: String, text: String) -> some View {
-        Label {
-            Text(text)
-        } icon: {
-            Image(systemName: symbol).accessibilityHidden(true)
+    private func legendRow(_ swatch: LegendSwatch.Kind, text: String) -> some View {
+        HStack(alignment: .top, spacing: Spacing.s) {
+            LegendSwatch(kind: swatch)
+                .padding(.top, 2)
+            Text(text).fixedSize(horizontal: false, vertical: true)
         }
     }
 
@@ -219,5 +221,37 @@ struct SeasonalChart: View {
         }
         .chartYAxisLabel(unit.label)
         .frame(height: 260)
+    }
+}
+
+/// Small drawing of each chart mark, so the legend matches what's on the chart.
+struct LegendSwatch: View {
+    enum Kind { case history, trend, forecast, limit, personal }
+
+    let kind: Kind
+
+    var body: some View {
+        Canvas { context, size in
+            let mid = size.height / 2
+            var line = Path()
+            line.move(to: CGPoint(x: 0, y: mid))
+            line.addLine(to: CGPoint(x: size.width, y: mid))
+            switch kind {
+            case .history:
+                context.stroke(line, with: .color(.gray), lineWidth: 1.5)
+            case .trend:
+                context.stroke(line, with: .color(.accentColor), style: StrokeStyle(lineWidth: 3, lineCap: .round))
+            case .forecast:
+                context.fill(Path(CGRect(x: 0, y: mid - 5, width: size.width, height: 10)),
+                             with: .color(.accentColor.opacity(0.18)))
+                context.stroke(line, with: .color(.accentColor), style: StrokeStyle(lineWidth: 2, dash: [6, 4]))
+            case .limit:
+                context.stroke(line, with: .color(RiskLevel.high.color), lineWidth: 1.5)
+            case .personal:
+                context.fill(Path(CGRect(x: size.width / 2 - 4, y: mid - 4, width: 8, height: 8)), with: .color(.primary))
+            }
+        }
+        .frame(width: 24, height: 12)
+        .accessibilityHidden(true)
     }
 }

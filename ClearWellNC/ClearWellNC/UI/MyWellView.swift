@@ -18,14 +18,18 @@ struct MyWellView: View {
 
     @State private var addingResult = false
     @State private var editingResult: LabResult?
+    @State private var confirmingRemove = false
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: Spacing.l) {
                     if let latest = results.first, latest.eColi == .present {
                         EColiUrgentCard()
                     }
+
+                    locationSection
+
                     if savedWells.first != nil {
                         WeatherAlertsCard(store: alertsStore) {
                             Task { await refreshAlerts() }
@@ -35,35 +39,18 @@ struct MyWellView: View {
                         RetestReminderCard(systems: systemsNeedingRetest)
                     }
 
-                    // New: what the numbers add up to, and when levels tend to change.
+                    // What the numbers add up to, and when levels tend to change.
+                    SectionHeader(title: "Insights")
                     WellScoreCard(result: WellHealthScore.compute(results.latestScoreInput))
                     NavigationLink {
                         SeasonalOutlookView(initialCounty: savedCounty)
                     } label: {
-                        HStack(spacing: 12) {
-                            Image(systemName: "chart.line.uptrend.xyaxis")
-                                .font(.title2)
-                                .foregroundStyle(.tint)
-                                .accessibilityHidden(true)
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("Seasonal outlook").font(.headline)
-                                Text("When levels in your county usually rise or fall, and what to expect next.")
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
-                                    .multilineTextAlignment(.leading)
-                            }
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(.tertiary)
-                                .accessibilityHidden(true)
-                        }
-                        .contentShape(Rectangle())
+                        NavigationCardLabel(
+                            title: Text("Seasonal outlook"),
+                            subtitle: Text("When levels in your county usually rise or fall, and what to expect next."),
+                            systemImage: "chart.line.uptrend.xyaxis")
                     }
                     .buttonStyle(.plain)
-                    .card()
-                    .accessibilityElement(children: .combine)
-
-                    locationSection
 
                     wellRecordHeader
                     if let latest = results.first {
@@ -87,6 +74,24 @@ struct MyWellView: View {
             .background(Color.appBackground)
             .refreshable { await refreshAlerts() }
             .navigationTitle("My Well")
+            .toolbar {
+                if savedWells.first != nil {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Menu {
+                            Button("Remove saved location", systemImage: "trash", role: .destructive) {
+                                confirmingRemove = true
+                            }
+                        } label: {
+                            Label("More", systemImage: "ellipsis.circle")
+                        }
+                    }
+                }
+            }
+            .confirmationDialog("Remove saved location?", isPresented: $confirmingRemove, titleVisibility: .visible) {
+                Button("Remove saved location", role: .destructive, action: removeSavedWell)
+            } message: {
+                Text("Your lab results are kept.")
+            }
             .sheet(isPresented: $addingResult) { LabResultForm() }
             .sheet(item: $editingResult) { LabResultForm(existing: $0) }
         }
@@ -94,6 +99,12 @@ struct MyWellView: View {
 
     private var savedCounty: String? {
         savedWells.first.flatMap { store.database?.tract(fips: $0.fips)?.countyName }
+    }
+
+    private func removeSavedWell() {
+        guard let well = savedWells.first else { return }
+        modelContext.delete(well)
+        try? modelContext.save()
     }
 
     private func refreshAlerts() async {
@@ -121,17 +132,20 @@ struct MyWellView: View {
     @ViewBuilder
     private var locationSection: some View {
         if let well = savedWells.first {
-            VStack(alignment: .leading, spacing: 12) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(well.placeName)
-                        .font(.title2.bold())
-                    if let tract = store.database?.tract(fips: well.fips), let county = tract.countyName {
-                        Text("\(county) County")
+            VStack(alignment: .leading, spacing: Spacing.l) {
+                HStack(alignment: .top, spacing: Spacing.m) {
+                    IconTile(systemImage: "mappin.and.ellipse")
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(well.placeName)
+                            .font(.title2.bold())
+                        if let tract = store.database?.tract(fips: well.fips), let county = tract.countyName {
+                            Text("\(county) County")
+                                .foregroundStyle(.secondary)
+                        }
+                        Text("Census tract \(well.fips)")
+                            .font(.footnote)
                             .foregroundStyle(.secondary)
                     }
-                    Text("Census tract \(well.fips)")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
                 }
                 .accessibilityElement(children: .combine)
 
@@ -147,26 +161,23 @@ struct MyWellView: View {
                             .frame(maxWidth: .infinity, minHeight: 44)
                     }
                     .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.roundedRectangle(radius: Radius.inner))
                 }
-
-                Button(role: .destructive) {
-                    modelContext.delete(well)
-                    try? modelContext.save()
-                } label: {
-                    Label("Remove saved location", systemImage: "trash")
-                        .frame(maxWidth: .infinity, minHeight: 44)
-                }
-                .buttonStyle(.bordered)
             }
             .card()
         } else {
-            VStack(alignment: .leading, spacing: 6) {
-                Label("No location saved", systemImage: "mappin.slash")
-                    .font(.headline)
-                Text("Check your area, then tap Save as My Well on the report. Your lab results below are kept either way.")
-                    .foregroundStyle(.secondary)
+            HStack(alignment: .top, spacing: Spacing.m) {
+                IconTile(systemImage: "mappin.slash", color: .secondary)
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("No location saved")
+                        .font(.headline)
+                    Text("Check your area, then tap Save as My Well on the report. Your lab results below are kept either way.")
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
             .card()
+            .accessibilityElement(children: .combine)
         }
     }
 
@@ -182,12 +193,12 @@ struct MyWellView: View {
                 addButton
             }
         }
-        .padding(.top, 8)
+        .padding(.top, Spacing.s)
     }
 
     private var recordTitle: some View {
         Text("Well Record")
-            .font(.title2.bold())
+            .font(.title3.bold())
             .accessibilityAddTraits(.isHeader)
     }
 
@@ -196,19 +207,28 @@ struct MyWellView: View {
             addingResult = true
         } label: {
             Label("Add lab result", systemImage: "plus")
+                .font(.subheadline.weight(.semibold))
                 .frame(minHeight: 44)
         }
         .buttonStyle(.bordered)
+        .buttonBorderShape(.capsule)
     }
 
     private var emptyRecord: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(spacing: Spacing.m) {
+            IconTile(systemImage: "testtube.2")
             Text("No lab results yet")
                 .font(.headline)
             Text("When you get your lab report, add the numbers here to compare them with the limits and track them over time.")
+                .font(.subheadline)
                 .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
         }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, Spacing.s)
         .card()
+        .accessibilityElement(children: .combine)
     }
 
     private var pastResults: some View {

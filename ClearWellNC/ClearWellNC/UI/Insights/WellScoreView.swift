@@ -25,7 +25,7 @@ struct WellScoreCard: View {
         NavigationLink {
             WellScoreView()
         } label: {
-            HStack(alignment: .center, spacing: 16) {
+            HStack(alignment: .center, spacing: Spacing.l) {
                 ScoreNumber(result: result, size: .compact)
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Well Health Score")
@@ -39,8 +39,9 @@ struct WellScoreCard: View {
                             .foregroundStyle(.secondary)
                     }
                 }
-                Spacer()
+                Spacer(minLength: 0)
                 Image(systemName: "chevron.right")
+                    .font(.footnote.weight(.semibold))
                     .foregroundStyle(.tertiary)
                     .accessibilityHidden(true)
             }
@@ -57,25 +58,63 @@ func incompleteText(_ result: WellHealthScore.Result) -> String {
     String(localized: "Incomplete — \(result.keyTestsOnFile) of \(result.keyTestsTotal) key tests on file")
 }
 
+/// Score inside a ring that fills to the score, colored by band. Number and band text carry the meaning;
+/// the ring only reinforces them.
 struct ScoreNumber: View {
     enum Size { case compact, large }
 
     let result: WellHealthScore.Result
     let size: Size
-    /// Big number that still scales with Dynamic Type.
-    @ScaledMetric(relativeTo: .largeTitle) private var largeSize: CGFloat = 72
+    @ScaledMetric(relativeTo: .largeTitle) private var largeDiameter: CGFloat = 168
+    @ScaledMetric(relativeTo: .title) private var compactDiameter: CGFloat = 68
+    @ScaledMetric(relativeTo: .largeTitle) private var largeFont: CGFloat = 56
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var shownFraction: Double = 0
+
+    private var fraction: Double { Double(result.score ?? 0) / 100 }
+    private var color: Color { result.band?.tier.color ?? .secondary }
 
     var body: some View {
-        Group {
-            Text(result.score.map { "\($0)" } ?? "—")
-                .font(size == .large
-                      ? .system(size: largeSize, weight: .bold, design: .rounded)
-                      : .title.weight(.bold))
-                .monospacedDigit()
+        let diameter = size == .large ? largeDiameter : compactDiameter
+        let lineWidth: CGFloat = size == .large ? 14 : 7
+        ZStack {
+            Circle()
+                .stroke(Color.primary.opacity(0.08), lineWidth: lineWidth)
+            Circle()
+                .trim(from: 0, to: shownFraction)
+                .stroke(color, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
+                .rotationEffect(.degrees(-90))
+            VStack(spacing: 0) {
+                Text(result.score.map { "\($0)" } ?? "—")
+                    .font(size == .large
+                          ? .system(size: largeFont, weight: .bold, design: .rounded)
+                          : .title2.weight(.bold))
+                    .fontDesign(.rounded)
+                    .monospacedDigit()
+                    .foregroundStyle(color)
+                    .minimumScaleFactor(0.6)
+                    .lineLimit(1)
+                if size == .large, result.score != nil {
+                    Text("out of 100")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .padding(lineWidth)
         }
-        .foregroundStyle(result.band?.tier.color ?? .secondary)
-        .frame(minWidth: size == .large ? 110 : 56, alignment: .leading)
+        .frame(width: diameter, height: diameter)
+        .onAppear { animate(to: fraction) }
+        .onChange(of: fraction) { _, new in animate(to: new) }
+        .accessibilityElement(children: .ignore)
         .accessibilityLabel(result.score.map { Text("Score \($0) out of 100") } ?? Text("No score yet"))
+    }
+
+    private func animate(to value: Double) {
+        if reduceMotion {
+            shownFraction = value
+        } else {
+            withAnimation(.easeOut(duration: 0.6)) { shownFraction = value }
+        }
     }
 }
 
@@ -114,11 +153,14 @@ struct WellScoreView: View {
 
     private func header(_ result: WellHealthScore.Result) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            ScoreNumber(result: result, size: .large)
-                .padding(.vertical, 8)
-            if let band = result.band {
-                StatusChip(tier: band.tier, label: band.label)
+            VStack(spacing: Spacing.m) {
+                ScoreNumber(result: result, size: .large)
+                if let band = result.band {
+                    StatusChip(tier: band.tier, label: band.label)
+                }
             }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, Spacing.s)
             if !result.isComplete {
                 Label(incompleteText(result), systemImage: "list.bullet.clipboard")
                     .font(.headline)
@@ -151,6 +193,11 @@ struct WellScoreView: View {
                         Image(systemName: "arrow.right.circle.fill").foregroundStyle(.tint)
                     }
                     .font(.subheadline.weight(.medium))
+                    .padding(Spacing.m)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color.accentColor.opacity(0.08),
+                                in: RoundedRectangle(cornerRadius: Radius.inner, style: .continuous))
+                    .accessibilityElement(children: .ignore)
                     .accessibilityLabel(Text("Next step: \(factor.nextAction)"))
                 }
                 if index < result.topFactors.count - 1 { Divider() }
@@ -194,16 +241,13 @@ struct WellScoreView: View {
 
 struct DoNotDrinkBanner: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Label("Do not drink untreated", systemImage: "exclamationmark.octagon.fill")
-                .font(.title3.bold())
-                .accessibilityAddTraits(.isHeader)
-            Text(ContaminantID.eColi.info.actionIfAbove)
+        UrgentBanner {
+            VStack(alignment: .leading, spacing: 6) {
+                Label("Do not drink untreated", systemImage: "exclamationmark.octagon.fill")
+                    .font(.title3.bold())
+                    .accessibilityAddTraits(.isHeader)
+                Text(ContaminantID.eColi.info.actionIfAbove)
+            }
         }
-        .foregroundStyle(.white)
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(RiskLevel.high.color, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .accessibilityElement(children: .combine)
     }
 }

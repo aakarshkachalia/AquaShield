@@ -9,9 +9,10 @@ struct LearnView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: Spacing.m) {
                     Text("What's in well water, where it comes from, who is most at risk, and how to fix it.")
                         .foregroundStyle(.secondary)
+                        .padding(.bottom, Spacing.xs)
                     ForEach(LearnLibrary.articles) { article in
                         NavigationLink {
                             LearnArticleView(article: article)
@@ -38,28 +39,9 @@ private struct LearnCardRow: View {
     let article: LearnArticle
 
     var body: some View {
-        HStack(alignment: .top, spacing: 14) {
-            Image(systemName: article.symbol)
-                .font(.title2)
-                .foregroundStyle(.tint)
-                .frame(width: 32)
-                .accessibilityHidden(true)
-            VStack(alignment: .leading, spacing: 4) {
-                Text(article.title)
-                    .font(.headline)
-                Text(article.contaminants.first?.info.plainSummary ?? "")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.leading)
-            }
-            Spacer()
-            Image(systemName: "chevron.right")
-                .foregroundStyle(.tertiary)
-                .accessibilityHidden(true)
-        }
-        .contentShape(Rectangle())
-        .card()
-        .accessibilityElement(children: .combine)
+        NavigationCardLabel(title: Text(article.title),
+                            subtitle: Text(article.contaminants.first?.info.plainSummary ?? ""),
+                            systemImage: article.symbol)
     }
 }
 
@@ -161,9 +143,13 @@ struct LearnArticleView: View {
     }
 
     private func sectionTitle(_ title: LocalizedStringKey, systemImage: String) -> some View {
-        Label(title, systemImage: systemImage)
-            .font(.headline)
-            .accessibilityAddTraits(.isHeader)
+        Label {
+            Text(title)
+        } icon: {
+            Image(systemName: systemImage).foregroundStyle(.tint)
+        }
+        .font(.headline)
+        .accessibilityAddTraits(.isHeader)
     }
 
     private func labeled(_ label: LocalizedStringKey, _ text: String) -> some View {
@@ -221,18 +207,20 @@ struct QuizView: View {
                         if let chosen, optionIndex == question.correctIndex {
                             Label("Correct answer", systemImage: "checkmark.circle.fill")
                                 .labelStyle(.iconOnly)
-                                .foregroundStyle(.tint)
+                                .foregroundStyle(Color.statusSafe)
                                 .accessibilityHidden(chosen == optionIndex)
                         } else if chosen == optionIndex {
                             Label("Your answer", systemImage: "xmark.circle.fill")
                                 .labelStyle(.iconOnly)
-                                .foregroundStyle(RiskLevel.high.color)
+                                .foregroundStyle(Color.statusAbove)
                         }
                     }
-                    .padding(12)
+                    .padding(Spacing.m)
                     .frame(minHeight: 44)
-                    .background(Color.primary.opacity(chosen == optionIndex ? 0.1 : 0.04),
-                                in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    .background(optionFill(chosen: chosen, optionIndex: optionIndex, correct: question.correctIndex),
+                                in: RoundedRectangle(cornerRadius: Radius.inner, style: .continuous))
+                    .overlay(RoundedRectangle(cornerRadius: Radius.inner, style: .continuous)
+                        .strokeBorder(optionBorder(chosen: chosen, optionIndex: optionIndex, correct: question.correctIndex)))
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
@@ -246,11 +234,25 @@ struct QuizView: View {
                     Text("\(right ? String(localized: "Correct.") : String(localized: "Not quite.")) \(question.explanation)")
                 } icon: {
                     Image(systemName: right ? "checkmark.circle.fill" : "info.circle.fill")
-                        .foregroundStyle(right ? Color.accentColor : RiskLevel.elevated.color)
+                        .foregroundStyle(right ? Color.statusSafe : Color.statusWatch)
                 }
                 .font(.subheadline)
             }
         }
+    }
+
+    private func optionFill(chosen: Int?, optionIndex: Int, correct: Int) -> Color {
+        guard let chosen else { return Color.primary.opacity(0.04) }
+        if optionIndex == correct { return Color.statusSafe.opacity(0.12) }
+        if optionIndex == chosen { return Color.statusAbove.opacity(0.12) }
+        return Color.primary.opacity(0.04)
+    }
+
+    private func optionBorder(chosen: Int?, optionIndex: Int, correct: Int) -> Color {
+        guard let chosen else { return Color.primary.opacity(0.08) }
+        if optionIndex == correct { return Color.statusSafe.opacity(0.5) }
+        if optionIndex == chosen { return Color.statusAbove.opacity(0.5) }
+        return .clear
     }
 
     private func accessibilityValue(chosen: Int?, optionIndex: Int, correct: Int) -> Text {
