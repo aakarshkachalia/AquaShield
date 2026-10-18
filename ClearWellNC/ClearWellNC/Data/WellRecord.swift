@@ -71,80 +71,79 @@ nonisolated struct ReferenceLine: Sendable, Identifiable {
     var id: Double { value }
 }
 
-/// Values the Well Record tracks, with their limits from the spec.
+/// Numeric values the Well Record tracks. Limits and wording come from `ContaminantInfo`.
 nonisolated enum Analyte: String, CaseIterable, Sendable, Identifiable {
-    case arsenic
-    case lead
-    case manganese
-    case nitrate
-    case iron
-    case pH
+    case arsenic, lead, nitrate, nitrite, uranium, manganese, iron, copper, fluoride, pH, hardness, radon
 
     var id: String { rawValue }
 
-    var name: String {
+    var contaminant: ContaminantID {
         switch self {
-        case .arsenic: String(localized: "Arsenic")
-        case .lead: String(localized: "Lead")
-        case .manganese: String(localized: "Manganese")
-        case .nitrate: String(localized: "Nitrate")
-        case .iron: String(localized: "Iron")
-        case .pH: String(localized: "pH")
+        case .arsenic: .arsenic
+        case .lead: .lead
+        case .nitrate: .nitrate
+        case .nitrite: .nitrite
+        case .uranium: .uranium
+        case .manganese: .manganese
+        case .iron: .iron
+        case .copper: .copper
+        case .fluoride: .fluoride
+        case .pH: .pH
+        case .hardness: .hardness
+        case .radon: .radon
         }
     }
 
-    /// The unit values are stored in. Nil for pH.
-    var storedUnit: ConcentrationUnit? {
+    var info: ContaminantInfo { contaminant.info }
+    var name: String { info.name }
+
+    /// The unit values are stored in, when it can be converted (ppb ⇄ mg/L). Nil for pH, hardness, radon.
+    var storedUnit: ConcentrationUnit? { info.unit.concentration }
+
+    /// Display unit label for every analyte, including fixed units ("pCi/L", "mg/L as CaCO₃").
+    var unitLabel: String { info.unit.label }
+
+    /// The common NC panel shown first in the lab form; the rest go under "Other tests".
+    var isCommon: Bool {
         switch self {
-        case .arsenic, .lead, .manganese, .iron: .ppb
-        case .nitrate: .mgL
-        case .pH: nil
+        case .arsenic, .lead, .nitrate, .manganese, .iron, .pH: true
+        default: false
         }
     }
 
-    var limitDescription: String {
-        switch self {
-        case .arsenic: String(localized: "Limit: 10 ppb (EPA)")
-        case .lead: String(localized: "Action level: 15 ppb (EPA)")
-        case .manganese: String(localized: "50 ppb (NC standard); 300 ppb (health advisory)")
-        case .nitrate: String(localized: "Limit: 10 mg/L (EPA)")
-        case .iron: String(localized: "300 ppb (staining only, not a health limit)")
-        case .pH: String(localized: "Range: 6.5–8.5")
-        }
-    }
+    var limitDescription: String { info.limitDescription }
 
     var referenceLines: [ReferenceLine] {
-        switch self {
-        case .arsenic: [ReferenceLine(value: 10, label: String(localized: "10 ppb limit"))]
-        case .lead: [ReferenceLine(value: 15, label: String(localized: "15 ppb action level"))]
-        case .manganese: [ReferenceLine(value: 50, label: String(localized: "50 ppb NC standard")),
-                          ReferenceLine(value: 300, label: String(localized: "300 ppb health advisory"))]
-        case .nitrate: [ReferenceLine(value: 10, label: String(localized: "10 mg/L limit"))]
-        case .iron: [ReferenceLine(value: 300, label: String(localized: "300 ppb (staining)"))]
-        case .pH: [ReferenceLine(value: 6.5, label: "6.5"), ReferenceLine(value: 8.5, label: "8.5")]
+        var lines: [ReferenceLine] = []
+        switch info.limit {
+        case .maximum(let value):
+            let word = info.limitType == .health ? String(localized: "limit") : String(localized: "guideline")
+            lines.append(ReferenceLine(value: value, label: "\(format(value)) \(word)"))
+        case .range(let low, let high):
+            lines.append(ReferenceLine(value: low, label: formatNumber(low)))
+            lines.append(ReferenceLine(value: high, label: formatNumber(high)))
+        case .none, .mustBeAbsent:
+            break
         }
+        if let advisory = info.healthAdvisory {
+            lines.append(ReferenceLine(value: advisory.value, label: "\(format(advisory.value)) \(advisory.source.lowercased())"))
+        }
+        return lines
     }
 
-    /// `value` is in `storedUnit`.
+    func interpret(_ value: Double) -> Interpretation {
+        Interpretation.interpret(contaminant, value: value)
+    }
+
+    /// Compact status used by charts and summaries. Derived from the interpretation layer.
     func evaluate(_ value: Double) -> ResultStatus {
-        switch self {
-        case .arsenic:
-            value > 10 ? .init(kind: .above, text: String(localized: "Above the 10 ppb EPA limit")) : .withinLimit
-        case .lead:
-            value > 15 ? .init(kind: .above, text: String(localized: "Above the 15 ppb EPA action level")) : .withinLimit
-        case .manganese:
-            if value > 300 { .init(kind: .above, text: String(localized: "Above the 300 ppb health advisory")) }
-            else if value > 50 { .init(kind: .above, text: String(localized: "Above the 50 ppb NC standard")) }
-            else { .withinLimit }
-        case .nitrate:
-            value > 10 ? .init(kind: .above, text: String(localized: "Above the 10 mg/L EPA limit")) : .withinLimit
-        case .iron:
-            value > 300 ? .init(kind: .notice, text: String(localized: "Above 300 ppb: can stain, not a health limit")) : .withinLimit
-        case .pH:
-            (6.5...8.5).contains(value)
-                ? .init(kind: .pass, text: String(localized: "In range"))
-                : .init(kind: .above, text: String(localized: "Outside 6.5–8.5"))
+        let interpretation = interpret(value)
+        let kind: ResultStatus.Kind = switch interpretation.tier {
+        case .above: .above
+        case .nuisance: .notice
+        case .safe, .watch, .info: .pass
         }
+        return ResultStatus(kind: kind, text: interpretation.chipLabel)
     }
 
     static func evaluate(bacteria: BacteriaResult) -> ResultStatus {
@@ -156,14 +155,8 @@ nonisolated enum Analyte: String, CaseIterable, Sendable, Identifiable {
 
     /// Formats a stored value with its unit, e.g. "12 ppb" or "7.2".
     func format(_ value: Double) -> String {
-        let number = value.formatted(.number.precision(.fractionLength(0...3)))
-        guard let unit = storedUnit else { return number }
-        return "\(number) \(unit.label)"
+        Interpretation.format(value, unit: info.unit)
     }
-}
-
-private nonisolated extension ResultStatus {
-    static var withinLimit: ResultStatus { .init(kind: .pass, text: String(localized: "Within limit")) }
 }
 
 // MARK: - SwiftData model
@@ -179,6 +172,13 @@ final class LabResult {
     var nitrateMgL: Double?
     var ironPPB: Double?
     var pH: Double?
+    // Added with the interpretation layer; optional, so SwiftData migrates existing stores automatically.
+    var nitriteMgL: Double?
+    var uraniumPPB: Double?
+    var copperMgL: Double?
+    var fluorideMgL: Double?
+    var hardnessMgL: Double?
+    var radonPCiL: Double?
     var totalColiformRaw: String?
     var eColiRaw: String?
     var createdAt: Date
@@ -197,6 +197,12 @@ final class LabResult {
         case .nitrate: nitrateMgL
         case .iron: ironPPB
         case .pH: pH
+        case .nitrite: nitriteMgL
+        case .uranium: uraniumPPB
+        case .copper: copperMgL
+        case .fluoride: fluorideMgL
+        case .hardness: hardnessMgL
+        case .radon: radonPCiL
         }
     }
 
@@ -208,6 +214,12 @@ final class LabResult {
         case .nitrate: nitrateMgL = value
         case .iron: ironPPB = value
         case .pH: pH = value
+        case .nitrite: nitriteMgL = value
+        case .uranium: uraniumPPB = value
+        case .copper: copperMgL = value
+        case .fluoride: fluorideMgL = value
+        case .hardness: hardnessMgL = value
+        case .radon: radonPCiL = value
         }
     }
 
@@ -225,5 +237,26 @@ final class LabResult {
 
     var includesMetalsOrNitrate: Bool {
         [Analyte.arsenic, .lead, .manganese, .nitrate].contains { value(for: $0) != nil }
+    }
+}
+
+// MARK: - Score input
+
+extension Array where Element == LabResult {
+    /// The most recent reading of each contaminant across all results, for the Well Health Score.
+    var latestScoreInput: WellHealthScore.Input {
+        var input = WellHealthScore.Input()
+        for result in sorted(by: { $0.date > $1.date }) {
+            for analyte in Analyte.allCases where input.values[analyte.contaminant] == nil {
+                if let value = result.value(for: analyte) { input.values[analyte.contaminant] = value }
+            }
+            if input.presence[.totalColiform] == nil, let coliform = result.totalColiform {
+                input.presence[.totalColiform] = coliform == .present
+            }
+            if input.presence[.eColi] == nil, let eColi = result.eColi {
+                input.presence[.eColi] = eColi == .present
+            }
+        }
+        return input
     }
 }

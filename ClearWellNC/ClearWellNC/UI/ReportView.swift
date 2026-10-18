@@ -127,6 +127,7 @@ struct ContaminantCard: View {
             Text(risk.estimateSentence)
 
             RiskComparisonBar(risk: risk)
+            ChartCaptionView(text: ChartCaption.areaComparison(risk))
 
             if let observed = risk.observedText {
                 Text(observed)

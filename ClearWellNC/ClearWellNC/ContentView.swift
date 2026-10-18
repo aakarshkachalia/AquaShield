@@ -37,6 +37,8 @@ struct MainTabView: View {
             MyWellView()
                 .tabItem { Label("My Well", systemImage: "drop.fill") }
                 .badge(alertsStore.relevantAlerts.count)
+            LearnView()
+                .tabItem { Label("Learn", systemImage: "book.fill") }
             RemindersView()
                 .tabItem { Label("Reminders", systemImage: "bell.fill") }
             HowItWorksView()

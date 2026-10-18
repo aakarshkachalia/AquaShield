@@ -35,6 +35,34 @@ struct MyWellView: View {
                         RetestReminderCard(systems: systemsNeedingRetest)
                     }
 
+                    // New: what the numbers add up to, and when levels tend to change.
+                    WellScoreCard(result: WellHealthScore.compute(results.latestScoreInput))
+                    NavigationLink {
+                        SeasonalOutlookView(initialCounty: savedCounty)
+                    } label: {
+                        HStack(spacing: 12) {
+                            Image(systemName: "chart.line.uptrend.xyaxis")
+                                .font(.title2)
+                                .foregroundStyle(.tint)
+                                .accessibilityHidden(true)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Seasonal outlook").font(.headline)
+                                Text("When levels in your county usually rise or fall, and what to expect next.")
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                                    .multilineTextAlignment(.leading)
+                            }
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(.tertiary)
+                                .accessibilityHidden(true)
+                        }
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .card()
+                    .accessibilityElement(children: .combine)
+
                     locationSection
 
                     wellRecordHeader
@@ -62,6 +90,10 @@ struct MyWellView: View {
             .sheet(isPresented: $addingResult) { LabResultForm() }
             .sheet(item: $editingResult) { LabResultForm(existing: $0) }
         }
+    }
+
+    private var savedCounty: String? {
+        savedWells.first.flatMap { store.database?.tract(fips: $0.fips)?.countyName }
     }
 
     private func refreshAlerts() async {

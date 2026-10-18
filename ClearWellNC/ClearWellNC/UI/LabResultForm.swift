@@ -42,13 +42,19 @@ struct LabResultForm: View {
                 }
 
                 Section {
-                    ForEach(Analyte.allCases) { analyte in
+                    ForEach(Analyte.allCases.filter(\.isCommon)) { analyte in
                         analyteRow(analyte)
                     }
                 } header: {
-                    Text("Metals, nitrate and pH")
+                    Text("Common NC well tests")
                 } footer: {
                     Text("Leave blank anything your lab didn't test. 1 mg/L = 1000 ppb.")
+                }
+
+                Section("Other tests") {
+                    ForEach(Analyte.allCases.filter { !$0.isCommon }) { analyte in
+                        analyteRow(analyte)
+                    }
                 }
 
                 Section("Bacteria") {
@@ -96,7 +102,8 @@ struct LabResultForm: View {
                 TextField(analyte.name, text: binding(for: analyte).text, prompt: Text("Not tested"))
                     .keyboardType(.decimalPad)
                     .multilineTextAlignment(stacked ? .leading : .trailing)
-                    .accessibilityLabel(entry.unit.map { Text("\(analyte.name), in \($0.label)") } ?? Text(analyte.name))
+                    .accessibilityLabel(entry.unit.map { Text("\(analyte.name), in \($0.label)") }
+                        ?? (analyte.unitLabel.isEmpty ? Text(analyte.name) : Text("\(analyte.name), in \(analyte.unitLabel)")))
                 if analyte.storedUnit != nil {
                     Picker("Unit", selection: binding(for: analyte).unit) {
                         ForEach(ConcentrationUnit.allCases) { unit in
@@ -107,6 +114,10 @@ struct LabResultForm: View {
                     .pickerStyle(.menu)
                     .fixedSize()
                     .accessibilityLabel(Text("\(analyte.name) unit"))
+                } else if !analyte.unitLabel.isEmpty {
+                    // Fixed units (pCi/L, mg/L as CaCO₃) can't be converted, so just show them.
+                    Text(analyte.unitLabel)
+                        .foregroundStyle(.secondary)
                 }
             }
             .frame(minHeight: 44)
@@ -117,6 +128,16 @@ struct LabResultForm: View {
                 Label("Enter a number of 0 or more.", systemImage: "exclamationmark.circle.fill")
                     .font(.caption)
                     .foregroundStyle(RiskLevel.high.color)
+            }
+            // Live meaning of what was just typed.
+            if let value = storedValue(for: analyte) {
+                let interpretation = analyte.interpret(value)
+                HStack(spacing: 8) {
+                    StatusChip(tier: interpretation.tier, label: interpretation.chipLabel)
+                    if let percent = interpretation.percentText {
+                        Text(percent).font(.caption).foregroundStyle(.secondary)
+                    }
+                }
             }
         }
     }

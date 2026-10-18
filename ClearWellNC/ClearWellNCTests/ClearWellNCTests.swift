@@ -155,15 +155,16 @@ final class RiskEngineTests: XCTestCase {
     }
 
     func testLabLimits() {
-        XCTAssertTrue(Analyte.arsenic.evaluate(10).isPass)
-        XCTAssertEqual(Analyte.arsenic.evaluate(10.1).kind, .above)
+        // New rule from the interpretation layer: >= 100% of a limit is "Above limit".
+        XCTAssertEqual(Analyte.arsenic.evaluate(4).kind, .pass)
+        XCTAssertEqual(Analyte.arsenic.evaluate(10).kind, .above)
         XCTAssertEqual(Analyte.lead.evaluate(16).kind, .above)
-        XCTAssertEqual(Analyte.manganese.evaluate(60).text, "Above the 50 ppb NC standard")
-        XCTAssertEqual(Analyte.manganese.evaluate(301).text, "Above the 300 ppb health advisory")
+        XCTAssertEqual(Analyte.manganese.evaluate(60).kind, .notice)    // above aesthetic guideline only
+        XCTAssertEqual(Analyte.manganese.evaluate(301).kind, .above)    // above health advisory
         XCTAssertEqual(Analyte.nitrate.evaluate(11).kind, .above)
         XCTAssertEqual(Analyte.iron.evaluate(400).kind, .notice)
         XCTAssertTrue(Analyte.pH.evaluate(7).isPass)
-        XCTAssertEqual(Analyte.pH.evaluate(6.4).kind, .above)
+        XCTAssertEqual(Analyte.pH.evaluate(6.4).kind, .notice)
         XCTAssertEqual(Analyte.evaluate(bacteria: .present).kind, .above)
     }
 

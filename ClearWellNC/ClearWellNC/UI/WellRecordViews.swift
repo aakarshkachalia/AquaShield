@@ -21,16 +21,21 @@ struct LatestResultCard: View {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
+            // Every value gets its meaning: chip, % of limit, limit, and a plain-English sentence.
             ForEach(Analyte.allCases) { analyte in
                 if let value = result.value(for: analyte) {
-                    row(name: analyte.name, value: analyte.format(value), status: analyte.evaluate(value))
+                    InterpretationBlock(name: analyte.name, interpretation: analyte.interpret(value))
+                    Divider()
                 }
             }
             if let coliform = result.totalColiform {
-                row(name: String(localized: "Total coliform"), value: coliform.label, status: Analyte.evaluate(bacteria: coliform))
+                InterpretationBlock(name: ContaminantID.totalColiform.info.name,
+                                    interpretation: .interpret(.totalColiform, present: coliform == .present))
+                Divider()
             }
             if let eColi = result.eColi {
-                row(name: String(localized: "E. coli"), value: eColi.label, status: Analyte.evaluate(bacteria: eColi))
+                InterpretationBlock(name: ContaminantID.eColi.info.name,
+                                    interpretation: .interpret(.eColi, present: eColi == .present))
             }
         }
         .card()
@@ -39,25 +44,6 @@ struct LatestResultCard: View {
     private var subtitle: String {
         let date = result.date.formatted(date: .abbreviated, time: .omitted)
         return result.labName.isEmpty ? date : "\(date) · \(result.labName)"
-    }
-
-    private func row(name: String, value: String, status: ResultStatus) -> some View {
-        VStack(alignment: .leading, spacing: 2) {
-            ViewThatFits(in: .horizontal) {
-                HStack(alignment: .firstTextBaseline) {
-                    Text(name).font(.body.weight(.medium))
-                    Spacer()
-                    Text(value).monospacedDigit()
-                }
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(name).font(.body.weight(.medium))
-                    Text(value).monospacedDigit()
-                }
-            }
-            ResultStatusLabel(status: status)
-        }
-        .padding(.vertical, 4)
-        .accessibilityElement(children: .combine)
     }
 }
 
@@ -81,6 +67,11 @@ struct TrendChart: View {
                 }
             }
             .sorted { $0.date < $1.date }
+    }
+
+    /// Generated "What this chart shows" text: trend direction, limit crossings, what to do.
+    private var caption: String {
+        ChartCaption.trend(for: analyte.contaminant, points: points.map { ($0.date, $0.value) })
     }
 
     var body: some View {
@@ -112,13 +103,17 @@ struct TrendChart: View {
                         .accessibilityHidden(true)
                 }
             }
-            .chartYAxisLabel(analyte.storedUnit?.label ?? "")
+            .chartYAxisLabel(analyte.unitLabel)
             .frame(height: 190)
             .accessibilityLabel(Text("\(analyte.name) results over time"))
+            // VoiceOver hears the same trend summary sighted users read below.
+            .accessibilityValue(Text(caption))
 
             Text(analyte.limitDescription)
                 .font(.caption)
                 .foregroundStyle(.secondary)
+
+            ChartCaptionView(text: caption)
         }
         .card()
     }
@@ -167,6 +162,26 @@ struct RetestReminderCard: View {
                 .foregroundStyle(.secondary)
         }
         .card()
+        .accessibilityElement(children: .combine)
+    }
+}
+
+/// "What this chart shows" box placed under every chart.
+struct ChartCaptionView: View {
+    let text: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("What this chart shows")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.secondary)
+            Text(text)
+                .font(.subheadline)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(10)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color.primary.opacity(0.05), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
         .accessibilityElement(children: .combine)
     }
 }
