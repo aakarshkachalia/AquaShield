@@ -69,8 +69,20 @@ enum ReminderSync {
     static func refresh(using context: ModelContext) async {
         let systems = (try? context.fetch(FetchDescriptor<TreatmentSystem>())) ?? []
         let results = (try? context.fetch(FetchDescriptor<LabResult>())) ?? []
-        await NotificationScheduler.reschedule(plan(systems: systems, results: results,
-                                                    includeWellCare: WaterSource.current.showsWellCare))
+        var reminders = plan(systems: systems, results: results, includeWellCare: WaterSource.current.showsWellCare)
+
+        // Report Quest test reminder: opt-in, at most one a month.
+        var wellCare = WellCareState.load()
+        if let fire = wellCare.planReminder(testDates: results.map(\.date)) {
+            reminders.append(PlannedReminder(
+                id: "quest.test",
+                title: String(localized: "Time to test your water"),
+                body: String(localized: "It's been about a year since your last test. A new test keeps your Well Care streak going."),
+                fireDate: fire))
+        }
+        wellCare.save()
+
+        await NotificationScheduler.reschedule(reminders)
     }
 
     static func plan(systems: [TreatmentSystem], results: [LabResult], includeWellCare: Bool = true,

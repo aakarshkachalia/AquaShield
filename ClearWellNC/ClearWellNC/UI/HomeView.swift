@@ -37,6 +37,8 @@ struct HomeView: View {
     @State private var addingResult = false
     @State private var addingFilter = false
     @State private var editingFilter: TreatmentSystem?
+    @State private var trends = CountyTrendData.loadBundled()
+    @Environment(WellCareStore.self) private var wellCare
 
     private let tileColumns = [GridItem(.adaptive(minimum: 160), spacing: Spacing.m, alignment: .top)]
 
@@ -79,6 +81,13 @@ struct HomeView: View {
                         .buttonStyle(.plain)
                     }
 
+                    SectionHeader(title: "Learn your report")
+                    ReportQuestCard(latest: results.first, context: wellCareContext)
+                    if waterSource.showsWellCare, let challenge = wellCareContext.challenge {
+                        SeasonalChallengeCard(challenge: challenge)
+                    }
+                    WellCareSummaryCard(context: wellCareContext)
+
                     filtersSection
 
                     if !waterSource.showsWellCare {
@@ -103,7 +112,20 @@ struct HomeView: View {
             .sheet(isPresented: $addingResult) { LabResultForm() }
             .sheet(isPresented: $addingFilter) { TreatmentForm() }
             .sheet(item: $editingFilter) { TreatmentForm(existing: $0) }
+            // Badges can come from tests alone (Steady Keeper, Seasonal Scout), so re-check when tests change.
+            .task(id: results.count) {
+                wellCare.reload()
+                wellCare.refreshBadges(testDates: wellCareContext.testDates, highRiskMonths: wellCareContext.highRiskMonths)
+            }
         }
+    }
+
+    private var savedCounty: String? {
+        savedWells.first.flatMap { store.database?.tract(fips: $0.fips)?.countyName }
+    }
+
+    private var wellCareContext: WellCareContext {
+        WellCareContext.make(results: results, county: savedCounty, trends: trends)
     }
 
     // MARK: Header

@@ -78,7 +78,7 @@ struct LearnArticleView: View {
                 treatments
                 section("When to retest", systemImage: "calendar", text: article.retest)
                 sources
-                QuizView(questions: article.quiz)
+                QuizView(questions: article.quiz, quizID: article.id)
                 Text(LearnArticle.footer)
                     .font(.footnote.weight(.semibold))
             }
@@ -172,6 +172,8 @@ struct LearnArticleView: View {
 /// 3-question quiz scored on the device. Shows right/wrong with icon + text and the explanation.
 struct QuizView: View {
     let questions: [QuizQuestion]
+    /// Counts toward the Learner badge once every question is answered.
+    var quizID: String?
     @State private var answers: [String: Int] = [:]
 
     private var correctCount: Int {
@@ -198,6 +200,9 @@ struct QuizView: View {
             }
         }
         .card()
+        .onChange(of: answers.count) { _, count in
+            if count == questions.count, let quizID { WellCareStore.recordLearnQuiz(quizID) }
+        }
     }
 
     private func questionView(index: Int, question: QuizQuestion) -> some View {

@@ -539,6 +539,96 @@
         }
       }
     },
+    "%lld points" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%lld puntos"
+          }
+        }
+      }
+    },
+    "0–40" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "0–40"
+          }
+        }
+      }
+    },
+    "41–59" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "41–59"
+          }
+        }
+      }
+    },
+    "60–79" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "60–79"
+          }
+        }
+      }
+    },
+    "80–100" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "80–100"
+          }
+        }
+      }
+    },
+    "%@ · %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%1$@ · %2$@"
+          }
+        }
+      }
+    },
+    "%@ %@ +%lld points" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%1$@ %2$@ +%3$lld puntos"
+          }
+        }
+      }
+    },
+    "%@ %@ Check" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Revisión de %2$@ de %1$@"
+          }
+        }
+      }
+    },
+    "%lld-year testing streak · %lld of %lld badges · %lld points" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Racha de análisis: %1$lld años · %2$lld de %3$lld insignias · %4$lld puntos"
+          }
+        }
+      }
+    },
     "A baby under 6 months lives here" : {
       "localizations" : {
         "es" : {
@@ -1065,6 +1155,16 @@
     "Babies under 6 months, especially if formula is mixed with well water, and pregnancy." : {
 
     },
+    "Back to Report Quest" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Volver a la Aventura"
+          }
+        }
+      }
+    },
     "Bacteria" : {
       "localizations" : {
         "es" : {
@@ -1097,6 +1197,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Análisis de bacterias (coliformes totales / E. coli)"
+          }
+        }
+      }
+    },
+    "Badges" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Insignias"
           }
         }
       }
@@ -1201,6 +1311,26 @@
         }
       }
     },
+    "Bonus question" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Pregunta extra"
+          }
+        }
+      }
+    },
+    "Bonus question (optional)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Pregunta extra (opcional)"
+          }
+        }
+      }
+    },
     "Bring your lab results so they can match a system to what's in your water." : {
       "localizations" : {
         "es" : {
@@ -1256,6 +1386,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Llamar"
+          }
+        }
+      }
+    },
+    "Call your county health department" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Llame a su departamento de salud del condado"
           }
         }
       }
@@ -1600,6 +1740,16 @@
         }
       }
     },
+    "Close" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Cerrar"
+          }
+        }
+      }
+    },
     "Cold water" : {
 
     },
@@ -1696,6 +1846,16 @@
         }
       }
     },
+    "Continues to Report Quest" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Continúa a la Aventura del Informe"
+          }
+        }
+      }
+    },
     "Copper" : {
 
     },
@@ -1714,8 +1874,48 @@
     "Correct answer" : {
 
     },
+    "Correct — here's what to do" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Correcto — esto es lo que debe hacer"
+          }
+        }
+      }
+    },
+    "Correct!" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "¡Correcto!"
+          }
+        }
+      }
+    },
+    "Correct! +%lld points" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "¡Correcto! +%lld puntos"
+          }
+        }
+      }
+    },
     "Correct." : {
 
+    },
+    "Correct. A health problem keeps the score low until it's fixed." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Correcto. Un problema de salud mantiene bajo el puntaje hasta que se resuelva."
+          }
+        }
+      }
     },
     "Cosmetic guideline (no health-based limit)" : {
 
@@ -1841,6 +2041,16 @@
     "Diarrhea, stomach cramps, nausea and vomiting, sometimes within a day or two. Some types of E. coli can cause serious illness." : {
 
     },
+    "Did you know?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "¿Sabía que…?"
+          }
+        }
+      }
+    },
     "Directions" : {
       "localizations" : {
         "es" : {
@@ -1915,12 +2125,52 @@
         }
       }
     },
+    "Don't drink this water untreated. Use bottled water for drinking and cooking until it's fixed." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "No tome esta agua sin tratar. Use agua embotellada para tomar y cocinar hasta que se resuelva."
+          }
+        }
+      }
+    },
+    "Don't drink untreated water. Use bottled water for drinking, cooking and brushing teeth." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "No tome agua sin tratar. Use agua embotellada para tomar, cocinar y cepillarse los dientes."
+          }
+        }
+      }
+    },
     "Don't drink your water until it's treated" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "No tome su agua hasta que esté tratada"
+          }
+        }
+      }
+    },
+    "Done: correct" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Hecho: correcto"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Listo"
           }
         }
       }
@@ -2012,6 +2262,16 @@
     },
     "E. coli was found. This means human or animal waste is getting into your well. %@" : {
 
+    },
+    "Earned %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ganada el %@"
+          }
+        }
+      }
     },
     "Edit filter or treatment" : {
       "localizations" : {
@@ -2231,6 +2491,16 @@
     "Fair" : {
 
     },
+    "Fall" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "otoño"
+          }
+        }
+      }
+    },
     "falling" : {
 
     },
@@ -2313,6 +2583,26 @@
         }
       }
     },
+    "Finish %lld quizzes in the Learn tab." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Termine %lld cuestionarios en la pestaña Aprender."
+          }
+        }
+      }
+    },
+    "Finish a Report Quest." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Termine una Aventura del Informe."
+          }
+        }
+      }
+    },
     "Fixes the cause (corrosive water)" : {
 
     },
@@ -2390,8 +2680,28 @@
     "Forecasts are predictions from county-wide data, not test results for your well. Only a test from a state-certified lab tells you what is in your water." : {
 
     },
+    "Full report" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Informe completo"
+          }
+        }
+      }
+    },
     "Germs get in through cracked or missing well caps, poor seals, nearby septic systems or animal waste, and especially floodwater." : {
 
+    },
+    "Get every stop right in a Report Quest." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Acierte todas las paradas de una Aventura del Informe."
+          }
+        }
+      }
     },
     "Get reminders on time" : {
       "localizations" : {
@@ -2399,6 +2709,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Reciba los recordatorios a tiempo"
+          }
+        }
+      }
+    },
+    "Go to the last stop" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ir a la última parada"
           }
         }
       }
@@ -2591,6 +2911,16 @@
     "Human or animal waste is getting in" : {
 
     },
+    "I understand" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Entiendo"
+          }
+        }
+      }
+    },
     "If you get a water bill, you are probably not on a well. If you have a well pump or pressure tank and no water bill, you probably have a well." : {
       "localizations" : {
         "es" : {
@@ -2620,6 +2950,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Si el cabezal de su pozo estuvo bajo el agua, no beba el agua."
+          }
+        }
+      }
+    },
+    "Important: your test found a problem" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Importante: su análisis encontró un problema"
           }
         }
       }
@@ -2725,6 +3065,16 @@
     "Is there a health limit for pH?" : {
 
     },
+    "Is this Safe, Watch, or Above limit?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "¿Es Seguro, Vigilar o Sobre el límite?"
+          }
+        }
+      }
+    },
     "It can release lead and copper from pipes" : {
 
     },
@@ -2746,6 +3096,26 @@
     },
     "It occurs naturally in some bedrock." : {
 
+    },
+    "It's been a year since this test. Time to test again." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ha pasado un año desde este análisis. Es hora de analizar otra vez."
+          }
+        }
+      }
+    },
+    "It's been about a year since your last test. A new test keeps your Well Care streak going." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ha pasado cerca de un año desde su último análisis. Un análisis nuevo mantiene su racha de Cuidado del Agua."
+          }
+        }
+      }
     },
     "Keep testing on your regular schedule." : {
 
@@ -2919,6 +3289,16 @@
         }
       }
     },
+    "Last stop" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Última parada"
+          }
+        }
+      }
+    },
     "Last test" : {
       "localizations" : {
         "es" : {
@@ -2994,6 +3374,56 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Aprender"
+          }
+        }
+      }
+    },
+    "Learn your report" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Entienda su informe"
+          }
+        }
+      }
+    },
+    "Learn to read this report in about 3 minutes." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Aprenda a leer este informe en unos 3 minutos."
+          }
+        }
+      }
+    },
+    "Learner" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Aprendiz"
+          }
+        }
+      }
+    },
+    "Learn to read a water test in about 3 minutes, with a sample report." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Aprenda a leer un análisis de agua en unos 3 minutos, con un informe de ejemplo."
+          }
+        }
+      }
+    },
+    "Learn to read your latest test in about 3 minutes, one result at a time." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Aprenda a leer su último análisis en unos 3 minutos, un resultado a la vez."
           }
         }
       }
@@ -3085,6 +3515,26 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "El acceso a la ubicación está desactivado para ClearWell NC. Puede activarlo en Configuración o, en su lugar, escribir una dirección."
+          }
+        }
+      }
+    },
+    "Locked" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Bloqueado"
+          }
+        }
+      }
+    },
+    "Log a test 12 months or more after your last one." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Registre un análisis 12 meses o más después del anterior."
           }
         }
       }
@@ -3309,6 +3759,16 @@
     "Most well contaminants have no taste, smell or early symptoms. Testing is the only way to know." : {
 
     },
+    "Mostly safe, with a couple of readings to watch." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Casi todo seguro, con un par de resultados para vigilar."
+          }
+        }
+      }
+    },
     "Must be absent · %@" : {
 
     },
@@ -3355,6 +3815,16 @@
     "Natural bedrock" : {
 
     },
+    "NC DHHS: private well safety" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "NC DHHS: seguridad de pozos privados"
+          }
+        }
+      }
+    },
     "NC DHHS: private well testing" : {
 
     },
@@ -3387,6 +3857,26 @@
         }
       }
     },
+    "New badge" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Nueva insignia"
+          }
+        }
+      }
+    },
+    "Next" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Siguiente"
+          }
+        }
+      }
+    },
     "Next reminder" : {
       "localizations" : {
         "es" : {
@@ -3399,6 +3889,16 @@
     },
     "Next step: %@" : {
 
+    },
+    "Next, get a test for %@. Your county health department can help." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Luego, haga un análisis de %@. Su departamento de salud del condado puede ayudarle."
+          }
+        }
+      }
     },
     "Nitrate" : {
       "localizations" : {
@@ -3637,6 +4137,16 @@
     "Not detected" : {
 
     },
+    "Not earned yet" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Todavía no la gana"
+          }
+        }
+      }
+    },
     "Not enough data for %@ in %@ County. The model needs at least %lld months." : {
       "localizations" : {
         "en" : {
@@ -3649,6 +4159,26 @@
     },
     "Not quite." : {
 
+    },
+    "Not quite. +%lld points for trying" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Casi. +%lld puntos por intentarlo"
+          }
+        }
+      }
+    },
+    "Not quite. It's %@. +%lld points for trying" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Casi. Es %1$@. +%2$lld puntos por intentarlo"
+          }
+        }
+      }
     },
     "Not recorded yet: due now" : {
       "localizations" : {
@@ -3709,6 +4239,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Las notificaciones están desactivadas"
+          }
+        }
+      }
+    },
+    "Off unless you turn it on. At most one reminder a month, only about testing." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Apagado a menos que lo active. Como máximo un recordatorio al mes, solo sobre análisis."
           }
         }
       }
@@ -3924,6 +4464,16 @@
     "pCi/L" : {
 
     },
+    "Perfect Read" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Lectura Perfecta"
+          }
+        }
+      }
+    },
     "Pets" : {
 
     },
@@ -3985,6 +4535,16 @@
     "Plastic pipes" : {
 
     },
+    "Play with my latest test" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Jugar con mi último análisis"
+          }
+        }
+      }
+    },
     "Plumbers" : {
       "localizations" : {
         "es" : {
@@ -4001,6 +4561,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Punto seleccionado en el mapa"
+          }
+        }
+      }
+    },
+    "points" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "puntos"
           }
         }
       }
@@ -4070,6 +4640,16 @@
         }
       }
     },
+    "Quest complete" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Aventura terminada"
+          }
+        }
+      }
+    },
     "Quick actions" : {
       "localizations" : {
         "es" : {
@@ -4115,6 +4695,26 @@
         }
       }
     },
+    "Read your report one result at a time." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Lea su informe un resultado a la vez."
+          }
+        }
+      }
+    },
+    "Read this before anything else." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Lea esto antes que nada."
+          }
+        }
+      }
+    },
     "Real test results" : {
       "localizations" : {
         "es" : {
@@ -4140,6 +4740,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Filtro de refrigerador"
+          }
+        }
+      }
+    },
+    "Remind me when it's time to test" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Recordarme cuando toque analizar"
           }
         }
       }
@@ -4294,6 +4904,26 @@
     "Replace lead parts and fix corrosive water" : {
 
     },
+    "Report Quest" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Aventura del Informe"
+          }
+        }
+      }
+    },
+    "Report Reader" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Lector de Informes"
+          }
+        }
+      }
+    },
     "Researchers are still studying long-term effects in adults." : {
 
     },
@@ -4421,6 +5051,46 @@
     "Sample data" : {
 
     },
+    "Sample: a report with a problem" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ejemplo: un informe con un problema"
+          }
+        }
+      }
+    },
+    "Sample: a typical report" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ejemplo: un informe típico"
+          }
+        }
+      }
+    },
+    "Sample data: not a real test result" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Datos de ejemplo: no es un resultado real"
+          }
+        }
+      }
+    },
+    "Sample data: forecast uses placeholder numbers" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Datos de ejemplo: el pronóstico usa números de prueba"
+          }
+        }
+      }
+    },
     "Save" : {
       "localizations" : {
         "es" : {
@@ -4527,12 +5197,42 @@
         }
       }
     },
+    "Seasonal challenge" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Reto de temporada"
+          }
+        }
+      }
+    },
     "Seasonal outlook" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Pronóstico por temporada"
+          }
+        }
+      }
+    },
+    "Seasonal Scout" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Explorador de Temporada"
+          }
+        }
+      }
+    },
+    "Seasonal Scout badge earned" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Insignia Explorador de Temporada ganada"
           }
         }
       }
@@ -4556,6 +5256,26 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Los filtros de sedimentos atrapan arena y óxido. No eliminan contaminantes disueltos como el arsénico o el nitrato."
+          }
+        }
+      }
+    },
+    "See full report" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ver el informe completo"
+          }
+        }
+      }
+    },
+    "See your results" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ver sus resultados"
           }
         }
       }
@@ -4588,8 +5308,28 @@
     "Short term" : {
 
     },
+    "Shows what happens when a result is over a health limit." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Muestra qué pasa cuando un resultado supera un límite de salud."
+          }
+        }
+      }
+    },
     "Shows what is pulling the score down and what to do" : {
 
+    },
+    "Skip to full report" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ir al informe completo"
+          }
+        }
+      }
     },
     "Soda ash injection" : {
 
@@ -4622,6 +5362,16 @@
     "Sources" : {
 
     },
+    "Spring" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "primavera"
+          }
+        }
+      }
+    },
     "Spring fertilizing and heavy rain can carry nitrate into groundwater." : {
 
     },
@@ -4630,6 +5380,26 @@
     },
     "standard" : {
 
+    },
+    "Start stop %lld: %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Empezar la parada %1$lld: %2$@"
+          }
+        }
+      }
+    },
+    "Starts this stop" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Empieza esta parada"
+          }
+        }
+      }
     },
     "Statewide: %@" : {
       "localizations" : {
@@ -4647,6 +5417,36 @@
     "steady" : {
 
     },
+    "Stop %lld of %lld, %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Parada %1$lld de %2$lld, %3$@"
+          }
+        }
+      }
+    },
+    "Stop %lld of %lld" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Parada %1$lld de %2$lld"
+          }
+        }
+      }
+    },
+    "Steady Keeper" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Cuidador Constante"
+          }
+        }
+      }
+    },
     "Street address, city or ZIP" : {
       "localizations" : {
         "es" : {
@@ -4663,6 +5463,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Prueba de resistencia: condado no visto"
+          }
+        }
+      }
+    },
+    "Summer" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "verano"
           }
         }
       }
@@ -4700,6 +5510,16 @@
         }
       }
     },
+    "Test during your county's high season for a contaminant." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Haga un análisis en la temporada alta de un contaminante en su condado."
+          }
+        }
+      }
+    },
     "Test for %@" : {
 
     },
@@ -4716,12 +5536,32 @@
     "Test for bacteria every year and after flooding." : {
 
     },
+    "Test in %@, when %@ in %@ County wells is usually highest, to earn the Seasonal Scout badge." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Haga un análisis en %1$@, cuando el %2$@ en los pozos del condado de %3$@ suele estar más alto, para ganar la insignia Explorador de Temporada."
+          }
+        }
+      }
+    },
     "Test regardless" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Analizar de todos modos"
+          }
+        }
+      }
+    },
+    "Test reminders" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Recordatorios de análisis"
           }
         }
       }
@@ -4768,6 +5608,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Esa ubicación está fuera de Carolina del Norte. ClearWell NC solo tiene datos de pozos de Carolina del Norte."
+          }
+        }
+      }
+    },
+    "The answer is Above limit — here's what to do" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "La respuesta es Sobre el límite — esto es lo que debe hacer"
           }
         }
       }
@@ -4826,6 +5676,26 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "La roca bajo sus pies"
+          }
+        }
+      }
+    },
+    "The score is lower than %@ because of a health problem." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "El puntaje es menor que %@ por un problema de salud."
+          }
+        }
+      }
+    },
+    "The score runs from 0 to 100 and sums up every result on your report." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "El puntaje va de 0 a 100 y resume todos los resultados de su informe."
           }
         }
       }
@@ -4909,6 +5779,16 @@
     "This shows your one %@ test so far. Add results over time to see a trend." : {
 
     },
+    "This was sample data, so points and badges weren't saved." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Estos eran datos de ejemplo, así que no se guardaron puntos ni insignias."
+          }
+        }
+      }
+    },
     "Time for your metals and nitrate test (every 2 years)." : {
       "localizations" : {
         "es" : {
@@ -4955,6 +5835,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Es momento de reemplazar esto. Márquelo como reemplazado en ClearWell NC para reiniciar el recordatorio."
+          }
+        }
+      }
+    },
+    "Time to test your water" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Es hora de analizar su agua"
           }
         }
       }
@@ -5010,6 +5900,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Los triángulos marcan los resultados por encima del límite. Las líneas discontinuas muestran los límites."
+          }
+        }
+      }
+    },
+    "Try a sample report" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Probar un informe de ejemplo"
           }
         }
       }
@@ -5099,6 +5999,16 @@
     },
     "Unsafe" : {
 
+    },
+    "Up next" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Sigue"
+          }
+        }
+      }
     },
     "Upper" : {
 
@@ -5332,6 +6242,16 @@
         }
       }
     },
+    "We won't guess a score for tests you haven't done." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "No adivinamos un puntaje para análisis que no ha hecho."
+          }
+        }
+      }
+    },
     "We won't guess a score for tests you haven't done. Missing tests are not counted as safe." : {
 
     },
@@ -5384,6 +6304,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Cuidado del pozo"
+          }
+        }
+      }
+    },
+    "Well Care" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Cuidado del Agua"
           }
         }
       }
@@ -5491,6 +6421,16 @@
         }
       }
     },
+    "What to do now" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Qué hacer ahora"
+          }
+        }
+      }
+    },
     "What to test for and how often" : {
       "localizations" : {
         "es" : {
@@ -5504,8 +6444,28 @@
     "What treats hard water?" : {
 
     },
+    "What we found" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Lo que encontramos"
+          }
+        }
+      }
+    },
     "What's in well water, where it comes from, who is most at risk, and how to fix it." : {
 
+    },
+    "What's pulling it down" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Qué lo baja"
+          }
+        }
+      }
     },
     "What's pulling your score down" : {
 
@@ -5581,6 +6541,16 @@
     "Which is a common source of nitrate?" : {
 
     },
+    "Which range do you think your score is in?" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "¿En qué rango cree que está su puntaje?"
+          }
+        }
+      }
+    },
     "Which treatment is common for iron?" : {
 
     },
@@ -5628,6 +6598,16 @@
         }
       }
     },
+    "Winter" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "invierno"
+          }
+        }
+      }
+    },
     "With your metals panel every 2 years, or sooner if a neighbor's well tested high." : {
 
     },
@@ -5647,6 +6627,26 @@
     },
     "Works at low levels" : {
 
+    },
+    "year in a row" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "año seguido"
+          }
+        }
+      }
+    },
+    "years in a row" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "años seguidos"
+          }
+        }
+      }
     },
     "Yes" : {
       "localizations" : {
@@ -5680,12 +6680,32 @@
         }
       }
     },
+    "You can now read %lld of %lld results on your report." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ahora puede leer %1$lld de %2$lld resultados de su informe."
+          }
+        }
+      }
+    },
     "You got %lld of %lld right." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You got %1$lld of %2$lld right."
+          }
+        }
+      }
+    },
+    "You guessed it! +%lld points" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "¡Adivinó! +%lld puntos"
           }
         }
       }
@@ -5705,6 +6725,16 @@
     },
     "You probably won't notice scale at this level." : {
 
+    },
+    "You're all set. Test again by %@." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Todo está bien. Vuelva a analizar antes del %@."
+          }
+        }
+      }
     },
     "You're probably on public water" : {
       "localizations" : {
@@ -5862,8 +6892,28 @@
     "Your answer" : {
 
     },
+    "Your answer, correct" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Su respuesta, correcta"
+          }
+        }
+      }
+    },
     "Your answer, incorrect" : {
 
+    },
+    "Your answer, not correct" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Su respuesta, incorrecta"
+          }
+        }
+      }
     },
     "Your area: %@" : {
       "localizations" : {
@@ -5941,8 +6991,28 @@
         }
       }
     },
+    "Your next step" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Su próximo paso"
+          }
+        }
+      }
+    },
     "Your pipes are rusty" : {
 
+    },
+    "Your reading:" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Su resultado:"
+          }
+        }
+      }
     },
     "Your result" : {
 
@@ -5993,6 +7063,36 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Su proveedor de agua analiza su agua"
+          }
+        }
+      }
+    },
+    "Your Water's Score" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Puntaje de su agua"
+          }
+        }
+      }
+    },
+    "Your Well's Score" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Puntaje de su pozo"
+          }
+        }
+      }
+    },
+    "Your Well Care streak counts years in a row with at least one water test. Opening the app doesn't count. Testing does." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Su racha de Cuidado del Agua cuenta los años seguidos con al menos un análisis de agua. Abrir la app no cuenta. Analizar sí."
           }
         }
       }

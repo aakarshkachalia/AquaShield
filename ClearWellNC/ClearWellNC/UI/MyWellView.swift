@@ -20,6 +20,7 @@ struct MyWellView: View {
     @State private var addingResult = false
     @State private var editingResult: LabResult?
     @State private var confirmingRemove = false
+    @State private var questSession: QuestSession?
 
     var body: some View {
         NavigationStack {
@@ -59,6 +60,14 @@ struct MyWellView: View {
                     wellRecordHeader
                     if let latest = results.first {
                         LatestResultCard(result: latest)
+                        Button {
+                            questSession = QuestSession(report: QuestReport(result: latest))
+                        } label: {
+                            NavigationCardLabel(title: Text("Report Quest"),
+                                                subtitle: Text("Learn to read this report in about 3 minutes."),
+                                                systemImage: "map.fill")
+                        }
+                        .buttonStyle(.plain)
                         ForEach(chartedAnalytes) { analyte in
                             TrendChart(analyte: analyte, results: results)
                         }
@@ -95,6 +104,11 @@ struct MyWellView: View {
                 Button("Remove saved location", role: .destructive, action: removeSavedWell)
             } message: {
                 Text("Your lab results are kept.")
+            }
+            .fullScreenCover(item: $questSession) { session in
+                ReportQuestView(report: session.report,
+                                context: WellCareContext.make(results: results, county: savedCounty,
+                                                              trends: CountyTrendData.loadBundled()))
             }
             .sheet(isPresented: $addingResult) { LabResultForm() }
             .sheet(item: $editingResult) { LabResultForm(existing: $0) }

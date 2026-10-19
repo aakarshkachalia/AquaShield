@@ -193,8 +193,7 @@ nonisolated enum SeasonalInsight {
         let name = info.name
         var sentences: [String] = []
 
-        let strong = result.meanLevel > 0 && result.amplitude / result.meanLevel >= minimumRelativeAmplitude
-        if strong {
+        if hasStrongPattern(result) {
             let range = peakRange(result)
             sentences.append(String(localized: "\(name) in \(county) County wells usually peaks in \(range)."))
             if let context = info.seasonalContext { sentences.append(context) }
@@ -218,18 +217,29 @@ nonisolated enum SeasonalInsight {
         return Insight(text: sentences.joined(separator: " "), limitRiskMonths: riskMonths, limitText: limitText)
     }
 
-    /// "April–May" when a neighboring month is nearly as high as the peak, else "April".
-    static func peakRange(_ result: SeasonalForecast.Result) -> String {
+    /// True when the seasonal swing is big enough to call a pattern.
+    static func hasStrongPattern(_ result: SeasonalForecast.Result) -> Bool {
+        result.meanLevel > 0 && result.amplitude / result.meanLevel >= minimumRelativeAmplitude
+    }
+
+    /// The high season, in calendar order: the peak month, plus a neighbor when it is nearly as high.
+    /// Months are 1–12.
+    static func peakMonths(_ result: SeasonalForecast.Result) -> [Int] {
         let peak = result.peakMonth - 1
         let prev = (peak + 11) % 12
         let next = (peak + 1) % 12
         let threshold = result.seasonal[peak] - 0.25 * result.amplitude
-        let symbols = Calendar.current.monthSymbols
         let neighbor = [prev, next]
             .filter { result.seasonal[$0] >= threshold }
             .max { result.seasonal[$0] < result.seasonal[$1] }
-        guard let neighbor else { return symbols[peak] }
-        return neighbor == prev ? "\(symbols[prev])–\(symbols[peak])" : "\(symbols[peak])–\(symbols[next])"
+        guard let neighbor else { return [peak + 1] }
+        return neighbor == prev ? [prev + 1, peak + 1] : [peak + 1, next + 1]
+    }
+
+    /// "April–May" when a neighboring month is nearly as high as the peak, else "April".
+    static func peakRange(_ result: SeasonalForecast.Result) -> String {
+        let symbols = Calendar.current.monthSymbols
+        return peakMonths(result).map { symbols[$0 - 1] }.joined(separator: "–")
     }
 
     /// One-sentence summary for VoiceOver.

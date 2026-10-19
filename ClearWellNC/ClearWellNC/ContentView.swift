@@ -69,5 +69,6 @@ struct MainTabView: View {
     ContentView()
         .environment(TractStore())
         .environment(WeatherAlertsStore())
+        .environment(WellCareStore())
         .modelContainer(for: [SavedWell.self, LabResult.self, TreatmentSystem.self], inMemory: true)
 }
