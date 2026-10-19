@@ -391,4 +391,6 @@ nonisolated enum WellResources {
     static let epaLead = URL(string: "https://www.epa.gov/ground-water-and-drinking-water/basic-information-about-lead-drinking-water")!
     static let epaRadon = URL(string: "https://www.epa.gov/radon")!
     static let cdcPrivateWells = URL(string: "https://www.cdc.gov/drinking-water/about/about-private-wells.html")!
+    static let epaConsumerConfidenceReports = URL(string: "https://www.epa.gov/ccr")!
+    static let nsfCertifiedFilters = URL(string: "https://info.nsf.org/Certified/DWTU/")!
 }

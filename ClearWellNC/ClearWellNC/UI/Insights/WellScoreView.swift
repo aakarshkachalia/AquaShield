@@ -20,6 +20,7 @@ extension WellHealthScore.Band {
 /// Compact score card for the top of My Well; links to the full score screen.
 struct WellScoreCard: View {
     let result: WellHealthScore.Result
+    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
 
     var body: some View {
         NavigationLink {
@@ -28,7 +29,7 @@ struct WellScoreCard: View {
             HStack(alignment: .center, spacing: Spacing.l) {
                 ScoreNumber(result: result, size: .compact)
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Well Health Score")
+                    Text(waterSource.scoreTitle)
                         .font(.headline)
                     if let band = result.band {
                         StatusChip(tier: band.tier, label: band.label)
@@ -121,6 +122,7 @@ struct ScoreNumber: View {
 /// Full score screen: number, band, top 3 factors with actions, missing tests, disclaimer.
 struct WellScoreView: View {
     @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
+    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
 
     var body: some View {
         let result = WellHealthScore.compute(results.latestScoreInput)
@@ -147,7 +149,7 @@ struct WellScoreView: View {
             .readableWidth()
         }
         .background(Color.appBackground)
-        .navigationTitle("Well Health Score")
+        .navigationTitle(waterSource.scoreTitle)
         .navigationBarTitleDisplayMode(.inline)
     }
 

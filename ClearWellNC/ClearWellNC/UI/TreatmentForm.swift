@@ -13,10 +13,11 @@ struct TreatmentForm: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
 
-    @State private var kind: TreatmentKind = .sedimentFilter
+    @State private var kind: TreatmentKind = WaterSource.current.isWell ? .sedimentFilter : .pitcherFilter
     @State private var customName = ""
+    @State private var productName = ""
     @State private var lastServiced = Date.now
-    @State private var intervalMonths = TreatmentKind.sedimentFilter.defaultIntervalMonths
+    @State private var intervalMonths = (WaterSource.current.isWell ? TreatmentKind.sedimentFilter : .pitcherFilter).defaultIntervalMonths
     @State private var intervalEdited = false
     @State private var confirmingDelete = false
     @State private var loaded = false
@@ -38,6 +39,14 @@ struct TreatmentForm: View {
                     if kind == .other {
                         TextField("Name, for example \"Iron filter\"", text: $customName)
                     }
+                    TextField("Brand and model (optional)", text: $productName)
+                        .textInputAutocapitalization(.words)
+                        .frame(minHeight: 44)
+                } footer: {
+                    VStack(alignment: .leading, spacing: Spacing.s) {
+                        Text(kind.certificationNote)
+                        Link("Look up certified filters (NSF)", destination: WellResources.nsfCertifiedFilters)
+                    }
                 }
 
                 Section {
@@ -49,7 +58,7 @@ struct TreatmentForm: View {
                     .frame(minHeight: 44)
                 } footer: {
                     if existing == nil {
-                        Text("After you add a treatment system, retest your water to confirm it works.")
+                        Text("After you add a filter or treatment system, retest your water to confirm it works.")
                     }
                 }
 
@@ -60,7 +69,7 @@ struct TreatmentForm: View {
                     }
                 }
             }
-            .navigationTitle(existing == nil ? "Add treatment system" : "Edit treatment system")
+            .navigationTitle(existing == nil ? "Add filter or treatment" : "Edit filter or treatment")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -90,6 +99,7 @@ struct TreatmentForm: View {
         guard let existing else { return }
         kind = existing.kind
         customName = existing.customName
+        productName = existing.productName
         lastServiced = existing.lastServiced
         intervalMonths = existing.intervalMonths
         intervalEdited = true
@@ -99,11 +109,13 @@ struct TreatmentForm: View {
         if let existing {
             existing.kind = kind
             existing.customName = kind == .other ? customName : ""
+            existing.productName = productName
             existing.lastServiced = lastServiced
             existing.intervalMonths = intervalMonths
         } else {
             modelContext.insert(TreatmentSystem(kind: kind,
                                                 customName: kind == .other ? customName : "",
+                                                productName: productName,
                                                 lastServiced: lastServiced,
                                                 intervalMonths: intervalMonths))
         }

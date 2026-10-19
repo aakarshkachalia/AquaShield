@@ -13,6 +13,14 @@ struct LearnView: View {
                     Text("What's in well water, where it comes from, who is most at risk, and how to fix it.")
                         .foregroundStyle(.secondary)
                         .padding(.bottom, Spacing.xs)
+                    NavigationLink {
+                        HowItWorksView()
+                    } label: {
+                        NavigationCardLabel(title: Text("How It Works"),
+                                            subtitle: Text("Where the data comes from and how the estimates are made."),
+                                            systemImage: "info.circle.fill")
+                    }
+                    .buttonStyle(.plain)
                     ForEach(LearnLibrary.articles) { article in
                         NavigationLink {
                             LearnArticleView(article: article)

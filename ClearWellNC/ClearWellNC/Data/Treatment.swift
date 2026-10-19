@@ -7,6 +7,12 @@ import Foundation
 import SwiftData
 
 nonisolated enum TreatmentKind: String, CaseIterable, Codable, Sendable, Identifiable {
+    // Everyday filters, for any water source.
+    case pitcherFilter
+    case faucetFilter
+    case refrigeratorFilter
+    case underSinkFilter
+    // Whole-house and well treatment.
     case sedimentFilter
     case carbonFilter
     case roMembrane
@@ -18,6 +24,10 @@ nonisolated enum TreatmentKind: String, CaseIterable, Codable, Sendable, Identif
 
     var name: String {
         switch self {
+        case .pitcherFilter: String(localized: "Pitcher filter")
+        case .faucetFilter: String(localized: "Faucet-mount filter")
+        case .refrigeratorFilter: String(localized: "Refrigerator filter")
+        case .underSinkFilter: String(localized: "Under-sink filter")
         case .sedimentFilter: String(localized: "Sediment filter")
         case .carbonFilter: String(localized: "Carbon filter")
         case .roMembrane: String(localized: "Reverse osmosis membrane")
@@ -30,6 +40,10 @@ nonisolated enum TreatmentKind: String, CaseIterable, Codable, Sendable, Identif
     /// Spec defaults. "Other" has no spec default; 12 months is a starting point the user can change.
     var defaultIntervalMonths: Int {
         switch self {
+        case .pitcherFilter: 2
+        case .faucetFilter: 3
+        case .refrigeratorFilter: 6
+        case .underSinkFilter: 6
         case .sedimentFilter: 3
         case .carbonFilter: 6
         case .roMembrane: 24
@@ -42,8 +56,30 @@ nonisolated enum TreatmentKind: String, CaseIterable, Codable, Sendable, Identif
     /// Softener salt is checked and topped up rather than replaced.
     var isCheck: Bool { self == .softenerSalt }
 
+    /// What to look for when buying a replacement. Certification is what shows a filter removes a contaminant.
+    var certificationNote: String {
+        switch self {
+        case .pitcherFilter, .faucetFilter, .refrigeratorFilter, .underSinkFilter, .carbonFilter:
+            String(localized: "For lead, look for NSF/ANSI 53 certification. NSF/ANSI 42 only covers taste and odor. Some filters are also certified for PFAS.")
+        case .roMembrane:
+            String(localized: "Look for NSF/ANSI 58 certification. Reverse osmosis removes arsenic, nitrate, lead and most PFAS.")
+        case .uvBulb:
+            String(localized: "Look for NSF/ANSI 55 Class A. UV kills bacteria but does not remove chemicals or metals.")
+        case .sedimentFilter:
+            String(localized: "Sediment filters catch sand and rust. They don't remove dissolved contaminants like arsenic or nitrate.")
+        case .softenerSalt:
+            String(localized: "Softeners remove hardness. Look for NSF/ANSI 44 certification.")
+        case .other:
+            String(localized: "Check that the product is certified for the contaminant you need to remove.")
+        }
+    }
+
     var symbol: String {
         switch self {
+        case .pitcherFilter: "waterbottle"
+        case .faucetFilter: "spigot"
+        case .refrigeratorFilter: "refrigerator"
+        case .underSinkFilter: "sink"
         case .sedimentFilter, .carbonFilter: "line.3.horizontal.decrease.circle"
         case .roMembrane: "drop.triangle"
         case .uvBulb: "lightbulb"
@@ -64,11 +100,14 @@ final class TreatmentSystem {
     var intervalMonths: Int
     /// When the user logged the system, used for the "retest to confirm it works" reminder.
     var addedAt: Date
+    /// Optional brand and model, e.g. "Brita Elite". Defaulted so existing stores migrate.
+    var productName: String = ""
 
-    init(kind: TreatmentKind, customName: String = "", lastServiced: Date, intervalMonths: Int) {
+    init(kind: TreatmentKind, customName: String = "", productName: String = "", lastServiced: Date, intervalMonths: Int) {
         self.reminderID = UUID()
         self.kindRaw = kind.rawValue
         self.customName = customName
+        self.productName = productName
         self.lastServiced = lastServiced
         self.intervalMonths = intervalMonths
         self.addedAt = .now
@@ -86,6 +125,11 @@ final class TreatmentSystem {
 
     var dueDate: Date {
         Calendar.current.date(byAdding: .month, value: intervalMonths, to: lastServiced) ?? lastServiced
+    }
+
+    var trimmedProductName: String? {
+        let trimmed = productName.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? nil : trimmed
     }
 }
 

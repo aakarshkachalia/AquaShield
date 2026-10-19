@@ -9,6 +9,7 @@ import SwiftUI
 struct WeatherAlertsCard: View {
     let store: WeatherAlertsStore
     let onRetry: () -> Void
+    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
 
     var body: some View {
         let relevant = store.relevantAlerts
@@ -31,9 +32,11 @@ struct WeatherAlertsCard: View {
                 ProgressView("Checking the National Weather Service…")
             case .loaded(_, let checkedAt):
                 Label {
-                    Text("No flood, hurricane or tropical storm alerts for your well right now.")
+                    Text(waterSource.showsWellCare
+                         ? String(localized: "No flood, hurricane or tropical storm alerts for your well right now.")
+                         : String(localized: "No flood, hurricane or tropical storm alerts for your home right now."))
                 } icon: {
-                    Image(systemName: "checkmark.circle.fill").foregroundStyle(.tint)
+                    Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.statusSafe)
                 }
                 Text("Checked \(checkedAt.formatted(date: .omitted, time: .shortened))")
                     .font(.footnote)
@@ -58,7 +61,9 @@ struct WeatherAlertsCard: View {
 
     private func alertCard(_ alerts: [WeatherAlert]) -> some View {
         VStack(alignment: .leading, spacing: 14) {
-            Label("Weather alert for your well", systemImage: "cloud.bolt.rain.fill")
+            Label(waterSource.showsWellCare ? String(localized: "Weather alert for your well")
+                                            : String(localized: "Weather alert for your home"),
+                  systemImage: "cloud.bolt.rain.fill")
                 .font(.headline)
                 .accessibilityAddTraits(.isHeader)
 
@@ -74,15 +79,24 @@ struct WeatherAlertsCard: View {
                 .accessibilityElement(children: .combine)
             }
 
-            checklist(title: "Before the storm", items: [
-                "Fill clean containers with drinking water.",
-                "Know where your well cap is.",
-            ])
-            checklist(title: "After the storm", items: [
-                "If your wellhead was underwater, do not drink the water.",
-                "Disinfect your well.",
-                "Test for bacteria before using it again.",
-            ])
+            if waterSource.showsWellCare {
+                checklist(title: "Before the storm", items: [
+                    "Fill clean containers with drinking water.",
+                    "Know where your well cap is.",
+                ])
+                checklist(title: "After the storm", items: [
+                    "If your wellhead was underwater, do not drink the water.",
+                    "Disinfect your well.",
+                    "Test for bacteria before using it again.",
+                ])
+            } else {
+                checklist(title: "Before the storm", items: [
+                    "Fill clean containers with drinking water.",
+                ])
+                checklist(title: "After the storm", items: [
+                    "Follow any boil-water notice from your water utility.",
+                ])
+            }
 
             Text("Alerts from the National Weather Service.")
                 .font(.footnote)

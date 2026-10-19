@@ -15,6 +15,7 @@ struct MyWellView: View {
     @Query(sort: \SavedWell.savedAt, order: .reverse) private var savedWells: [SavedWell]
     @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
     @Query(sort: \TreatmentSystem.addedAt) private var systems: [TreatmentSystem]
+    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
 
     @State private var addingResult = false
     @State private var editingResult: LabResult?
@@ -37,6 +38,9 @@ struct MyWellView: View {
                     }
                     if !systemsNeedingRetest.isEmpty {
                         RetestReminderCard(systems: systemsNeedingRetest)
+                    }
+                    if !waterSource.showsWellCare {
+                        CityWaterCard()
                     }
 
                     // What the numbers add up to, and when levels tend to change.
@@ -73,7 +77,7 @@ struct MyWellView: View {
             }
             .background(Color.appBackground)
             .refreshable { await refreshAlerts() }
-            .navigationTitle("My Well")
+            .navigationTitle(waterSource.homeTitle)
             .toolbar {
                 if savedWells.first != nil {
                     ToolbarItem(placement: .topBarTrailing) {
@@ -171,7 +175,7 @@ struct MyWellView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("No location saved")
                         .font(.headline)
-                    Text("Check your area, then tap Save as My Well on the report. Your lab results below are kept either way.")
+                    Text("Check your area, then tap Save on the report. Your lab results below are kept either way.")
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                 }
@@ -197,7 +201,7 @@ struct MyWellView: View {
     }
 
     private var recordTitle: some View {
-        Text("Well Record")
+        Text(waterSource.recordTitle)
             .font(.title3.bold())
             .accessibilityAddTraits(.isHeader)
     }
@@ -268,11 +272,7 @@ struct MyWellView: View {
     }
 
     private func summary(for result: LabResult) -> String {
-        var aboveCount = Analyte.allCases.filter { a in
-            result.value(for: a).map { a.evaluate($0).kind == .above } ?? false
-        }.count
-        if result.totalColiform == .present { aboveCount += 1 }
-        if result.eColi == .present { aboveCount += 1 }
+        let aboveCount = result.aboveLimitCount
         let lab = result.labName.isEmpty ? nil : result.labName
         let status = aboveCount == 0
             ? String(localized: "No health limits exceeded")

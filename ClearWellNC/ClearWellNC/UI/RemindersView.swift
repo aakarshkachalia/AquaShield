@@ -13,6 +13,7 @@ struct RemindersView: View {
     @Environment(\.scenePhase) private var scenePhase
     @Query(sort: \TreatmentSystem.lastServiced) private var systems: [TreatmentSystem]
     @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
+    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
 
     @State private var addingSystem = false
     @State private var editingSystem: TreatmentSystem?
@@ -26,16 +27,21 @@ struct RemindersView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     notificationCard
 
-                    sectionHeader("Treatment systems", action: { addingSystem = true },
-                                  actionLabel: "Add system")
+                    sectionHeader("Filters & treatment", action: { addingSystem = true },
+                                  actionLabel: "Add filter")
                     if systems.isEmpty {
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text("No treatment systems yet")
-                                .font(.headline)
-                            Text("Add filters, membranes, UV bulbs or softener salt to get a reminder when they're due.")
-                                .foregroundStyle(.secondary)
+                        HStack(alignment: .top, spacing: Spacing.m) {
+                            IconTile(systemImage: "line.3.horizontal.decrease.circle")
+                            VStack(alignment: .leading, spacing: 6) {
+                                Text("No filters yet")
+                                    .font(.headline)
+                                Text("Add a pitcher, faucet, fridge or under-sink filter, or well treatment like UV or a softener, to get a reminder when it's due.")
+                                    .foregroundStyle(.secondary)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
                         }
                         .card()
+                        .accessibilityElement(children: .combine)
                     } else {
                         ForEach(systems) { system in
                             TreatmentRow(system: system,
@@ -44,15 +50,17 @@ struct RemindersView: View {
                         }
                     }
 
-                    Text("Well care")
-                        .font(.title2.bold())
-                        .accessibilityAddTraits(.isHeader)
-                        .padding(.top, 8)
-                    ForEach(WellCareTask.allCases) { task in
-                        CareRow(task: task, results: results, revision: careRevision) {
-                            task.markDone()
-                            careRevision += 1
-                            refresh()
+                    if waterSource.showsWellCare {
+                        Text("Well care")
+                            .font(.title2.bold())
+                            .accessibilityAddTraits(.isHeader)
+                            .padding(.top, 8)
+                        ForEach(WellCareTask.allCases) { task in
+                            CareRow(task: task, results: results, revision: careRevision) {
+                                task.markDone()
+                                careRevision += 1
+                                refresh()
+                            }
                         }
                     }
                 }
@@ -85,7 +93,9 @@ struct RemindersView: View {
             VStack(alignment: .leading, spacing: 10) {
                 Label("Get reminders on time", systemImage: "bell.badge")
                     .font(.headline)
-                Text("ClearWell NC can send a notification when a filter is due or it's time to test your well.")
+                Text(waterSource.showsWellCare
+                     ? String(localized: "ClearWell NC can send a notification when a filter is due or it's time to test your well.")
+                     : String(localized: "ClearWell NC can send a notification when a filter is due."))
                 Button {
                     Task {
                         await NotificationScheduler.requestAuthorization()
@@ -159,6 +169,10 @@ struct TreatmentRow: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(system.displayName)
                             .font(.headline)
+                        if let product = system.trimmedProductName {
+                            Text(product)
+                                .font(.subheadline)
+                        }
                         Text(detail)
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
@@ -173,7 +187,7 @@ struct TreatmentRow: View {
             }
             .buttonStyle(.plain)
             .accessibilityElement(children: .combine)
-            .accessibilityHint(Text("Edit or delete this system"))
+            .accessibilityHint(Text("Edit or delete this filter"))
 
             Button(action: onServiced) {
                 Label(system.kind.isCheck ? "Mark checked today" : "Mark replaced today",
@@ -198,7 +212,7 @@ struct TreatmentRow: View {
                 .font(.subheadline.weight(.semibold))
         } icon: {
             Image(systemName: days < 0 ? "exclamationmark.triangle.fill" : (days <= 7 ? "clock.badge.exclamationmark" : "clock"))
-                .foregroundStyle(days < 0 ? RiskLevel.high.color : Color.accentColor)
+                .foregroundStyle(days < 0 ? Color.statusAbove : Color.accentColor)
         }
     }
 }
@@ -236,7 +250,7 @@ struct CareRow: View {
                             .font(.subheadline.weight(.semibold))
                     } icon: {
                         Image(systemName: (last == nil || days < 0) ? "exclamationmark.triangle.fill" : "clock")
-                            .foregroundStyle((last == nil || days < 0) ? RiskLevel.high.color : Color.accentColor)
+                            .foregroundStyle((last == nil || days < 0) ? Color.statusAbove : Color.accentColor)
                     }
                 }
             }

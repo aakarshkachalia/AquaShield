@@ -69,10 +69,12 @@ enum ReminderSync {
     static func refresh(using context: ModelContext) async {
         let systems = (try? context.fetch(FetchDescriptor<TreatmentSystem>())) ?? []
         let results = (try? context.fetch(FetchDescriptor<LabResult>())) ?? []
-        await NotificationScheduler.reschedule(plan(systems: systems, results: results))
+        await NotificationScheduler.reschedule(plan(systems: systems, results: results,
+                                                    includeWellCare: WaterSource.current.showsWellCare))
     }
 
-    static func plan(systems: [TreatmentSystem], results: [LabResult], now: Date = .now) -> [PlannedReminder] {
+    static func plan(systems: [TreatmentSystem], results: [LabResult], includeWellCare: Bool = true,
+                     now: Date = .now) -> [PlannedReminder] {
         var reminders = systems.map { system in
             PlannedReminder(
                 id: "treatment.\(system.reminderID.uuidString)",
@@ -82,7 +84,7 @@ enum ReminderSync {
                     : String(localized: "Time to replace this. Mark it replaced in ClearWell NC to reset the reminder."),
                 fireDate: ReminderPlanner.fireDate(due: system.dueDate, now: now))
         }
-        for task in WellCareTask.allCases {
+        for task in WellCareTask.allCases where includeWellCare {
             reminders.append(PlannedReminder(
                 id: "care.\(task.rawValue)",
                 title: task.title,

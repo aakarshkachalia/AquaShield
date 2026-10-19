@@ -11,33 +11,32 @@ struct HowItWorksView: View {
     @Environment(TractStore.self) private var store
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    explainers
-                    if let meta = store.database?.meta {
-                        accuracySection(meta)
-                    } else {
-                        ProgressView("Loading well data…")
-                            .frame(maxWidth: .infinity)
-                            .card()
-                    }
-                    figures
-                    auditNote
-                    if let meta = store.database?.meta {
-                        Text("Data: \(meta.dataSource). Tract estimates generated \(meta.generated).")
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                    }
-                    Text(RiskReport.disclaimer)
-                        .font(.footnote.weight(.semibold))
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                explainers
+                if let meta = store.database?.meta {
+                    accuracySection(meta)
+                } else {
+                    ProgressView("Loading well data…")
+                        .frame(maxWidth: .infinity)
+                        .card()
                 }
-                .padding()
-                .readableWidth()
+                figures
+                auditNote
+                if let meta = store.database?.meta {
+                    Text("Data: \(meta.dataSource). Tract estimates generated \(meta.generated).")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
+                Text(RiskReport.disclaimer)
+                    .font(.footnote.weight(.semibold))
             }
-            .background(Color.appBackground)
-            .navigationTitle("How It Works")
+            .padding()
+            .readableWidth()
         }
+        .background(Color.appBackground)
+        .navigationTitle("How It Works")
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     // MARK: Explainer cards

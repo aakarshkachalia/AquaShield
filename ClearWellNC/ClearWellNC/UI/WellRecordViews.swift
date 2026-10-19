@@ -120,6 +120,8 @@ struct TrendChart: View {
 }
 
 struct EColiUrgentCard: View {
+    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
+
     var body: some View {
         UrgentBanner {
             VStack(alignment: .leading, spacing: 10) {
@@ -127,10 +129,17 @@ struct EColiUrgentCard: View {
                     .font(.headline)
                     .accessibilityAddTraits(.isHeader)
                 VStack(alignment: .leading, spacing: 6) {
-                    bullet("Do not drink your well water.")
-                    bullet("Use bottled water instead.")
-                    bullet("Call your county health department.")
-                    bullet("Shock-chlorinate your well, then retest.")
+                    if waterSource.showsWellCare {
+                        bullet("Do not drink your well water.")
+                        bullet("Use bottled water instead.")
+                        bullet("Call your county health department.")
+                        bullet("Shock-chlorinate your well, then retest.")
+                    } else {
+                        bullet("Do not drink your tap water.")
+                        bullet("Use bottled water instead.")
+                        bullet("Call your water utility and your county health department.")
+                        bullet("Retest after the problem is fixed.")
+                    }
                 }
             }
         }

@@ -11,6 +11,7 @@ struct ReportView: View {
     let meta: Meta
 
     @AppStorage(StorageKey.infantInHome) private var infantInHome = false
+    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
     @Environment(\.modelContext) private var modelContext
     @Query private var savedWells: [SavedWell]
 
@@ -29,6 +30,9 @@ struct ReportView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 header(report)
+                if !waterSource.showsWellCare {
+                    cityWaterNote
+                }
                 disclaimer
                 if infantInHome, let nitrate = report.risk(for: .nitrate), nitrate.level.isTypicalOrHigher {
                     InfantNitrateNote()
@@ -77,17 +81,28 @@ struct ReportView: View {
         .accessibilityElement(children: .combine)
     }
 
+    private var cityWaterNote: some View {
+        Label {
+            Text("These estimates come from private well tests. If your home uses city or county water, they don't describe your tap water. Your utility's yearly water quality report does.")
+        } icon: {
+            Image(systemName: "building.2.fill").foregroundStyle(Color.statusWatch)
+        }
+        .font(.callout.weight(.medium))
+        .card()
+        .accessibilityElement(children: .combine)
+    }
+
     private var saveSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Button(action: save) {
-                Label(isSaved ? "Saved as My Well" : "Save as My Well",
+                Label(isSaved ? waterSource.savedLocationTitle : waterSource.saveLocationTitle,
                       systemImage: isSaved ? "checkmark.circle.fill" : "house.fill")
                     .font(.headline)
                     .frame(maxWidth: .infinity, minHeight: 44)
             }
             .buttonStyle(.borderedProminent)
             .disabled(isSaved)
-            Text("Saving keeps this location on this device only. Saving again replaces your current My Well.")
+            Text("Saving keeps this location on this device only. Saving again replaces your saved home.")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
         }

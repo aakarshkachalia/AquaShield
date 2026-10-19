@@ -93,7 +93,7 @@ struct CheckAreaView: View {
             }
             .buttonStyle(.bordered)
 
-            Text("Your address or location is only used to find your census tract. It is not saved unless you choose Save as My Well.")
+            Text("Your address or location is only used to find your census tract. It is not saved unless you choose to save it.")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
         }

@@ -24,6 +24,8 @@ struct MainTabView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(WeatherAlertsStore.self) private var alertsStore
     @Query(sort: \SavedWell.savedAt, order: .reverse) private var savedWells: [SavedWell]
+    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
+    @State private var selectedTab: AppTab = .home
 
     /// Changes whenever the saved location does, so alerts are re-checked.
     private var wellKey: String? {
@@ -31,18 +33,24 @@ struct MainTabView: View {
     }
 
     var body: some View {
-        TabView {
+        // Five tabs, so nothing hides behind "More". How It Works lives inside Learn.
+        TabView(selection: $selectedTab) {
+            HomeView(selectedTab: $selectedTab)
+                .tabItem { Label("Home", systemImage: "house.fill") }
+                .tag(AppTab.home)
+                .badge(alertsStore.relevantAlerts.count)
             CheckAreaView()
                 .tabItem { Label("Check My Area", systemImage: "magnifyingglass") }
+                .tag(AppTab.checkArea)
             MyWellView()
-                .tabItem { Label("My Well", systemImage: "drop.fill") }
-                .badge(alertsStore.relevantAlerts.count)
+                .tabItem { Label(waterSource.homeTitle, systemImage: waterSource.tabSymbol) }
+                .tag(AppTab.myWater)
             LearnView()
                 .tabItem { Label("Learn", systemImage: "book.fill") }
+                .tag(AppTab.learn)
             RemindersView()
                 .tabItem { Label("Reminders", systemImage: "bell.fill") }
-            HowItWorksView()
-                .tabItem { Label("How It Works", systemImage: "info.circle.fill") }
+                .tag(AppTab.reminders)
         }
         // Keep scheduled notifications in step with stored data on every launch.
         .task { await ReminderSync.refresh(using: modelContext) }
