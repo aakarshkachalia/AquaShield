@@ -5,27 +5,40 @@
 //  Created by Aakarsh Kachalia on 10/2/26.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 struct ContentView: View {
     @AppStorage(StorageKey.hasOnboarded) private var hasOnboarded = false
+    @Environment(AppRouter.self) private var router
+    @Environment(AppSettings.self) private var settings
 
     var body: some View {
-        if hasOnboarded {
-            MainTabView()
-        } else {
-            OnboardingView()
+        @Bindable var router = router
+        Group {
+            if hasOnboarded {
+                RootTabView()
+            } else {
+                OnboardingView()
+            }
+        }
+        .demoBanner()
+        // App-wide primary actions, reachable from Home, My Water, onboarding and Help.
+        .sheet(isPresented: $router.showingScanner) {
+            ScanReportSheet().demoBanner()
+        }
+        .fullScreenCover(isPresented: $router.showingRiskCheck) {
+            RiskCheckView().demoBanner()
         }
     }
 }
 
-struct MainTabView: View {
+/// Exactly four tabs, in priority order.
+struct RootTabView: View {
+    @Environment(AppRouter.self) private var router
     @Environment(\.modelContext) private var modelContext
     @Environment(WeatherAlertsStore.self) private var alertsStore
     @Query(sort: \SavedWell.savedAt, order: .reverse) private var savedWells: [SavedWell]
-    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
-    @State private var selectedTab: AppTab = .home
 
     /// Changes whenever the saved location does, so alerts are re-checked.
     private var wellKey: String? {
@@ -33,24 +46,21 @@ struct MainTabView: View {
     }
 
     var body: some View {
-        // Five tabs, so nothing hides behind "More". How It Works lives inside Learn.
-        TabView(selection: $selectedTab) {
-            HomeView(selectedTab: $selectedTab)
-                .tabItem { Label("Home", systemImage: "house.fill") }
-                .tag(AppTab.home)
-                .badge(alertsStore.relevantAlerts.count)
-            CheckAreaView()
-                .tabItem { Label("Check My Area", systemImage: "magnifyingglass") }
-                .tag(AppTab.checkArea)
-            MyWellView()
-                .tabItem { Label(waterSource.homeTitle, systemImage: waterSource.tabSymbol) }
-                .tag(AppTab.myWater)
-            LearnView()
-                .tabItem { Label("Learn", systemImage: "book.fill") }
-                .tag(AppTab.learn)
-            RemindersView()
-                .tabItem { Label("Reminders", systemImage: "bell.fill") }
-                .tag(AppTab.reminders)
+        @Bindable var router = router
+        TabView(selection: $router.selectedTab) {
+            Tab("Home", systemImage: "house.fill", value: AppTab.home) {
+                HomeView()
+            }
+            .badge(alertsStore.relevantAlerts.count)
+            Tab("My Water", systemImage: "drop.fill", value: AppTab.myWater) {
+                MyWaterView()
+            }
+            Tab("Get Help", systemImage: "lifepreserver.fill", value: AppTab.help) {
+                GetHelpView()
+            }
+            Tab("Learn", systemImage: "book.fill", value: AppTab.learn) {
+                LearnView()
+            }
         }
         // Keep scheduled notifications in step with stored data on every launch.
         .task { await ReminderSync.refresh(using: modelContext) }
@@ -65,8 +75,48 @@ struct MainTabView: View {
     }
 }
 
+// MARK: - Demo Mode
+
+/// Holds one in-memory store per persona for the session, so demo data survives tab switches.
+@MainActor
+@Observable
+final class DemoStores {
+    private var containers: [DemoPersona: ModelContainer] = [:]
+
+    func container(for persona: DemoPersona) -> ModelContainer {
+        if let existing = containers[persona] { return existing }
+        let container = persona.makeContainer()
+        containers[persona] = container
+        return container
+    }
+
+    /// Fresh sample data next time the persona is opened.
+    func reset(_ persona: DemoPersona) {
+        containers[persona] = nil
+    }
+}
+
+private struct DemoBannerModifier: ViewModifier {
+    @Environment(AppSettings.self) private var settings
+
+    func body(content: Content) -> some View {
+        content.safeAreaInset(edge: .top, spacing: 0) {
+            if settings.demoEnabled {
+                SampleDataBanner(text: "Sample data · Demo Mode")
+            }
+        }
+    }
+}
+
+extension View {
+    /// "Sample data" banner on every screen while Demo Mode is on.
+    func demoBanner() -> some View { modifier(DemoBannerModifier()) }
+}
+
 #Preview {
     ContentView()
+        .environment(AppRouter())
+        .environment(AppSettings())
         .environment(TractStore())
         .environment(WeatherAlertsStore())
         .environment(WellCareStore())

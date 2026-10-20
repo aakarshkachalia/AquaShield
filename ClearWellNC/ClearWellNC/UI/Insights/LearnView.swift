@@ -3,24 +3,30 @@
 //  ClearWellNC
 //
 
+import SwiftData
 import SwiftUI
 
 struct LearnView: View {
+    @Environment(AppSettings.self) private var settings
+    @Environment(TractStore.self) private var store
+    @Environment(WellCareStore.self) private var wellCare
+    @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
+    @Query(sort: \SavedWell.savedAt, order: .reverse) private var savedWells: [SavedWell]
+
+    private var context: WellCareContext {
+        WellCareContext.make(results: results,
+                             county: settings.effectiveCounty(savedWellCounty: savedWellCounty(savedWells, store: store)),
+                             trends: CountyTrendData.loadBundled())
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: Spacing.m) {
                     Text("What's in well water, where it comes from, who is most at risk, and how to fix it.")
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.textSecondary)
                         .padding(.bottom, Spacing.xs)
-                    NavigationLink {
-                        HowItWorksView()
-                    } label: {
-                        NavigationCardLabel(title: Text("How It Works"),
-                                            subtitle: Text("Where the data comes from and how the estimates are made."),
-                                            systemImage: "info.circle.fill")
-                    }
-                    .buttonStyle(.plain)
+                    SectionHeader(title: "Contaminants")
                     ForEach(LearnLibrary.articles) { article in
                         NavigationLink {
                             LearnArticleView(article: article)
@@ -29,6 +35,20 @@ struct LearnView: View {
                         }
                         .buttonStyle(.plain)
                     }
+
+                    SectionHeader(title: "Badges")
+                    badgeStrip
+                    WellCareSummaryCard(context: context)
+
+                    SectionHeader(title: "About ClearWell")
+                    NavigationLink {
+                        HowItWorksView()
+                    } label: {
+                        NavigationCardLabel(title: Text("How It Works"),
+                                            subtitle: Text("Where the data comes from and how the estimates are made."),
+                                            systemImage: "info.circle.fill")
+                    }
+                    .buttonStyle(.plain)
                     Text(LearnArticle.footer)
                         .font(.caption)
                         .foregroundStyle(.secondary)
@@ -39,6 +59,30 @@ struct LearnView: View {
             }
             .background(Color.appBackground)
             .navigationTitle("Learn")
+        }
+    }
+
+    /// Every badge, earned or not, with icon + text (never color alone).
+    private var badgeStrip: some View {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 140), spacing: Spacing.m, alignment: .top)], spacing: Spacing.m) {
+            ForEach(Badge.allCases) { badge in
+                let earned = wellCare.state.isUnlocked(badge)
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Image(systemName: earned ? badge.symbol : "lock.fill")
+                        .font(.title2)
+                        .foregroundStyle(earned ? Color.brandPrimary : Color.statusUnknown)
+                        .accessibilityHidden(true)
+                    Text(badge.title).font(.headline)
+                    Text(earned ? String(localized: "Earned") : badge.howToEarn)
+                        .font(.caption)
+                        .foregroundStyle(Color.textSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .card()
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(Text("\(badge.title), \(earned ? String(localized: "earned") : String(localized: "not earned yet. \(badge.howToEarn)"))"))
+            }
         }
     }
 }

@@ -74,6 +74,7 @@ nonisolated struct ReferenceLine: Sendable, Identifiable {
 /// Numeric values the Well Record tracks. Limits and wording come from `ContaminantInfo`.
 nonisolated enum Analyte: String, CaseIterable, Sendable, Identifiable {
     case arsenic, lead, nitrate, nitrite, uranium, manganese, iron, copper, fluoride, pH, hardness, radon
+    case pfoa, pfos, genx
 
     var id: String { rawValue }
 
@@ -91,6 +92,9 @@ nonisolated enum Analyte: String, CaseIterable, Sendable, Identifiable {
         case .pH: .pH
         case .hardness: .hardness
         case .radon: .radon
+        case .pfoa: .pfoa
+        case .pfos: .pfos
+        case .genx: .genx
         }
     }
 
@@ -179,6 +183,12 @@ final class LabResult {
     var fluorideMgL: Double?
     var hardnessMgL: Double?
     var radonPCiL: Double?
+    // PFAS, in ppt (ng/L).
+    var pfoaPPT: Double?
+    var pfosPPT: Double?
+    var genxPPT: Double?
+    /// Readings reported as below the lab's detection limit: [Analyte rawValue: detection limit in stored units].
+    var nonDetectsJSON: String?
     var totalColiformRaw: String?
     var eColiRaw: String?
     var createdAt: Date
@@ -203,6 +213,9 @@ final class LabResult {
         case .fluoride: fluorideMgL
         case .hardness: hardnessMgL
         case .radon: radonPCiL
+        case .pfoa: pfoaPPT
+        case .pfos: pfosPPT
+        case .genx: genxPPT
         }
     }
 
@@ -220,6 +233,9 @@ final class LabResult {
         case .fluoride: fluorideMgL = value
         case .hardness: hardnessMgL = value
         case .radon: radonPCiL = value
+        case .pfoa: pfoaPPT = value
+        case .pfos: pfosPPT = value
+        case .genx: genxPPT = value
         }
     }
 

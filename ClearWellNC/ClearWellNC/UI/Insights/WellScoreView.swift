@@ -17,44 +17,6 @@ extension WellHealthScore.Band {
     }
 }
 
-/// Compact score card for the top of My Well; links to the full score screen.
-struct WellScoreCard: View {
-    let result: WellHealthScore.Result
-    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
-
-    var body: some View {
-        NavigationLink {
-            WellScoreView()
-        } label: {
-            HStack(alignment: .center, spacing: Spacing.l) {
-                ScoreNumber(result: result, size: .compact)
-                VStack(alignment: .leading, spacing: Spacing.xs) {
-                    Text(waterSource.scoreTitle)
-                        .font(.headline)
-                    if let band = result.band {
-                        StatusChip(tier: band.tier, label: band.label)
-                    }
-                    if !result.isComplete {
-                        Text(incompleteText(result))
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
-                }
-                Spacer(minLength: 0)
-                Image(systemName: "chevron.right")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.tertiary)
-                    .accessibilityHidden(true)
-            }
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-        .card()
-        .accessibilityElement(children: .combine)
-        .accessibilityHint(Text("Shows what is pulling the score down and what to do"))
-    }
-}
-
 func incompleteText(_ result: WellHealthScore.Result) -> String {
     String(localized: "Incomplete — \(result.keyTestsOnFile) of \(result.keyTestsTotal) key tests on file")
 }

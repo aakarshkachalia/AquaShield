@@ -62,39 +62,6 @@ extension WaterSource {
     var tabSymbol: String { isWell ? "drop.fill" : "spigot.fill" }
 }
 
-/// Inline menu for changing the water source after onboarding.
-struct WaterSourceMenu: View {
-    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
-    @Environment(\.modelContext) private var modelContext
-
-    var body: some View {
-        Menu {
-            Picker("Water source", selection: $waterSource) {
-                ForEach(WaterSource.allCases) { source in
-                    Label(source.settingName, systemImage: source.symbol).tag(source)
-                }
-            }
-        } label: {
-            Label {
-                Text(waterSource.settingName)
-            } icon: {
-                Image(systemName: waterSource.symbol)
-            }
-            .font(.subheadline.weight(.semibold))
-            .padding(.horizontal, Spacing.m)
-            .frame(minHeight: 44)
-            .background(Color.accentColor.opacity(0.10), in: Capsule())
-        }
-        .accessibilityLabel(Text("Water source: \(waterSource.settingName)"))
-        .accessibilityHint(Text("Change where your home's water comes from"))
-        // City water has no well-care reminders; reschedule when the answer changes.
-        .onChange(of: waterSource) { _, _ in
-            let context = modelContext
-            Task { await ReminderSync.refresh(using: context) }
-        }
-    }
-}
-
 /// Shown to city/county water users: what their utility does, and what is still on them (lead).
 struct CityWaterCard: View {
     var body: some View {

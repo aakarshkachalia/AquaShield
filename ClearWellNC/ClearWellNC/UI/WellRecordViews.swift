@@ -7,46 +7,6 @@ import Charts
 import SwiftData
 import SwiftUI
 
-/// The newest lab result, every value compared with its limit.
-struct LatestResultCard: View {
-    let result: LabResult
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.m) {
-            VStack(alignment: .leading, spacing: Spacing.xs) {
-                Text("Latest result")
-                    .font(.headline)
-                    .accessibilityAddTraits(.isHeader)
-                Text(subtitle)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
-            // Every value gets its meaning: chip, % of limit, limit, and a plain-English sentence.
-            ForEach(Analyte.allCases) { analyte in
-                if let value = result.value(for: analyte) {
-                    InterpretationBlock(name: analyte.name, interpretation: analyte.interpret(value))
-                    Divider()
-                }
-            }
-            if let coliform = result.totalColiform {
-                InterpretationBlock(name: ContaminantID.totalColiform.info.name,
-                                    interpretation: .interpret(.totalColiform, present: coliform == .present))
-                Divider()
-            }
-            if let eColi = result.eColi {
-                InterpretationBlock(name: ContaminantID.eColi.info.name,
-                                    interpretation: .interpret(.eColi, present: eColi == .present))
-            }
-        }
-        .card()
-    }
-
-    private var subtitle: String {
-        let date = result.date.formatted(date: .abbreviated, time: .omitted)
-        return result.labName.isEmpty ? date : "\(date) · \(result.labName)"
-    }
-}
-
 /// Trend of one analyte across all lab results, with dashed lines at its limits.
 struct TrendChart: View {
     struct Point: Identifiable {

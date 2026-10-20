@@ -2,149 +2,156 @@
 //  OnboardingView.swift
 //  ClearWellNC
 //
+//  First launch only, skippable: what ClearWell does → pick your county → "Do you have a lab report?"
+//
 
 import SwiftUI
 
-/// UserDefaults keys for small on-device preferences.
-enum StorageKey {
-    static let hasOnboarded = "hasOnboarded"
-    static let waterSource = "waterSource"
-    static let infantInHome = "infantInHome"
-}
-
-enum WaterSource: String, CaseIterable, Identifiable {
-    case privateWell
-    case publicWater
-    case notSure
-
-    var id: String { rawValue }
-
-    var label: LocalizedStringKey {
-        switch self {
-        case .privateWell: "Yes"
-        case .publicWater: "No, city or county water"
-        case .notSure: "Not sure"
-        }
-    }
-}
-
 struct OnboardingView: View {
+    @Environment(AppRouter.self) private var router
+    @Environment(AppSettings.self) private var settings
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @AppStorage(StorageKey.hasOnboarded) private var hasOnboarded = false
-    @AppStorage(StorageKey.waterSource) private var storedSource = ""
-    @AppStorage(StorageKey.infantInHome) private var infantInHome = false
-    @State private var answer: WaterSource?
+    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
+
+    @State private var page = 0
+    @State private var county: String?
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: Spacing.xl) {
-                VStack(alignment: .leading, spacing: Spacing.m) {
-                    Image(systemName: "drop.fill")
-                        .font(.largeTitle)
-                        .foregroundStyle(.tint)
-                        .accessibilityHidden(true)
-                    Text("ClearWell NC")
-                        .font(.largeTitle.bold())
-                        .accessibilityAddTraits(.isHeader)
-                    Text("Understand your area's well-water risk, decide what to test for, and keep track of your results.")
-                        .foregroundStyle(.secondary)
-                }
-
-                VStack(alignment: .leading, spacing: Spacing.m) {
-                    Text("Does your home get water from a private well?")
-                        .font(.title2.weight(.semibold))
-                        .accessibilityAddTraits(.isHeader)
-                    ForEach(WaterSource.allCases) { source in
-                        choiceButton(source)
-                    }
-                }
-
-                if let answer {
-                    explanation(for: answer)
-                    infantToggle
-                    Button {
-                        storedSource = answer.rawValue
-                        hasOnboarded = true
-                    } label: {
-                        Text(answer == .publicWater ? "Explore anyway" : "Continue")
-                            .font(.headline)
-                            .frame(maxWidth: .infinity, minHeight: 44)
-                    }
-                    .buttonStyle(PrimaryButtonStyle())
-                }
+        VStack(spacing: 0) {
+            HStack {
+                Spacer()
+                Button("Skip") { finish() }
+                    .font(.headline)
+                    .frame(minWidth: TapTarget.minimum, minHeight: TapTarget.minimum)
+                    .accessibilityHint(Text("Skips the welcome screens"))
             }
-            .padding(Spacing.xl)
-            .readableWidth()
-            .animation(.default, value: answer)
+            .padding(.horizontal, Spacing.l)
+
+            TabView(selection: $page) {
+                welcome.tag(0)
+                countyPage.tag(1)
+                reportPage.tag(2)
+            }
+            .tabViewStyle(.page(indexDisplayMode: .always))
+            .indexViewStyle(.page(backgroundDisplayMode: .always))
         }
         .background(Color.appBackground)
+        .onAppear { county = settings.county }
     }
 
-    private func choiceButton(_ source: WaterSource) -> some View {
-        let selected = answer == source
-        return Button {
-            answer = source
-        } label: {
-            HStack {
-                Text(source.label)
-                    .font(.body.weight(.medium))
-                    .multilineTextAlignment(.leading)
-                Spacer()
-                Image(systemName: selected ? "checkmark.circle.fill" : "circle")
-                    .foregroundStyle(selected ? AnyShapeStyle(.tint) : AnyShapeStyle(.secondary))
-                    .accessibilityHidden(true)
+    // MARK: Pages
+
+    private var welcome: some View {
+        page {
+            Image(systemName: "drop.fill")
+                .font(.largeTitle)
+                .foregroundStyle(Color.brandPrimary)
+                .accessibilityHidden(true)
+            Text("ClearWell NC")
+                .font(.largeTitle.bold())
+                .accessibilityAddTraits(.isHeader)
+            Text("From \"I've never tested my well\" to \"I know what's in it, what it means, and who will pay to fix it.\"")
+                .font(.title2)
+                .fixedSize(horizontal: false, vertical: true)
+            VStack(alignment: .leading, spacing: Spacing.m) {
+                bullet("checklist", "Find out if and what to test")
+                bullet("doc.viewfinder", "Scan your lab report and understand every number")
+                bullet("dollarsign.circle", "Find programs that test for free or help pay for fixes")
             }
-            .padding(Spacing.l)
-            .frame(minHeight: 44)
-            .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: Radius.card, style: .continuous)
-                    .strokeBorder(selected ? Color.accentColor : Color.primary.opacity(0.1), lineWidth: selected ? 2 : 1)
-            )
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-        .accessibilityAddTraits(selected ? .isSelected : [])
-    }
-
-    @ViewBuilder
-    private func explanation(for answer: WaterSource) -> some View {
-        switch answer {
-        case .privateWell:
-            EmptyView()
-        case .publicWater:
-            infoCard(
-                title: "You're probably on public water",
-                text: "Public water systems publish a yearly Consumer Confidence Report that shows what is in your water. Ask your water provider for a copy. You can still explore well-water risk in North Carolina.")
-        case .notSure:
-            infoCard(
-                title: "How to tell",
-                text: "If you get a water bill, you are probably not on a well. If you have a well pump or pressure tank and no water bill, you probably have a well.")
+            .card()
+        } action: {
+            PrimaryButton(title: "Next") { go(to: 1) }
         }
     }
 
-    private func infoCard(title: LocalizedStringKey, text: LocalizedStringKey) -> some View {
-        VStack(alignment: .leading, spacing: Spacing.s) {
-            Label(title, systemImage: "info.circle.fill")
-                .font(.headline)
-                .foregroundStyle(.tint)
-            Text(text)
+    private var countyPage: some View {
+        page {
+            Text("Which county do you live in?")
+                .font(.largeTitle.bold())
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityAddTraits(.isHeader)
+            Text("Well risks differ across North Carolina's 100 counties. We use this for local facts and help programs. It stays on this device.")
+                .foregroundStyle(Color.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+            Picker("County", selection: $county) {
+                Text("Choose later").tag(String?.none)
+                ForEach(CountyNames.all, id: \.self) { name in
+                    Text(String(localized: "\(name) County")).tag(Optional(name))
+                }
+            }
+            .pickerStyle(.wheel)
+            .frame(maxWidth: .infinity)
+            .card()
+        } action: {
+            PrimaryButton(title: county == nil ? "Skip for now" : "Next") {
+                settings.county = county
+                go(to: 2)
+            }
         }
-        .card()
-        .accessibilityElement(children: .combine)
     }
 
-    private var infantToggle: some View {
-        VStack(alignment: .leading, spacing: Spacing.s) {
-            Toggle("A baby under 6 months lives here", isOn: $infantInHome)
-                .frame(minHeight: 44)
-            Text("Optional. This is stored only on this device and adds a nitrate note to your report.")
-                .font(.caption)
-                .foregroundStyle(.secondary)
+    private var reportPage: some View {
+        page {
+            Image(systemName: "doc.text.magnifyingglass")
+                .font(.largeTitle)
+                .foregroundStyle(Color.brandPrimary)
+                .accessibilityHidden(true)
+            Text("Do you have a lab report?")
+                .font(.largeTitle.bold())
+                .accessibilityAddTraits(.isHeader)
+            Text("If your well has been tested, scan the report and we'll explain each result. If not, a quick Risk Check shows what to test for.")
+                .foregroundStyle(Color.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+        } action: {
+            VStack(spacing: Spacing.m) {
+                PrimaryButton(title: "Yes, scan my report", systemImage: "doc.viewfinder") {
+                    finish()
+                    router.showingScanner = true
+                }
+                SecondaryButton(title: "Not yet, help me decide", systemImage: "checklist") {
+                    finish()
+                    router.showingRiskCheck = true
+                }
+            }
         }
-        .card()
     }
-}
 
-#Preview {
-    OnboardingView()
+    // MARK: Helpers
+
+    private func page<Content: View, Action: View>(@ViewBuilder content: () -> Content,
+                                                    @ViewBuilder action: () -> Action) -> some View {
+        VStack(spacing: Spacing.l) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: Spacing.l) {
+                    content()
+                }
+                .screenContainer()
+            }
+            action()
+                .padding(.horizontal, Spacing.l)
+                .padding(.bottom, Spacing.xxl + Spacing.l)   // clear the page dots
+                .readableWidth()
+        }
+    }
+
+    private func bullet(_ symbol: String, _ text: LocalizedStringKey) -> some View {
+        Label {
+            Text(text).fixedSize(horizontal: false, vertical: true)
+        } icon: {
+            Image(systemName: symbol).foregroundStyle(Color.brandPrimary)
+        }
+        .font(.body)
+    }
+
+    private func go(to next: Int) {
+        if reduceMotion { page = next } else { withAnimation { page = next } }
+    }
+
+    private func finish() {
+        if settings.county == nil { settings.county = county }
+        // ClearWell is built for private wells; city-water users can change this in Settings.
+        if waterSource == .notSure { waterSource = .privateWell }
+        hasOnboarded = true
+    }
 }

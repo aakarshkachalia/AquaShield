@@ -70,7 +70,7 @@ struct LimitMeter: View {
     }
 }
 
-/// Required on every score and forecast screen.
+/// Score / forecast disclaimer: a screen-specific sentence plus the standard DisclaimerFooter text.
 struct TestingDisclaimer: View {
     var kind: Kind = .estimate
 
@@ -79,35 +79,14 @@ struct TestingDisclaimer: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: Spacing.s) {
-            Label {
-                Text(message)
-            } icon: {
-                Image(systemName: "info.circle.fill").foregroundStyle(.tint)
-            }
-            .font(.caption.weight(.medium))
-            Link(destination: WellResources.ncdhhsPrivateWells) {
-                Label("NC DHHS: private well testing", systemImage: "arrow.up.right.square")
-                    .frame(minHeight: 44)
-            }
-            .font(.caption)
-            Link(destination: WellResources.ncCountyHealthDepartments) {
-                Label("Find your county health department", systemImage: "arrow.up.right.square")
-                    .frame(minHeight: 44)
-            }
-            .font(.caption)
-        }
-        .card()
+        DisclaimerFooter(lead: lead)
     }
 
-    private var message: String {
+    private var lead: String {
         switch kind {
-        case .estimate:
-            String(localized: "This is an estimate, not a test result. Only a test from a state-certified lab tells you what is in your water.")
-        case .score:
-            String(localized: "This score summarizes the results you entered. It is not a lab result or medical advice. Only a test from a state-certified lab tells you what is in your water.")
-        case .forecast:
-            String(localized: "Forecasts are predictions from county-wide data, not test results for your well. Only a test from a state-certified lab tells you what is in your water.")
+        case .estimate: String(localized: "This is an estimate, not a test result.")
+        case .score: String(localized: "This score summarizes the results you entered. It is not a lab result.")
+        case .forecast: String(localized: "Forecasts are predictions from county-wide data, not test results for your well.")
         }
     }
 }

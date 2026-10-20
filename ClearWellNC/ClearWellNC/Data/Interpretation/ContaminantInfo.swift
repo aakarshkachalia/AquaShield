@@ -14,6 +14,7 @@ import Foundation
 nonisolated enum ContaminantID: String, CaseIterable, Sendable, Codable, Identifiable {
     case arsenic, lead, nitrate, nitrite, uranium, manganese, iron, copper, fluoride
     case totalColiform, eColi, pH, hardness, radon
+    case pfoa, pfos, genx
 
     var id: String { rawValue }
     var info: ContaminantInfo { ContaminantInfo.info(for: self) }
@@ -25,6 +26,8 @@ nonisolated enum MeasurementUnit: Sendable {
     /// Hardness is reported as mg/L of calcium carbonate.
     case mgLAsCaCO3
     case pCiL
+    /// Parts per trillion (ng/L), for PFAS.
+    case ppt
     /// pH has no unit.
     case pH
     /// Bacteria: present / absent.
@@ -36,6 +39,7 @@ nonisolated enum MeasurementUnit: Sendable {
         case .mgL: String(localized: "mg/L")
         case .mgLAsCaCO3: String(localized: "mg/L as CaCO₃")
         case .pCiL: String(localized: "pCi/L")
+        case .ppt: String(localized: "ppt")
         case .pH, .presence: ""
         }
     }
@@ -45,7 +49,7 @@ nonisolated enum MeasurementUnit: Sendable {
         switch self {
         case .ppb: .ppb
         case .mgL: .mgL
-        case .mgLAsCaCO3, .pCiL, .pH, .presence: nil
+        case .mgLAsCaCO3, .pCiL, .ppt, .pH, .presence: nil
         }
     }
 }
@@ -358,6 +362,9 @@ nonisolated extension ContaminantInfo {
                     ClassBand(upTo: nil, label: String(localized: "Very hard"), isNoticeable: true),
                 ])
 
+        case .pfoa, .pfos, .genx:
+            return pfasInfo(for: id)
+
         case .radon:
             return ContaminantInfo(
                 id: id, name: String(localized: "Radon in water"), unit: .pCiL,
@@ -374,6 +381,42 @@ nonisolated extension ContaminantInfo {
         }
     }
     // swiftlint:enable function_body_length
+}
+
+// MARK: - PFAS
+
+nonisolated extension ContaminantInfo {
+    static func pfasInfo(for id: ContaminantID) -> ContaminantInfo {
+        let name: String
+        let limit: Double
+        switch id {
+        case .pfoa:
+            name = String(localized: "PFOA")
+            // VERIFY: EPA PFAS National Primary Drinking Water Regulation (April 2024): PFOA MCL 4.0 ppt (ng/L).
+            // In 2025 EPA said it would keep the PFOA/PFOS MCLs but extend compliance to 2031.
+            limit = 4.0
+        case .pfos:
+            name = String(localized: "PFOS")
+            // VERIFY: EPA 2024 PFAS rule: PFOS MCL 4.0 ppt.
+            limit = 4.0
+        default:
+            name = String(localized: "GenX (HFPO-DA)")
+            // VERIFY: EPA 2024 PFAS rule: HFPO-DA (GenX) MCL 10 ppt. In 2025 EPA announced it intends to rescind and
+            // reconsider this limit; NC DEQ PFAS programs may use a different threshold.
+            limit = 10
+        }
+        return ContaminantInfo(
+            id: id, name: name, unit: .ppt,
+            limit: .maximum(limit), limitSource: String(localized: "EPA MCL (2024 PFAS rule)"), limitType: .health,
+            limitPhrase: String(localized: "safe limit"), healthAdvisory: nil,
+            // VERIFY: EPA lists pregnancy, infants and children as sensitive to PFAS exposure.
+            sensitiveGroups: [.pregnancy, .infants, .children],
+            plainSummary: String(localized: "PFAS are \"forever chemicals\" from industry and some products. They build up in the body, and long-term exposure is linked to some cancers and other health effects."),
+            practicalImpact: nil, practicalImpactHigh: nil, seasonalContext: nil,
+            actionIfAbove: String(localized: "Use bottled water or a filter certified for PFAS reduction (NSF/ANSI 53 or 58) for drinking and cooking. See Get Help: some programs test for free or help pay for treatment."),
+            actionIfWatch: String(localized: "Retest, and consider a filter certified for PFAS reduction."),
+            classBands: [])
+    }
 }
 
 // MARK: - Resources

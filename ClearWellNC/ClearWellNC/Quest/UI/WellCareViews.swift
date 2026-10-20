@@ -127,6 +127,7 @@ struct ReportQuestCard: View {
     let latest: LabResult?
     let context: WellCareContext
 
+    @Environment(AppSettings.self) private var settings
     @State private var playing: QuestSession?
 
     var body: some View {
@@ -147,7 +148,7 @@ struct ReportQuestCard: View {
             }
             if let latest {
                 Button {
-                    playing = QuestSession(report: QuestReport(result: latest))
+                    playing = QuestSession(report: QuestReport(result: latest).markingSample(settings.demoEnabled))
                 } label: {
                     Text("Play with my latest test")
                         .font(.headline)

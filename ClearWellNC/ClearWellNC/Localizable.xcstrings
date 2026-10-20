@@ -86,6 +86,16 @@
         }
       }
     },
+    "%@ and %lld more are above health limits" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ and %2$lld more are above health limits"
+          }
+        }
+      }
+    },
     "%@ County" : {
       "localizations" : {
         "es" : {
@@ -115,6 +125,9 @@
           }
         }
       }
+    },
+    "%@ is above the safe limit" : {
+
     },
     "%@ median in %@ County wells from %@ to %@. The trend is %@. Highest in %@. Forecast for the next 12 months shown as a dashed line with a shaded range." : {
       "localizations" : {
@@ -289,7 +302,11 @@
     "%lld" : {
 
     },
+    "%lld above a health limit" : {
+
+    },
     "%lld above a limit" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -629,6 +646,9 @@
         }
       }
     },
+    "A 7-question Risk Check." : {
+
+    },
     "A baby under 6 months lives here" : {
       "localizations" : {
         "es" : {
@@ -675,6 +695,9 @@
         }
       }
     },
+    "A report with arsenic over the limit: the safety alert, then Help Finder." : {
+
+    },
     "A sediment filter" : {
 
     },
@@ -687,6 +710,12 @@
     "A water softener alone" : {
 
     },
+    "A: Never tested (rural county)" : {
+
+    },
+    "About" : {
+
+    },
     "about 1 in %lld" : {
       "localizations" : {
         "es" : {
@@ -696,6 +725,9 @@
           }
         }
       }
+    },
+    "About ClearWell" : {
+
     },
     "Above 2 mg/L, children's teeth can develop spots." : {
 
@@ -830,6 +862,7 @@
 
     },
     "Add" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -840,6 +873,7 @@
       }
     },
     "Add a filter to get reminders" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -848,6 +882,9 @@
           }
         }
       }
+    },
+    "Add a lab report that includes this test." : {
+
     },
     "Add a pitcher, faucet, fridge or under-sink filter, or well treatment like UV or a softener, to get a reminder when it's due." : {
       "localizations" : {
@@ -860,6 +897,7 @@
       }
     },
     "Add a test to see it" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -943,6 +981,7 @@
       }
     },
     "Add your home" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -953,6 +992,7 @@
       }
     },
     "Add your lab report" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1029,6 +1069,7 @@
       }
     },
     "All results" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1044,6 +1085,9 @@
     "All tests were well under the %@." : {
 
     },
+    "Already have a report? Scan it" : {
+
+    },
     "an infant" : {
 
     },
@@ -1053,10 +1097,14 @@
     "Anion exchange" : {
 
     },
+    "Answer 7 quick questions to see which tests your well needs and where to get them, often for free or low cost." : {
+
+    },
     "Anyone who drinks the water for many years." : {
 
     },
     "Area risk" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1126,6 +1174,7 @@
       }
     },
     "At a glance" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1148,6 +1197,9 @@
 
     },
     "At this level you may notice %@." : {
+
+    },
+    "B: Clean report to scan" : {
 
     },
     "Babies under 6 months" : {
@@ -1265,6 +1317,9 @@
         }
       }
     },
+    "Based on your test from %@." : {
+
+    },
     "Before the storm" : {
       "localizations" : {
         "es" : {
@@ -1359,6 +1414,9 @@
 
     },
     "By staining skin" : {
+
+    },
+    "C: Arsenic above the limit" : {
 
     },
     "Calcium and magnesium" : {
@@ -1461,6 +1519,7 @@
       }
     },
     "Change where your home's water comes from" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1471,6 +1530,7 @@
       }
     },
     "Check an area" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1573,6 +1633,7 @@
       }
     },
     "Check my area" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1623,6 +1684,7 @@
       }
     },
     "Check your area and save it to see local risks, weather alerts and help near you." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1644,6 +1706,7 @@
       }
     },
     "Check your area, then tap Save on the report. Your lab results below are kept either way." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1685,6 +1748,9 @@
     "Children's developing teeth are most sensitive." : {
 
     },
+    "Choose later" : {
+
+    },
     "City and county water systems must test regularly and publish a yearly water quality report, called a Consumer Confidence Report." : {
       "localizations" : {
         "es" : {
@@ -1704,6 +1770,9 @@
           }
         }
       }
+    },
+    "ClearWell is educational and is not medical advice. Only a state-certified lab test can tell you what is in your water." : {
+
     },
     "ClearWell model" : {
       "localizations" : {
@@ -1841,7 +1910,11 @@
         }
       }
     },
+    "Contaminants" : {
+
+    },
     "Continue" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -2000,6 +2073,12 @@
         }
       }
     },
+    "Delete all ClearWell data on this device?" : {
+
+    },
+    "Delete everything" : {
+
+    },
     "Delete this lab result?" : {
       "localizations" : {
         "es" : {
@@ -2039,6 +2118,15 @@
           }
         }
       }
+    },
+    "Deletes your lab results, saved home, filters, answers, badges and reminders from this device." : {
+
+    },
+    "Demo Mode" : {
+
+    },
+    "Demo Mode uses separate sample data. Your real results are hidden, not changed, and come back when you turn it off." : {
+
     },
     "Detected" : {
 
@@ -2114,6 +2202,9 @@
     "Do not use this water for baby formula. Use bottled water for drinking and cooking, and retest." : {
 
     },
+    "Do you have a lab report?" : {
+
+    },
     "Does boiling water remove arsenic?" : {
 
     },
@@ -2121,6 +2212,7 @@
 
     },
     "Does your home get water from a private well?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -2151,6 +2243,7 @@
       }
     },
     "Don't drink your water until it's treated" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -2265,7 +2358,16 @@
         }
       }
     },
+    "E. coli was found in your water" : {
+
+    },
     "E. coli was found. This means human or animal waste is getting into your well. %@" : {
+
+    },
+    "earned" : {
+
+    },
+    "Earned" : {
 
     },
     "Earned %@" : {
@@ -2308,7 +2410,11 @@
         }
       }
     },
+    "Edit or delete this report" : {
+
+    },
     "Edit or delete this result" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -2366,6 +2472,9 @@
         }
       }
     },
+    "Enter manually" : {
+
+    },
     "EPA" : {
 
     },
@@ -2376,6 +2485,9 @@
 
     },
     "EPA MCL" : {
+
+    },
+    "EPA MCL (2024 PFAS rule)" : {
 
     },
     "EPA MCL (as N)" : {
@@ -2424,6 +2536,9 @@
         }
       }
     },
+    "Estimates for wells near %@." : {
+
+    },
     "Every 2 years" : {
       "localizations" : {
         "es" : {
@@ -2463,6 +2578,7 @@
 
     },
     "Explore anyway" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -2547,6 +2663,9 @@
     "Filter certified to NSF/ANSI 53 for lead" : {
 
     },
+    "Filters & reminders" : {
+
+    },
     "Filters & treatment" : {
       "localizations" : {
         "es" : {
@@ -2557,7 +2676,11 @@
         }
       }
     },
+    "Find free or low-cost testing, programs that may pay to fix a problem, and help after a flood." : {
+
+    },
     "Find help nearby" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -2566,6 +2689,9 @@
           }
         }
       }
+    },
+    "Find out if and what to test" : {
+
     },
     "Find out what your area's well water is likely to contain, and what to test for." : {
       "localizations" : {
@@ -2576,6 +2702,9 @@
           }
         }
       }
+    },
+    "Find programs that test for free or help pay for fixes" : {
+
     },
     "Find your county health department" : {
 
@@ -2684,7 +2813,13 @@
     "Forecast starts" : {
 
     },
-    "Forecasts are predictions from county-wide data, not test results for your well. Only a test from a state-certified lab tells you what is in your water." : {
+    "Forecasts are predictions from county-wide data, not test results for your well." : {
+
+    },
+    "From \"I've never tested my well\" to \"I know what's in it, what it means, and who will pay to fix it.\"" : {
+
+    },
+    "From your test on %@." : {
 
     },
     "Full report" : {
@@ -2696,6 +2831,9 @@
           }
         }
       }
+    },
+    "GenX (HFPO-DA)" : {
+
     },
     "Germs get in through cracked or missing well caps, poor seals, nearby septic systems or animal waste, and especially floodwater." : {
 
@@ -2709,6 +2847,12 @@
           }
         }
       }
+    },
+    "Get Help" : {
+
+    },
+    "Get help paying for a fix" : {
+
     },
     "Get reminders on time" : {
       "localizations" : {
@@ -2773,6 +2917,9 @@
     "Health effects" : {
 
     },
+    "Health score %lld out of 100" : {
+
+    },
     "Health-based limit" : {
 
     },
@@ -2818,6 +2965,7 @@
 
     },
     "Higher than typical here" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -2856,6 +3004,9 @@
     "Hot water dissolves more lead from pipes. Use cold water." : {
 
     },
+    "Household" : {
+
+    },
     "How accurate is it?" : {
       "localizations" : {
         "es" : {
@@ -2882,10 +3033,14 @@
     "How often should you test for bacteria?" : {
 
     },
+    "How the estimates work" : {
+
+    },
     "How the score works" : {
 
     },
     "How to tell" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -2929,6 +3084,7 @@
       }
     },
     "If you get a water bill, you are probably not on a well. If you have a well pump or pressure tank and no water bill, you probably have a well." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -2950,6 +3106,9 @@
           }
         }
       }
+    },
+    "If your well has been tested, scan the report and we'll explain each result. If not, a quick Risk Check shows what to test for." : {
+
     },
     "If your wellhead was underwater, do not drink the water." : {
       "localizations" : {
@@ -3013,6 +3172,7 @@
 
     },
     "Insights" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -3149,6 +3309,9 @@
           }
         }
       }
+    },
+    "Labs and services near you" : {
+
     },
     "Last checked" : {
       "localizations" : {
@@ -3307,6 +3470,7 @@
       }
     },
     "Last test" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -3316,7 +3480,11 @@
         }
       }
     },
+    "Latest report" : {
+
+    },
     "Latest result" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -3385,6 +3553,9 @@
         }
       }
     },
+    "Learn about %@" : {
+
+    },
     "Learn to read a water test in about 3 minutes, with a sample report." : {
       "localizations" : {
         "es" : {
@@ -3416,6 +3587,7 @@
       }
     },
     "Learn your report" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -3446,6 +3618,7 @@
       }
     },
     "Let's get your water tested" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -3516,6 +3689,9 @@
         }
       }
     },
+    "Location" : {
+
+    },
     "Location access is off for ClearWell NC. You can turn it on in Settings, or type an address instead." : {
       "localizations" : {
         "es" : {
@@ -3568,6 +3744,9 @@
           }
         }
       }
+    },
+    "Look up any NC address on the census-tract risk map." : {
+
     },
     "Look up certified filters (NSF)" : {
       "localizations" : {
@@ -3763,6 +3942,12 @@
         }
       }
     },
+    "More help" : {
+
+    },
+    "Most at risk: %@" : {
+
+    },
     "Most well contaminants have no taste, smell or early symptoms. Testing is the only way to know." : {
 
     },
@@ -3779,7 +3964,11 @@
     "Must be absent · %@" : {
 
     },
+    "My area's well risk" : {
+
+    },
     "My filters" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -3808,6 +3997,9 @@
           }
         }
       }
+    },
+    "My well flooded" : {
+
     },
     "Name, for example \"Iron filter\"" : {
       "localizations" : {
@@ -3885,6 +4077,7 @@
       }
     },
     "Next reminder" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -3893,6 +4086,9 @@
           }
         }
       }
+    },
+    "Next retest: %@" : {
+
     },
     "Next step: %@" : {
 
@@ -4026,7 +4222,11 @@
         }
       }
     },
+    "No health score yet" : {
+
+    },
     "No lab results yet" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -4040,6 +4240,7 @@
 
     },
     "No location saved" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -4048,6 +4249,15 @@
           }
         }
       }
+    },
+    "No reports yet" : {
+
+    },
+    "No results for this yet" : {
+
+    },
+    "No results yet. Start with the Risk Check." : {
+
     },
     "No score yet" : {
 
@@ -4071,6 +4281,9 @@
           }
         }
       }
+    },
+    "No unit was found, so we assumed %@." : {
+
     },
     "No wells in your census tract have been tested. This is the model's estimate from geology and nearby areas." : {
       "localizations" : {
@@ -4114,6 +4327,7 @@
 
     },
     "None yet" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -4145,6 +4359,9 @@
     "Not detected" : {
 
     },
+    "Not detected (below %@)" : {
+
+    },
     "Not earned yet" : {
       "localizations" : {
         "es" : {
@@ -4154,6 +4371,9 @@
           }
         }
       }
+    },
+    "not earned yet. %@" : {
+
     },
     "Not enough data for %@ in %@ County. The model needs at least %lld months." : {
       "localizations" : {
@@ -4198,6 +4418,9 @@
         }
       }
     },
+    "Not set" : {
+
+    },
     "Not sure" : {
       "localizations" : {
         "es" : {
@@ -4218,7 +4441,11 @@
         }
       }
     },
+    "Not yet, help me decide" : {
+
+    },
     "Nothing above typical" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -4229,6 +4456,7 @@
       }
     },
     "Nothing due" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -4241,6 +4469,9 @@
     "Nothing; it's fixed for good" : {
 
     },
+    "Notifications" : {
+
+    },
     "Notifications are off" : {
       "localizations" : {
         "es" : {
@@ -4250,6 +4481,9 @@
           }
         }
       }
+    },
+    "of 100" : {
+
     },
     "Off unless you turn it on. At most one reminder a month, only about testing." : {
       "localizations" : {
@@ -4348,7 +4582,11 @@
         }
       }
     },
+    "Opens details, trend and what to do" : {
+
+    },
     "Optional. This is stored only on this device and adds a nitrate note to your report." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -4375,6 +4613,9 @@
       }
     },
     "Other tests" : {
+
+    },
+    "Our household may qualify for income-based help" : {
 
     },
     "out of 100" : {
@@ -4482,7 +4723,19 @@
         }
       }
     },
+    "Persona" : {
+
+    },
     "Pets" : {
+
+    },
+    "PFAS are \"forever chemicals\" from industry and some products. They build up in the body, and long-term exposure is linked to some cancers and other health effects." : {
+
+    },
+    "PFOA" : {
+
+    },
+    "PFOS" : {
 
     },
     "pH" : {
@@ -4502,6 +4755,9 @@
 
     },
     "pH itself is not a health risk." : {
+
+    },
+    "pH should be between 0 and 14." : {
 
     },
     "pH tells you how acidic or basic your water is. It has no health limit, but acidic water can corrode pipes." : {
@@ -4541,6 +4797,9 @@
       }
     },
     "Plastic pipes" : {
+
+    },
+    "Play Report Quest" : {
 
     },
     "Play with my latest test" : {
@@ -4596,6 +4855,9 @@
         }
       }
     },
+    "ppt" : {
+
+    },
     "Predicted — not a test result." : {
 
     },
@@ -4635,10 +4897,14 @@
         }
       }
     },
+    "Programs that can help" : {
+
+    },
     "proposed limit" : {
 
     },
     "Public water systems publish a yearly Consumer Confidence Report that shows what is in your water. Ask your water provider for a copy. You can still explore well-water risk in North Carolina." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -4659,6 +4925,7 @@
       }
     },
     "Quick actions" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -4912,6 +5179,9 @@
     "Replace lead parts and fix corrosive water" : {
 
     },
+    "Report history" : {
+
+    },
     "Report Quest" : {
       "localizations" : {
         "es" : {
@@ -4921,6 +5191,9 @@
           }
         }
       }
+    },
+    "Report Quest reminders & badges" : {
+
     },
     "Report Reader" : {
       "localizations" : {
@@ -4933,6 +5206,9 @@
       }
     },
     "Researchers are still studying long-term effects in adults." : {
+
+    },
+    "Reset all data" : {
 
     },
     "Retest after the chlorine is flushed out" : {
@@ -4983,6 +5259,9 @@
     "Retest, and before using this water for baby formula." : {
 
     },
+    "Retest, and consider a filter certified for PFAS reduction." : {
+
+    },
     "Retesting confirms the germs are gone. Fix the source so they don't come back." : {
 
     },
@@ -5031,6 +5310,9 @@
     "rising" : {
 
     },
+    "Risk Check" : {
+
+    },
     "Risk level: %@" : {
       "localizations" : {
         "es" : {
@@ -5056,7 +5338,13 @@
     "safe limit" : {
 
     },
+    "SAMPLE — Demo Lab" : {
+
+    },
     "Sample data" : {
+
+    },
+    "Sample data · Demo Mode" : {
 
     },
     "Sample data: forecast uses placeholder numbers" : {
@@ -5186,6 +5474,18 @@
     "scale on faucets, kettles and water heaters, and less soap lather" : {
 
     },
+    "Scan Report" : {
+
+    },
+    "Scan the bundled sample report, see the score, then play Report Quest." : {
+
+    },
+    "Scan your lab report and understand every number" : {
+
+    },
+    "Scan your lab report or enter the numbers by hand. ClearWell explains every result in plain English." : {
+
+    },
     "Score %lld out of 100" : {
       "localizations" : {
         "es" : {
@@ -5246,6 +5546,9 @@
         }
       }
     },
+    "Seasonal tip" : {
+
+    },
     "Seasonal trend and forecast chart" : {
 
     },
@@ -5268,6 +5571,9 @@
           }
         }
       }
+    },
+    "See all my results" : {
+
     },
     "See full report" : {
       "localizations" : {
@@ -5298,6 +5604,9 @@
     "Series" : {
 
     },
+    "Settings" : {
+
+    },
     "Shock chlorination" : {
 
     },
@@ -5317,6 +5626,15 @@
     "Short term" : {
 
     },
+    "Should I test my well?" : {
+
+    },
+    "Should I test?" : {
+
+    },
+    "Show the welcome screens again" : {
+
+    },
     "Shows what happens when a result is over a health limit." : {
       "localizations" : {
         "es" : {
@@ -5327,7 +5645,10 @@
         }
       }
     },
-    "Shows what is pulling the score down and what to do" : {
+    "Skip" : {
+
+    },
+    "Skip for now" : {
 
     },
     "Skip to full report" : {
@@ -5339,6 +5660,9 @@
           }
         }
       }
+    },
+    "Skips the welcome screens" : {
+
     },
     "Soda ash injection" : {
 
@@ -5359,7 +5683,13 @@
     "Softeners swap calcium and magnesium for sodium or potassium." : {
 
     },
+    "Some characters in the number looked like letters, so we corrected them." : {
+
+    },
     "Some key tests are missing, but a known problem means the score can't be higher than this." : {
+
+    },
+    "Someone in the home is pregnant" : {
 
     },
     "someone who is pregnant" : {
@@ -5369,6 +5699,9 @@
 
     },
     "Sources" : {
+
+    },
+    "Sources and data" : {
 
     },
     "Spring" : {
@@ -5399,6 +5732,9 @@
           }
         }
       }
+    },
+    "Start the Risk Check" : {
+
     },
     "Starts this stop" : {
       "localizations" : {
@@ -5435,6 +5771,9 @@
           }
         }
       }
+    },
+    "Step-by-step: stay safe, disinfect, and retest." : {
+
     },
     "Stop %lld of %lld" : {
       "localizations" : {
@@ -5545,6 +5884,9 @@
     "Test for bacteria every year and after flooding." : {
 
     },
+    "Test for bacteria every year, and again after any flooding or heavy storms." : {
+
+    },
     "Test in %@, when %@ in %@ County wells is usually highest, to earn the Seasonal Scout badge." : {
       "localizations" : {
         "es" : {
@@ -5578,6 +5920,9 @@
     "Test the air in your home for radon, too." : {
 
     },
+    "Tested %@" : {
+
+    },
     "Tested on census tracts the model never saw. The score is how much of the gap between a statewide guess (0%) and the best possible area-level estimate (100%) each method closes." : {
       "localizations" : {
         "es" : {
@@ -5599,6 +5944,7 @@
       }
     },
     "Testing labs, filter dealers, plumbers and official resources in your area." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -5607,6 +5953,9 @@
           }
         }
       }
+    },
+    "Testing labs, well services, plumbers and filter dealers on the map." : {
+
     },
     "Tests still needed" : {
 
@@ -5669,6 +6018,35 @@
     "The kidneys" : {
 
     },
+    "The lab didn't find any %@ above its detection limit of %@, which is below the %@ of %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The lab didn't find any %1$@ above its detection limit of %2$@, which is below the %3$@ of %4$@."
+          }
+        }
+      }
+    },
+    "The lab didn't find any %@ above its detection limit of %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The lab didn't find any %1$@ above its detection limit of %2$@."
+          }
+        }
+      }
+    },
+    "The lab didn't find any %@ in this sample." : {
+
+    },
+    "The lab's detection limit is at or above the safe limit, so this result can't confirm the water is under the limit." : {
+
+    },
+    "The name was hard to read; we matched it to the closest test." : {
+
+    },
     "The NC State Laboratory of Public Health tested private wells from 1998 to 2019. UNC researchers geocoded 117,960 of those tests (the NCWELL database). ClearWell uses the census-tract summaries." : {
       "localizations" : {
         "es" : {
@@ -5725,7 +6103,13 @@
     "The teeth" : {
 
     },
+    "The unit (%@) doesn't fit this test." : {
+
+    },
     "The upper forecast range reaches the limit in %@." : {
+
+    },
+    "These answers tailor test advice and help programs. They never leave this device." : {
 
     },
     "These charts use made-up placeholder numbers for testing the app. They are not real well-test results." : {
@@ -5747,6 +6131,9 @@
     "Thin gray line: county median from past tests" : {
 
     },
+    "This can't be undone." : {
+
+    },
     "This describes wells in your area, not your well. Only a test tells you about yours." : {
 
     },
@@ -5760,7 +6147,7 @@
         }
       }
     },
-    "This is an estimate, not a test result. Only a test from a state-certified lab tells you what is in your water." : {
+    "This is an estimate, not a test result." : {
 
     },
     "This is at or above the %@. %@" : {
@@ -5779,13 +6166,19 @@
     "This is under the limit, but close enough that it's worth retesting." : {
 
     },
+    "This is unusually high. Check the decimal point and unit." : {
+
+    },
     "This is well below the %@." : {
 
     },
-    "This score summarizes the results you entered. It is not a lab result or medical advice. Only a test from a state-certified lab tells you what is in your water." : {
+    "This score summarizes the results you entered. It is not a lab result." : {
 
     },
     "This shows your one %@ test so far. Add results over time to see a trend." : {
+
+    },
+    "This test usually has a number, but the report shows a word." : {
 
     },
     "This was sample data, so points and badges weren't saved." : {
@@ -5868,7 +6261,11 @@
         }
       }
     },
+    "Track filters and get reminders for well care and retests." : {
+
+    },
     "Track your pitcher, faucet, fridge or whole-house filter and we'll remind you when it's time to replace it." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -5904,6 +6301,9 @@
     "Trend: 20-month moving average." : {
 
     },
+    "Trends & forecast" : {
+
+    },
     "Triangles mark results above the limit. Dashed lines show limits." : {
       "localizations" : {
         "es" : {
@@ -5933,6 +6333,9 @@
           }
         }
       }
+    },
+    "Turn off Demo Mode to reset your real data." : {
+
     },
     "Turn on notifications" : {
       "localizations" : {
@@ -5988,6 +6391,7 @@
 
     },
     "Understand your area's well-water risk, decide what to test for, and keep track of your results." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -6054,6 +6458,9 @@
     "Use bottled water or a certified reverse osmosis or anion exchange system for drinking water, then retest." : {
 
     },
+    "Use bottled water or a filter certified for PFAS reduction (NSF/ANSI 53 or 58) for drinking and cooking. See Get Help: some programs test for free or help pay for treatment." : {
+
+    },
     "Use bottled water or a filter certified to NSF/ANSI 53 for lead for drinking and cooking, and retest after fixing the source." : {
 
     },
@@ -6077,6 +6484,9 @@
 
     },
     "Used filters can become radioactive; ask a professional." : {
+
+    },
+    "Used for county facts, the seasonal outlook and matching help programs. Stored only on this device." : {
 
     },
     "Usually no short-term symptoms at levels found in tap water." : {
@@ -6118,6 +6528,7 @@
       }
     },
     "View my area's report" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -6180,6 +6591,7 @@
       }
     },
     "Water source: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -6348,6 +6760,12 @@
         }
       }
     },
+    "Well risk in my area" : {
+
+    },
+    "Well risks differ across North Carolina's 100 counties. We use this for local facts and help programs. It stays on this device." : {
+
+    },
     "Well services" : {
       "localizations" : {
         "es" : {
@@ -6415,6 +6833,9 @@
     "What is the recommended pH range?" : {
 
     },
+    "What it means" : {
+
+    },
     "What often causes copper in tap water?" : {
 
     },
@@ -6430,6 +6851,9 @@
           }
         }
       }
+    },
+    "What to do" : {
+
     },
     "What to do now" : {
       "localizations" : {
@@ -6464,6 +6888,9 @@
         }
       }
     },
+    "What's behind my score" : {
+
+    },
     "What's in well water, where it comes from, who is most at risk, and how to fix it." : {
 
     },
@@ -6497,6 +6924,7 @@
 
     },
     "When you get your lab report, add the numbers here to compare them with the limits and track them over time." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -6516,6 +6944,9 @@
 
     },
     "Where it comes from in NC wells" : {
+
+    },
+    "Where it comes from, health effects, treatment and a quick quiz." : {
 
     },
     "Where many wells were tested, your estimate leans on those tests. Where few were, it leans on the model, and the report tells you so." : {
@@ -6547,6 +6978,9 @@
           }
         }
       }
+    },
+    "Which county do you live in?" : {
+
     },
     "Which is a common source of nitrate?" : {
 
@@ -6674,6 +7108,9 @@
     "Yes, it tastes metallic" : {
 
     },
+    "Yes, scan my report" : {
+
+    },
     "You added a %@ on %@." : {
       "localizations" : {
         "en" : {
@@ -6721,6 +7158,7 @@
       }
     },
     "You have reminders overdue" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -6747,6 +7185,7 @@
       }
     },
     "You're probably on public water" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -6993,6 +7432,7 @@
       }
     },
     "Your last test needs attention" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -7059,6 +7499,7 @@
       }
     },
     "Your water is on track" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -7067,6 +7508,9 @@
           }
         }
       }
+    },
+    "Your water meets all health limits" : {
+
     },
     "Your water utility tests your water" : {
       "localizations" : {

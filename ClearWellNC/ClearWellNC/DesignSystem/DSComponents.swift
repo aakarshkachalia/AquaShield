@@ -36,7 +36,7 @@ struct StatusChip: View {
 
 struct SectionHeader: View {
     let title: LocalizedStringKey
-    var subtitle: LocalizedStringKey?
+    var subtitle: String?
 
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.xs) {

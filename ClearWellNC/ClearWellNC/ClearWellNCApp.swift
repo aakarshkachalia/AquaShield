@@ -13,6 +13,9 @@ struct ClearWellNCApp: App {
     @State private var tractStore = TractStore()
     @State private var alertsStore = WeatherAlertsStore()
     @State private var wellCareStore = WellCareStore()
+    @State private var router = AppRouter()
+    @State private var settings = AppSettings()
+    @State private var demoStores = DemoStores()
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -32,12 +35,17 @@ struct ClearWellNCApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                // A fresh view tree per data store, so switching Demo Mode never mixes real and sample data.
+                .id(settings.demoEnabled ? "demo-\(settings.demoPersona.rawValue)" : "real")
+                .environment(router)
+                .environment(settings)
+                .environment(demoStores)
                 .environment(tractStore)
                 .environment(alertsStore)
                 .environment(wellCareStore)
                 // Parse the bundled tract data once at launch, off the main thread.
                 .task { await tractStore.load() }
         }
-        .modelContainer(sharedModelContainer)
+        .modelContainer(settings.demoEnabled ? demoStores.container(for: settings.demoPersona) : sharedModelContainer)
     }
 }
