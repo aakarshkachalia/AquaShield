@@ -30,11 +30,11 @@ struct LearnView: View {
                         .buttonStyle(.plain)
                     }
                     Text(LearnArticle.footer)
-                        .font(.footnote)
+                        .font(.caption)
                         .foregroundStyle(.secondary)
-                        .padding(.top, 8)
+                        .padding(.top, Spacing.s)
                 }
-                .padding()
+                .padding(Spacing.l)
                 .readableWidth()
             }
             .background(Color.appBackground)
@@ -58,10 +58,10 @@ struct LearnArticleView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: Spacing.l) {
                 limitsCard
                 section("Where it comes from in NC wells", systemImage: "map", text: article.whereFrom)
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: Spacing.m) {
                     sectionTitle("Health effects", systemImage: "heart.text.square")
                     labeled("Short term", article.shortTerm)
                     labeled("Long term", article.longTerm)
@@ -80,9 +80,9 @@ struct LearnArticleView: View {
                 sources
                 QuizView(questions: article.quiz, quizID: article.id)
                 Text(LearnArticle.footer)
-                    .font(.footnote.weight(.semibold))
+                    .font(.caption.weight(.semibold))
             }
-            .padding()
+            .padding(Spacing.l)
             .readableWidth()
         }
         .background(Color.appBackground)
@@ -91,10 +91,10 @@ struct LearnArticleView: View {
     }
 
     private var limitsCard: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             ForEach(article.contaminants) { id in
                 let info = id.info
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(info.name).font(.headline)
                     Text(info.limitDescription)
                         .font(.subheadline)
@@ -109,10 +109,10 @@ struct LearnArticleView: View {
     }
 
     private var treatments: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: Spacing.m) {
             sectionTitle("Treatment options", systemImage: "wrench.and.screwdriver")
             ForEach(article.treatments) { treatment in
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(treatment.name).font(.body.weight(.semibold))
                     Text(treatment.effectiveness).font(.subheadline)
                     if let note = treatment.note {
@@ -129,7 +129,7 @@ struct LearnArticleView: View {
     }
 
     private var sources: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
             sectionTitle("Sources", systemImage: "books.vertical")
             ForEach(article.sources) { source in
                 Link(destination: source.url) {
@@ -143,7 +143,7 @@ struct LearnArticleView: View {
     }
 
     private func section(_ title: LocalizedStringKey, systemImage: String, text: String) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             sectionTitle(title, systemImage: systemImage)
             Text(text)
         }
@@ -161,7 +161,7 @@ struct LearnArticleView: View {
     }
 
     private func labeled(_ label: LocalizedStringKey, _ text: String) -> some View {
-        VStack(alignment: .leading, spacing: 2) {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
             Text(label).font(.subheadline.weight(.semibold))
             Text(text)
         }
@@ -181,7 +181,7 @@ struct QuizView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: Spacing.l) {
             Label("Quick quiz", systemImage: "questionmark.circle")
                 .font(.headline)
                 .accessibilityAddTraits(.isHeader)
@@ -207,7 +207,7 @@ struct QuizView: View {
 
     private func questionView(index: Int, question: QuizQuestion) -> some View {
         let chosen = answers[question.id]
-        return VStack(alignment: .leading, spacing: 8) {
+        return VStack(alignment: .leading, spacing: Spacing.s) {
             Text("\(index + 1). \(question.prompt)")
                 .font(.body.weight(.semibold))
             ForEach(Array(question.options.enumerated()), id: \.offset) { optionIndex, option in

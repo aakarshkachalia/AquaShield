@@ -33,14 +33,13 @@ struct OnboardingView: View {
     @AppStorage(StorageKey.waterSource) private var storedSource = ""
     @AppStorage(StorageKey.infantInHome) private var infantInHome = false
     @State private var answer: WaterSource?
-    @ScaledMetric(relativeTo: .largeTitle) private var iconSize: CGFloat = 48
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: Spacing.xl) {
+                VStack(alignment: .leading, spacing: Spacing.m) {
                     Image(systemName: "drop.fill")
-                        .font(.system(size: iconSize))
+                        .font(.largeTitle)
                         .foregroundStyle(.tint)
                         .accessibilityHidden(true)
                     Text("ClearWell NC")
@@ -50,7 +49,7 @@ struct OnboardingView: View {
                         .foregroundStyle(.secondary)
                 }
 
-                VStack(alignment: .leading, spacing: 12) {
+                VStack(alignment: .leading, spacing: Spacing.m) {
                     Text("Does your home get water from a private well?")
                         .font(.title2.weight(.semibold))
                         .accessibilityAddTraits(.isHeader)
@@ -70,10 +69,10 @@ struct OnboardingView: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity, minHeight: 44)
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(PrimaryButtonStyle())
                 }
             }
-            .padding(24)
+            .padding(Spacing.xl)
             .readableWidth()
             .animation(.default, value: answer)
         }
@@ -94,11 +93,11 @@ struct OnboardingView: View {
                     .foregroundStyle(selected ? AnyShapeStyle(.tint) : AnyShapeStyle(.secondary))
                     .accessibilityHidden(true)
             }
-            .padding(16)
+            .padding(Spacing.l)
             .frame(minHeight: 44)
-            .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .background(Color.cardBackground, in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
             .overlay(
-                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                RoundedRectangle(cornerRadius: Radius.card, style: .continuous)
                     .strokeBorder(selected ? Color.accentColor : Color.primary.opacity(0.1), lineWidth: selected ? 2 : 1)
             )
             .contentShape(Rectangle())
@@ -124,7 +123,7 @@ struct OnboardingView: View {
     }
 
     private func infoCard(title: LocalizedStringKey, text: LocalizedStringKey) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             Label(title, systemImage: "info.circle.fill")
                 .font(.headline)
                 .foregroundStyle(.tint)
@@ -135,11 +134,11 @@ struct OnboardingView: View {
     }
 
     private var infantToggle: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             Toggle("A baby under 6 months lives here", isOn: $infantInHome)
                 .frame(minHeight: 44)
             Text("Optional. This is stored only on this device and adds a nitrate note to your report.")
-                .font(.footnote)
+                .font(.caption)
                 .foregroundStyle(.secondary)
         }
         .card()

@@ -18,12 +18,12 @@ struct AreaMapSection: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: Spacing.m) {
             Text("Explore the map")
                 .font(.headline)
                 .accessibilityAddTraits(.isHeader)
             Text("Tap a census tract to see its estimate.")
-                .font(.footnote)
+                .font(.caption)
                 .foregroundStyle(.secondary)
 
             contaminantPicker
@@ -33,7 +33,7 @@ struct AreaMapSection: View {
                          selectedFIPS: selection?.tract.fips,
                          onTap: select)
                 .frame(height: sizeClass == .regular ? 520 : 380)
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
                 .accessibilityElement()
                 .accessibilityLabel(Text("Map of estimated \(contaminant.name) risk by census tract"))
                 .accessibilityHint(Text("Tap a tract to select it. You can also search by address above."))
@@ -98,17 +98,17 @@ struct MapLegend: View {
     private let levels: [RiskLevel] = [.lowerThanTypical, .typical, .elevated, .high]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), alignment: .leading)], alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 150), alignment: .leading)], alignment: .leading, spacing: Spacing.s) {
                 ForEach(levels, id: \.self) { level in
-                    HStack(spacing: 8) {
+                    HStack(spacing: Spacing.s) {
                         swatch(level.color.opacity(0.75))
                         Text(level.label)
                     }
                     .accessibilityElement(children: .combine)
                 }
             }
-            HStack(spacing: 8) {
+            HStack(spacing: Spacing.s) {
                 swatch(RiskLevel.elevated.color.opacity(0.35))
                 Text("Faded: no wells tested in that tract (model estimate only)")
             }
@@ -118,13 +118,13 @@ struct MapLegend: View {
                     .foregroundStyle(.secondary)
             }
         }
-        .font(.footnote)
+        .font(.caption)
     }
 
     private func swatch(_ color: Color) -> some View {
-        RoundedRectangle(cornerRadius: 4)
+        RoundedRectangle(cornerRadius: Radius.chip)
             .fill(color)
-            .overlay(RoundedRectangle(cornerRadius: 4).strokeBorder(Color.primary.opacity(0.25)))
+            .overlay(RoundedRectangle(cornerRadius: Radius.chip).strokeBorder(Color.primary.opacity(0.25)))
             .frame(width: 22, height: 14)
             .accessibilityHidden(true)
     }
@@ -138,10 +138,10 @@ struct SelectedTractCard: View {
 
     var body: some View {
         let report = RiskEngine.report(for: selection.tract, meta: meta)
-        VStack(alignment: .leading, spacing: 10) {
-            VStack(alignment: .leading, spacing: 2) {
+        VStack(alignment: .leading, spacing: Spacing.m) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
                 Text(report.countyName.map { String(localized: "\($0) County") } ?? String(localized: "North Carolina"))
-                    .font(.title3.bold())
+                    .font(.title2.bold())
                 Text("Census tract \(report.fips)")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
@@ -155,7 +155,7 @@ struct SelectedTractCard: View {
                         Spacer()
                         RiskBadge(level: risk.level)
                     }
-                    VStack(alignment: .leading, spacing: 6) {
+                    VStack(alignment: .leading, spacing: Spacing.s) {
                         Text(contaminant.name).font(.headline)
                         RiskBadge(level: risk.level)
                     }
@@ -164,12 +164,12 @@ struct SelectedTractCard: View {
                     .font(.subheadline)
                 if let observed = risk.observedText {
                     Text(observed)
-                        .font(.footnote)
+                        .font(.caption)
                         .foregroundStyle(.secondary)
                 }
                 // Spells out what the map's faded fill means, so it isn't conveyed by opacity alone.
                 Text("\(risk.confidence.level.phrase). \(risk.confidence.note)")
-                    .font(.footnote)
+                    .font(.caption)
                     .foregroundStyle(.secondary)
             }
 
@@ -178,9 +178,9 @@ struct SelectedTractCard: View {
                     .font(.headline)
                     .frame(maxWidth: .infinity, minHeight: 44)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(PrimaryButtonStyle())
         }
-        .padding(14)
-        .background(Color.primary.opacity(0.05), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+        .padding(Spacing.l)
+        .background(Color.primary.opacity(0.05), in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
     }
 }

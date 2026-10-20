@@ -45,12 +45,12 @@ struct WellCareProgressView: View {
                         set: setReminders))
                         .frame(minHeight: 44)
                     Text("Off unless you turn it on. At most one reminder a month, only about testing.")
-                        .font(.footnote)
+                        .font(.caption)
                         .foregroundStyle(.secondary)
                 }
                 .card()
             }
-            .padding()
+            .padding(Spacing.l)
             .readableWidth()
         }
         .background(Color.appBackground)
@@ -84,7 +84,7 @@ struct WellCareProgressView: View {
         return HStack(alignment: .top, spacing: Spacing.m) {
             IconTile(systemImage: earnedOn == nil ? "lock.fill" : badge.symbol,
                      color: earnedOn == nil ? .secondary : .accentColor)
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
                 Text(badge.title)
                     .font(.headline)
                     .foregroundStyle(earnedOn == nil ? .secondary : .primary)
@@ -153,8 +153,7 @@ struct ReportQuestCard: View {
                         .font(.headline)
                         .frame(maxWidth: .infinity, minHeight: 44)
                 }
-                .buttonStyle(.borderedProminent)
-                .buttonBorderShape(.roundedRectangle(radius: Radius.inner))
+                .buttonStyle(PrimaryButtonStyle())
             }
             Menu {
                 ForEach(DemoReport.allCases) { demo in
@@ -170,8 +169,7 @@ struct ReportQuestCard: View {
                     .font(.headline)
                     .frame(maxWidth: .infinity, minHeight: 44)
             }
-            .buttonStyle(.bordered)
-            .buttonBorderShape(.roundedRectangle(radius: Radius.inner))
+            .buttonStyle(SecondaryButtonStyle())
         }
         .card()
         .fullScreenCover(item: $playing) { session in
@@ -221,7 +219,7 @@ struct SeasonalChallengeCard: View {
                 IconTile(systemImage: "leaf.fill", color: .statusSafe)
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text("Seasonal challenge")
-                        .font(.footnote.weight(.semibold))
+                        .font(.caption.weight(.semibold))
                         .foregroundStyle(.secondary)
                         .textCase(.uppercase)
                     Text(challenge.title)

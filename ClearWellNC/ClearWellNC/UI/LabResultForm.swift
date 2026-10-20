@@ -94,8 +94,8 @@ struct LabResultForm: View {
         let invalid = !entry.text.isEmpty && parse(entry.text) == nil
         // Stack name, field and unit vertically at accessibility text sizes so nothing truncates.
         let stacked = dynamicTypeSize.isAccessibilitySize
-        let layout = stacked ? AnyLayout(VStackLayout(alignment: .leading, spacing: 6)) : AnyLayout(HStackLayout())
-        return VStack(alignment: .leading, spacing: 6) {
+        let layout = stacked ? AnyLayout(VStackLayout(alignment: .leading, spacing: Spacing.s)) : AnyLayout(HStackLayout())
+        return VStack(alignment: .leading, spacing: Spacing.s) {
             layout {
                 Text(analyte.name)
                     .frame(minWidth: stacked ? nil : 90, alignment: .leading)
@@ -132,7 +132,7 @@ struct LabResultForm: View {
             // Live meaning of what was just typed.
             if let value = storedValue(for: analyte) {
                 let interpretation = analyte.interpret(value)
-                HStack(spacing: 8) {
+                HStack(spacing: Spacing.s) {
                     StatusChip(tier: interpretation.tier, label: interpretation.chipLabel)
                     if let percent = interpretation.percentText {
                         Text(percent).font(.caption).foregroundStyle(.secondary)

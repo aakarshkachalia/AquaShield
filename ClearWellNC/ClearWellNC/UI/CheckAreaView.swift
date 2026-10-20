@@ -20,53 +20,52 @@ struct CheckAreaView: View {
     @FocusState private var addressFocused: Bool
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    Text("Find out what your area's well water is likely to contain, and what to test for.")
-                        .foregroundStyle(.secondary)
+        ScrollView {
+            VStack(alignment: .leading, spacing: Spacing.xl) {
+                Text("Find out what your area's well water is likely to contain, and what to test for.")
+                    .foregroundStyle(.secondary)
 
-                    switch store.state {
-                    case .loading:
-                        ProgressView("Loading well data…")
-                            .frame(maxWidth: .infinity)
-                            .card()
-                    case .failed(let message):
-                        errorCard(message)
-                    case .loaded(let db):
-                        searchCard
-                        AreaMapSection(database: db,
-                                       contaminant: $mapContaminant,
-                                       selection: $mapSelection,
-                                       onOpenReport: { selection = $0 })
-                    }
-
-                    if isWorking {
-                        ProgressView("Looking up your area…")
-                            .frame(maxWidth: .infinity)
-                    }
-
-                    if let error {
-                        errorCard(error.errorDescription ?? "", showSettings: error == .locationDenied)
-                    }
-
-                    householdCard
+                switch store.state {
+                case .loading:
+                    ProgressView("Loading well data…")
+                        .frame(maxWidth: .infinity)
+                        .card()
+                case .failed(let message):
+                    errorCard(message)
+                case .loaded(let db):
+                    searchCard
+                    AreaMapSection(database: db,
+                                   contaminant: $mapContaminant,
+                                   selection: $mapSelection,
+                                   onOpenReport: { selection = $0 })
                 }
-                .padding()
-                .readableWidth()
+
+                if isWorking {
+                    ProgressView("Looking up your area…")
+                        .frame(maxWidth: .infinity)
+                }
+
+                if let error {
+                    errorCard(error.errorDescription ?? "", showSettings: error == .locationDenied)
+                }
+
+                householdCard
             }
-            .background(Color.appBackground)
-            .navigationTitle("Check My Area")
-            .navigationDestination(item: $selection) { selection in
-                if let db = store.database {
-                    ReportView(selection: selection, meta: db.meta)
-                }
+            .padding(Spacing.l)
+            .readableWidth()
+        }
+        .background(Color.appBackground)
+        .navigationTitle("Check My Area")
+        .navigationDestination(item: $selection) { selection in
+            if let db = store.database {
+                ReportView(selection: selection, meta: db.meta)
             }
         }
+    
     }
 
     private var searchCard: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: Spacing.m) {
             Text("Your address")
                 .font(.headline)
             TextField("Street address, city or ZIP", text: $address)
@@ -74,9 +73,9 @@ struct CheckAreaView: View {
                 .submitLabel(.search)
                 .focused($addressFocused)
                 .onSubmit(checkAddress)
-                .padding(12)
+                .padding(Spacing.m)
                 .frame(minHeight: 44)
-                .background(Color.primary.opacity(0.06), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                .background(Color.primary.opacity(0.06), in: RoundedRectangle(cornerRadius: Radius.chip, style: .continuous))
                 .accessibilityLabel(Text("Address"))
 
             Button(action: checkAddress) {
@@ -84,17 +83,17 @@ struct CheckAreaView: View {
                     .font(.headline)
                     .frame(maxWidth: .infinity, minHeight: 44)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(PrimaryButtonStyle())
 
             Button(action: useMyLocation) {
                 Label("Use my location", systemImage: "location.fill")
                     .font(.headline)
                     .frame(maxWidth: .infinity, minHeight: 44)
             }
-            .buttonStyle(.bordered)
+            .buttonStyle(SecondaryButtonStyle())
 
             Text("Your address or location is only used to find your census tract. It is not saved unless you choose to save it.")
-                .font(.footnote)
+                .font(.caption)
                 .foregroundStyle(.secondary)
         }
         .disabled(isWorking)
@@ -108,7 +107,7 @@ struct CheckAreaView: View {
     }
 
     private func errorCard(_ message: String, showSettings: Bool = false) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: Spacing.m) {
             Label {
                 Text(message)
             } icon: {

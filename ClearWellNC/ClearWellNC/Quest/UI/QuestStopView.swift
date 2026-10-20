@@ -29,7 +29,7 @@ struct QuestStopView: View {
                     .card()
 
                 Text("Is this Safe, Watch, or Above limit?")
-                    .font(.title3.bold())
+                    .font(.title2.bold())
                     .accessibilityAddTraits(.isHeader)
                 VStack(spacing: Spacing.m) {
                     ForEach(QuestAnswer.allCases, id: \.self) { answer in
@@ -52,11 +52,10 @@ struct QuestStopView: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity, minHeight: 52)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .buttonBorderShape(.roundedRectangle(radius: Radius.inner))
+                    .buttonStyle(PrimaryButtonStyle())
                 }
             }
-            .padding()
+            .padding(Spacing.l)
             .readableWidth()
         }
         .background(Color.appBackground)
@@ -162,8 +161,7 @@ struct QuestStopView: View {
                         .font(.headline)
                         .frame(maxWidth: .infinity, minHeight: 52)
                 }
-                .buttonStyle(.bordered)
-                .buttonBorderShape(.roundedRectangle(radius: Radius.inner))
+                .buttonStyle(SecondaryButtonStyle())
             }
         }
     }

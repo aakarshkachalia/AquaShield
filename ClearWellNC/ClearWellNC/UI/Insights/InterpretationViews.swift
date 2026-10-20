@@ -7,72 +7,27 @@
 
 import SwiftUI
 
-extension Interpretation.Tier {
-    var color: Color {
-        switch self {
-        case .safe: .statusSafe
-        case .watch: .statusWatch
-        case .above: .statusAbove
-        case .nuisance: .statusNuisance            // brown-amber: practical issue, not a health risk
-        case .info: .secondary
-        }
-    }
-
-    var symbol: String {
-        switch self {
-        case .safe: "checkmark.circle.fill"
-        case .watch: "eye.fill"
-        case .above: "exclamationmark.triangle.fill"
-        case .nuisance: "exclamationmark.circle.fill"
-        case .info: "info.circle.fill"
-        }
-    }
-}
-
-/// Icon + text chip. Color reinforces, but never replaces, the text.
-struct StatusChip: View {
-    let tier: Interpretation.Tier
-    let label: String
-
-    var body: some View {
-        Label {
-            Text(label)
-                .foregroundStyle(.primary)
-        } icon: {
-            Image(systemName: tier.symbol)
-                .foregroundStyle(tier.color)
-        }
-        .font(.subheadline.weight(.semibold))
-        .padding(.horizontal, 10)
-        .padding(.vertical, 5)
-        .background(tier.color.opacity(0.14), in: Capsule())
-        .overlay(Capsule().strokeBorder(tier.color.opacity(0.6)))
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(Text("Status: \(label)"))
-    }
-}
-
 /// Name, chip, reading, % of limit, limit, and the plain-English sentence.
 struct InterpretationBlock: View {
     let name: String
     let interpretation: Interpretation
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             ViewThatFits(in: .horizontal) {
                 HStack(alignment: .firstTextBaseline) {
                     Text(name).font(.body.weight(.semibold))
                     Spacer()
                     StatusChip(tier: interpretation.tier, label: interpretation.chipLabel)
                 }
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(name).font(.body.weight(.semibold))
                     StatusChip(tier: interpretation.tier, label: interpretation.chipLabel)
                 }
             }
-            HStack(alignment: .firstTextBaseline, spacing: 6) {
+            HStack(alignment: .firstTextBaseline, spacing: Spacing.s) {
                 Text(interpretation.readingText)
-                    .font(.title3.weight(.semibold))
+                    .font(.title2.weight(.semibold))
                     .monospacedDigit()
                 if let percent = interpretation.percentText {
                     Text("· \(percent)")
@@ -89,7 +44,7 @@ struct InterpretationBlock: View {
                 .font(.subheadline)
                 .fixedSize(horizontal: false, vertical: true)
         }
-        .padding(.vertical, 6)
+        .padding(.vertical, Spacing.s)
         .accessibilityElement(children: .combine)
     }
 }
@@ -124,23 +79,23 @@ struct TestingDisclaimer: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             Label {
                 Text(message)
             } icon: {
                 Image(systemName: "info.circle.fill").foregroundStyle(.tint)
             }
-            .font(.footnote.weight(.medium))
+            .font(.caption.weight(.medium))
             Link(destination: WellResources.ncdhhsPrivateWells) {
                 Label("NC DHHS: private well testing", systemImage: "arrow.up.right.square")
                     .frame(minHeight: 44)
             }
-            .font(.footnote)
+            .font(.caption)
             Link(destination: WellResources.ncCountyHealthDepartments) {
                 Label("Find your county health department", systemImage: "arrow.up.right.square")
                     .frame(minHeight: 44)
             }
-            .font(.footnote)
+            .font(.caption)
         }
         .card()
     }

@@ -26,12 +26,12 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "ClearWell NC uses your location once to find your census tract and show your area's well-water risk. Your location is not saved unless you choose Save as My Well."
+            "value" : "ClearWell NC uses your location to find your census tract, show your area's water risk, and find water help nearby. Your location is not saved unless you choose to save it."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "machine_translated",
+            "state" : "needs_review",
             "value" : "ClearWell NC usa su ubicación una sola vez para encontrar su sector censal y mostrar el riesgo del agua de pozo de su zona. Su ubicación no se guarda a menos que elija Guardar como Mi Pozo."
           }
         }

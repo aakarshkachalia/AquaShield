@@ -41,11 +41,10 @@ struct QuestScoreStopView: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity, minHeight: 52)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .buttonBorderShape(.roundedRectangle(radius: Radius.inner))
+                    .buttonStyle(PrimaryButtonStyle())
                 }
             }
-            .padding()
+            .padding(Spacing.l)
             .readableWidth()
         }
         .background(Color.appBackground)
@@ -57,7 +56,7 @@ struct QuestScoreStopView: View {
     private var guessQuestion: some View {
         VStack(alignment: .leading, spacing: Spacing.m) {
             Text("Which range do you think your score is in?")
-                .font(.title3.bold())
+                .font(.title2.bold())
                 .fixedSize(horizontal: false, vertical: true)
             Text("The score runs from 0 to 100 and sums up every result on your report.")
                 .foregroundStyle(.secondary)
@@ -165,7 +164,7 @@ struct QuestEndView: View {
             VStack(alignment: .leading, spacing: Spacing.l) {
                 VStack(spacing: Spacing.s) {
                     Image(systemName: isSerious ? "checkmark.circle" : "flag.checkered")
-                        .font(.system(size: 44))
+                        .font(.largeTitle)
                         .foregroundStyle(.tint)
                         .accessibilityHidden(true)
                         .overlay { SparkleBurst(trigger: celebration) }
@@ -194,7 +193,7 @@ struct QuestEndView: View {
                         ForEach(newBadges) { badge in
                             HStack(spacing: Spacing.m) {
                                 IconTile(systemImage: badge.symbol)
-                                VStack(alignment: .leading, spacing: 2) {
+                                VStack(alignment: .leading, spacing: Spacing.xs) {
                                     Text(badge.title).font(.body.weight(.semibold))
                                     Text(badge.howToEarn).font(.subheadline).foregroundStyle(.secondary)
                                 }
@@ -210,15 +209,14 @@ struct QuestEndView: View {
                         .font(.headline)
                         .frame(maxWidth: .infinity, minHeight: 52)
                 }
-                .buttonStyle(.borderedProminent)
-                .buttonBorderShape(.roundedRectangle(radius: Radius.inner))
+                .buttonStyle(PrimaryButtonStyle())
                 Button(action: onFullReport) {
                     Text("See full report")
                         .font(.headline)
                         .frame(maxWidth: .infinity, minHeight: 44)
                 }
             }
-            .padding()
+            .padding(Spacing.l)
             .readableWidth()
         }
         .background(Color.appBackground)
@@ -274,7 +272,7 @@ struct QuestFullReportView: View {
         let score = WellHealthScore.compute(report.scoreInput)
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.l) {
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text("Full report")
                         .font(.largeTitle.bold())
                         .accessibilityAddTraits(.isHeader)
@@ -307,7 +305,7 @@ struct QuestFullReportView: View {
                 .card()
                 TestingDisclaimer(kind: .score)
             }
-            .padding()
+            .padding(Spacing.l)
             .readableWidth()
         }
         .background(Color.appBackground)

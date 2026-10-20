@@ -12,7 +12,7 @@ struct HowItWorksView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: Spacing.xl) {
                 explainers
                 if let meta = store.database?.meta {
                     accuracySection(meta)
@@ -25,13 +25,13 @@ struct HowItWorksView: View {
                 auditNote
                 if let meta = store.database?.meta {
                     Text("Data: \(meta.dataSource). Tract estimates generated \(meta.generated).")
-                        .font(.footnote)
+                        .font(.caption)
                         .foregroundStyle(.secondary)
                 }
                 Text(RiskReport.disclaimer)
-                    .font(.footnote.weight(.semibold))
+                    .font(.caption.weight(.semibold))
             }
-            .padding()
+            .padding(Spacing.l)
             .readableWidth()
         }
         .background(Color.appBackground)
@@ -42,7 +42,7 @@ struct HowItWorksView: View {
     // MARK: Explainer cards
 
     private var explainers: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: Spacing.m) {
             ExplainerCard(number: 1, title: "Real test results", symbol: "testtube.2",
                           text: "The NC State Laboratory of Public Health tested private wells from 1998 to 2019. UNC researchers geocoded 117,960 of those tests (the NCWELL database). ClearWell uses the census-tract summaries.")
             ExplainerCard(number: 2, title: "The rock beneath you", symbol: "mountain.2",
@@ -57,7 +57,7 @@ struct HowItWorksView: View {
     // MARK: Scores
 
     private func accuracySection(_ meta: Meta) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: Spacing.m) {
             Text("How accurate is it?")
                 .font(.title2.bold())
                 .accessibilityAddTraits(.isHeader)
@@ -70,7 +70,7 @@ struct HowItWorksView: View {
     // MARK: Figures
 
     private var figures: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: Spacing.l) {
             FigureView(imageName: "arsenic_map",
                        altText: "Map of North Carolina showing the share of tested wells above the arsenic limit by census tract, with a hotspot east of Charlotte",
                        caption: "Arsenic test results by census tract. The dark band follows the Carolina Slate Belt.")
@@ -84,9 +84,9 @@ struct HowItWorksView: View {
     }
 
     private var auditNote: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             Text("Data we checked and excluded")
-                .font(.title3.bold())
+                .font(.title2.bold())
                 .accessibilityAddTraits(.isHeader)
             Text("While auditing the public data, we found three columns where the lab's reporting limit is above the state standard (silver, cadmium and chromium), which makes almost every test look contaminated. We excluded them. The tract file's manganese health-limit column also duplicates the 50 ppb column, so ClearWell uses the 50 ppb NC standard.")
         }
@@ -101,13 +101,13 @@ private struct ExplainerCard: View {
     let text: LocalizedStringKey
 
     var body: some View {
-        HStack(alignment: .top, spacing: 14) {
+        HStack(alignment: .top, spacing: Spacing.l) {
             Image(systemName: symbol)
                 .font(.title2)
                 .foregroundStyle(.tint)
                 .frame(width: 32)
                 .accessibilityHidden(true)
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .leading, spacing: Spacing.s) {
                 Text("\(number). \(Text(title))")
                     .font(.headline)
                     .accessibilityAddTraits(.isHeader)
@@ -139,7 +139,7 @@ private struct ScoresTable: View {
     }
 
     private var grid: some View {
-        Grid(alignment: .leading, horizontalSpacing: 16, verticalSpacing: 10) {
+        Grid(alignment: .leading, horizontalSpacing: Spacing.l, verticalSpacing: Spacing.m) {
             GridRow {
                 Text("Contaminant")
                 ForEach(columns.indices, id: \.self) { Text(columns[$0]) }
@@ -163,9 +163,9 @@ private struct ScoresTable: View {
     }
 
     private var stacked: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: Spacing.l) {
             ForEach(scores) { score in
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: Spacing.s) {
                     Text(score.contaminant.name)
                         .font(.headline)
                         .accessibilityAddTraits(.isHeader)
@@ -182,7 +182,7 @@ private struct ScoresTable: View {
 
     private var bestNote: some View {
         Text("Bold with a star: best of the first three methods.")
-            .font(.footnote)
+            .font(.caption)
             .foregroundStyle(.secondary)
     }
 
@@ -208,7 +208,7 @@ private struct ScoresTable: View {
                 Spacer()
                 valueText
             }
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
                 Text(label).foregroundStyle(.secondary)
                 valueText
             }
@@ -225,18 +225,18 @@ private struct FigureView: View {
     let caption: LocalizedStringKey
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             // The PNGs ship as loose bundle files, not asset-catalog images.
             if let image = UIImage(named: imageName) {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
                     .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    .clipShape(RoundedRectangle(cornerRadius: Radius.chip, style: .continuous))
                     .accessibilityLabel(Text(altText))
             }
             Text(caption)
-                .font(.footnote)
+                .font(.caption)
                 .foregroundStyle(.secondary)
         }
         .card()

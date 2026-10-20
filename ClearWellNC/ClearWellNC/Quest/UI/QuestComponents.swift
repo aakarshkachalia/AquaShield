@@ -37,22 +37,6 @@ struct WellCareContext {
     }
 }
 
-/// "Sample data" label shown on every screen that uses a demo report or placeholder data.
-struct SampleDataBanner: View {
-    var text: LocalizedStringKey = "Sample data: not a real test result"
-
-    var body: some View {
-        Label(text, systemImage: "info.circle.fill")
-            .font(.footnote.weight(.semibold))
-            .foregroundStyle(Color.statusWatch)
-            .padding(.horizontal, Spacing.m)
-            .padding(.vertical, Spacing.s)
-            .frame(maxWidth: .infinity)
-            .background(Color.statusWatch.opacity(0.12))
-            .accessibilityElement(children: .combine)
-    }
-}
-
 /// Big, full-width game button: icon + text, at least 60 pt tall.
 struct QuestChoiceButton: View {
     let title: String
@@ -72,9 +56,9 @@ struct QuestChoiceButton: View {
                     .foregroundStyle(tint)
                     .frame(width: 32)
                     .accessibilityHidden(true)
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(title)
-                        .font(.title3.weight(.semibold))
+                        .font(.title2.weight(.semibold))
                         .foregroundStyle(.primary)
                     if let detail {
                         Text(detail)
@@ -85,7 +69,7 @@ struct QuestChoiceButton: View {
                 Spacer(minLength: 0)
                 if let marker {
                     Image(systemName: marker.symbol)
-                        .font(.title3)
+                        .font(.title2)
                         .foregroundStyle(marker.color)
                         .accessibilityHidden(true)
                 }
@@ -145,7 +129,7 @@ struct SparkleBurst: View {
         ZStack {
             ForEach(0..<6, id: \.self) { i in
                 Image(systemName: i.isMultiple(of: 2) ? "sparkle" : "star.fill")
-                    .font(.system(size: i.isMultiple(of: 2) ? 18 : 10))
+                    .font(i.isMultiple(of: 2) ? .headline : .caption)
                     .foregroundStyle(i.isMultiple(of: 3) ? Color.statusWatch : Color.accentColor)
                     .offset(offset(i))
             }

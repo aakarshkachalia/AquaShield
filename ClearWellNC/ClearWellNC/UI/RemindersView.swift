@@ -22,66 +22,65 @@ struct RemindersView: View {
     @State private var careRevision = 0
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    notificationCard
+        ScrollView {
+            VStack(alignment: .leading, spacing: Spacing.xl) {
+                notificationCard
 
-                    sectionHeader("Filters & treatment", action: { addingSystem = true },
-                                  actionLabel: "Add filter")
-                    if systems.isEmpty {
-                        HStack(alignment: .top, spacing: Spacing.m) {
-                            IconTile(systemImage: "line.3.horizontal.decrease.circle")
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text("No filters yet")
-                                    .font(.headline)
-                                Text("Add a pitcher, faucet, fridge or under-sink filter, or well treatment like UV or a softener, to get a reminder when it's due.")
-                                    .foregroundStyle(.secondary)
-                                    .fixedSize(horizontal: false, vertical: true)
-                            }
-                        }
-                        .card()
-                        .accessibilityElement(children: .combine)
-                    } else {
-                        ForEach(systems) { system in
-                            TreatmentRow(system: system,
-                                         onEdit: { editingSystem = system },
-                                         onServiced: { markServiced(system) })
+                sectionHeader("Filters & treatment", action: { addingSystem = true },
+                              actionLabel: "Add filter")
+                if systems.isEmpty {
+                    HStack(alignment: .top, spacing: Spacing.m) {
+                        IconTile(systemImage: "line.3.horizontal.decrease.circle")
+                        VStack(alignment: .leading, spacing: Spacing.s) {
+                            Text("No filters yet")
+                                .font(.headline)
+                            Text("Add a pitcher, faucet, fridge or under-sink filter, or well treatment like UV or a softener, to get a reminder when it's due.")
+                                .foregroundStyle(.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
                         }
                     }
+                    .card()
+                    .accessibilityElement(children: .combine)
+                } else {
+                    ForEach(systems) { system in
+                        TreatmentRow(system: system,
+                                     onEdit: { editingSystem = system },
+                                     onServiced: { markServiced(system) })
+                    }
+                }
 
-                    if waterSource.showsWellCare {
-                        Text("Well care")
-                            .font(.title2.bold())
-                            .accessibilityAddTraits(.isHeader)
-                            .padding(.top, 8)
-                        ForEach(WellCareTask.allCases) { task in
-                            CareRow(task: task, results: results, revision: careRevision) {
-                                task.markDone()
-                                careRevision += 1
-                                refresh()
-                            }
+                if waterSource.showsWellCare {
+                    Text("Well care")
+                        .font(.title2.bold())
+                        .accessibilityAddTraits(.isHeader)
+                        .padding(.top, Spacing.s)
+                    ForEach(WellCareTask.allCases) { task in
+                        CareRow(task: task, results: results, revision: careRevision) {
+                            task.markDone()
+                            careRevision += 1
+                            refresh()
                         }
                     }
                 }
-                .padding()
-                .readableWidth()
             }
-            .background(Color.appBackground)
-            .navigationTitle("Reminders")
-            .sheet(isPresented: $addingSystem) { TreatmentForm() }
-            .sheet(item: $editingSystem) { TreatmentForm(existing: $0) }
-            .task { notificationStatus = await NotificationScheduler.authorizationStatus() }
-            .onChange(of: scenePhase) { _, phase in
-                // Pick up permission changes made in Settings.
-                if phase == .active {
-                    Task { notificationStatus = await NotificationScheduler.authorizationStatus() }
-                }
-            }
-            .onChange(of: addingSystem) { _, isAdding in
-                if !isAdding { Task { notificationStatus = await NotificationScheduler.authorizationStatus() } }
+            .padding(Spacing.l)
+            .readableWidth()
+        }
+        .background(Color.appBackground)
+        .navigationTitle("Reminders")
+        .sheet(isPresented: $addingSystem) { TreatmentForm() }
+        .sheet(item: $editingSystem) { TreatmentForm(existing: $0) }
+        .task { notificationStatus = await NotificationScheduler.authorizationStatus() }
+        .onChange(of: scenePhase) { _, phase in
+            // Pick up permission changes made in Settings.
+            if phase == .active {
+                Task { notificationStatus = await NotificationScheduler.authorizationStatus() }
             }
         }
+        .onChange(of: addingSystem) { _, isAdding in
+            if !isAdding { Task { notificationStatus = await NotificationScheduler.authorizationStatus() } }
+        }
+    
     }
 
     // MARK: Pieces
@@ -90,7 +89,7 @@ struct RemindersView: View {
     private var notificationCard: some View {
         switch notificationStatus {
         case .notDetermined?:
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: Spacing.m) {
                 Label("Get reminders on time", systemImage: "bell.badge")
                     .font(.headline)
                 Text(waterSource.showsWellCare
@@ -107,11 +106,11 @@ struct RemindersView: View {
                         .font(.headline)
                         .frame(maxWidth: .infinity, minHeight: 44)
                 }
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(PrimaryButtonStyle())
             }
             .card()
         case .denied?:
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: Spacing.m) {
                 Label("Notifications are off", systemImage: "bell.slash")
                     .font(.headline)
                 Text("Reminders still show here, but you won't get alerts. You can turn notifications on in Settings.")
@@ -132,10 +131,10 @@ struct RemindersView: View {
         let button = Button(action: action) {
             Label(actionLabel, systemImage: "plus").frame(minHeight: 44)
         }
-        .buttonStyle(.bordered)
+        .buttonStyle(SecondaryButtonStyle())
         return ViewThatFits(in: .horizontal) {
             HStack { titleView; Spacer(); button }
-            VStack(alignment: .leading, spacing: 8) { titleView; button }
+            VStack(alignment: .leading, spacing: Spacing.s) { titleView; button }
         }
     }
 
@@ -158,15 +157,15 @@ struct TreatmentRow: View {
 
     var body: some View {
         let days = DueText.daysRemaining(until: system.dueDate)
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: Spacing.m) {
             Button(action: onEdit) {
-                HStack(alignment: .top, spacing: 12) {
+                HStack(alignment: .top, spacing: Spacing.m) {
                     Image(systemName: system.kind.symbol)
                         .font(.title2)
                         .foregroundStyle(.tint)
                         .frame(width: 32)
                         .accessibilityHidden(true)
-                    VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading, spacing: Spacing.xs) {
                         Text(system.displayName)
                             .font(.headline)
                         if let product = system.trimmedProductName {
@@ -194,7 +193,7 @@ struct TreatmentRow: View {
                       systemImage: "checkmark.circle")
                     .frame(maxWidth: .infinity, minHeight: 44)
             }
-            .buttonStyle(.bordered)
+            .buttonStyle(SecondaryButtonStyle())
         }
         .card()
     }
@@ -227,14 +226,14 @@ struct CareRow: View {
     var body: some View {
         let last = task.lastDone(results: results)
         let days = DueText.daysRemaining(until: task.dueDate(results: results))
-        VStack(alignment: .leading, spacing: 10) {
-            HStack(alignment: .top, spacing: 12) {
+        VStack(alignment: .leading, spacing: Spacing.m) {
+            HStack(alignment: .top, spacing: Spacing.m) {
                 Image(systemName: task.symbol)
                     .font(.title2)
                     .foregroundStyle(.tint)
                     .frame(width: 32)
                     .accessibilityHidden(true)
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(task.title)
                         .font(.headline)
                     Text(task.frequency)
@@ -260,7 +259,7 @@ struct CareRow: View {
                 Label("Mark done today", systemImage: "checkmark.circle")
                     .frame(maxWidth: .infinity, minHeight: 44)
             }
-            .buttonStyle(.bordered)
+            .buttonStyle(SecondaryButtonStyle())
             .accessibilityLabel(Text("Mark \(task.title) done today"))
         }
         .card()

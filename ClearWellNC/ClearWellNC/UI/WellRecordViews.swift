@@ -12,8 +12,8 @@ struct LatestResultCard: View {
     let result: LabResult
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            VStack(alignment: .leading, spacing: 2) {
+        VStack(alignment: .leading, spacing: Spacing.m) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
                 Text("Latest result")
                     .font(.headline)
                     .accessibilityAddTraits(.isHeader)
@@ -76,7 +76,7 @@ struct TrendChart: View {
 
     var body: some View {
         let points = points
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             Text(analyte.name)
                 .font(.headline)
                 .accessibilityAddTraits(.isHeader)
@@ -97,7 +97,7 @@ struct TrendChart: View {
                         .lineStyle(StrokeStyle(lineWidth: 1, dash: [4, 4]))
                         .annotation(position: .top, alignment: .leading) {
                             Text(line.label)
-                                .font(.caption2)
+                                .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                         .accessibilityHidden(true)
@@ -124,11 +124,11 @@ struct EColiUrgentCard: View {
 
     var body: some View {
         UrgentBanner {
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: Spacing.m) {
                 Label("E. coli was found in your latest test", systemImage: "exclamationmark.octagon.fill")
                     .font(.headline)
                     .accessibilityAddTraits(.isHeader)
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: Spacing.s) {
                     if waterSource.showsWellCare {
                         bullet("Do not drink your well water.")
                         bullet("Use bottled water instead.")
@@ -146,7 +146,7 @@ struct EColiUrgentCard: View {
     }
 
     private func bullet(_ text: LocalizedStringKey) -> some View {
-        HStack(alignment: .firstTextBaseline, spacing: 8) {
+        HStack(alignment: .firstTextBaseline, spacing: Spacing.s) {
             Text("•").accessibilityHidden(true)
             Text(text)
         }
@@ -158,7 +158,7 @@ struct RetestReminderCard: View {
     let systems: [TreatmentSystem]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             Label("Retest to confirm your treatment works", systemImage: "testtube.2")
                 .font(.headline)
                 .foregroundStyle(.tint)
@@ -178,7 +178,7 @@ struct ChartCaptionView: View {
     let text: String
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
             Text("What this chart shows")
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(.secondary)
@@ -186,9 +186,9 @@ struct ChartCaptionView: View {
                 .font(.subheadline)
                 .fixedSize(horizontal: false, vertical: true)
         }
-        .padding(10)
+        .padding(Spacing.m)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.primary.opacity(0.05), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+        .background(Color.primary.opacity(0.05), in: RoundedRectangle(cornerRadius: Radius.chip, style: .continuous))
         .accessibilityElement(children: .combine)
     }
 }

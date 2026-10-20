@@ -28,7 +28,7 @@ struct WellScoreCard: View {
         } label: {
             HStack(alignment: .center, spacing: Spacing.l) {
                 ScoreNumber(result: result, size: .compact)
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(waterSource.scoreTitle)
                         .font(.headline)
                     if let band = result.band {
@@ -42,7 +42,7 @@ struct WellScoreCard: View {
                 }
                 Spacer(minLength: 0)
                 Image(systemName: "chevron.right")
-                    .font(.footnote.weight(.semibold))
+                    .font(.caption.weight(.semibold))
                     .foregroundStyle(.tertiary)
                     .accessibilityHidden(true)
             }
@@ -68,7 +68,6 @@ struct ScoreNumber: View {
     let size: Size
     @ScaledMetric(relativeTo: .largeTitle) private var largeDiameter: CGFloat = 168
     @ScaledMetric(relativeTo: .title) private var compactDiameter: CGFloat = 68
-    @ScaledMetric(relativeTo: .largeTitle) private var largeFont: CGFloat = 56
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var shownFraction: Double = 0
 
@@ -88,7 +87,7 @@ struct ScoreNumber: View {
             VStack(spacing: 0) {
                 Text(result.score.map { "\($0)" } ?? "—")
                     .font(size == .large
-                          ? .system(size: largeFont, weight: .bold, design: .rounded)
+                          ? .largeTitle.weight(.bold)
                           : .title2.weight(.bold))
                     .fontDesign(.rounded)
                     .monospacedDigit()
@@ -127,7 +126,7 @@ struct WellScoreView: View {
     var body: some View {
         let result = WellHealthScore.compute(results.latestScoreInput)
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: Spacing.xl) {
                 if result.eColiPositive {
                     DoNotDrinkBanner()
                 }
@@ -145,7 +144,7 @@ struct WellScoreView: View {
                 howItWorks
                 TestingDisclaimer(kind: .score)
             }
-            .padding()
+            .padding(Spacing.l)
             .readableWidth()
         }
         .background(Color.appBackground)
@@ -154,7 +153,7 @@ struct WellScoreView: View {
     }
 
     private func header(_ result: WellHealthScore.Result) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: Spacing.m) {
             VStack(spacing: Spacing.m) {
                 ScoreNumber(result: result, size: .large)
                 if let band = result.band {
@@ -182,12 +181,12 @@ struct WellScoreView: View {
     }
 
     private func factors(_ result: WellHealthScore.Result) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: Spacing.m) {
             Text("What's pulling your score down")
                 .font(.headline)
                 .accessibilityAddTraits(.isHeader)
             ForEach(Array(result.topFactors.enumerated()), id: \.element.id) { index, factor in
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: Spacing.s) {
                     InterpretationBlock(name: "\(index + 1). \(factor.id.info.name)", interpretation: factor.interpretation)
                     Label {
                         Text(factor.nextAction)
@@ -209,7 +208,7 @@ struct WellScoreView: View {
     }
 
     private func missing(_ result: WellHealthScore.Result) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             Text("Tests still needed")
                 .font(.headline)
                 .accessibilityAddTraits(.isHeader)
@@ -221,7 +220,7 @@ struct WellScoreView: View {
                 }
             }
             Text("Contact your county health department or a state-certified lab to order these tests.")
-                .font(.footnote)
+                .font(.caption)
                 .foregroundStyle(.secondary)
         }
         .card()
@@ -231,7 +230,7 @@ struct WellScoreView: View {
         DisclosureGroup {
             Text("The score starts at 100. Each health-based result takes away up to 30 points depending on how close it is to its limit. Cosmetic issues like iron, hardness or pH take away less. Any result at or above a health limit caps the score at 40, and E. coli caps it at 10. Bands: Good 80–100, Fair 60–79, Poor 41–59, Unsafe 0–40.")
                 .font(.subheadline)
-                .padding(.top, 6)
+                .padding(.top, Spacing.s)
         } label: {
             Text("How the score works")
                 .font(.subheadline.weight(.semibold))
@@ -244,9 +243,9 @@ struct WellScoreView: View {
 struct DoNotDrinkBanner: View {
     var body: some View {
         UrgentBanner {
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .leading, spacing: Spacing.s) {
                 Label("Do not drink untreated", systemImage: "exclamationmark.octagon.fill")
-                    .font(.title3.bold())
+                    .font(.title2.bold())
                     .accessibilityAddTraits(.isHeader)
                 Text(ContaminantID.eColi.info.actionIfAbove)
             }

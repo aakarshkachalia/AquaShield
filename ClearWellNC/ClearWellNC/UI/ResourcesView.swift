@@ -42,10 +42,10 @@ struct ResourcesView: View {
                 }
                 officialResources
                 Text("Listings come from Apple Maps. ClearWell NC does not review or endorse these businesses. For water tests, choose a lab certified by the State of North Carolina.")
-                    .font(.footnote)
+                    .font(.caption)
                     .foregroundStyle(.secondary)
             }
-            .padding()
+            .padding(Spacing.l)
             .readableWidth()
         }
         .background(Color.appBackground)
@@ -84,7 +84,7 @@ struct ResourcesView: View {
                     .accessibilityAddTraits(selected ? .isSelected : [])
                 }
             }
-            .padding(.vertical, 2)
+            .padding(.vertical, Spacing.xs)
         }
     }
 
@@ -127,12 +127,11 @@ struct ResourcesView: View {
                 Image(systemName: "house.fill")
                     .font(.caption.weight(.bold))
                     .foregroundStyle(.white)
-                    .padding(6)
-                    .background(Color.brandTeal, in: Circle())
+                    .padding(Spacing.s)
+                    .background(Color.brandPrimaryFixed, in: Circle())
             }
             ForEach(places) { place in
                 Marker(place.name, systemImage: category.symbol, coordinate: place.coordinate)
-                    .tint(Color.brandTeal)
                     .tag(place.id)
             }
         }
@@ -160,11 +159,11 @@ struct ResourcesView: View {
                     .font(.headline)
                     .frame(maxWidth: .infinity, minHeight: 44)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(PrimaryButtonStyle())
             .disabled(locating)
             if locationFailed {
                 Text("We couldn't get your location. Check that location access is on for ClearWell NC in Settings.")
-                    .font(.footnote)
+                    .font(.caption)
                     .foregroundStyle(Color.statusAbove)
             }
         }
@@ -200,13 +199,13 @@ struct ResourcesView: View {
         Link(destination: url) {
             HStack(spacing: Spacing.m) {
                 IconTile(systemImage: systemImage)
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(title).font(.body.weight(.semibold)).foregroundStyle(.primary)
                     Text(detail).font(.subheadline).foregroundStyle(.secondary)
                 }
                 Spacer(minLength: 0)
                 Image(systemName: "arrow.up.right")
-                    .font(.footnote.weight(.semibold))
+                    .font(.caption.weight(.semibold))
                     .foregroundStyle(.tertiary)
                     .accessibilityHidden(true)
             }
@@ -240,7 +239,7 @@ private struct PlaceCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.m) {
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
                 HStack(alignment: .firstTextBaseline) {
                     Text(place.name)
                         .font(.headline)
@@ -286,7 +285,6 @@ private struct PlaceCard: View {
                 .frame(minHeight: 44)
                 .padding(.horizontal, Spacing.xs)
         }
-        .buttonStyle(.bordered)
-        .buttonBorderShape(.capsule)
+        .buttonStyle(SecondaryButtonStyle())
     }
 }

@@ -73,7 +73,7 @@ struct MyWellView: View {
                         }
                         if !chartedAnalytes.isEmpty {
                             Text("Triangles mark results above the limit. Dashed lines show limits.")
-                                .font(.footnote)
+                                .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                         pastResults
@@ -81,7 +81,7 @@ struct MyWellView: View {
                         emptyRecord
                     }
                 }
-                .padding()
+                .padding(Spacing.l)
                 .readableWidth()
             }
             .background(Color.appBackground)
@@ -153,7 +153,7 @@ struct MyWellView: View {
             VStack(alignment: .leading, spacing: Spacing.l) {
                 HStack(alignment: .top, spacing: Spacing.m) {
                     IconTile(systemImage: "mappin.and.ellipse")
-                    VStack(alignment: .leading, spacing: 2) {
+                    VStack(alignment: .leading, spacing: Spacing.xs) {
                         Text(well.placeName)
                             .font(.title2.bold())
                         if let tract = store.database?.tract(fips: well.fips), let county = tract.countyName {
@@ -161,7 +161,7 @@ struct MyWellView: View {
                                 .foregroundStyle(.secondary)
                         }
                         Text("Census tract \(well.fips)")
-                            .font(.footnote)
+                            .font(.caption)
                             .foregroundStyle(.secondary)
                     }
                 }
@@ -178,15 +178,14 @@ struct MyWellView: View {
                             .font(.headline)
                             .frame(maxWidth: .infinity, minHeight: 44)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .buttonBorderShape(.roundedRectangle(radius: Radius.inner))
+                    .buttonStyle(PrimaryButtonStyle())
                 }
             }
             .card()
         } else {
             HStack(alignment: .top, spacing: Spacing.m) {
                 IconTile(systemImage: "mappin.slash", color: .secondary)
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: Spacing.s) {
                     Text("No location saved")
                         .font(.headline)
                     Text("Check your area, then tap Save on the report. Your lab results below are kept either way.")
@@ -206,7 +205,7 @@ struct MyWellView: View {
                 Spacer()
                 addButton
             }
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: Spacing.s) {
                 recordTitle
                 addButton
             }
@@ -216,7 +215,7 @@ struct MyWellView: View {
 
     private var recordTitle: some View {
         Text(waterSource.recordTitle)
-            .font(.title3.bold())
+            .font(.title2.bold())
             .accessibilityAddTraits(.isHeader)
     }
 
@@ -228,8 +227,7 @@ struct MyWellView: View {
                 .font(.subheadline.weight(.semibold))
                 .frame(minHeight: 44)
         }
-        .buttonStyle(.bordered)
-        .buttonBorderShape(.capsule)
+        .buttonStyle(SecondaryButtonStyle())
     }
 
     private var emptyRecord: some View {
@@ -254,13 +252,13 @@ struct MyWellView: View {
             Text("All results")
                 .font(.headline)
                 .accessibilityAddTraits(.isHeader)
-                .padding(.bottom, 8)
+                .padding(.bottom, Spacing.s)
             ForEach(results) { result in
                 Button {
                     editingResult = result
                 } label: {
                     HStack {
-                        VStack(alignment: .leading, spacing: 2) {
+                        VStack(alignment: .leading, spacing: Spacing.xs) {
                             Text(result.date.formatted(date: .abbreviated, time: .omitted))
                                 .font(.body.weight(.medium))
                             Text(summary(for: result))

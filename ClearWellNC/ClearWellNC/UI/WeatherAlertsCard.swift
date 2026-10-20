@@ -23,7 +23,7 @@ struct WeatherAlertsCard: View {
     // MARK: No relevant alerts / loading / error
 
     private var statusCard: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             Text("Weather alerts")
                 .font(.headline)
                 .accessibilityAddTraits(.isHeader)
@@ -39,7 +39,7 @@ struct WeatherAlertsCard: View {
                     Image(systemName: "checkmark.circle.fill").foregroundStyle(Color.statusSafe)
                 }
                 Text("Checked \(checkedAt.formatted(date: .omitted, time: .shortened))")
-                    .font(.footnote)
+                    .font(.caption)
                     .foregroundStyle(.secondary)
             case .failed:
                 Label {
@@ -51,7 +51,7 @@ struct WeatherAlertsCard: View {
                     .frame(minHeight: 44)
             }
             Text("Your saved location is sent to the National Weather Service to check for alerts.")
-                .font(.footnote)
+                .font(.caption)
                 .foregroundStyle(.secondary)
         }
         .card()
@@ -60,7 +60,7 @@ struct WeatherAlertsCard: View {
     // MARK: Active alert
 
     private func alertCard(_ alerts: [WeatherAlert]) -> some View {
-        VStack(alignment: .leading, spacing: 14) {
+        VStack(alignment: .leading, spacing: Spacing.l) {
             Label(waterSource.showsWellCare ? String(localized: "Weather alert for your well")
                                             : String(localized: "Weather alert for your home"),
                   systemImage: "cloud.bolt.rain.fill")
@@ -68,7 +68,7 @@ struct WeatherAlertsCard: View {
                 .accessibilityAddTraits(.isHeader)
 
             ForEach(alerts) { alert in
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(alert.event)
                         .font(.body.weight(.semibold))
                     if let headline = alert.headline {
@@ -99,22 +99,22 @@ struct WeatherAlertsCard: View {
             }
 
             Text("Alerts from the National Weather Service.")
-                .font(.footnote)
+                .font(.caption)
                 .opacity(0.85)
         }
         .foregroundStyle(.white)
-        .padding(16)
+        .padding(Spacing.l)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.brandTeal, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .background(Color.brandPrimaryFixed, in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
     }
 
     private func checklist(title: LocalizedStringKey, items: [LocalizedStringKey]) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             Text(title)
                 .font(.subheadline.weight(.bold))
                 .accessibilityAddTraits(.isHeader)
             ForEach(items.indices, id: \.self) { index in
-                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                HStack(alignment: .firstTextBaseline, spacing: Spacing.s) {
                     Image(systemName: "checkmark.square")
                         .accessibilityHidden(true)
                     Text(items[index])

@@ -19,11 +19,11 @@ struct QuestSafetyAlertView: View {
             VStack(alignment: .leading, spacing: Spacing.l) {
                 VStack(alignment: .leading, spacing: Spacing.s) {
                     Image(systemName: "exclamationmark.octagon.fill")
-                        .font(.system(size: 44))
+                        .font(.largeTitle)
                         .foregroundStyle(Color.statusAbove)
                         .accessibilityHidden(true)
                     Text("Important: your test found a problem")
-                        .font(.title.bold())
+                        .font(.title2.bold())
                         .accessibilityAddTraits(.isHeader)
                     Text("Read this before anything else.")
                         .foregroundStyle(.secondary)
@@ -38,7 +38,7 @@ struct QuestSafetyAlertView: View {
                             Image(systemName: "exclamationmark.triangle.fill")
                                 .foregroundStyle(Color.statusAbove)
                                 .accessibilityHidden(true)
-                            VStack(alignment: .leading, spacing: 2) {
+                            VStack(alignment: .leading, spacing: Spacing.xs) {
                                 Text(finding.id.info.name).font(.body.weight(.semibold))
                                 Text("\(finding.readingText) · \(finding.chipLabel)")
                                     .font(.subheadline)
@@ -91,12 +91,10 @@ struct QuestSafetyAlertView: View {
                         .font(.headline)
                         .frame(maxWidth: .infinity, minHeight: 52)
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(Color.brandTeal)
-                .buttonBorderShape(.roundedRectangle(radius: Radius.inner))
+                .buttonStyle(PrimaryButtonStyle())
                 .accessibilityHint(Text("Continues to Report Quest"))
             }
-            .padding()
+            .padding(Spacing.l)
             .readableWidth()
         }
         .background(Color.appBackground)

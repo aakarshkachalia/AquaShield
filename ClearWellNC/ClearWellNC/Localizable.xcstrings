@@ -10,6 +10,16 @@
     "· %@" : {
 
     },
+    "%@ · %@" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%1$@ · %2$@"
+          }
+        }
+      }
+    },
     "%@ (%@–%@)" : {
       "localizations" : {
         "en" : {
@@ -52,6 +62,26 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@ %2$@ %3$@"
+          }
+        }
+      }
+    },
+    "%@ %@ +%lld points" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%1$@ %2$@ +%3$lld puntos"
+          }
+        }
+      }
+    },
+    "%@ %@ Check" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Revisión de %2$@ de %1$@"
           }
         }
       }
@@ -339,6 +369,26 @@
         }
       }
     },
+    "%lld points" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%lld puntos"
+          }
+        }
+      }
+    },
+    "%lld-year testing streak · %lld of %lld badges · %lld points" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Racha de análisis: %1$lld años · %2$lld de %3$lld insignias · %4$lld puntos"
+          }
+        }
+      }
+    },
     "%lld." : {
       "localizations" : {
         "es" : {
@@ -371,6 +421,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "•"
+          }
+        }
+      }
+    },
+    "0–40" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "0–40"
           }
         }
       }
@@ -468,6 +528,16 @@
         }
       }
     },
+    "41–59" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "41–59"
+          }
+        }
+      }
+    },
     "50 ppb" : {
 
     },
@@ -506,6 +576,26 @@
         }
       }
     },
+    "60–79" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "60–79"
+          }
+        }
+      }
+    },
+    "80–100" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "80–100"
+          }
+        }
+      }
+    },
     "300 ppb (staining only, not a health limit)" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -535,96 +625,6 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Recomendación de salud de 300 ppb"
-          }
-        }
-      }
-    },
-    "%lld points" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "%lld puntos"
-          }
-        }
-      }
-    },
-    "0–40" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "0–40"
-          }
-        }
-      }
-    },
-    "41–59" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "41–59"
-          }
-        }
-      }
-    },
-    "60–79" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "60–79"
-          }
-        }
-      }
-    },
-    "80–100" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "80–100"
-          }
-        }
-      }
-    },
-    "%@ · %@" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "%1$@ · %2$@"
-          }
-        }
-      }
-    },
-    "%@ %@ +%lld points" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "%1$@ %2$@ +%3$lld puntos"
-          }
-        }
-      }
-    },
-    "%@ %@ Check" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Revisión de %2$@ de %1$@"
-          }
-        }
-      }
-    },
-    "%lld-year testing streak · %lld of %lld badges · %lld points" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Racha de análisis: %1$lld años · %2$lld de %3$lld insignias · %4$lld puntos"
           }
         }
       }
@@ -849,22 +849,22 @@
         }
       }
     },
-    "Add a test to see it" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Agregue un análisis para verlo"
-          }
-        }
-      }
-    },
     "Add a pitcher, faucet, fridge or under-sink filter, or well treatment like UV or a softener, to get a reminder when it's due." : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Agregue un filtro de jarra, de grifo, de refrigerador o debajo del fregadero, o un tratamiento para el pozo como UV o un suavizador, para recibir un recordatorio cuando toque."
+          }
+        }
+      }
+    },
+    "Add a test to see it" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Agregue un análisis para verlo"
           }
         }
       }
@@ -900,6 +900,7 @@
       }
     },
     "Add filters, membranes, UV bulbs or softener salt to get a reminder when they're due." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -920,6 +921,7 @@
       }
     },
     "Add system" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -930,6 +932,7 @@
       }
     },
     "Add treatment system" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1005,6 +1008,7 @@
       }
     },
     "After you add a treatment system, retest your water to confirm it works." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1111,22 +1115,22 @@
     "As it gets closer to the guideline you may start to notice %@." : {
 
     },
-    "At a glance" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Resumen"
-          }
-        }
-      }
-    },
     "Ask whether the lab is certified by the State of North Carolina for drinking water." : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Pregunte si el laboratorio está certificado por el Estado de Carolina del Norte para agua potable."
+          }
+        }
+      }
+    },
+    "At a glance" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Resumen"
           }
         }
       }
@@ -1331,22 +1335,22 @@
         }
       }
     },
-    "Bring your lab results so they can match a system to what's in your water." : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Lleve sus resultados del laboratorio para que le recomienden un sistema según lo que tiene su agua."
-          }
-        }
-      }
-    },
     "Brand and model (optional)" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Marca y modelo (opcional)"
+          }
+        }
+      }
+    },
+    "Bring your lab results so they can match a system to what's in your water." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Lleve sus resultados del laboratorio para que le recomienden un sistema según lo que tiene su agua."
           }
         }
       }
@@ -1456,22 +1460,22 @@
         }
       }
     },
-    "Check an area" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Revisar una zona"
-          }
-        }
-      }
-    },
     "Change where your home's water comes from" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Cambie de dónde viene el agua de su hogar"
+          }
+        }
+      }
+    },
+    "Check an area" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Revisar una zona"
           }
         }
       }
@@ -1568,7 +1572,7 @@
         }
       }
     },
-    "Check My Area" : {
+    "Check my area" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1578,7 +1582,7 @@
         }
       }
     },
-    "Check my area" : {
+    "Check My Area" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1608,16 +1612,6 @@
         }
       }
     },
-    "Check your area and save it to see local risks, weather alerts and help near you." : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Revise su zona y guárdela para ver los riesgos locales, las alertas del tiempo y ayuda cerca de usted."
-          }
-        }
-      }
-    },
     "Check what a filter is certified to remove" : {
       "localizations" : {
         "es" : {
@@ -1628,7 +1622,18 @@
         }
       }
     },
+    "Check your area and save it to see local risks, weather alerts and help near you." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Revise su zona y guárdela para ver los riesgos locales, las alertas del tiempo y ayuda cerca de usted."
+          }
+        }
+      }
+    },
     "Check your area, then tap Save as My Well on the report. Your lab results below are kept either way." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1871,9 +1876,6 @@
     "Copper usually comes from copper pipes that corrode, often because the water is acidic." : {
 
     },
-    "Correct answer" : {
-
-    },
     "Correct — here's what to do" : {
       "localizations" : {
         "es" : {
@@ -1883,6 +1885,9 @@
           }
         }
       }
+    },
+    "Correct answer" : {
+
     },
     "Correct!" : {
       "localizations" : {
@@ -2155,22 +2160,22 @@
         }
       }
     },
-    "Done: correct" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Hecho: correcto"
-          }
-        }
-      }
-    },
     "Done" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Listo"
+          }
+        }
+      }
+    },
+    "Done: correct" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Hecho: correcto"
           }
         }
       }
@@ -2314,6 +2319,7 @@
       }
     },
     "Edit or delete this system" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -2324,6 +2330,7 @@
       }
     },
     "Edit treatment system" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -2540,22 +2547,22 @@
     "Filter certified to NSF/ANSI 53 for lead" : {
 
     },
-    "Find help nearby" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Buscar ayuda cercana"
-          }
-        }
-      }
-    },
     "Filters & treatment" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Filtros y tratamiento"
+          }
+        }
+      }
+    },
+    "Find help nearby" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Buscar ayuda cercana"
           }
         }
       }
@@ -2618,6 +2625,16 @@
     "Fluoride occurs naturally in some rock. Some NC wells have more than others." : {
 
     },
+    "Follow any boil-water notice from your water utility." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Siga cualquier aviso de hervir el agua de su proveedor."
+          }
+        }
+      }
+    },
     "For lead pipes, old fixtures, or installing an under-sink filter." : {
       "localizations" : {
         "es" : {
@@ -2634,16 +2651,6 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Para el plomo, busque la certificación NSF/ANSI 53. NSF/ANSI 42 solo cubre el sabor y el olor. Algunos filtros también están certificados para PFAS."
-          }
-        }
-      }
-    },
-    "Follow any boil-water notice from your water utility." : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Siga cualquier aviso de hervir el agua de su proveedor."
           }
         }
       }
@@ -2810,22 +2817,22 @@
     "High, when media is replaced on schedule" : {
 
     },
-    "Home" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Inicio"
-          }
-        }
-      }
-    },
     "Higher than typical here" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Más alto de lo típico aquí"
+          }
+        }
+      }
+    },
+    "Home" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Inicio"
           }
         }
       }
@@ -3378,12 +3385,12 @@
         }
       }
     },
-    "Learn your report" : {
+    "Learn to read a water test in about 3 minutes, with a sample report." : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
-            "value" : "Entienda su informe"
+            "value" : "Aprenda a leer un análisis de agua en unos 3 minutos, con un informe de ejemplo."
           }
         }
       }
@@ -3398,32 +3405,32 @@
         }
       }
     },
-    "Learner" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Aprendiz"
-          }
-        }
-      }
-    },
-    "Learn to read a water test in about 3 minutes, with a sample report." : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Aprenda a leer un análisis de agua en unos 3 minutos, con un informe de ejemplo."
-          }
-        }
-      }
-    },
     "Learn to read your latest test in about 3 minutes, one result at a time." : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Aprenda a leer su último análisis en unos 3 minutos, un resultado a la vez."
+          }
+        }
+      }
+    },
+    "Learn your report" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Entienda su informe"
+          }
+        }
+      }
+    },
+    "Learner" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Aprendiz"
           }
         }
       }
@@ -3542,16 +3549,6 @@
     "Long term" : {
 
     },
-    "Look up certified filters (NSF)" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Buscar filtros certificados (NSF)"
-          }
-        }
-      }
-    },
     "Look for NSF/ANSI 55 Class A. UV kills bacteria but does not remove chemicals or metals." : {
       "localizations" : {
         "es" : {
@@ -3568,6 +3565,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Busque la certificación NSF/ANSI 58. La ósmosis inversa elimina arsénico, nitrato, plomo y la mayoría de los PFAS."
+          }
+        }
+      }
+    },
+    "Look up certified filters (NSF)" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Buscar filtros certificados (NSF)"
           }
         }
       }
@@ -4055,6 +4062,7 @@
 
     },
     "No treatment systems yet" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -4502,6 +4510,16 @@
     "Pipes, solder and fittings" : {
 
     },
+    "Pitcher filter" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Filtro de jarra"
+          }
+        }
+      }
+    },
     "Places within about 25 miles of %@." : {
       "localizations" : {
         "es" : {
@@ -4518,16 +4536,6 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Lugares a unas 25 millas de su ubicación actual."
-          }
-        }
-      }
-    },
-    "Pitcher filter" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Filtro de jarra"
           }
         }
       }
@@ -4695,22 +4703,22 @@
         }
       }
     },
-    "Read your report one result at a time." : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Lea su informe un resultado a la vez."
-          }
-        }
-      }
-    },
     "Read this before anything else." : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Lea esto antes que nada."
+          }
+        }
+      }
+    },
+    "Read your report one result at a time." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Lea su informe un resultado a la vez."
           }
         }
       }
@@ -5051,6 +5059,26 @@
     "Sample data" : {
 
     },
+    "Sample data: forecast uses placeholder numbers" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Datos de ejemplo: el pronóstico usa números de prueba"
+          }
+        }
+      }
+    },
+    "Sample data: not a real test result" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Datos de ejemplo: no es un resultado real"
+          }
+        }
+      }
+    },
     "Sample: a report with a problem" : {
       "localizations" : {
         "es" : {
@@ -5067,26 +5095,6 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Ejemplo: un informe típico"
-          }
-        }
-      }
-    },
-    "Sample data: not a real test result" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Datos de ejemplo: no es un resultado real"
-          }
-        }
-      }
-    },
-    "Sample data: forecast uses placeholder numbers" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Datos de ejemplo: el pronóstico usa números de prueba"
           }
         }
       }
@@ -5152,6 +5160,7 @@
       }
     },
     "Saving keeps this location on this device only. Saving again replaces your current My Well." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -5417,12 +5426,12 @@
     "steady" : {
 
     },
-    "Stop %lld of %lld, %@" : {
+    "Steady Keeper" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
-            "value" : "Parada %1$lld de %2$lld, %3$@"
+            "value" : "Cuidador Constante"
           }
         }
       }
@@ -5437,12 +5446,12 @@
         }
       }
     },
-    "Steady Keeper" : {
+    "Stop %lld of %lld, %@" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
-            "value" : "Cuidador Constante"
+            "value" : "Parada %1$lld de %2$lld, %3$@"
           }
         }
       }
@@ -5579,22 +5588,22 @@
         }
       }
     },
-    "Testing labs, filter dealers, plumbers and official resources in your area." : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Laboratorios de análisis, vendedores de filtros, plomeros y recursos oficiales en su zona."
-          }
-        }
-      }
-    },
     "Testing labs" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Laboratorios de análisis"
+          }
+        }
+      }
+    },
+    "Testing labs, filter dealers, plumbers and official resources in your area." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Laboratorios de análisis, vendedores de filtros, plomeros y recursos oficiales en su zona."
           }
         }
       }
@@ -5873,6 +5882,7 @@
 
     },
     "Treatment systems" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -6870,6 +6880,7 @@
       }
     },
     "Your address or location is only used to find your census tract. It is not saved unless you choose Save as My Well." : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -7037,22 +7048,22 @@
         }
       }
     },
-    "Your water is on track" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Su agua va por buen camino"
-          }
-        }
-      }
-    },
     "Your utility's yearly Consumer Confidence Report" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "El Informe de Confianza del Consumidor anual de su proveedor"
+          }
+        }
+      }
+    },
+    "Your water is on track" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Su agua va por buen camino"
           }
         }
       }
@@ -7077,22 +7088,22 @@
         }
       }
     },
-    "Your Well's Score" : {
-      "localizations" : {
-        "es" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Puntaje de su pozo"
-          }
-        }
-      }
-    },
     "Your Well Care streak counts years in a row with at least one water test. Opening the app doesn't count. Testing does." : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Su racha de Cuidado del Agua cuenta los años seguidos con al menos un análisis de agua. Abrir la app no cuenta. Analizar sí."
+          }
+        }
+      }
+    },
+    "Your Well's Score" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Puntaje de su pozo"
           }
         }
       }

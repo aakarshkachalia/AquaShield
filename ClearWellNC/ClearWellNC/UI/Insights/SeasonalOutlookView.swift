@@ -18,7 +18,7 @@ struct SeasonalOutlookView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: Spacing.l) {
                 if let data, !data.records.isEmpty {
                     if data.isSample { sampleBanner }
                     pickers(data)
@@ -29,7 +29,7 @@ struct SeasonalOutlookView: View {
                 }
                 TestingDisclaimer(kind: .forecast)
             }
-            .padding()
+            .padding(Spacing.l)
             .readableWidth()
         }
         .background(Color.appBackground)
@@ -47,7 +47,7 @@ struct SeasonalOutlookView: View {
 
     private var sampleBanner: some View {
         Label {
-            VStack(alignment: .leading, spacing: 2) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
                 Text("Sample data").font(.headline)
                 Text("These charts use made-up placeholder numbers for testing the app. They are not real well-test results.")
                     .font(.subheadline)
@@ -62,7 +62,7 @@ struct SeasonalOutlookView: View {
     }
 
     private func pickers(_ data: CountyTrendData) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             Picker("County", selection: $county) {
                 ForEach(data.counties, id: \.self) { Text(String(localized: "\($0) County")).tag($0) }
             }
@@ -83,7 +83,7 @@ struct SeasonalOutlookView: View {
             let personal = personalPoints
             let showPersonal = SeasonalForecast.shouldShowPersonalOverlay(pointCount: personal.count)
 
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: Spacing.m) {
                 Text("\(contaminant.info.name), \(county) County")
                     .font(.headline)
                     .accessibilityAddTraits(.isHeader)
@@ -111,7 +111,7 @@ struct SeasonalOutlookView: View {
     }
 
     private func legend(showPersonal: Bool) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             legendRow(.history, text: String(localized: "Thin gray line: county median from past tests"))
             legendRow(.trend, text: String(localized: "Thick line: moving average (the trend)"))
             legendRow(.forecast, text: String(localized: "Dashed line and shaded band: forecast and its likely range. Predicted — not a test result."))
@@ -127,7 +127,7 @@ struct SeasonalOutlookView: View {
     private func legendRow(_ swatch: LegendSwatch.Kind, text: String) -> some View {
         HStack(alignment: .top, spacing: Spacing.s) {
             LegendSwatch(kind: swatch)
-                .padding(.top, 2)
+                .padding(.top, Spacing.xs)
             Text(text).fixedSize(horizontal: false, vertical: true)
         }
     }
@@ -140,7 +140,7 @@ struct SeasonalOutlookView: View {
                 Text("Add at least \(SeasonalForecast.minimumPoints) of your own \(contaminant.info.name.lowercased()) results to see them on this chart.")
             }
         }
-        .font(.footnote)
+        .font(.caption)
         .foregroundStyle(.secondary)
     }
 
@@ -200,7 +200,7 @@ struct SeasonalChart: View {
                     .lineStyle(StrokeStyle(lineWidth: 1.5))
                     .annotation(position: .top, alignment: .leading) {
                         Text("Limit \(Interpretation.format(limit, unit: unit))")
-                            .font(.caption2)
+                            .font(.caption)
                             .foregroundStyle(RiskLevel.high.color)
                     }
             }
@@ -210,7 +210,7 @@ struct SeasonalChart: View {
                     .lineStyle(StrokeStyle(lineWidth: 1, dash: [2, 3]))
                     .annotation(position: .top, alignment: .leading) {
                         Text("Predicted — not a test result.")
-                            .font(.caption2.weight(.semibold))
+                            .font(.caption.weight(.semibold))
                     }
             }
             ForEach(personal) { p in

@@ -18,7 +18,7 @@ struct QuestMapView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.l) {
                 HStack(alignment: .firstTextBaseline) {
-                    VStack(alignment: .leading, spacing: 2) {
+                    VStack(alignment: .leading, spacing: Spacing.xs) {
                         Text("Report Quest")
                             .font(.largeTitle.bold())
                             .accessibilityAddTraits(.isHeader)
@@ -41,7 +41,7 @@ struct QuestMapView: View {
 
                 primaryButton
             }
-            .padding()
+            .padding(Spacing.l)
             .readableWidth()
         }
         .background(Color.appBackground)
@@ -82,7 +82,7 @@ struct QuestMapView: View {
                             .frame(width: 3, height: 20)
                     }
                 }
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(title)
                         .font(.headline)
                         .foregroundStyle(state == .locked ? .secondary : .primary)
@@ -114,14 +114,14 @@ struct QuestMapView: View {
     private func icon(state: NodeState, number: Int, symbol: String?) -> some View {
         switch state {
         case .correct:
-            Image(systemName: "checkmark").font(.title3.bold()).foregroundStyle(.white)
+            Image(systemName: "checkmark").font(.title2.bold()).foregroundStyle(.white)
         case .tried:
-            Image(systemName: "checkmark").font(.title3.bold()).foregroundStyle(.white)
+            Image(systemName: "checkmark").font(.title2.bold()).foregroundStyle(.white)
         case .current:
             if let symbol {
-                Image(systemName: symbol).font(.title3.bold()).foregroundStyle(.white)
+                Image(systemName: symbol).font(.title2.bold()).foregroundStyle(.white)
             } else {
-                Text("\(number)").font(.title3.bold()).foregroundStyle(.white)
+                Text("\(number)").font(.title2.bold()).foregroundStyle(.white)
             }
         case .locked:
             Image(systemName: symbol ?? "lock.fill").font(.headline).foregroundStyle(.secondary)
@@ -165,7 +165,6 @@ struct QuestMapView: View {
                 .font(.headline)
                 .frame(maxWidth: .infinity, minHeight: 52)
         }
-        .buttonStyle(.borderedProminent)
-        .buttonBorderShape(.roundedRectangle(radius: Radius.inner))
+        .buttonStyle(PrimaryButtonStyle())
     }
 }

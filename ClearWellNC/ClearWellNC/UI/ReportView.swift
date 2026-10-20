@@ -28,7 +28,7 @@ struct ReportView: View {
     var body: some View {
         let report = report
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: Spacing.xl) {
                 header(report)
                 if !waterSource.showsWellCare {
                     cityWaterNote
@@ -43,10 +43,10 @@ struct ReportView: View {
                 TestPlanCard(plan: report.testPlan)
                 saveSection
                 Text("Data: \(meta.dataSource)")
-                    .font(.footnote)
+                    .font(.caption)
                     .foregroundStyle(.secondary)
             }
-            .padding()
+            .padding(Spacing.l)
             .readableWidth()
         }
         .background(Color.appBackground)
@@ -55,7 +55,7 @@ struct ReportView: View {
     }
 
     private func header(_ report: RiskReport) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
             Text(report.countyName.map { String(localized: "\($0) County") } ?? String(localized: "North Carolina"))
                 .font(.largeTitle.bold())
                 .accessibilityAddTraits(.isHeader)
@@ -76,7 +76,7 @@ struct ReportView: View {
             Image(systemName: "info.circle.fill")
                 .foregroundStyle(.tint)
         }
-        .font(.callout.weight(.medium))
+        .font(.subheadline.weight(.medium))
         .card()
         .accessibilityElement(children: .combine)
     }
@@ -87,23 +87,23 @@ struct ReportView: View {
         } icon: {
             Image(systemName: "building.2.fill").foregroundStyle(Color.statusWatch)
         }
-        .font(.callout.weight(.medium))
+        .font(.subheadline.weight(.medium))
         .card()
         .accessibilityElement(children: .combine)
     }
 
     private var saveSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             Button(action: save) {
                 Label(isSaved ? waterSource.savedLocationTitle : waterSource.saveLocationTitle,
                       systemImage: isSaved ? "checkmark.circle.fill" : "house.fill")
                     .font(.headline)
                     .frame(maxWidth: .infinity, minHeight: 44)
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(PrimaryButtonStyle())
             .disabled(isSaved)
             Text("Saving keeps this location on this device only. Saving again replaces your saved home.")
-                .font(.footnote)
+                .font(.caption)
                 .foregroundStyle(.secondary)
         }
     }
@@ -126,14 +126,14 @@ struct ContaminantCard: View {
     @State private var isExpanded = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: Spacing.m) {
             ViewThatFits(in: .horizontal) {
                 HStack(alignment: .firstTextBaseline) {
                     title
                     Spacer()
                     RiskBadge(level: risk.level)
                 }
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: Spacing.s) {
                     title
                     RiskBadge(level: risk.level)
                 }
@@ -155,14 +155,14 @@ struct ContaminantCard: View {
                 .foregroundStyle(.secondary)
 
             DisclosureGroup(isExpanded: $isExpanded) {
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: Spacing.s) {
                     Text(risk.contaminant.whyItMatters)
                     Text("If your test is high")
                         .font(.subheadline.weight(.semibold))
-                        .padding(.top, 4)
+                        .padding(.top, Spacing.xs)
                     Text(risk.contaminant.ifHigh)
                 }
-                .padding(.top, 8)
+                .padding(.top, Spacing.s)
                 .frame(maxWidth: .infinity, alignment: .leading)
             } label: {
                 Text("Why it matters and what to do")
@@ -175,7 +175,7 @@ struct ContaminantCard: View {
 
     private var title: some View {
         Text(risk.contaminant.name)
-            .font(.title3.bold())
+            .font(.title2.bold())
             .accessibilityAddTraits(.isHeader)
     }
 }
@@ -191,7 +191,7 @@ struct RiskComparisonBar: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             GeometryReader { geo in
                 let width = geo.size.width
                 ZStack(alignment: .leading) {
@@ -211,14 +211,14 @@ struct RiskComparisonBar: View {
             }
             .frame(height: 24)
 
-            VStack(alignment: .leading, spacing: 2) {
-                HStack(spacing: 6) {
+            VStack(alignment: .leading, spacing: Spacing.xs) {
+                HStack(spacing: Spacing.s) {
                     Capsule().fill(risk.level.color)
                         .overlay(Capsule().strokeBorder(Color.primary.opacity(0.2)))
                         .frame(width: 16, height: 8)
                     Text("Your area: \(risk.oneInText)")
                 }
-                HStack(spacing: 6) {
+                HStack(spacing: Spacing.s) {
                     Rectangle().fill(Color.primary).frame(width: 2, height: 14)
                         .frame(width: 16)
                     Text("Statewide: \(risk.statewideOneInText)")
@@ -235,15 +235,15 @@ struct RiskComparisonBar: View {
 
 struct InfantNitrateNote: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
             Label("A baby under 6 months lives here", systemImage: "exclamationmark.triangle.fill")
                 .font(.headline)
             Text("Nitrate is most dangerous for babies under 6 months. Test your well for nitrate before using it to mix infant formula, and use bottled water for formula until you know your result. Never boil water to remove nitrate; boiling concentrates it.")
         }
         .foregroundStyle(.white)
-        .padding(16)
+        .padding(Spacing.l)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(RiskLevel.high.color, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .background(RiskLevel.high.color, in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
         .accessibilityElement(children: .combine)
     }
 }
@@ -252,12 +252,12 @@ struct TestPlanCard: View {
     let plan: [String]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: Spacing.m) {
             Text("Your test plan")
-                .font(.title3.bold())
+                .font(.title2.bold())
                 .accessibilityAddTraits(.isHeader)
             ForEach(Array(plan.enumerated()), id: \.offset) { index, step in
-                HStack(alignment: .firstTextBaseline, spacing: 10) {
+                HStack(alignment: .firstTextBaseline, spacing: Spacing.m) {
                     Text("\(index + 1).")
                         .font(.body.monospacedDigit().weight(.semibold))
                         .foregroundStyle(.tint)
