@@ -1,0 +1,5469 @@
+{
+ "sample": true,
+ "source": "SAMPLE DATA. Arsenic, manganese, nitrate and lead shares are aggregated from the bundled NCWELL tract counts; mean concentrations and all uranium, radon and PFOA values are synthetic placeholders. Replace with real county aggregates (same fields).",
+ "records": [
+  {
+   "county": "Alamance",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.3,
+   "meanConcentration": 0.819,
+   "unit": "ppb",
+   "nWells": 2583,
+   "sample": true
+  },
+  {
+   "county": "Alamance",
+   "contaminant": "manganese",
+   "pctAboveStandard": 35.3,
+   "meanConcentration": 33.403,
+   "unit": "ppb",
+   "nWells": 2600,
+   "sample": true
+  },
+  {
+   "county": "Alamance",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 1.1,
+   "meanConcentration": 1.217,
+   "unit": "mg/L",
+   "nWells": 1504,
+   "sample": true
+  },
+  {
+   "county": "Alamance",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.3,
+   "meanConcentration": 1.72,
+   "unit": "ppb",
+   "nWells": 2590,
+   "sample": true
+  },
+  {
+   "county": "Alamance",
+   "contaminant": "uranium",
+   "pctAboveStandard": 5.1,
+   "meanConcentration": 3.958,
+   "unit": "ppb",
+   "nWells": 60,
+   "sample": true
+  },
+  {
+   "county": "Alamance",
+   "contaminant": "radon",
+   "pctAboveStandard": 3.8,
+   "meanConcentration": 602.126,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Alexander",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 5.9,
+   "meanConcentration": 1.413,
+   "unit": "ppb",
+   "nWells": 272,
+   "sample": true
+  },
+  {
+   "county": "Alexander",
+   "contaminant": "manganese",
+   "pctAboveStandard": 42.6,
+   "meanConcentration": 36.896,
+   "unit": "ppb",
+   "nWells": 272,
+   "sample": true
+  },
+  {
+   "county": "Alexander",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.628,
+   "unit": "mg/L",
+   "nWells": 120,
+   "sample": true
+  },
+  {
+   "county": "Alexander",
+   "contaminant": "lead",
+   "pctAboveStandard": 0.4,
+   "meanConcentration": 1.318,
+   "unit": "ppb",
+   "nWells": 272,
+   "sample": true
+  },
+  {
+   "county": "Alexander",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0,
+   "meanConcentration": 2.537,
+   "unit": "ppb",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Alexander",
+   "contaminant": "radon",
+   "pctAboveStandard": 7.7,
+   "meanConcentration": 889.128,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Alleghany",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.855,
+   "unit": "ppb",
+   "nWells": 346,
+   "sample": true
+  },
+  {
+   "county": "Alleghany",
+   "contaminant": "manganese",
+   "pctAboveStandard": 17.8,
+   "meanConcentration": 14.502,
+   "unit": "ppb",
+   "nWells": 348,
+   "sample": true
+  },
+  {
+   "county": "Alleghany",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 2.5,
+   "meanConcentration": 0.847,
+   "unit": "mg/L",
+   "nWells": 81,
+   "sample": true
+  },
+  {
+   "county": "Alleghany",
+   "contaminant": "lead",
+   "pctAboveStandard": 6.9,
+   "meanConcentration": 2.909,
+   "unit": "ppb",
+   "nWells": 347,
+   "sample": true
+  },
+  {
+   "county": "Alleghany",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0,
+   "meanConcentration": 1.731,
+   "unit": "ppb",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Alleghany",
+   "contaminant": "radon",
+   "pctAboveStandard": 4.8,
+   "meanConcentration": 731.63,
+   "unit": "pCi/L",
+   "nWells": 4,
+   "sample": true
+  },
+  {
+   "county": "Anson",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 18.9,
+   "meanConcentration": 3.431,
+   "unit": "ppb",
+   "nWells": 132,
+   "sample": true
+  },
+  {
+   "county": "Anson",
+   "contaminant": "manganese",
+   "pctAboveStandard": 36.8,
+   "meanConcentration": 35.235,
+   "unit": "ppb",
+   "nWells": 136,
+   "sample": true
+  },
+  {
+   "county": "Anson",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 2.7,
+   "meanConcentration": 1.007,
+   "unit": "mg/L",
+   "nWells": 37,
+   "sample": true
+  },
+  {
+   "county": "Anson",
+   "contaminant": "lead",
+   "pctAboveStandard": 5.3,
+   "meanConcentration": 2.086,
+   "unit": "ppb",
+   "nWells": 131,
+   "sample": true
+  },
+  {
+   "county": "Anson",
+   "contaminant": "uranium",
+   "pctAboveStandard": 3.0,
+   "meanConcentration": 4.214,
+   "unit": "ppb",
+   "nWells": 12,
+   "sample": true
+  },
+  {
+   "county": "Anson",
+   "contaminant": "radon",
+   "pctAboveStandard": 5.2,
+   "meanConcentration": 618.608,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Ashe",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.3,
+   "meanConcentration": 0.871,
+   "unit": "ppb",
+   "nWells": 717,
+   "sample": true
+  },
+  {
+   "county": "Ashe",
+   "contaminant": "manganese",
+   "pctAboveStandard": 13.0,
+   "meanConcentration": 18.1,
+   "unit": "ppb",
+   "nWells": 717,
+   "sample": true
+  },
+  {
+   "county": "Ashe",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.4,
+   "meanConcentration": 0.649,
+   "unit": "mg/L",
+   "nWells": 247,
+   "sample": true
+  },
+  {
+   "county": "Ashe",
+   "contaminant": "lead",
+   "pctAboveStandard": 3.6,
+   "meanConcentration": 1.765,
+   "unit": "ppb",
+   "nWells": 717,
+   "sample": true
+  },
+  {
+   "county": "Ashe",
+   "contaminant": "uranium",
+   "pctAboveStandard": 3.1,
+   "meanConcentration": 2.783,
+   "unit": "ppb",
+   "nWells": 8,
+   "sample": true
+  },
+  {
+   "county": "Ashe",
+   "contaminant": "radon",
+   "pctAboveStandard": 6.1,
+   "meanConcentration": 669.77,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Avery",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 1.1,
+   "meanConcentration": 1.178,
+   "unit": "ppb",
+   "nWells": 640,
+   "sample": true
+  },
+  {
+   "county": "Avery",
+   "contaminant": "manganese",
+   "pctAboveStandard": 12.2,
+   "meanConcentration": 12.814,
+   "unit": "ppb",
+   "nWells": 640,
+   "sample": true
+  },
+  {
+   "county": "Avery",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.7,
+   "meanConcentration": 1.166,
+   "unit": "mg/L",
+   "nWells": 418,
+   "sample": true
+  },
+  {
+   "county": "Avery",
+   "contaminant": "lead",
+   "pctAboveStandard": 4.7,
+   "meanConcentration": 2.809,
+   "unit": "ppb",
+   "nWells": 640,
+   "sample": true
+  },
+  {
+   "county": "Avery",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0,
+   "meanConcentration": 1.987,
+   "unit": "ppb",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Avery",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 314.238,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Beaufort",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 1.031,
+   "unit": "ppb",
+   "nWells": 216,
+   "sample": true
+  },
+  {
+   "county": "Beaufort",
+   "contaminant": "manganese",
+   "pctAboveStandard": 24.1,
+   "meanConcentration": 21.828,
+   "unit": "ppb",
+   "nWells": 216,
+   "sample": true
+  },
+  {
+   "county": "Beaufort",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.595,
+   "unit": "mg/L",
+   "nWells": 108,
+   "sample": true
+  },
+  {
+   "county": "Beaufort",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.9,
+   "meanConcentration": 1.772,
+   "unit": "ppb",
+   "nWells": 216,
+   "sample": true
+  },
+  {
+   "county": "Beaufort",
+   "contaminant": "uranium",
+   "pctAboveStandard": 2.0,
+   "meanConcentration": 2.988,
+   "unit": "ppb",
+   "nWells": 12,
+   "sample": true
+  },
+  {
+   "county": "Beaufort",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 409.103,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Bertie",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.924,
+   "unit": "ppb",
+   "nWells": 104,
+   "sample": true
+  },
+  {
+   "county": "Bertie",
+   "contaminant": "manganese",
+   "pctAboveStandard": 13.5,
+   "meanConcentration": 11.384,
+   "unit": "ppb",
+   "nWells": 104,
+   "sample": true
+  },
+  {
+   "county": "Bertie",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 1.6,
+   "meanConcentration": 0.897,
+   "unit": "mg/L",
+   "nWells": 62,
+   "sample": true
+  },
+  {
+   "county": "Bertie",
+   "contaminant": "lead",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.913,
+   "unit": "ppb",
+   "nWells": 104,
+   "sample": true
+  },
+  {
+   "county": "Bertie",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0,
+   "meanConcentration": 2.35,
+   "unit": "ppb",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Bertie",
+   "contaminant": "radon",
+   "pctAboveStandard": 1.4,
+   "meanConcentration": 425.592,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Bladen",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.775,
+   "unit": "ppb",
+   "nWells": 232,
+   "sample": true
+  },
+  {
+   "county": "Bladen",
+   "contaminant": "manganese",
+   "pctAboveStandard": 15.4,
+   "meanConcentration": 13.281,
+   "unit": "ppb",
+   "nWells": 234,
+   "sample": true
+  },
+  {
+   "county": "Bladen",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.911,
+   "unit": "mg/L",
+   "nWells": 107,
+   "sample": true
+  },
+  {
+   "county": "Bladen",
+   "contaminant": "lead",
+   "pctAboveStandard": 0.4,
+   "meanConcentration": 1.014,
+   "unit": "ppb",
+   "nWells": 233,
+   "sample": true
+  },
+  {
+   "county": "Bladen",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0.7,
+   "meanConcentration": 2.605,
+   "unit": "ppb",
+   "nWells": 25,
+   "sample": true
+  },
+  {
+   "county": "Bladen",
+   "contaminant": "radon",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 390.246,
+   "unit": "pCi/L",
+   "nWells": 4,
+   "sample": true
+  },
+  {
+   "county": "Bladen",
+   "contaminant": "pfoa",
+   "pctAboveStandard": 30.7,
+   "meanConcentration": 2.971,
+   "unit": "ppt",
+   "nWells": 117,
+   "sample": true
+  },
+  {
+   "county": "Brunswick",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.2,
+   "meanConcentration": 0.597,
+   "unit": "ppb",
+   "nWells": 826,
+   "sample": true
+  },
+  {
+   "county": "Brunswick",
+   "contaminant": "manganese",
+   "pctAboveStandard": 22.9,
+   "meanConcentration": 18.102,
+   "unit": "ppb",
+   "nWells": 827,
+   "sample": true
+  },
+  {
+   "county": "Brunswick",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 1.038,
+   "unit": "mg/L",
+   "nWells": 519,
+   "sample": true
+  },
+  {
+   "county": "Brunswick",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.2,
+   "meanConcentration": 1.582,
+   "unit": "ppb",
+   "nWells": 826,
+   "sample": true
+  },
+  {
+   "county": "Brunswick",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0.3,
+   "meanConcentration": 1.986,
+   "unit": "ppb",
+   "nWells": 3,
+   "sample": true
+  },
+  {
+   "county": "Brunswick",
+   "contaminant": "radon",
+   "pctAboveStandard": 2.1,
+   "meanConcentration": 526.231,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Brunswick",
+   "contaminant": "pfoa",
+   "pctAboveStandard": 39.1,
+   "meanConcentration": 2.627,
+   "unit": "ppt",
+   "nWells": 57,
+   "sample": true
+  },
+  {
+   "county": "Buncombe",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.1,
+   "meanConcentration": 0.603,
+   "unit": "ppb",
+   "nWells": 4904,
+   "sample": true
+  },
+  {
+   "county": "Buncombe",
+   "contaminant": "manganese",
+   "pctAboveStandard": 21.6,
+   "meanConcentration": 17.531,
+   "unit": "ppb",
+   "nWells": 4904,
+   "sample": true
+  },
+  {
+   "county": "Buncombe",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.4,
+   "meanConcentration": 0.927,
+   "unit": "mg/L",
+   "nWells": 2530,
+   "sample": true
+  },
+  {
+   "county": "Buncombe",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.5,
+   "meanConcentration": 1.115,
+   "unit": "ppb",
+   "nWells": 4907,
+   "sample": true
+  },
+  {
+   "county": "Buncombe",
+   "contaminant": "uranium",
+   "pctAboveStandard": 2.2,
+   "meanConcentration": 3.373,
+   "unit": "ppb",
+   "nWells": 18,
+   "sample": true
+  },
+  {
+   "county": "Buncombe",
+   "contaminant": "radon",
+   "pctAboveStandard": 3.9,
+   "meanConcentration": 593.066,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Burke",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.6,
+   "meanConcentration": 1.1,
+   "unit": "ppb",
+   "nWells": 471,
+   "sample": true
+  },
+  {
+   "county": "Burke",
+   "contaminant": "manganese",
+   "pctAboveStandard": 27.4,
+   "meanConcentration": 20.98,
+   "unit": "ppb",
+   "nWells": 471,
+   "sample": true
+  },
+  {
+   "county": "Burke",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 2.3,
+   "meanConcentration": 0.923,
+   "unit": "mg/L",
+   "nWells": 219,
+   "sample": true
+  },
+  {
+   "county": "Burke",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.5,
+   "meanConcentration": 1.938,
+   "unit": "ppb",
+   "nWells": 471,
+   "sample": true
+  },
+  {
+   "county": "Burke",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.4,
+   "meanConcentration": 3.569,
+   "unit": "ppb",
+   "nWells": 8,
+   "sample": true
+  },
+  {
+   "county": "Burke",
+   "contaminant": "radon",
+   "pctAboveStandard": 7.5,
+   "meanConcentration": 655.58,
+   "unit": "pCi/L",
+   "nWells": 35,
+   "sample": true
+  },
+  {
+   "county": "Cabarrus",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 3.2,
+   "meanConcentration": 1.663,
+   "unit": "ppb",
+   "nWells": 1382,
+   "sample": true
+  },
+  {
+   "county": "Cabarrus",
+   "contaminant": "manganese",
+   "pctAboveStandard": 36.4,
+   "meanConcentration": 40.698,
+   "unit": "ppb",
+   "nWells": 1399,
+   "sample": true
+  },
+  {
+   "county": "Cabarrus",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.5,
+   "meanConcentration": 0.936,
+   "unit": "mg/L",
+   "nWells": 594,
+   "sample": true
+  },
+  {
+   "county": "Cabarrus",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.4,
+   "meanConcentration": 1.456,
+   "unit": "ppb",
+   "nWells": 1388,
+   "sample": true
+  },
+  {
+   "county": "Cabarrus",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0.7,
+   "meanConcentration": 2.734,
+   "unit": "ppb",
+   "nWells": 3,
+   "sample": true
+  },
+  {
+   "county": "Cabarrus",
+   "contaminant": "radon",
+   "pctAboveStandard": 1.9,
+   "meanConcentration": 496.327,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  },
+  {
+   "county": "Caldwell",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 2.2,
+   "meanConcentration": 0.989,
+   "unit": "ppb",
+   "nWells": 358,
+   "sample": true
+  },
+  {
+   "county": "Caldwell",
+   "contaminant": "manganese",
+   "pctAboveStandard": 17.9,
+   "meanConcentration": 21.856,
+   "unit": "ppb",
+   "nWells": 358,
+   "sample": true
+  },
+  {
+   "county": "Caldwell",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.846,
+   "unit": "mg/L",
+   "nWells": 8,
+   "sample": true
+  },
+  {
+   "county": "Caldwell",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.7,
+   "meanConcentration": 1.405,
+   "unit": "ppb",
+   "nWells": 357,
+   "sample": true
+  },
+  {
+   "county": "Caldwell",
+   "contaminant": "uranium",
+   "pctAboveStandard": 5.6,
+   "meanConcentration": 6.53,
+   "unit": "ppb",
+   "nWells": 6,
+   "sample": true
+  },
+  {
+   "county": "Caldwell",
+   "contaminant": "radon",
+   "pctAboveStandard": 1.8,
+   "meanConcentration": 452.503,
+   "unit": "pCi/L",
+   "nWells": 4,
+   "sample": true
+  },
+  {
+   "county": "Camden",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.969,
+   "unit": "ppb",
+   "nWells": 92,
+   "sample": true
+  },
+  {
+   "county": "Camden",
+   "contaminant": "manganese",
+   "pctAboveStandard": 60.9,
+   "meanConcentration": 56.31,
+   "unit": "ppb",
+   "nWells": 92,
+   "sample": true
+  },
+  {
+   "county": "Camden",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.695,
+   "unit": "mg/L",
+   "nWells": 81,
+   "sample": true
+  },
+  {
+   "county": "Camden",
+   "contaminant": "lead",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 1.5,
+   "unit": "ppb",
+   "nWells": 92,
+   "sample": true
+  },
+  {
+   "county": "Camden",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.5,
+   "meanConcentration": 3.379,
+   "unit": "ppb",
+   "nWells": 8,
+   "sample": true
+  },
+  {
+   "county": "Camden",
+   "contaminant": "radon",
+   "pctAboveStandard": 3.6,
+   "meanConcentration": 403.626,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Carteret",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.1,
+   "meanConcentration": 0.658,
+   "unit": "ppb",
+   "nWells": 973,
+   "sample": true
+  },
+  {
+   "county": "Carteret",
+   "contaminant": "manganese",
+   "pctAboveStandard": 27.6,
+   "meanConcentration": 24.061,
+   "unit": "ppb",
+   "nWells": 973,
+   "sample": true
+  },
+  {
+   "county": "Carteret",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.835,
+   "unit": "mg/L",
+   "nWells": 538,
+   "sample": true
+  },
+  {
+   "county": "Carteret",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.5,
+   "meanConcentration": 1.408,
+   "unit": "ppb",
+   "nWells": 987,
+   "sample": true
+  },
+  {
+   "county": "Carteret",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0.8,
+   "meanConcentration": 2.715,
+   "unit": "ppb",
+   "nWells": 18,
+   "sample": true
+  },
+  {
+   "county": "Carteret",
+   "contaminant": "radon",
+   "pctAboveStandard": 5.3,
+   "meanConcentration": 731.654,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  },
+  {
+   "county": "Caswell",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.841,
+   "unit": "ppb",
+   "nWells": 688,
+   "sample": true
+  },
+  {
+   "county": "Caswell",
+   "contaminant": "manganese",
+   "pctAboveStandard": 29.9,
+   "meanConcentration": 21.921,
+   "unit": "ppb",
+   "nWells": 688,
+   "sample": true
+  },
+  {
+   "county": "Caswell",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.2,
+   "meanConcentration": 0.599,
+   "unit": "mg/L",
+   "nWells": 519,
+   "sample": true
+  },
+  {
+   "county": "Caswell",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.9,
+   "meanConcentration": 1.349,
+   "unit": "ppb",
+   "nWells": 688,
+   "sample": true
+  },
+  {
+   "county": "Caswell",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.2,
+   "meanConcentration": 5.646,
+   "unit": "ppb",
+   "nWells": 18,
+   "sample": true
+  },
+  {
+   "county": "Caswell",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 338.888,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Catawba",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 2.8,
+   "meanConcentration": 0.931,
+   "unit": "ppb",
+   "nWells": 1567,
+   "sample": true
+  },
+  {
+   "county": "Catawba",
+   "contaminant": "manganese",
+   "pctAboveStandard": 17.7,
+   "meanConcentration": 13.434,
+   "unit": "ppb",
+   "nWells": 1527,
+   "sample": true
+  },
+  {
+   "county": "Catawba",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.709,
+   "unit": "mg/L",
+   "nWells": 30,
+   "sample": true
+  },
+  {
+   "county": "Catawba",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.4,
+   "meanConcentration": 1.209,
+   "unit": "ppb",
+   "nWells": 1527,
+   "sample": true
+  },
+  {
+   "county": "Catawba",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0.5,
+   "meanConcentration": 2.689,
+   "unit": "ppb",
+   "nWells": 3,
+   "sample": true
+  },
+  {
+   "county": "Catawba",
+   "contaminant": "radon",
+   "pctAboveStandard": 0.4,
+   "meanConcentration": 432.485,
+   "unit": "pCi/L",
+   "nWells": 35,
+   "sample": true
+  },
+  {
+   "county": "Chatham",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 2.7,
+   "meanConcentration": 1.41,
+   "unit": "ppb",
+   "nWells": 3129,
+   "sample": true
+  },
+  {
+   "county": "Chatham",
+   "contaminant": "manganese",
+   "pctAboveStandard": 36.1,
+   "meanConcentration": 25.568,
+   "unit": "ppb",
+   "nWells": 3128,
+   "sample": true
+  },
+  {
+   "county": "Chatham",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 2.3,
+   "meanConcentration": 1.499,
+   "unit": "mg/L",
+   "nWells": 1761,
+   "sample": true
+  },
+  {
+   "county": "Chatham",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.0,
+   "meanConcentration": 1.51,
+   "unit": "ppb",
+   "nWells": 3128,
+   "sample": true
+  },
+  {
+   "county": "Chatham",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.1,
+   "meanConcentration": 5.425,
+   "unit": "ppb",
+   "nWells": 3,
+   "sample": true
+  },
+  {
+   "county": "Chatham",
+   "contaminant": "radon",
+   "pctAboveStandard": 7.6,
+   "meanConcentration": 577.007,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Cherokee",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.2,
+   "meanConcentration": 0.826,
+   "unit": "ppb",
+   "nWells": 3031,
+   "sample": true
+  },
+  {
+   "county": "Cherokee",
+   "contaminant": "manganese",
+   "pctAboveStandard": 28.3,
+   "meanConcentration": 18.866,
+   "unit": "ppb",
+   "nWells": 3031,
+   "sample": true
+  },
+  {
+   "county": "Cherokee",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.878,
+   "unit": "mg/L",
+   "nWells": 451,
+   "sample": true
+  },
+  {
+   "county": "Cherokee",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.5,
+   "meanConcentration": 1.67,
+   "unit": "ppb",
+   "nWells": 3035,
+   "sample": true
+  },
+  {
+   "county": "Cherokee",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0,
+   "meanConcentration": 2.557,
+   "unit": "ppb",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Cherokee",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 241.404,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Chowan",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.615,
+   "unit": "ppb",
+   "nWells": 47,
+   "sample": true
+  },
+  {
+   "county": "Chowan",
+   "contaminant": "manganese",
+   "pctAboveStandard": 53.2,
+   "meanConcentration": 39.771,
+   "unit": "ppb",
+   "nWells": 47,
+   "sample": true
+  },
+  {
+   "county": "Chowan",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 3.7,
+   "meanConcentration": 1.323,
+   "unit": "mg/L",
+   "nWells": 27,
+   "sample": true
+  },
+  {
+   "county": "Chowan",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.1,
+   "meanConcentration": 1.536,
+   "unit": "ppb",
+   "nWells": 47,
+   "sample": true
+  },
+  {
+   "county": "Chowan",
+   "contaminant": "uranium",
+   "pctAboveStandard": 2.6,
+   "meanConcentration": 4.414,
+   "unit": "ppb",
+   "nWells": 40,
+   "sample": true
+  },
+  {
+   "county": "Chowan",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 323.59,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Clay",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.1,
+   "meanConcentration": 0.817,
+   "unit": "ppb",
+   "nWells": 1575,
+   "sample": true
+  },
+  {
+   "county": "Clay",
+   "contaminant": "manganese",
+   "pctAboveStandard": 27.9,
+   "meanConcentration": 23.304,
+   "unit": "ppb",
+   "nWells": 1575,
+   "sample": true
+  },
+  {
+   "county": "Clay",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.6,
+   "meanConcentration": 0.67,
+   "unit": "mg/L",
+   "nWells": 177,
+   "sample": true
+  },
+  {
+   "county": "Clay",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.9,
+   "meanConcentration": 1.182,
+   "unit": "ppb",
+   "nWells": 1575,
+   "sample": true
+  },
+  {
+   "county": "Clay",
+   "contaminant": "uranium",
+   "pctAboveStandard": 3.0,
+   "meanConcentration": 4.095,
+   "unit": "ppb",
+   "nWells": 3,
+   "sample": true
+  },
+  {
+   "county": "Clay",
+   "contaminant": "radon",
+   "pctAboveStandard": 2.0,
+   "meanConcentration": 318.749,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Cleveland",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 2.6,
+   "meanConcentration": 1.066,
+   "unit": "ppb",
+   "nWells": 390,
+   "sample": true
+  },
+  {
+   "county": "Cleveland",
+   "contaminant": "manganese",
+   "pctAboveStandard": 20.8,
+   "meanConcentration": 22.819,
+   "unit": "ppb",
+   "nWells": 390,
+   "sample": true
+  },
+  {
+   "county": "Cleveland",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.657,
+   "unit": "mg/L",
+   "nWells": 79,
+   "sample": true
+  },
+  {
+   "county": "Cleveland",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.8,
+   "meanConcentration": 1.502,
+   "unit": "ppb",
+   "nWells": 392,
+   "sample": true
+  },
+  {
+   "county": "Cleveland",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.0,
+   "meanConcentration": 4.151,
+   "unit": "ppb",
+   "nWells": 18,
+   "sample": true
+  },
+  {
+   "county": "Cleveland",
+   "contaminant": "radon",
+   "pctAboveStandard": 2.6,
+   "meanConcentration": 535.92,
+   "unit": "pCi/L",
+   "nWells": 4,
+   "sample": true
+  },
+  {
+   "county": "Columbus",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.2,
+   "meanConcentration": 0.687,
+   "unit": "ppb",
+   "nWells": 1247,
+   "sample": true
+  },
+  {
+   "county": "Columbus",
+   "contaminant": "manganese",
+   "pctAboveStandard": 11.5,
+   "meanConcentration": 12.654,
+   "unit": "ppb",
+   "nWells": 1252,
+   "sample": true
+  },
+  {
+   "county": "Columbus",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.947,
+   "unit": "mg/L",
+   "nWells": 705,
+   "sample": true
+  },
+  {
+   "county": "Columbus",
+   "contaminant": "lead",
+   "pctAboveStandard": 0.9,
+   "meanConcentration": 1.763,
+   "unit": "ppb",
+   "nWells": 1244,
+   "sample": true
+  },
+  {
+   "county": "Columbus",
+   "contaminant": "uranium",
+   "pctAboveStandard": 2.3,
+   "meanConcentration": 3.682,
+   "unit": "ppb",
+   "nWells": 8,
+   "sample": true
+  },
+  {
+   "county": "Columbus",
+   "contaminant": "radon",
+   "pctAboveStandard": 1.7,
+   "meanConcentration": 333.735,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  },
+  {
+   "county": "Columbus",
+   "contaminant": "pfoa",
+   "pctAboveStandard": 39.3,
+   "meanConcentration": 3.428,
+   "unit": "ppt",
+   "nWells": 59,
+   "sample": true
+  },
+  {
+   "county": "Craven",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.901,
+   "unit": "ppb",
+   "nWells": 250,
+   "sample": true
+  },
+  {
+   "county": "Craven",
+   "contaminant": "manganese",
+   "pctAboveStandard": 21.9,
+   "meanConcentration": 27.343,
+   "unit": "ppb",
+   "nWells": 251,
+   "sample": true
+  },
+  {
+   "county": "Craven",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.693,
+   "unit": "mg/L",
+   "nWells": 82,
+   "sample": true
+  },
+  {
+   "county": "Craven",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.8,
+   "meanConcentration": 1.5,
+   "unit": "ppb",
+   "nWells": 250,
+   "sample": true
+  },
+  {
+   "county": "Craven",
+   "contaminant": "uranium",
+   "pctAboveStandard": 2.8,
+   "meanConcentration": 4.717,
+   "unit": "ppb",
+   "nWells": 40,
+   "sample": true
+  },
+  {
+   "county": "Craven",
+   "contaminant": "radon",
+   "pctAboveStandard": 3.1,
+   "meanConcentration": 522.047,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Cumberland",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 2.9,
+   "meanConcentration": 1.392,
+   "unit": "ppb",
+   "nWells": 2044,
+   "sample": true
+  },
+  {
+   "county": "Cumberland",
+   "contaminant": "manganese",
+   "pctAboveStandard": 18.0,
+   "meanConcentration": 20.83,
+   "unit": "ppb",
+   "nWells": 1956,
+   "sample": true
+  },
+  {
+   "county": "Cumberland",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 2.2,
+   "meanConcentration": 1.394,
+   "unit": "mg/L",
+   "nWells": 1165,
+   "sample": true
+  },
+  {
+   "county": "Cumberland",
+   "contaminant": "lead",
+   "pctAboveStandard": 6.9,
+   "meanConcentration": 3.071,
+   "unit": "ppb",
+   "nWells": 1970,
+   "sample": true
+  },
+  {
+   "county": "Cumberland",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0.4,
+   "meanConcentration": 1.88,
+   "unit": "ppb",
+   "nWells": 18,
+   "sample": true
+  },
+  {
+   "county": "Cumberland",
+   "contaminant": "radon",
+   "pctAboveStandard": 0.3,
+   "meanConcentration": 383.958,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Cumberland",
+   "contaminant": "pfoa",
+   "pctAboveStandard": 22.4,
+   "meanConcentration": 1.91,
+   "unit": "ppt",
+   "nWells": 88,
+   "sample": true
+  },
+  {
+   "county": "Currituck",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 4.7,
+   "meanConcentration": 1.61,
+   "unit": "ppb",
+   "nWells": 1130,
+   "sample": true
+  },
+  {
+   "county": "Currituck",
+   "contaminant": "manganese",
+   "pctAboveStandard": 55.2,
+   "meanConcentration": 52.252,
+   "unit": "ppb",
+   "nWells": 1130,
+   "sample": true
+  },
+  {
+   "county": "Currituck",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 1.1,
+   "meanConcentration": 0.918,
+   "unit": "mg/L",
+   "nWells": 1015,
+   "sample": true
+  },
+  {
+   "county": "Currituck",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.2,
+   "meanConcentration": 1.219,
+   "unit": "ppb",
+   "nWells": 1130,
+   "sample": true
+  },
+  {
+   "county": "Currituck",
+   "contaminant": "uranium",
+   "pctAboveStandard": 1.4,
+   "meanConcentration": 2.419,
+   "unit": "ppb",
+   "nWells": 12,
+   "sample": true
+  },
+  {
+   "county": "Currituck",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 412.93,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Dare",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 1.9,
+   "meanConcentration": 0.855,
+   "unit": "ppb",
+   "nWells": 462,
+   "sample": true
+  },
+  {
+   "county": "Dare",
+   "contaminant": "manganese",
+   "pctAboveStandard": 43.9,
+   "meanConcentration": 29.967,
+   "unit": "ppb",
+   "nWells": 462,
+   "sample": true
+  },
+  {
+   "county": "Dare",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 2.0,
+   "meanConcentration": 1.144,
+   "unit": "mg/L",
+   "nWells": 50,
+   "sample": true
+  },
+  {
+   "county": "Dare",
+   "contaminant": "lead",
+   "pctAboveStandard": 4.5,
+   "meanConcentration": 2.483,
+   "unit": "ppb",
+   "nWells": 462,
+   "sample": true
+  },
+  {
+   "county": "Dare",
+   "contaminant": "uranium",
+   "pctAboveStandard": 5.8,
+   "meanConcentration": 5.732,
+   "unit": "ppb",
+   "nWells": 18,
+   "sample": true
+  },
+  {
+   "county": "Dare",
+   "contaminant": "radon",
+   "pctAboveStandard": 6.6,
+   "meanConcentration": 633.224,
+   "unit": "pCi/L",
+   "nWells": 4,
+   "sample": true
+  },
+  {
+   "county": "Davidson",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 4.6,
+   "meanConcentration": 1.732,
+   "unit": "ppb",
+   "nWells": 697,
+   "sample": true
+  },
+  {
+   "county": "Davidson",
+   "contaminant": "manganese",
+   "pctAboveStandard": 23.0,
+   "meanConcentration": 25.848,
+   "unit": "ppb",
+   "nWells": 695,
+   "sample": true
+  },
+  {
+   "county": "Davidson",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.5,
+   "meanConcentration": 0.901,
+   "unit": "mg/L",
+   "nWells": 193,
+   "sample": true
+  },
+  {
+   "county": "Davidson",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.7,
+   "meanConcentration": 1.34,
+   "unit": "ppb",
+   "nWells": 695,
+   "sample": true
+  },
+  {
+   "county": "Davidson",
+   "contaminant": "uranium",
+   "pctAboveStandard": 1.6,
+   "meanConcentration": 2.89,
+   "unit": "ppb",
+   "nWells": 8,
+   "sample": true
+  },
+  {
+   "county": "Davidson",
+   "contaminant": "radon",
+   "pctAboveStandard": 7.6,
+   "meanConcentration": 804.972,
+   "unit": "pCi/L",
+   "nWells": 35,
+   "sample": true
+  },
+  {
+   "county": "Davie",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 1.038,
+   "unit": "ppb",
+   "nWells": 493,
+   "sample": true
+  },
+  {
+   "county": "Davie",
+   "contaminant": "manganese",
+   "pctAboveStandard": 9.3,
+   "meanConcentration": 9.12,
+   "unit": "ppb",
+   "nWells": 493,
+   "sample": true
+  },
+  {
+   "county": "Davie",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 2.0,
+   "meanConcentration": 1.362,
+   "unit": "mg/L",
+   "nWells": 98,
+   "sample": true
+  },
+  {
+   "county": "Davie",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.0,
+   "meanConcentration": 1.616,
+   "unit": "ppb",
+   "nWells": 493,
+   "sample": true
+  },
+  {
+   "county": "Davie",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0.5,
+   "meanConcentration": 3.339,
+   "unit": "ppb",
+   "nWells": 8,
+   "sample": true
+  },
+  {
+   "county": "Davie",
+   "contaminant": "radon",
+   "pctAboveStandard": 3.1,
+   "meanConcentration": 503.239,
+   "unit": "pCi/L",
+   "nWells": 35,
+   "sample": true
+  },
+  {
+   "county": "Duplin",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.9,
+   "meanConcentration": 0.766,
+   "unit": "ppb",
+   "nWells": 585,
+   "sample": true
+  },
+  {
+   "county": "Duplin",
+   "contaminant": "manganese",
+   "pctAboveStandard": 31.6,
+   "meanConcentration": 36.108,
+   "unit": "ppb",
+   "nWells": 585,
+   "sample": true
+  },
+  {
+   "county": "Duplin",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 1.5,
+   "meanConcentration": 0.736,
+   "unit": "mg/L",
+   "nWells": 391,
+   "sample": true
+  },
+  {
+   "county": "Duplin",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.4,
+   "meanConcentration": 1.573,
+   "unit": "ppb",
+   "nWells": 586,
+   "sample": true
+  },
+  {
+   "county": "Duplin",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.8,
+   "meanConcentration": 5.946,
+   "unit": "ppb",
+   "nWells": 60,
+   "sample": true
+  },
+  {
+   "county": "Duplin",
+   "contaminant": "radon",
+   "pctAboveStandard": 2.6,
+   "meanConcentration": 628.133,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Durham",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 1.0,
+   "meanConcentration": 0.735,
+   "unit": "ppb",
+   "nWells": 860,
+   "sample": true
+  },
+  {
+   "county": "Durham",
+   "contaminant": "manganese",
+   "pctAboveStandard": 38.0,
+   "meanConcentration": 41.996,
+   "unit": "ppb",
+   "nWells": 857,
+   "sample": true
+  },
+  {
+   "county": "Durham",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.3,
+   "meanConcentration": 0.997,
+   "unit": "mg/L",
+   "nWells": 353,
+   "sample": true
+  },
+  {
+   "county": "Durham",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.2,
+   "meanConcentration": 2.174,
+   "unit": "ppb",
+   "nWells": 856,
+   "sample": true
+  },
+  {
+   "county": "Durham",
+   "contaminant": "uranium",
+   "pctAboveStandard": 1.3,
+   "meanConcentration": 3.738,
+   "unit": "ppb",
+   "nWells": 3,
+   "sample": true
+  },
+  {
+   "county": "Durham",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 411.653,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Edgecombe",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.818,
+   "unit": "ppb",
+   "nWells": 264,
+   "sample": true
+  },
+  {
+   "county": "Edgecombe",
+   "contaminant": "manganese",
+   "pctAboveStandard": 33.2,
+   "meanConcentration": 35.904,
+   "unit": "ppb",
+   "nWells": 277,
+   "sample": true
+  },
+  {
+   "county": "Edgecombe",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 4.1,
+   "meanConcentration": 1.302,
+   "unit": "mg/L",
+   "nWells": 97,
+   "sample": true
+  },
+  {
+   "county": "Edgecombe",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.3,
+   "meanConcentration": 2.175,
+   "unit": "ppb",
+   "nWells": 264,
+   "sample": true
+  },
+  {
+   "county": "Edgecombe",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0,
+   "meanConcentration": 2.182,
+   "unit": "ppb",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Edgecombe",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 231.13,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Forsyth",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 1.1,
+   "meanConcentration": 0.881,
+   "unit": "ppb",
+   "nWells": 369,
+   "sample": true
+  },
+  {
+   "county": "Forsyth",
+   "contaminant": "manganese",
+   "pctAboveStandard": 16.3,
+   "meanConcentration": 16.206,
+   "unit": "ppb",
+   "nWells": 369,
+   "sample": true
+  },
+  {
+   "county": "Forsyth",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.5,
+   "meanConcentration": 0.756,
+   "unit": "mg/L",
+   "nWells": 216,
+   "sample": true
+  },
+  {
+   "county": "Forsyth",
+   "contaminant": "lead",
+   "pctAboveStandard": 3.0,
+   "meanConcentration": 2.403,
+   "unit": "ppb",
+   "nWells": 367,
+   "sample": true
+  },
+  {
+   "county": "Forsyth",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.9,
+   "meanConcentration": 3.493,
+   "unit": "ppb",
+   "nWells": 8,
+   "sample": true
+  },
+  {
+   "county": "Forsyth",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 257.196,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Franklin",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.1,
+   "meanConcentration": 0.73,
+   "unit": "ppb",
+   "nWells": 1554,
+   "sample": true
+  },
+  {
+   "county": "Franklin",
+   "contaminant": "manganese",
+   "pctAboveStandard": 21.4,
+   "meanConcentration": 24.731,
+   "unit": "ppb",
+   "nWells": 1559,
+   "sample": true
+  },
+  {
+   "county": "Franklin",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 1.2,
+   "meanConcentration": 0.775,
+   "unit": "mg/L",
+   "nWells": 766,
+   "sample": true
+  },
+  {
+   "county": "Franklin",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.9,
+   "meanConcentration": 1.506,
+   "unit": "ppb",
+   "nWells": 1560,
+   "sample": true
+  },
+  {
+   "county": "Franklin",
+   "contaminant": "uranium",
+   "pctAboveStandard": 5.4,
+   "meanConcentration": 5.048,
+   "unit": "ppb",
+   "nWells": 60,
+   "sample": true
+  },
+  {
+   "county": "Franklin",
+   "contaminant": "radon",
+   "pctAboveStandard": 5.5,
+   "meanConcentration": 852.94,
+   "unit": "pCi/L",
+   "nWells": 35,
+   "sample": true
+  },
+  {
+   "county": "Gaston",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 2.8,
+   "meanConcentration": 1.24,
+   "unit": "ppb",
+   "nWells": 2764,
+   "sample": true
+  },
+  {
+   "county": "Gaston",
+   "contaminant": "manganese",
+   "pctAboveStandard": 18.2,
+   "meanConcentration": 23.586,
+   "unit": "ppb",
+   "nWells": 2782,
+   "sample": true
+  },
+  {
+   "county": "Gaston",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 1.6,
+   "meanConcentration": 0.794,
+   "unit": "mg/L",
+   "nWells": 812,
+   "sample": true
+  },
+  {
+   "county": "Gaston",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.0,
+   "meanConcentration": 1.405,
+   "unit": "ppb",
+   "nWells": 2763,
+   "sample": true
+  },
+  {
+   "county": "Gaston",
+   "contaminant": "uranium",
+   "pctAboveStandard": 3.4,
+   "meanConcentration": 4.806,
+   "unit": "ppb",
+   "nWells": 60,
+   "sample": true
+  },
+  {
+   "county": "Gaston",
+   "contaminant": "radon",
+   "pctAboveStandard": 5.1,
+   "meanConcentration": 655.948,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Gates",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.965,
+   "unit": "ppb",
+   "nWells": 41,
+   "sample": true
+  },
+  {
+   "county": "Gates",
+   "contaminant": "manganese",
+   "pctAboveStandard": 17.1,
+   "meanConcentration": 18.294,
+   "unit": "ppb",
+   "nWells": 41,
+   "sample": true
+  },
+  {
+   "county": "Gates",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.71,
+   "unit": "mg/L",
+   "nWells": 27,
+   "sample": true
+  },
+  {
+   "county": "Gates",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.4,
+   "meanConcentration": 1.658,
+   "unit": "ppb",
+   "nWells": 41,
+   "sample": true
+  },
+  {
+   "county": "Gates",
+   "contaminant": "uranium",
+   "pctAboveStandard": 1.8,
+   "meanConcentration": 2.571,
+   "unit": "ppb",
+   "nWells": 8,
+   "sample": true
+  },
+  {
+   "county": "Gates",
+   "contaminant": "radon",
+   "pctAboveStandard": 4.2,
+   "meanConcentration": 614.172,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Graham",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.7,
+   "meanConcentration": 0.743,
+   "unit": "ppb",
+   "nWells": 454,
+   "sample": true
+  },
+  {
+   "county": "Graham",
+   "contaminant": "manganese",
+   "pctAboveStandard": 26.7,
+   "meanConcentration": 25.867,
+   "unit": "ppb",
+   "nWells": 454,
+   "sample": true
+  },
+  {
+   "county": "Graham",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.802,
+   "unit": "mg/L",
+   "nWells": 117,
+   "sample": true
+  },
+  {
+   "county": "Graham",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.5,
+   "meanConcentration": 1.669,
+   "unit": "ppb",
+   "nWells": 454,
+   "sample": true
+  },
+  {
+   "county": "Graham",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0,
+   "meanConcentration": 2.455,
+   "unit": "ppb",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Graham",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 323.075,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Granville",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.4,
+   "meanConcentration": 0.814,
+   "unit": "ppb",
+   "nWells": 1220,
+   "sample": true
+  },
+  {
+   "county": "Granville",
+   "contaminant": "manganese",
+   "pctAboveStandard": 37.4,
+   "meanConcentration": 40.045,
+   "unit": "ppb",
+   "nWells": 1222,
+   "sample": true
+  },
+  {
+   "county": "Granville",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.3,
+   "meanConcentration": 0.882,
+   "unit": "mg/L",
+   "nWells": 635,
+   "sample": true
+  },
+  {
+   "county": "Granville",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.9,
+   "meanConcentration": 1.644,
+   "unit": "ppb",
+   "nWells": 1219,
+   "sample": true
+  },
+  {
+   "county": "Granville",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0.4,
+   "meanConcentration": 2.65,
+   "unit": "ppb",
+   "nWells": 6,
+   "sample": true
+  },
+  {
+   "county": "Granville",
+   "contaminant": "radon",
+   "pctAboveStandard": 7.4,
+   "meanConcentration": 934.087,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Greene",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.754,
+   "unit": "ppb",
+   "nWells": 63,
+   "sample": true
+  },
+  {
+   "county": "Greene",
+   "contaminant": "manganese",
+   "pctAboveStandard": 35.9,
+   "meanConcentration": 27.764,
+   "unit": "ppb",
+   "nWells": 64,
+   "sample": true
+  },
+  {
+   "county": "Greene",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 3.3,
+   "meanConcentration": 1.328,
+   "unit": "mg/L",
+   "nWells": 30,
+   "sample": true
+  },
+  {
+   "county": "Greene",
+   "contaminant": "lead",
+   "pctAboveStandard": 4.7,
+   "meanConcentration": 2.101,
+   "unit": "ppb",
+   "nWells": 64,
+   "sample": true
+  },
+  {
+   "county": "Greene",
+   "contaminant": "uranium",
+   "pctAboveStandard": 3.1,
+   "meanConcentration": 2.993,
+   "unit": "ppb",
+   "nWells": 40,
+   "sample": true
+  },
+  {
+   "county": "Greene",
+   "contaminant": "radon",
+   "pctAboveStandard": 4.9,
+   "meanConcentration": 798.738,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Guilford",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.5,
+   "meanConcentration": 0.68,
+   "unit": "ppb",
+   "nWells": 4700,
+   "sample": true
+  },
+  {
+   "county": "Guilford",
+   "contaminant": "manganese",
+   "pctAboveStandard": 18.2,
+   "meanConcentration": 21.63,
+   "unit": "ppb",
+   "nWells": 4698,
+   "sample": true
+  },
+  {
+   "county": "Guilford",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.2,
+   "meanConcentration": 0.593,
+   "unit": "mg/L",
+   "nWells": 2105,
+   "sample": true
+  },
+  {
+   "county": "Guilford",
+   "contaminant": "lead",
+   "pctAboveStandard": 4.0,
+   "meanConcentration": 1.756,
+   "unit": "ppb",
+   "nWells": 4698,
+   "sample": true
+  },
+  {
+   "county": "Guilford",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0.1,
+   "meanConcentration": 2.119,
+   "unit": "ppb",
+   "nWells": 8,
+   "sample": true
+  },
+  {
+   "county": "Guilford",
+   "contaminant": "radon",
+   "pctAboveStandard": 2.8,
+   "meanConcentration": 538.007,
+   "unit": "pCi/L",
+   "nWells": 35,
+   "sample": true
+  },
+  {
+   "county": "Halifax",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.9,
+   "meanConcentration": 0.724,
+   "unit": "ppb",
+   "nWells": 215,
+   "sample": true
+  },
+  {
+   "county": "Halifax",
+   "contaminant": "manganese",
+   "pctAboveStandard": 28.0,
+   "meanConcentration": 30.057,
+   "unit": "ppb",
+   "nWells": 200,
+   "sample": true
+  },
+  {
+   "county": "Halifax",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.619,
+   "unit": "mg/L",
+   "nWells": 113,
+   "sample": true
+  },
+  {
+   "county": "Halifax",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.0,
+   "meanConcentration": 1.448,
+   "unit": "ppb",
+   "nWells": 201,
+   "sample": true
+  },
+  {
+   "county": "Halifax",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.3,
+   "meanConcentration": 5.007,
+   "unit": "ppb",
+   "nWells": 12,
+   "sample": true
+  },
+  {
+   "county": "Halifax",
+   "contaminant": "radon",
+   "pctAboveStandard": 0.2,
+   "meanConcentration": 358.391,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Harnett",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 2.4,
+   "meanConcentration": 1.424,
+   "unit": "ppb",
+   "nWells": 368,
+   "sample": true
+  },
+  {
+   "county": "Harnett",
+   "contaminant": "manganese",
+   "pctAboveStandard": 42.1,
+   "meanConcentration": 40.315,
+   "unit": "ppb",
+   "nWells": 368,
+   "sample": true
+  },
+  {
+   "county": "Harnett",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 2.6,
+   "meanConcentration": 1.245,
+   "unit": "mg/L",
+   "nWells": 115,
+   "sample": true
+  },
+  {
+   "county": "Harnett",
+   "contaminant": "lead",
+   "pctAboveStandard": 4.9,
+   "meanConcentration": 2.896,
+   "unit": "ppb",
+   "nWells": 367,
+   "sample": true
+  },
+  {
+   "county": "Harnett",
+   "contaminant": "uranium",
+   "pctAboveStandard": 3.8,
+   "meanConcentration": 4.314,
+   "unit": "ppb",
+   "nWells": 60,
+   "sample": true
+  },
+  {
+   "county": "Harnett",
+   "contaminant": "radon",
+   "pctAboveStandard": 4.9,
+   "meanConcentration": 768.737,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Haywood",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.672,
+   "unit": "ppb",
+   "nWells": 1994,
+   "sample": true
+  },
+  {
+   "county": "Haywood",
+   "contaminant": "manganese",
+   "pctAboveStandard": 11.0,
+   "meanConcentration": 14.634,
+   "unit": "ppb",
+   "nWells": 1994,
+   "sample": true
+  },
+  {
+   "county": "Haywood",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.9,
+   "meanConcentration": 1.118,
+   "unit": "mg/L",
+   "nWells": 676,
+   "sample": true
+  },
+  {
+   "county": "Haywood",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.1,
+   "meanConcentration": 2.118,
+   "unit": "ppb",
+   "nWells": 1994,
+   "sample": true
+  },
+  {
+   "county": "Haywood",
+   "contaminant": "uranium",
+   "pctAboveStandard": 3.6,
+   "meanConcentration": 5.107,
+   "unit": "ppb",
+   "nWells": 18,
+   "sample": true
+  },
+  {
+   "county": "Haywood",
+   "contaminant": "radon",
+   "pctAboveStandard": 1.7,
+   "meanConcentration": 560.77,
+   "unit": "pCi/L",
+   "nWells": 4,
+   "sample": true
+  },
+  {
+   "county": "Henderson",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.1,
+   "meanConcentration": 1.012,
+   "unit": "ppb",
+   "nWells": 1497,
+   "sample": true
+  },
+  {
+   "county": "Henderson",
+   "contaminant": "manganese",
+   "pctAboveStandard": 9.0,
+   "meanConcentration": 8.763,
+   "unit": "ppb",
+   "nWells": 1494,
+   "sample": true
+  },
+  {
+   "county": "Henderson",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.675,
+   "unit": "mg/L",
+   "nWells": 873,
+   "sample": true
+  },
+  {
+   "county": "Henderson",
+   "contaminant": "lead",
+   "pctAboveStandard": 4.7,
+   "meanConcentration": 2.656,
+   "unit": "ppb",
+   "nWells": 1497,
+   "sample": true
+  },
+  {
+   "county": "Henderson",
+   "contaminant": "uranium",
+   "pctAboveStandard": 2.3,
+   "meanConcentration": 3.38,
+   "unit": "ppb",
+   "nWells": 12,
+   "sample": true
+  },
+  {
+   "county": "Henderson",
+   "contaminant": "radon",
+   "pctAboveStandard": 4.3,
+   "meanConcentration": 671.673,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Hertford",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.656,
+   "unit": "ppb",
+   "nWells": 110,
+   "sample": true
+  },
+  {
+   "county": "Hertford",
+   "contaminant": "manganese",
+   "pctAboveStandard": 16.4,
+   "meanConcentration": 18.403,
+   "unit": "ppb",
+   "nWells": 110,
+   "sample": true
+  },
+  {
+   "county": "Hertford",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 3.3,
+   "meanConcentration": 1.572,
+   "unit": "mg/L",
+   "nWells": 60,
+   "sample": true
+  },
+  {
+   "county": "Hertford",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.8,
+   "meanConcentration": 1.24,
+   "unit": "ppb",
+   "nWells": 110,
+   "sample": true
+  },
+  {
+   "county": "Hertford",
+   "contaminant": "uranium",
+   "pctAboveStandard": 5.5,
+   "meanConcentration": 6.437,
+   "unit": "ppb",
+   "nWells": 18,
+   "sample": true
+  },
+  {
+   "county": "Hertford",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 359.305,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Hoke",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.865,
+   "unit": "ppb",
+   "nWells": 303,
+   "sample": true
+  },
+  {
+   "county": "Hoke",
+   "contaminant": "manganese",
+   "pctAboveStandard": 5.0,
+   "meanConcentration": 7.213,
+   "unit": "ppb",
+   "nWells": 303,
+   "sample": true
+  },
+  {
+   "county": "Hoke",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 2.3,
+   "meanConcentration": 1.508,
+   "unit": "mg/L",
+   "nWells": 133,
+   "sample": true
+  },
+  {
+   "county": "Hoke",
+   "contaminant": "lead",
+   "pctAboveStandard": 12.7,
+   "meanConcentration": 5.11,
+   "unit": "ppb",
+   "nWells": 306,
+   "sample": true
+  },
+  {
+   "county": "Hoke",
+   "contaminant": "uranium",
+   "pctAboveStandard": 2.9,
+   "meanConcentration": 2.707,
+   "unit": "ppb",
+   "nWells": 3,
+   "sample": true
+  },
+  {
+   "county": "Hoke",
+   "contaminant": "radon",
+   "pctAboveStandard": 4.9,
+   "meanConcentration": 788.153,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Hyde",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.791,
+   "unit": "ppb",
+   "nWells": 80,
+   "sample": true
+  },
+  {
+   "county": "Hyde",
+   "contaminant": "manganese",
+   "pctAboveStandard": 33.8,
+   "meanConcentration": 25.226,
+   "unit": "ppb",
+   "nWells": 80,
+   "sample": true
+  },
+  {
+   "county": "Hyde",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.615,
+   "unit": "mg/L",
+   "nWells": 24,
+   "sample": true
+  },
+  {
+   "county": "Hyde",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.2,
+   "meanConcentration": 1.205,
+   "unit": "ppb",
+   "nWells": 80,
+   "sample": true
+  },
+  {
+   "county": "Hyde",
+   "contaminant": "uranium",
+   "pctAboveStandard": 5.9,
+   "meanConcentration": 6.597,
+   "unit": "ppb",
+   "nWells": 6,
+   "sample": true
+  },
+  {
+   "county": "Hyde",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 335.318,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Iredell",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.1,
+   "meanConcentration": 0.631,
+   "unit": "ppb",
+   "nWells": 1817,
+   "sample": true
+  },
+  {
+   "county": "Iredell",
+   "contaminant": "manganese",
+   "pctAboveStandard": 16.8,
+   "meanConcentration": 19.321,
+   "unit": "ppb",
+   "nWells": 1817,
+   "sample": true
+  },
+  {
+   "county": "Iredell",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.3,
+   "meanConcentration": 0.634,
+   "unit": "mg/L",
+   "nWells": 985,
+   "sample": true
+  },
+  {
+   "county": "Iredell",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.3,
+   "meanConcentration": 1.14,
+   "unit": "ppb",
+   "nWells": 1818,
+   "sample": true
+  },
+  {
+   "county": "Iredell",
+   "contaminant": "uranium",
+   "pctAboveStandard": 2.8,
+   "meanConcentration": 3.779,
+   "unit": "ppb",
+   "nWells": 25,
+   "sample": true
+  },
+  {
+   "county": "Iredell",
+   "contaminant": "radon",
+   "pctAboveStandard": 1.7,
+   "meanConcentration": 395.023,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Jackson",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.864,
+   "unit": "ppb",
+   "nWells": 2423,
+   "sample": true
+  },
+  {
+   "county": "Jackson",
+   "contaminant": "manganese",
+   "pctAboveStandard": 9.9,
+   "meanConcentration": 8.635,
+   "unit": "ppb",
+   "nWells": 2425,
+   "sample": true
+  },
+  {
+   "county": "Jackson",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.656,
+   "unit": "mg/L",
+   "nWells": 593,
+   "sample": true
+  },
+  {
+   "county": "Jackson",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.8,
+   "meanConcentration": 1.78,
+   "unit": "ppb",
+   "nWells": 2457,
+   "sample": true
+  },
+  {
+   "county": "Jackson",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.4,
+   "meanConcentration": 4.272,
+   "unit": "ppb",
+   "nWells": 18,
+   "sample": true
+  },
+  {
+   "county": "Jackson",
+   "contaminant": "radon",
+   "pctAboveStandard": 4.8,
+   "meanConcentration": 476.604,
+   "unit": "pCi/L",
+   "nWells": 4,
+   "sample": true
+  },
+  {
+   "county": "Johnston",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 1.2,
+   "meanConcentration": 1.166,
+   "unit": "ppb",
+   "nWells": 2003,
+   "sample": true
+  },
+  {
+   "county": "Johnston",
+   "contaminant": "manganese",
+   "pctAboveStandard": 32.5,
+   "meanConcentration": 26.803,
+   "unit": "ppb",
+   "nWells": 2002,
+   "sample": true
+  },
+  {
+   "county": "Johnston",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 2.3,
+   "meanConcentration": 0.881,
+   "unit": "mg/L",
+   "nWells": 558,
+   "sample": true
+  },
+  {
+   "county": "Johnston",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.5,
+   "meanConcentration": 2.168,
+   "unit": "ppb",
+   "nWells": 2003,
+   "sample": true
+  },
+  {
+   "county": "Johnston",
+   "contaminant": "uranium",
+   "pctAboveStandard": 3.4,
+   "meanConcentration": 3.291,
+   "unit": "ppb",
+   "nWells": 25,
+   "sample": true
+  },
+  {
+   "county": "Johnston",
+   "contaminant": "radon",
+   "pctAboveStandard": 7.9,
+   "meanConcentration": 973.677,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Jones",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.684,
+   "unit": "ppb",
+   "nWells": 95,
+   "sample": true
+  },
+  {
+   "county": "Jones",
+   "contaminant": "manganese",
+   "pctAboveStandard": 3.2,
+   "meanConcentration": 8.137,
+   "unit": "ppb",
+   "nWells": 95,
+   "sample": true
+  },
+  {
+   "county": "Jones",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.917,
+   "unit": "mg/L",
+   "nWells": 24,
+   "sample": true
+  },
+  {
+   "county": "Jones",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.1,
+   "meanConcentration": 1.695,
+   "unit": "ppb",
+   "nWells": 95,
+   "sample": true
+  },
+  {
+   "county": "Jones",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0.8,
+   "meanConcentration": 2.5,
+   "unit": "ppb",
+   "nWells": 25,
+   "sample": true
+  },
+  {
+   "county": "Jones",
+   "contaminant": "radon",
+   "pctAboveStandard": 5.6,
+   "meanConcentration": 784.099,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Lee",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 3.6,
+   "meanConcentration": 1.594,
+   "unit": "ppb",
+   "nWells": 278,
+   "sample": true
+  },
+  {
+   "county": "Lee",
+   "contaminant": "manganese",
+   "pctAboveStandard": 42.4,
+   "meanConcentration": 35.81,
+   "unit": "ppb",
+   "nWells": 278,
+   "sample": true
+  },
+  {
+   "county": "Lee",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.907,
+   "unit": "mg/L",
+   "nWells": 83,
+   "sample": true
+  },
+  {
+   "county": "Lee",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.5,
+   "meanConcentration": 1.339,
+   "unit": "ppb",
+   "nWells": 278,
+   "sample": true
+  },
+  {
+   "county": "Lee",
+   "contaminant": "uranium",
+   "pctAboveStandard": 1.8,
+   "meanConcentration": 2.486,
+   "unit": "ppb",
+   "nWells": 18,
+   "sample": true
+  },
+  {
+   "county": "Lee",
+   "contaminant": "radon",
+   "pctAboveStandard": 7.9,
+   "meanConcentration": 1027.041,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  },
+  {
+   "county": "Lenoir",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.584,
+   "unit": "ppb",
+   "nWells": 170,
+   "sample": true
+  },
+  {
+   "county": "Lenoir",
+   "contaminant": "manganese",
+   "pctAboveStandard": 27.6,
+   "meanConcentration": 22.56,
+   "unit": "ppb",
+   "nWells": 170,
+   "sample": true
+  },
+  {
+   "county": "Lenoir",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 2.5,
+   "meanConcentration": 1.539,
+   "unit": "mg/L",
+   "nWells": 79,
+   "sample": true
+  },
+  {
+   "county": "Lenoir",
+   "contaminant": "lead",
+   "pctAboveStandard": 0.6,
+   "meanConcentration": 1.179,
+   "unit": "ppb",
+   "nWells": 170,
+   "sample": true
+  },
+  {
+   "county": "Lenoir",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.0,
+   "meanConcentration": 4.48,
+   "unit": "ppb",
+   "nWells": 8,
+   "sample": true
+  },
+  {
+   "county": "Lenoir",
+   "contaminant": "radon",
+   "pctAboveStandard": 0.6,
+   "meanConcentration": 362.508,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Lincoln",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 3.6,
+   "meanConcentration": 1.381,
+   "unit": "ppb",
+   "nWells": 2333,
+   "sample": true
+  },
+  {
+   "county": "Lincoln",
+   "contaminant": "manganese",
+   "pctAboveStandard": 17.4,
+   "meanConcentration": 14.816,
+   "unit": "ppb",
+   "nWells": 2326,
+   "sample": true
+  },
+  {
+   "county": "Lincoln",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 1.0,
+   "meanConcentration": 0.743,
+   "unit": "mg/L",
+   "nWells": 1276,
+   "sample": true
+  },
+  {
+   "county": "Lincoln",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.4,
+   "meanConcentration": 1.444,
+   "unit": "ppb",
+   "nWells": 2325,
+   "sample": true
+  },
+  {
+   "county": "Lincoln",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0,
+   "meanConcentration": 1.845,
+   "unit": "ppb",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Lincoln",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 365.849,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Macon",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 1.3,
+   "meanConcentration": 0.858,
+   "unit": "ppb",
+   "nWells": 1251,
+   "sample": true
+  },
+  {
+   "county": "Macon",
+   "contaminant": "manganese",
+   "pctAboveStandard": 15.6,
+   "meanConcentration": 15.535,
+   "unit": "ppb",
+   "nWells": 1247,
+   "sample": true
+  },
+  {
+   "county": "Macon",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.5,
+   "meanConcentration": 0.644,
+   "unit": "mg/L",
+   "nWells": 980,
+   "sample": true
+  },
+  {
+   "county": "Macon",
+   "contaminant": "lead",
+   "pctAboveStandard": 3.9,
+   "meanConcentration": 1.75,
+   "unit": "ppb",
+   "nWells": 1250,
+   "sample": true
+  },
+  {
+   "county": "Macon",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0.1,
+   "meanConcentration": 2.079,
+   "unit": "ppb",
+   "nWells": 25,
+   "sample": true
+  },
+  {
+   "county": "Macon",
+   "contaminant": "radon",
+   "pctAboveStandard": 7.2,
+   "meanConcentration": 807.227,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  },
+  {
+   "county": "Madison",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.2,
+   "meanConcentration": 0.831,
+   "unit": "ppb",
+   "nWells": 2368,
+   "sample": true
+  },
+  {
+   "county": "Madison",
+   "contaminant": "manganese",
+   "pctAboveStandard": 15.0,
+   "meanConcentration": 20.506,
+   "unit": "ppb",
+   "nWells": 2370,
+   "sample": true
+  },
+  {
+   "county": "Madison",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.833,
+   "unit": "mg/L",
+   "nWells": 997,
+   "sample": true
+  },
+  {
+   "county": "Madison",
+   "contaminant": "lead",
+   "pctAboveStandard": 5.5,
+   "meanConcentration": 3.264,
+   "unit": "ppb",
+   "nWells": 2424,
+   "sample": true
+  },
+  {
+   "county": "Madison",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.9,
+   "meanConcentration": 3.528,
+   "unit": "ppb",
+   "nWells": 40,
+   "sample": true
+  },
+  {
+   "county": "Madison",
+   "contaminant": "radon",
+   "pctAboveStandard": 5.3,
+   "meanConcentration": 843.163,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Martin",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.2,
+   "meanConcentration": 0.771,
+   "unit": "ppb",
+   "nWells": 1190,
+   "sample": true
+  },
+  {
+   "county": "Martin",
+   "contaminant": "manganese",
+   "pctAboveStandard": 20.9,
+   "meanConcentration": 26.197,
+   "unit": "ppb",
+   "nWells": 1190,
+   "sample": true
+  },
+  {
+   "county": "Martin",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.745,
+   "unit": "mg/L",
+   "nWells": 382,
+   "sample": true
+  },
+  {
+   "county": "Martin",
+   "contaminant": "lead",
+   "pctAboveStandard": 6.4,
+   "meanConcentration": 3.504,
+   "unit": "ppb",
+   "nWells": 1190,
+   "sample": true
+  },
+  {
+   "county": "Martin",
+   "contaminant": "uranium",
+   "pctAboveStandard": 3.3,
+   "meanConcentration": 4.19,
+   "unit": "ppb",
+   "nWells": 40,
+   "sample": true
+  },
+  {
+   "county": "Martin",
+   "contaminant": "radon",
+   "pctAboveStandard": 7.6,
+   "meanConcentration": 765.728,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "McDowell",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.813,
+   "unit": "ppb",
+   "nWells": 130,
+   "sample": true
+  },
+  {
+   "county": "McDowell",
+   "contaminant": "manganese",
+   "pctAboveStandard": 4.6,
+   "meanConcentration": 8.114,
+   "unit": "ppb",
+   "nWells": 131,
+   "sample": true
+  },
+  {
+   "county": "McDowell",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.735,
+   "unit": "mg/L",
+   "nWells": 51,
+   "sample": true
+  },
+  {
+   "county": "McDowell",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.5,
+   "meanConcentration": 1.368,
+   "unit": "ppb",
+   "nWells": 130,
+   "sample": true
+  },
+  {
+   "county": "McDowell",
+   "contaminant": "uranium",
+   "pctAboveStandard": 3.4,
+   "meanConcentration": 3.493,
+   "unit": "ppb",
+   "nWells": 12,
+   "sample": true
+  },
+  {
+   "county": "McDowell",
+   "contaminant": "radon",
+   "pctAboveStandard": 6.0,
+   "meanConcentration": 503.321,
+   "unit": "pCi/L",
+   "nWells": 35,
+   "sample": true
+  },
+  {
+   "county": "Mecklenburg",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.1,
+   "meanConcentration": 0.952,
+   "unit": "ppb",
+   "nWells": 2600,
+   "sample": true
+  },
+  {
+   "county": "Mecklenburg",
+   "contaminant": "manganese",
+   "pctAboveStandard": 14.0,
+   "meanConcentration": 15.968,
+   "unit": "ppb",
+   "nWells": 2596,
+   "sample": true
+  },
+  {
+   "county": "Mecklenburg",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.864,
+   "unit": "mg/L",
+   "nWells": 93,
+   "sample": true
+  },
+  {
+   "county": "Mecklenburg",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.7,
+   "meanConcentration": 1.756,
+   "unit": "ppb",
+   "nWells": 2593,
+   "sample": true
+  },
+  {
+   "county": "Mecklenburg",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0.3,
+   "meanConcentration": 2.269,
+   "unit": "ppb",
+   "nWells": 25,
+   "sample": true
+  },
+  {
+   "county": "Mecklenburg",
+   "contaminant": "radon",
+   "pctAboveStandard": 0.4,
+   "meanConcentration": 447.056,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Mitchell",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.9,
+   "meanConcentration": 1.193,
+   "unit": "ppb",
+   "nWells": 564,
+   "sample": true
+  },
+  {
+   "county": "Mitchell",
+   "contaminant": "manganese",
+   "pctAboveStandard": 19.7,
+   "meanConcentration": 14.692,
+   "unit": "ppb",
+   "nWells": 564,
+   "sample": true
+  },
+  {
+   "county": "Mitchell",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.995,
+   "unit": "mg/L",
+   "nWells": 342,
+   "sample": true
+  },
+  {
+   "county": "Mitchell",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.5,
+   "meanConcentration": 1.72,
+   "unit": "ppb",
+   "nWells": 564,
+   "sample": true
+  },
+  {
+   "county": "Mitchell",
+   "contaminant": "uranium",
+   "pctAboveStandard": 1.5,
+   "meanConcentration": 3.601,
+   "unit": "ppb",
+   "nWells": 40,
+   "sample": true
+  },
+  {
+   "county": "Mitchell",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 324.485,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Montgomery",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 7.8,
+   "meanConcentration": 2.588,
+   "unit": "ppb",
+   "nWells": 576,
+   "sample": true
+  },
+  {
+   "county": "Montgomery",
+   "contaminant": "manganese",
+   "pctAboveStandard": 25.3,
+   "meanConcentration": 27.481,
+   "unit": "ppb",
+   "nWells": 581,
+   "sample": true
+  },
+  {
+   "county": "Montgomery",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 1.4,
+   "meanConcentration": 1.012,
+   "unit": "mg/L",
+   "nWells": 207,
+   "sample": true
+  },
+  {
+   "county": "Montgomery",
+   "contaminant": "lead",
+   "pctAboveStandard": 7.6,
+   "meanConcentration": 3.905,
+   "unit": "ppb",
+   "nWells": 576,
+   "sample": true
+  },
+  {
+   "county": "Montgomery",
+   "contaminant": "uranium",
+   "pctAboveStandard": 3.6,
+   "meanConcentration": 3.183,
+   "unit": "ppb",
+   "nWells": 8,
+   "sample": true
+  },
+  {
+   "county": "Montgomery",
+   "contaminant": "radon",
+   "pctAboveStandard": 3.3,
+   "meanConcentration": 411.276,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Moore",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 3.2,
+   "meanConcentration": 1.597,
+   "unit": "ppb",
+   "nWells": 1280,
+   "sample": true
+  },
+  {
+   "county": "Moore",
+   "contaminant": "manganese",
+   "pctAboveStandard": 34.5,
+   "meanConcentration": 28.88,
+   "unit": "ppb",
+   "nWells": 1290,
+   "sample": true
+  },
+  {
+   "county": "Moore",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 1.7,
+   "meanConcentration": 0.848,
+   "unit": "mg/L",
+   "nWells": 474,
+   "sample": true
+  },
+  {
+   "county": "Moore",
+   "contaminant": "lead",
+   "pctAboveStandard": 6.7,
+   "meanConcentration": 2.571,
+   "unit": "ppb",
+   "nWells": 1289,
+   "sample": true
+  },
+  {
+   "county": "Moore",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.0,
+   "meanConcentration": 4.208,
+   "unit": "ppb",
+   "nWells": 6,
+   "sample": true
+  },
+  {
+   "county": "Moore",
+   "contaminant": "radon",
+   "pctAboveStandard": 5.1,
+   "meanConcentration": 718.178,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  },
+  {
+   "county": "Nash",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 1.6,
+   "meanConcentration": 0.963,
+   "unit": "ppb",
+   "nWells": 2258,
+   "sample": true
+  },
+  {
+   "county": "Nash",
+   "contaminant": "manganese",
+   "pctAboveStandard": 29.5,
+   "meanConcentration": 31.61,
+   "unit": "ppb",
+   "nWells": 2260,
+   "sample": true
+  },
+  {
+   "county": "Nash",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.7,
+   "meanConcentration": 1.089,
+   "unit": "mg/L",
+   "nWells": 1239,
+   "sample": true
+  },
+  {
+   "county": "Nash",
+   "contaminant": "lead",
+   "pctAboveStandard": 3.2,
+   "meanConcentration": 1.537,
+   "unit": "ppb",
+   "nWells": 2258,
+   "sample": true
+  },
+  {
+   "county": "Nash",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.4,
+   "meanConcentration": 3.806,
+   "unit": "ppb",
+   "nWells": 12,
+   "sample": true
+  },
+  {
+   "county": "Nash",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 320.566,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "New Hanover",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 1.3,
+   "meanConcentration": 0.896,
+   "unit": "ppb",
+   "nWells": 2108,
+   "sample": true
+  },
+  {
+   "county": "New Hanover",
+   "contaminant": "manganese",
+   "pctAboveStandard": 27.9,
+   "meanConcentration": 26.434,
+   "unit": "ppb",
+   "nWells": 2097,
+   "sample": true
+  },
+  {
+   "county": "New Hanover",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.1,
+   "meanConcentration": 0.992,
+   "unit": "mg/L",
+   "nWells": 763,
+   "sample": true
+  },
+  {
+   "county": "New Hanover",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.1,
+   "meanConcentration": 1.468,
+   "unit": "ppb",
+   "nWells": 2172,
+   "sample": true
+  },
+  {
+   "county": "New Hanover",
+   "contaminant": "uranium",
+   "pctAboveStandard": 3.8,
+   "meanConcentration": 4.865,
+   "unit": "ppb",
+   "nWells": 8,
+   "sample": true
+  },
+  {
+   "county": "New Hanover",
+   "contaminant": "radon",
+   "pctAboveStandard": 7.6,
+   "meanConcentration": 808.412,
+   "unit": "pCi/L",
+   "nWells": 4,
+   "sample": true
+  },
+  {
+   "county": "New Hanover",
+   "contaminant": "pfoa",
+   "pctAboveStandard": 42.1,
+   "meanConcentration": 3.696,
+   "unit": "ppt",
+   "nWells": 98,
+   "sample": true
+  },
+  {
+   "county": "Northampton",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 1.6,
+   "meanConcentration": 0.761,
+   "unit": "ppb",
+   "nWells": 446,
+   "sample": true
+  },
+  {
+   "county": "Northampton",
+   "contaminant": "manganese",
+   "pctAboveStandard": 23.1,
+   "meanConcentration": 16.552,
+   "unit": "ppb",
+   "nWells": 446,
+   "sample": true
+  },
+  {
+   "county": "Northampton",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 5.3,
+   "meanConcentration": 1.423,
+   "unit": "mg/L",
+   "nWells": 113,
+   "sample": true
+  },
+  {
+   "county": "Northampton",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.0,
+   "meanConcentration": 1.609,
+   "unit": "ppb",
+   "nWells": 446,
+   "sample": true
+  },
+  {
+   "county": "Northampton",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0,
+   "meanConcentration": 1.828,
+   "unit": "ppb",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Northampton",
+   "contaminant": "radon",
+   "pctAboveStandard": 2.2,
+   "meanConcentration": 533.462,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Onslow",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.4,
+   "meanConcentration": 1.084,
+   "unit": "ppb",
+   "nWells": 234,
+   "sample": true
+  },
+  {
+   "county": "Onslow",
+   "contaminant": "manganese",
+   "pctAboveStandard": 25.6,
+   "meanConcentration": 19.525,
+   "unit": "ppb",
+   "nWells": 234,
+   "sample": true
+  },
+  {
+   "county": "Onslow",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.673,
+   "unit": "mg/L",
+   "nWells": 141,
+   "sample": true
+  },
+  {
+   "county": "Onslow",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.6,
+   "meanConcentration": 2.34,
+   "unit": "ppb",
+   "nWells": 234,
+   "sample": true
+  },
+  {
+   "county": "Onslow",
+   "contaminant": "uranium",
+   "pctAboveStandard": 2.9,
+   "meanConcentration": 3.122,
+   "unit": "ppb",
+   "nWells": 40,
+   "sample": true
+  },
+  {
+   "county": "Onslow",
+   "contaminant": "radon",
+   "pctAboveStandard": 4.0,
+   "meanConcentration": 447.056,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  },
+  {
+   "county": "Orange",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 1.3,
+   "meanConcentration": 1.222,
+   "unit": "ppb",
+   "nWells": 7262,
+   "sample": true
+  },
+  {
+   "county": "Orange",
+   "contaminant": "manganese",
+   "pctAboveStandard": 29.9,
+   "meanConcentration": 32.947,
+   "unit": "ppb",
+   "nWells": 7250,
+   "sample": true
+  },
+  {
+   "county": "Orange",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.4,
+   "meanConcentration": 0.829,
+   "unit": "mg/L",
+   "nWells": 2848,
+   "sample": true
+  },
+  {
+   "county": "Orange",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.6,
+   "meanConcentration": 2.187,
+   "unit": "ppb",
+   "nWells": 7286,
+   "sample": true
+  },
+  {
+   "county": "Orange",
+   "contaminant": "uranium",
+   "pctAboveStandard": 2.7,
+   "meanConcentration": 4.226,
+   "unit": "ppb",
+   "nWells": 8,
+   "sample": true
+  },
+  {
+   "county": "Orange",
+   "contaminant": "radon",
+   "pctAboveStandard": 6.5,
+   "meanConcentration": 676.891,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Pamlico",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.874,
+   "unit": "ppb",
+   "nWells": 175,
+   "sample": true
+  },
+  {
+   "county": "Pamlico",
+   "contaminant": "manganese",
+   "pctAboveStandard": 19.4,
+   "meanConcentration": 25.279,
+   "unit": "ppb",
+   "nWells": 175,
+   "sample": true
+  },
+  {
+   "county": "Pamlico",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.716,
+   "unit": "mg/L",
+   "nWells": 95,
+   "sample": true
+  },
+  {
+   "county": "Pamlico",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.7,
+   "meanConcentration": 1.658,
+   "unit": "ppb",
+   "nWells": 175,
+   "sample": true
+  },
+  {
+   "county": "Pamlico",
+   "contaminant": "uranium",
+   "pctAboveStandard": 2.6,
+   "meanConcentration": 3.347,
+   "unit": "ppb",
+   "nWells": 6,
+   "sample": true
+  },
+  {
+   "county": "Pamlico",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 312.707,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Pasquotank",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.716,
+   "unit": "ppb",
+   "nWells": 54,
+   "sample": true
+  },
+  {
+   "county": "Pasquotank",
+   "contaminant": "manganese",
+   "pctAboveStandard": 46.3,
+   "meanConcentration": 42.111,
+   "unit": "ppb",
+   "nWells": 54,
+   "sample": true
+  },
+  {
+   "county": "Pasquotank",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.767,
+   "unit": "mg/L",
+   "nWells": 23,
+   "sample": true
+  },
+  {
+   "county": "Pasquotank",
+   "contaminant": "lead",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 1.249,
+   "unit": "ppb",
+   "nWells": 54,
+   "sample": true
+  },
+  {
+   "county": "Pasquotank",
+   "contaminant": "uranium",
+   "pctAboveStandard": 1.8,
+   "meanConcentration": 3.8,
+   "unit": "ppb",
+   "nWells": 40,
+   "sample": true
+  },
+  {
+   "county": "Pasquotank",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 283.548,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Pender",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.1,
+   "meanConcentration": 1.009,
+   "unit": "ppb",
+   "nWells": 1614,
+   "sample": true
+  },
+  {
+   "county": "Pender",
+   "contaminant": "manganese",
+   "pctAboveStandard": 18.9,
+   "meanConcentration": 20.307,
+   "unit": "ppb",
+   "nWells": 1614,
+   "sample": true
+  },
+  {
+   "county": "Pender",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.894,
+   "unit": "mg/L",
+   "nWells": 1173,
+   "sample": true
+  },
+  {
+   "county": "Pender",
+   "contaminant": "lead",
+   "pctAboveStandard": 0.9,
+   "meanConcentration": 1.404,
+   "unit": "ppb",
+   "nWells": 1614,
+   "sample": true
+  },
+  {
+   "county": "Pender",
+   "contaminant": "uranium",
+   "pctAboveStandard": 1.7,
+   "meanConcentration": 2.526,
+   "unit": "ppb",
+   "nWells": 18,
+   "sample": true
+  },
+  {
+   "county": "Pender",
+   "contaminant": "radon",
+   "pctAboveStandard": 5.3,
+   "meanConcentration": 588.398,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  },
+  {
+   "county": "Pender",
+   "contaminant": "pfoa",
+   "pctAboveStandard": 21.3,
+   "meanConcentration": 1.623,
+   "unit": "ppt",
+   "nWells": 30,
+   "sample": true
+  },
+  {
+   "county": "Perquimans",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 1.9,
+   "meanConcentration": 1.171,
+   "unit": "ppb",
+   "nWells": 52,
+   "sample": true
+  },
+  {
+   "county": "Perquimans",
+   "contaminant": "manganese",
+   "pctAboveStandard": 76.9,
+   "meanConcentration": 81.362,
+   "unit": "ppb",
+   "nWells": 52,
+   "sample": true
+  },
+  {
+   "county": "Perquimans",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.89,
+   "unit": "mg/L",
+   "nWells": 40,
+   "sample": true
+  },
+  {
+   "county": "Perquimans",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.9,
+   "meanConcentration": 1.441,
+   "unit": "ppb",
+   "nWells": 52,
+   "sample": true
+  },
+  {
+   "county": "Perquimans",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.8,
+   "meanConcentration": 4.161,
+   "unit": "ppb",
+   "nWells": 60,
+   "sample": true
+  },
+  {
+   "county": "Perquimans",
+   "contaminant": "radon",
+   "pctAboveStandard": 1.8,
+   "meanConcentration": 554.861,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  },
+  {
+   "county": "Person",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 2.5,
+   "meanConcentration": 1.364,
+   "unit": "ppb",
+   "nWells": 1804,
+   "sample": true
+  },
+  {
+   "county": "Person",
+   "contaminant": "manganese",
+   "pctAboveStandard": 37.5,
+   "meanConcentration": 34.369,
+   "unit": "ppb",
+   "nWells": 1803,
+   "sample": true
+  },
+  {
+   "county": "Person",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.3,
+   "meanConcentration": 0.639,
+   "unit": "mg/L",
+   "nWells": 937,
+   "sample": true
+  },
+  {
+   "county": "Person",
+   "contaminant": "lead",
+   "pctAboveStandard": 3.1,
+   "meanConcentration": 2.329,
+   "unit": "ppb",
+   "nWells": 1802,
+   "sample": true
+  },
+  {
+   "county": "Person",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0,
+   "meanConcentration": 2.203,
+   "unit": "ppb",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Person",
+   "contaminant": "radon",
+   "pctAboveStandard": 4.7,
+   "meanConcentration": 729.48,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Pitt",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.915,
+   "unit": "ppb",
+   "nWells": 263,
+   "sample": true
+  },
+  {
+   "county": "Pitt",
+   "contaminant": "manganese",
+   "pctAboveStandard": 16.2,
+   "meanConcentration": 15.631,
+   "unit": "ppb",
+   "nWells": 259,
+   "sample": true
+  },
+  {
+   "county": "Pitt",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.747,
+   "unit": "mg/L",
+   "nWells": 139,
+   "sample": true
+  },
+  {
+   "county": "Pitt",
+   "contaminant": "lead",
+   "pctAboveStandard": 0.8,
+   "meanConcentration": 1.096,
+   "unit": "ppb",
+   "nWells": 263,
+   "sample": true
+  },
+  {
+   "county": "Pitt",
+   "contaminant": "uranium",
+   "pctAboveStandard": 1.1,
+   "meanConcentration": 3.36,
+   "unit": "ppb",
+   "nWells": 6,
+   "sample": true
+  },
+  {
+   "county": "Pitt",
+   "contaminant": "radon",
+   "pctAboveStandard": 6.5,
+   "meanConcentration": 612.623,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  },
+  {
+   "county": "Polk",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.588,
+   "unit": "ppb",
+   "nWells": 395,
+   "sample": true
+  },
+  {
+   "county": "Polk",
+   "contaminant": "manganese",
+   "pctAboveStandard": 14.2,
+   "meanConcentration": 12.2,
+   "unit": "ppb",
+   "nWells": 395,
+   "sample": true
+  },
+  {
+   "county": "Polk",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.702,
+   "unit": "mg/L",
+   "nWells": 195,
+   "sample": true
+  },
+  {
+   "county": "Polk",
+   "contaminant": "lead",
+   "pctAboveStandard": 4.0,
+   "meanConcentration": 1.539,
+   "unit": "ppb",
+   "nWells": 401,
+   "sample": true
+  },
+  {
+   "county": "Polk",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0.4,
+   "meanConcentration": 2.657,
+   "unit": "ppb",
+   "nWells": 25,
+   "sample": true
+  },
+  {
+   "county": "Polk",
+   "contaminant": "radon",
+   "pctAboveStandard": 0.7,
+   "meanConcentration": 271.912,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Randolph",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 4.8,
+   "meanConcentration": 1.793,
+   "unit": "ppb",
+   "nWells": 2619,
+   "sample": true
+  },
+  {
+   "county": "Randolph",
+   "contaminant": "manganese",
+   "pctAboveStandard": 26.0,
+   "meanConcentration": 30.763,
+   "unit": "ppb",
+   "nWells": 2609,
+   "sample": true
+  },
+  {
+   "county": "Randolph",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 1.8,
+   "meanConcentration": 0.812,
+   "unit": "mg/L",
+   "nWells": 853,
+   "sample": true
+  },
+  {
+   "county": "Randolph",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.9,
+   "meanConcentration": 2.051,
+   "unit": "ppb",
+   "nWells": 2611,
+   "sample": true
+  },
+  {
+   "county": "Randolph",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0.6,
+   "meanConcentration": 3.189,
+   "unit": "ppb",
+   "nWells": 6,
+   "sample": true
+  },
+  {
+   "county": "Randolph",
+   "contaminant": "radon",
+   "pctAboveStandard": 2.0,
+   "meanConcentration": 370.918,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Richmond",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 2.9,
+   "meanConcentration": 1.458,
+   "unit": "ppb",
+   "nWells": 524,
+   "sample": true
+  },
+  {
+   "county": "Richmond",
+   "contaminant": "manganese",
+   "pctAboveStandard": 23.7,
+   "meanConcentration": 23.265,
+   "unit": "ppb",
+   "nWells": 523,
+   "sample": true
+  },
+  {
+   "county": "Richmond",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 8.7,
+   "meanConcentration": 2.534,
+   "unit": "mg/L",
+   "nWells": 323,
+   "sample": true
+  },
+  {
+   "county": "Richmond",
+   "contaminant": "lead",
+   "pctAboveStandard": 7.1,
+   "meanConcentration": 2.714,
+   "unit": "ppb",
+   "nWells": 523,
+   "sample": true
+  },
+  {
+   "county": "Richmond",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.8,
+   "meanConcentration": 4.251,
+   "unit": "ppb",
+   "nWells": 18,
+   "sample": true
+  },
+  {
+   "county": "Richmond",
+   "contaminant": "radon",
+   "pctAboveStandard": 3.9,
+   "meanConcentration": 585.587,
+   "unit": "pCi/L",
+   "nWells": 4,
+   "sample": true
+  },
+  {
+   "county": "Robeson",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.906,
+   "unit": "ppb",
+   "nWells": 195,
+   "sample": true
+  },
+  {
+   "county": "Robeson",
+   "contaminant": "manganese",
+   "pctAboveStandard": 8.9,
+   "meanConcentration": 12.519,
+   "unit": "ppb",
+   "nWells": 202,
+   "sample": true
+  },
+  {
+   "county": "Robeson",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 4.9,
+   "meanConcentration": 1.982,
+   "unit": "mg/L",
+   "nWells": 61,
+   "sample": true
+  },
+  {
+   "county": "Robeson",
+   "contaminant": "lead",
+   "pctAboveStandard": 3.0,
+   "meanConcentration": 1.824,
+   "unit": "ppb",
+   "nWells": 198,
+   "sample": true
+  },
+  {
+   "county": "Robeson",
+   "contaminant": "uranium",
+   "pctAboveStandard": 5.1,
+   "meanConcentration": 5.75,
+   "unit": "ppb",
+   "nWells": 18,
+   "sample": true
+  },
+  {
+   "county": "Robeson",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 394.62,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Robeson",
+   "contaminant": "pfoa",
+   "pctAboveStandard": 32.4,
+   "meanConcentration": 2.428,
+   "unit": "ppt",
+   "nWells": 84,
+   "sample": true
+  },
+  {
+   "county": "Rockingham",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 2.5,
+   "meanConcentration": 1.358,
+   "unit": "ppb",
+   "nWells": 986,
+   "sample": true
+  },
+  {
+   "county": "Rockingham",
+   "contaminant": "manganese",
+   "pctAboveStandard": 23.6,
+   "meanConcentration": 27.058,
+   "unit": "ppb",
+   "nWells": 986,
+   "sample": true
+  },
+  {
+   "county": "Rockingham",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 1.4,
+   "meanConcentration": 0.975,
+   "unit": "mg/L",
+   "nWells": 645,
+   "sample": true
+  },
+  {
+   "county": "Rockingham",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.9,
+   "meanConcentration": 1.583,
+   "unit": "ppb",
+   "nWells": 986,
+   "sample": true
+  },
+  {
+   "county": "Rockingham",
+   "contaminant": "uranium",
+   "pctAboveStandard": 1.5,
+   "meanConcentration": 2.478,
+   "unit": "ppb",
+   "nWells": 6,
+   "sample": true
+  },
+  {
+   "county": "Rockingham",
+   "contaminant": "radon",
+   "pctAboveStandard": 3.0,
+   "meanConcentration": 410.118,
+   "unit": "pCi/L",
+   "nWells": 35,
+   "sample": true
+  },
+  {
+   "county": "Rowan",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 1.0,
+   "meanConcentration": 0.791,
+   "unit": "ppb",
+   "nWells": 2374,
+   "sample": true
+  },
+  {
+   "county": "Rowan",
+   "contaminant": "manganese",
+   "pctAboveStandard": 17.4,
+   "meanConcentration": 17.147,
+   "unit": "ppb",
+   "nWells": 2379,
+   "sample": true
+  },
+  {
+   "county": "Rowan",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.8,
+   "meanConcentration": 0.809,
+   "unit": "mg/L",
+   "nWells": 904,
+   "sample": true
+  },
+  {
+   "county": "Rowan",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.6,
+   "meanConcentration": 2.34,
+   "unit": "ppb",
+   "nWells": 2378,
+   "sample": true
+  },
+  {
+   "county": "Rowan",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0,
+   "meanConcentration": 2.359,
+   "unit": "ppb",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Rowan",
+   "contaminant": "radon",
+   "pctAboveStandard": 0.9,
+   "meanConcentration": 412.416,
+   "unit": "pCi/L",
+   "nWells": 35,
+   "sample": true
+  },
+  {
+   "county": "Rutherford",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 1.0,
+   "meanConcentration": 1.123,
+   "unit": "ppb",
+   "nWells": 784,
+   "sample": true
+  },
+  {
+   "county": "Rutherford",
+   "contaminant": "manganese",
+   "pctAboveStandard": 21.0,
+   "meanConcentration": 16.812,
+   "unit": "ppb",
+   "nWells": 785,
+   "sample": true
+  },
+  {
+   "county": "Rutherford",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.6,
+   "meanConcentration": 0.658,
+   "unit": "mg/L",
+   "nWells": 522,
+   "sample": true
+  },
+  {
+   "county": "Rutherford",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.3,
+   "meanConcentration": 1.708,
+   "unit": "ppb",
+   "nWells": 784,
+   "sample": true
+  },
+  {
+   "county": "Rutherford",
+   "contaminant": "uranium",
+   "pctAboveStandard": 5.5,
+   "meanConcentration": 3.623,
+   "unit": "ppb",
+   "nWells": 40,
+   "sample": true
+  },
+  {
+   "county": "Rutherford",
+   "contaminant": "radon",
+   "pctAboveStandard": 0,
+   "meanConcentration": 261.944,
+   "unit": "pCi/L",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Sampson",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.1,
+   "meanConcentration": 0.753,
+   "unit": "ppb",
+   "nWells": 1401,
+   "sample": true
+  },
+  {
+   "county": "Sampson",
+   "contaminant": "manganese",
+   "pctAboveStandard": 22.7,
+   "meanConcentration": 23.325,
+   "unit": "ppb",
+   "nWells": 1406,
+   "sample": true
+  },
+  {
+   "county": "Sampson",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 7.1,
+   "meanConcentration": 2.059,
+   "unit": "mg/L",
+   "nWells": 602,
+   "sample": true
+  },
+  {
+   "county": "Sampson",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.4,
+   "meanConcentration": 1.752,
+   "unit": "ppb",
+   "nWells": 1401,
+   "sample": true
+  },
+  {
+   "county": "Sampson",
+   "contaminant": "uranium",
+   "pctAboveStandard": 1.3,
+   "meanConcentration": 2.469,
+   "unit": "ppb",
+   "nWells": 60,
+   "sample": true
+  },
+  {
+   "county": "Sampson",
+   "contaminant": "radon",
+   "pctAboveStandard": 3.2,
+   "meanConcentration": 655.701,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  },
+  {
+   "county": "Scotland",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 1.01,
+   "unit": "ppb",
+   "nWells": 268,
+   "sample": true
+  },
+  {
+   "county": "Scotland",
+   "contaminant": "manganese",
+   "pctAboveStandard": 7.5,
+   "meanConcentration": 10.777,
+   "unit": "ppb",
+   "nWells": 266,
+   "sample": true
+  },
+  {
+   "county": "Scotland",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 2.3,
+   "meanConcentration": 1.479,
+   "unit": "mg/L",
+   "nWells": 130,
+   "sample": true
+  },
+  {
+   "county": "Scotland",
+   "contaminant": "lead",
+   "pctAboveStandard": 6.0,
+   "meanConcentration": 2.724,
+   "unit": "ppb",
+   "nWells": 266,
+   "sample": true
+  },
+  {
+   "county": "Scotland",
+   "contaminant": "uranium",
+   "pctAboveStandard": 2.9,
+   "meanConcentration": 3.574,
+   "unit": "ppb",
+   "nWells": 12,
+   "sample": true
+  },
+  {
+   "county": "Scotland",
+   "contaminant": "radon",
+   "pctAboveStandard": 5.3,
+   "meanConcentration": 765.315,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  },
+  {
+   "county": "Stanly",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 18.0,
+   "meanConcentration": 2.78,
+   "unit": "ppb",
+   "nWells": 1278,
+   "sample": true
+  },
+  {
+   "county": "Stanly",
+   "contaminant": "manganese",
+   "pctAboveStandard": 36.7,
+   "meanConcentration": 40.585,
+   "unit": "ppb",
+   "nWells": 1230,
+   "sample": true
+  },
+  {
+   "county": "Stanly",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 1.7,
+   "meanConcentration": 1.002,
+   "unit": "mg/L",
+   "nWells": 481,
+   "sample": true
+  },
+  {
+   "county": "Stanly",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.9,
+   "meanConcentration": 1.383,
+   "unit": "ppb",
+   "nWells": 1239,
+   "sample": true
+  },
+  {
+   "county": "Stanly",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.8,
+   "meanConcentration": 4.383,
+   "unit": "ppb",
+   "nWells": 6,
+   "sample": true
+  },
+  {
+   "county": "Stanly",
+   "contaminant": "radon",
+   "pctAboveStandard": 6.4,
+   "meanConcentration": 846.466,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Stokes",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.2,
+   "meanConcentration": 0.977,
+   "unit": "ppb",
+   "nWells": 973,
+   "sample": true
+  },
+  {
+   "county": "Stokes",
+   "contaminant": "manganese",
+   "pctAboveStandard": 34.8,
+   "meanConcentration": 23.419,
+   "unit": "ppb",
+   "nWells": 973,
+   "sample": true
+  },
+  {
+   "county": "Stokes",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.2,
+   "meanConcentration": 1.034,
+   "unit": "mg/L",
+   "nWells": 653,
+   "sample": true
+  },
+  {
+   "county": "Stokes",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.8,
+   "meanConcentration": 2.304,
+   "unit": "ppb",
+   "nWells": 974,
+   "sample": true
+  },
+  {
+   "county": "Stokes",
+   "contaminant": "uranium",
+   "pctAboveStandard": 5.4,
+   "meanConcentration": 4.857,
+   "unit": "ppb",
+   "nWells": 40,
+   "sample": true
+  },
+  {
+   "county": "Stokes",
+   "contaminant": "radon",
+   "pctAboveStandard": 5.7,
+   "meanConcentration": 728.812,
+   "unit": "pCi/L",
+   "nWells": 4,
+   "sample": true
+  },
+  {
+   "county": "Surry",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.2,
+   "meanConcentration": 0.657,
+   "unit": "ppb",
+   "nWells": 1171,
+   "sample": true
+  },
+  {
+   "county": "Surry",
+   "contaminant": "manganese",
+   "pctAboveStandard": 32.6,
+   "meanConcentration": 23.902,
+   "unit": "ppb",
+   "nWells": 1171,
+   "sample": true
+  },
+  {
+   "county": "Surry",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.7,
+   "meanConcentration": 0.811,
+   "unit": "mg/L",
+   "nWells": 443,
+   "sample": true
+  },
+  {
+   "county": "Surry",
+   "contaminant": "lead",
+   "pctAboveStandard": 4.2,
+   "meanConcentration": 1.886,
+   "unit": "ppb",
+   "nWells": 1171,
+   "sample": true
+  },
+  {
+   "county": "Surry",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0.8,
+   "meanConcentration": 3.18,
+   "unit": "ppb",
+   "nWells": 60,
+   "sample": true
+  },
+  {
+   "county": "Surry",
+   "contaminant": "radon",
+   "pctAboveStandard": 2.1,
+   "meanConcentration": 465.922,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Swain",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.2,
+   "meanConcentration": 0.658,
+   "unit": "ppb",
+   "nWells": 500,
+   "sample": true
+  },
+  {
+   "county": "Swain",
+   "contaminant": "manganese",
+   "pctAboveStandard": 12.0,
+   "meanConcentration": 15.806,
+   "unit": "ppb",
+   "nWells": 500,
+   "sample": true
+  },
+  {
+   "county": "Swain",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.561,
+   "unit": "mg/L",
+   "nWells": 175,
+   "sample": true
+  },
+  {
+   "county": "Swain",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.8,
+   "meanConcentration": 1.939,
+   "unit": "ppb",
+   "nWells": 508,
+   "sample": true
+  },
+  {
+   "county": "Swain",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.9,
+   "meanConcentration": 3.573,
+   "unit": "ppb",
+   "nWells": 6,
+   "sample": true
+  },
+  {
+   "county": "Swain",
+   "contaminant": "radon",
+   "pctAboveStandard": 4.9,
+   "meanConcentration": 645.455,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  },
+  {
+   "county": "Transylvania",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 2.4,
+   "meanConcentration": 1.464,
+   "unit": "ppb",
+   "nWells": 580,
+   "sample": true
+  },
+  {
+   "county": "Transylvania",
+   "contaminant": "manganese",
+   "pctAboveStandard": 11.7,
+   "meanConcentration": 14.88,
+   "unit": "ppb",
+   "nWells": 583,
+   "sample": true
+  },
+  {
+   "county": "Transylvania",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.6,
+   "unit": "mg/L",
+   "nWells": 352,
+   "sample": true
+  },
+  {
+   "county": "Transylvania",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.6,
+   "meanConcentration": 2.092,
+   "unit": "ppb",
+   "nWells": 580,
+   "sample": true
+  },
+  {
+   "county": "Transylvania",
+   "contaminant": "uranium",
+   "pctAboveStandard": 5.1,
+   "meanConcentration": 4.295,
+   "unit": "ppb",
+   "nWells": 60,
+   "sample": true
+  },
+  {
+   "county": "Transylvania",
+   "contaminant": "radon",
+   "pctAboveStandard": 3.3,
+   "meanConcentration": 666.89,
+   "unit": "pCi/L",
+   "nWells": 4,
+   "sample": true
+  },
+  {
+   "county": "Tyrrell",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.604,
+   "unit": "ppb",
+   "nWells": 29,
+   "sample": true
+  },
+  {
+   "county": "Tyrrell",
+   "contaminant": "manganese",
+   "pctAboveStandard": 41.4,
+   "meanConcentration": 44.368,
+   "unit": "ppb",
+   "nWells": 29,
+   "sample": true
+  },
+  {
+   "county": "Tyrrell",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.66,
+   "unit": "mg/L",
+   "nWells": 15,
+   "sample": true
+  },
+  {
+   "county": "Tyrrell",
+   "contaminant": "lead",
+   "pctAboveStandard": 17.2,
+   "meanConcentration": 5.477,
+   "unit": "ppb",
+   "nWells": 29,
+   "sample": true
+  },
+  {
+   "county": "Tyrrell",
+   "contaminant": "uranium",
+   "pctAboveStandard": 3.0,
+   "meanConcentration": 4.848,
+   "unit": "ppb",
+   "nWells": 60,
+   "sample": true
+  },
+  {
+   "county": "Tyrrell",
+   "contaminant": "radon",
+   "pctAboveStandard": 2.5,
+   "meanConcentration": 454.511,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  },
+  {
+   "county": "Union",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 19.5,
+   "meanConcentration": 4.046,
+   "unit": "ppb",
+   "nWells": 5154,
+   "sample": true
+  },
+  {
+   "county": "Union",
+   "contaminant": "manganese",
+   "pctAboveStandard": 30.5,
+   "meanConcentration": 36.918,
+   "unit": "ppb",
+   "nWells": 5137,
+   "sample": true
+  },
+  {
+   "county": "Union",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 1.4,
+   "meanConcentration": 1.119,
+   "unit": "mg/L",
+   "nWells": 1550,
+   "sample": true
+  },
+  {
+   "county": "Union",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.9,
+   "meanConcentration": 1.23,
+   "unit": "ppb",
+   "nWells": 5140,
+   "sample": true
+  },
+  {
+   "county": "Union",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.1,
+   "meanConcentration": 3.343,
+   "unit": "ppb",
+   "nWells": 3,
+   "sample": true
+  },
+  {
+   "county": "Union",
+   "contaminant": "radon",
+   "pctAboveStandard": 5.4,
+   "meanConcentration": 764.601,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Vance",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.937,
+   "unit": "ppb",
+   "nWells": 387,
+   "sample": true
+  },
+  {
+   "county": "Vance",
+   "contaminant": "manganese",
+   "pctAboveStandard": 32.0,
+   "meanConcentration": 22.91,
+   "unit": "ppb",
+   "nWells": 387,
+   "sample": true
+  },
+  {
+   "county": "Vance",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.774,
+   "unit": "mg/L",
+   "nWells": 157,
+   "sample": true
+  },
+  {
+   "county": "Vance",
+   "contaminant": "lead",
+   "pctAboveStandard": 3.4,
+   "meanConcentration": 2.444,
+   "unit": "ppb",
+   "nWells": 387,
+   "sample": true
+  },
+  {
+   "county": "Vance",
+   "contaminant": "uranium",
+   "pctAboveStandard": 1.4,
+   "meanConcentration": 3.203,
+   "unit": "ppb",
+   "nWells": 40,
+   "sample": true
+  },
+  {
+   "county": "Vance",
+   "contaminant": "radon",
+   "pctAboveStandard": 6.2,
+   "meanConcentration": 867.961,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Wake",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.2,
+   "meanConcentration": 1.012,
+   "unit": "ppb",
+   "nWells": 2461,
+   "sample": true
+  },
+  {
+   "county": "Wake",
+   "contaminant": "manganese",
+   "pctAboveStandard": 23.1,
+   "meanConcentration": 25.474,
+   "unit": "ppb",
+   "nWells": 2420,
+   "sample": true
+  },
+  {
+   "county": "Wake",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.8,
+   "meanConcentration": 1.155,
+   "unit": "mg/L",
+   "nWells": 122,
+   "sample": true
+  },
+  {
+   "county": "Wake",
+   "contaminant": "lead",
+   "pctAboveStandard": 3.4,
+   "meanConcentration": 1.604,
+   "unit": "ppb",
+   "nWells": 2466,
+   "sample": true
+  },
+  {
+   "county": "Wake",
+   "contaminant": "uranium",
+   "pctAboveStandard": 5.6,
+   "meanConcentration": 5.864,
+   "unit": "ppb",
+   "nWells": 25,
+   "sample": true
+  },
+  {
+   "county": "Wake",
+   "contaminant": "radon",
+   "pctAboveStandard": 6.0,
+   "meanConcentration": 730.083,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  },
+  {
+   "county": "Warren",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.602,
+   "unit": "ppb",
+   "nWells": 292,
+   "sample": true
+  },
+  {
+   "county": "Warren",
+   "contaminant": "manganese",
+   "pctAboveStandard": 29.2,
+   "meanConcentration": 22.227,
+   "unit": "ppb",
+   "nWells": 288,
+   "sample": true
+  },
+  {
+   "county": "Warren",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.741,
+   "unit": "mg/L",
+   "nWells": 47,
+   "sample": true
+  },
+  {
+   "county": "Warren",
+   "contaminant": "lead",
+   "pctAboveStandard": 3.1,
+   "meanConcentration": 1.485,
+   "unit": "ppb",
+   "nWells": 292,
+   "sample": true
+  },
+  {
+   "county": "Warren",
+   "contaminant": "uranium",
+   "pctAboveStandard": 5.7,
+   "meanConcentration": 5.315,
+   "unit": "ppb",
+   "nWells": 12,
+   "sample": true
+  },
+  {
+   "county": "Warren",
+   "contaminant": "radon",
+   "pctAboveStandard": 5.1,
+   "meanConcentration": 627.19,
+   "unit": "pCi/L",
+   "nWells": 35,
+   "sample": true
+  },
+  {
+   "county": "Washington",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.744,
+   "unit": "ppb",
+   "nWells": 102,
+   "sample": true
+  },
+  {
+   "county": "Washington",
+   "contaminant": "manganese",
+   "pctAboveStandard": 27.5,
+   "meanConcentration": 19.759,
+   "unit": "ppb",
+   "nWells": 102,
+   "sample": true
+  },
+  {
+   "county": "Washington",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.0,
+   "meanConcentration": 0.858,
+   "unit": "mg/L",
+   "nWells": 40,
+   "sample": true
+  },
+  {
+   "county": "Washington",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.0,
+   "meanConcentration": 1.301,
+   "unit": "ppb",
+   "nWells": 102,
+   "sample": true
+  },
+  {
+   "county": "Washington",
+   "contaminant": "uranium",
+   "pctAboveStandard": 1.1,
+   "meanConcentration": 2.747,
+   "unit": "ppb",
+   "nWells": 6,
+   "sample": true
+  },
+  {
+   "county": "Washington",
+   "contaminant": "radon",
+   "pctAboveStandard": 4.7,
+   "meanConcentration": 470.143,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Watauga",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 2.4,
+   "meanConcentration": 0.992,
+   "unit": "ppb",
+   "nWells": 1077,
+   "sample": true
+  },
+  {
+   "county": "Watauga",
+   "contaminant": "manganese",
+   "pctAboveStandard": 9.9,
+   "meanConcentration": 9.442,
+   "unit": "ppb",
+   "nWells": 1065,
+   "sample": true
+  },
+  {
+   "county": "Watauga",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.4,
+   "meanConcentration": 0.664,
+   "unit": "mg/L",
+   "nWells": 279,
+   "sample": true
+  },
+  {
+   "county": "Watauga",
+   "contaminant": "lead",
+   "pctAboveStandard": 3.8,
+   "meanConcentration": 2.005,
+   "unit": "ppb",
+   "nWells": 1065,
+   "sample": true
+  },
+  {
+   "county": "Watauga",
+   "contaminant": "uranium",
+   "pctAboveStandard": 2.0,
+   "meanConcentration": 4.04,
+   "unit": "ppb",
+   "nWells": 3,
+   "sample": true
+  },
+  {
+   "county": "Watauga",
+   "contaminant": "radon",
+   "pctAboveStandard": 1.1,
+   "meanConcentration": 322.06,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Wayne",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.4,
+   "meanConcentration": 0.677,
+   "unit": "ppb",
+   "nWells": 547,
+   "sample": true
+  },
+  {
+   "county": "Wayne",
+   "contaminant": "manganese",
+   "pctAboveStandard": 24.5,
+   "meanConcentration": 26.267,
+   "unit": "ppb",
+   "nWells": 548,
+   "sample": true
+  },
+  {
+   "county": "Wayne",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 3.0,
+   "meanConcentration": 1.259,
+   "unit": "mg/L",
+   "nWells": 271,
+   "sample": true
+  },
+  {
+   "county": "Wayne",
+   "contaminant": "lead",
+   "pctAboveStandard": 5.1,
+   "meanConcentration": 3.04,
+   "unit": "ppb",
+   "nWells": 548,
+   "sample": true
+  },
+  {
+   "county": "Wayne",
+   "contaminant": "uranium",
+   "pctAboveStandard": 0,
+   "meanConcentration": 2.727,
+   "unit": "ppb",
+   "nWells": 0,
+   "sample": true
+  },
+  {
+   "county": "Wayne",
+   "contaminant": "radon",
+   "pctAboveStandard": 5.6,
+   "meanConcentration": 874.495,
+   "unit": "pCi/L",
+   "nWells": 22,
+   "sample": true
+  },
+  {
+   "county": "Wilkes",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.4,
+   "meanConcentration": 1.022,
+   "unit": "ppb",
+   "nWells": 678,
+   "sample": true
+  },
+  {
+   "county": "Wilkes",
+   "contaminant": "manganese",
+   "pctAboveStandard": 27.4,
+   "meanConcentration": 28.441,
+   "unit": "ppb",
+   "nWells": 678,
+   "sample": true
+  },
+  {
+   "county": "Wilkes",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 1.2,
+   "meanConcentration": 1.056,
+   "unit": "mg/L",
+   "nWells": 502,
+   "sample": true
+  },
+  {
+   "county": "Wilkes",
+   "contaminant": "lead",
+   "pctAboveStandard": 2.1,
+   "meanConcentration": 1.206,
+   "unit": "ppb",
+   "nWells": 678,
+   "sample": true
+  },
+  {
+   "county": "Wilkes",
+   "contaminant": "uranium",
+   "pctAboveStandard": 1.1,
+   "meanConcentration": 2.602,
+   "unit": "ppb",
+   "nWells": 18,
+   "sample": true
+  },
+  {
+   "county": "Wilkes",
+   "contaminant": "radon",
+   "pctAboveStandard": 0.9,
+   "meanConcentration": 346.92,
+   "unit": "pCi/L",
+   "nWells": 14,
+   "sample": true
+  },
+  {
+   "county": "Wilson",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 1.3,
+   "meanConcentration": 1.012,
+   "unit": "ppb",
+   "nWells": 465,
+   "sample": true
+  },
+  {
+   "county": "Wilson",
+   "contaminant": "manganese",
+   "pctAboveStandard": 50.5,
+   "meanConcentration": 52.122,
+   "unit": "ppb",
+   "nWells": 465,
+   "sample": true
+  },
+  {
+   "county": "Wilson",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 1.2,
+   "meanConcentration": 1.177,
+   "unit": "mg/L",
+   "nWells": 346,
+   "sample": true
+  },
+  {
+   "county": "Wilson",
+   "contaminant": "lead",
+   "pctAboveStandard": 1.5,
+   "meanConcentration": 1.666,
+   "unit": "ppb",
+   "nWells": 465,
+   "sample": true
+  },
+  {
+   "county": "Wilson",
+   "contaminant": "uranium",
+   "pctAboveStandard": 1.5,
+   "meanConcentration": 3.204,
+   "unit": "ppb",
+   "nWells": 6,
+   "sample": true
+  },
+  {
+   "county": "Wilson",
+   "contaminant": "radon",
+   "pctAboveStandard": 4.4,
+   "meanConcentration": 547.565,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  },
+  {
+   "county": "Yadkin",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.9,
+   "meanConcentration": 0.947,
+   "unit": "ppb",
+   "nWells": 328,
+   "sample": true
+  },
+  {
+   "county": "Yadkin",
+   "contaminant": "manganese",
+   "pctAboveStandard": 29.9,
+   "meanConcentration": 21.905,
+   "unit": "ppb",
+   "nWells": 328,
+   "sample": true
+  },
+  {
+   "county": "Yadkin",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 2.2,
+   "meanConcentration": 1.297,
+   "unit": "mg/L",
+   "nWells": 229,
+   "sample": true
+  },
+  {
+   "county": "Yadkin",
+   "contaminant": "lead",
+   "pctAboveStandard": 0.6,
+   "meanConcentration": 1.739,
+   "unit": "ppb",
+   "nWells": 329,
+   "sample": true
+  },
+  {
+   "county": "Yadkin",
+   "contaminant": "uranium",
+   "pctAboveStandard": 6.0,
+   "meanConcentration": 5.93,
+   "unit": "ppb",
+   "nWells": 60,
+   "sample": true
+  },
+  {
+   "county": "Yadkin",
+   "contaminant": "radon",
+   "pctAboveStandard": 4.5,
+   "meanConcentration": 437.128,
+   "unit": "pCi/L",
+   "nWells": 4,
+   "sample": true
+  },
+  {
+   "county": "Yancey",
+   "contaminant": "arsenic",
+   "pctAboveStandard": 0.1,
+   "meanConcentration": 0.894,
+   "unit": "ppb",
+   "nWells": 1028,
+   "sample": true
+  },
+  {
+   "county": "Yancey",
+   "contaminant": "manganese",
+   "pctAboveStandard": 13.4,
+   "meanConcentration": 17.186,
+   "unit": "ppb",
+   "nWells": 1028,
+   "sample": true
+  },
+  {
+   "county": "Yancey",
+   "contaminant": "nitrate",
+   "pctAboveStandard": 0.2,
+   "meanConcentration": 0.654,
+   "unit": "mg/L",
+   "nWells": 433,
+   "sample": true
+  },
+  {
+   "county": "Yancey",
+   "contaminant": "lead",
+   "pctAboveStandard": 3.1,
+   "meanConcentration": 1.921,
+   "unit": "ppb",
+   "nWells": 1029,
+   "sample": true
+  },
+  {
+   "county": "Yancey",
+   "contaminant": "uranium",
+   "pctAboveStandard": 4.2,
+   "meanConcentration": 3.956,
+   "unit": "ppb",
+   "nWells": 25,
+   "sample": true
+  },
+  {
+   "county": "Yancey",
+   "contaminant": "radon",
+   "pctAboveStandard": 2.1,
+   "meanConcentration": 561.126,
+   "unit": "pCi/L",
+   "nWells": 9,
+   "sample": true
+  }
+ ]
+}
