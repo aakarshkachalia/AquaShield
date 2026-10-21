@@ -19,6 +19,18 @@
         }
       }
     },
+    "NSCameraUsageDescription" : {
+      "comment" : "Privacy - Camera Usage Description",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "ClearWell NC uses the camera to scan your water test report. The photo is read on your phone and is not uploaded."
+          }
+        }
+      }
+    },
     "NSLocationWhenInUseUsageDescription" : {
       "comment" : "Privacy - Location When In Use Usage Description",
       "extractionState" : "extracted_with_value",
@@ -33,6 +45,18 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "ClearWell NC usa su ubicación una sola vez para encontrar su sector censal y mostrar el riesgo del agua de pozo de su zona. Su ubicación no se guarda a menos que elija Guardar como Mi Pozo."
+          }
+        }
+      }
+    },
+    "NSPhotoLibraryAddUsageDescription" : {
+      "comment" : "Privacy - Photo Library Additions Usage Description",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "ClearWell NC can save its sample lab report to your photos so you can try the scanner."
           }
         }
       }

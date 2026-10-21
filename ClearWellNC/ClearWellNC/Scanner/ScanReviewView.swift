@@ -121,43 +121,7 @@ private struct ReviewRowEditor: View {
             }
 
             if row.contaminant != nil {
-                if row.isPresenceTest {
-                    Picker("Result", selection: edited(\.kind)) {
-                        Text(ReviewRow.Kind.absent.label).tag(ReviewRow.Kind.absent)
-                        Text(ReviewRow.Kind.present.label).tag(ReviewRow.Kind.present)
-                    }
-                    .pickerStyle(.segmented)
-                    .frame(minHeight: TapTarget.minimum)
-                } else {
-                    Picker("Result type", selection: edited(\.kind)) {
-                        ForEach([ReviewRow.Kind.number, .belowDetection, .notDetected]) { Text($0.label).tag($0) }
-                    }
-                    .frame(minHeight: TapTarget.minimum)
-                    if row.kind != .notDetected {
-                        HStack {
-                            TextField(row.kind == .belowDetection ? "Detection limit" : "Value", text: edited(\.valueText))
-                                .keyboardType(.decimalPad)
-                                .frame(minHeight: TapTarget.minimum)
-                                .accessibilityLabel(Text(row.kind == .belowDetection ? "Detection limit" : "Value"))
-                            if !row.unitChoices.isEmpty {
-                                Picker("Unit", selection: edited(\.unit)) {
-                                    Text("Unit?").tag(LabReportParser.ReportedUnit?.none)
-                                    ForEach(row.unitChoices) { Text($0.label).tag(Optional($0)) }
-                                }
-                                .pickerStyle(.menu)
-                                .accessibilityLabel(Text("Unit"))
-                            }
-                        }
-                    }
-                }
-                if let preview = row.preview {
-                    HStack(spacing: Spacing.s) {
-                        StatusChip(tier: preview.tier, label: preview.chipLabel)
-                        Text(preview.readingText)
-                            .font(.subheadline)
-                            .foregroundStyle(Color.textSecondary)
-                    }
-                }
+                ReviewValueEditor(row: $row)
             } else {
                 Text("ClearWell doesn't track this test, so it won't be saved. If we misread the name, choose the right test above.")
                     .font(.subheadline)
@@ -197,6 +161,85 @@ private struct ReviewRowEditor: View {
             if keyPath == \ReviewRow.contaminant, row.isPresenceTest, row.kind != .present, row.kind != .absent {
                 row.kind = .absent
             }
+        }
+    }
+}
+
+/// Result type, value, unit and the live status preview for one row.
+private struct ReviewValueEditor: View {
+    @Binding var row: ReviewRow
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.m) {
+            if row.isPresenceTest {
+                presencePicker
+            } else {
+                numericEditor
+            }
+            if let preview = row.preview {
+                HStack(spacing: Spacing.s) {
+                    StatusChip(tier: preview.tier, label: preview.chipLabel)
+                    Text(preview.readingText)
+                        .font(.subheadline)
+                        .foregroundStyle(Color.textSecondary)
+                }
+            }
+        }
+    }
+
+    private var presencePicker: some View {
+        Picker("Result", selection: binding(\.kind)) {
+            Text(ReviewRow.Kind.absent.label).tag(ReviewRow.Kind.absent)
+            Text(ReviewRow.Kind.present.label).tag(ReviewRow.Kind.present)
+        }
+        .pickerStyle(.segmented)
+        .frame(minHeight: TapTarget.minimum)
+    }
+
+    @ViewBuilder
+    private var numericEditor: some View {
+        Picker("Result type", selection: binding(\.kind)) {
+            ForEach([ReviewRow.Kind.number, .belowDetection, .notDetected]) { kind in
+                Text(kind.label).tag(kind)
+            }
+        }
+        .frame(minHeight: TapTarget.minimum)
+        if row.kind != .notDetected {
+            HStack {
+                valueField
+                unitPicker
+            }
+        }
+    }
+
+    private var valueField: some View {
+        let title: LocalizedStringKey = row.kind == .belowDetection ? "Detection limit" : "Value"
+        return TextField(title, text: binding(\.valueText))
+            .keyboardType(.decimalPad)
+            .frame(minHeight: TapTarget.minimum)
+            .accessibilityLabel(Text(title))
+    }
+
+    @ViewBuilder
+    private var unitPicker: some View {
+        if !row.unitChoices.isEmpty {
+            Picker("Unit", selection: binding(\.unit)) {
+                Text("Unit?").tag(LabReportParser.ReportedUnit?.none)
+                ForEach(row.unitChoices) { unit in
+                    Text(unit.label).tag(Optional(unit))
+                }
+            }
+            .pickerStyle(.menu)
+            .accessibilityLabel(Text("Unit"))
+        }
+    }
+
+    private func binding<T>(_ keyPath: WritableKeyPath<ReviewRow, T>) -> Binding<T> {
+        Binding {
+            row[keyPath: keyPath]
+        } set: { newValue in
+            row[keyPath: keyPath] = newValue
+            row.edited = true
         }
     }
 }
