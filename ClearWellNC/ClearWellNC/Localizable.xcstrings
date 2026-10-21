@@ -106,12 +106,28 @@
         }
       }
     },
+    "%@ County facts" : {
+
+    },
+    "%@ County is in the lower Cape Fear area, where PFAS from industry has been found in wells. Free testing may be available." : {
+
+    },
     "%@ in %@ County wells doesn't show a strong seasonal pattern, so any time of year is fine for testing." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@ in %2$@ County wells doesn't show a strong seasonal pattern, so any time of year is fine for testing."
+          }
+        }
+      }
+    },
+    "%@ in %@ County wells is usually highest in %@. Testing then shows you the high point." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ in %2$@ County wells is usually highest in %3$@. Testing then shows you the high point."
           }
         }
       }
@@ -316,6 +332,29 @@
         }
       }
     },
+    "%lld need a quick check. Compare them with your report and fix anything we misread." : {
+
+    },
+    "%lld of %lld done" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld of %2$lld done"
+          }
+        }
+      }
+    },
+    "%lld of %lld steps done. Don't drink the water until it's tested." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld of %2$lld steps done. Don't drink the water until it's tested."
+          }
+        }
+      }
+    },
     "%lld of %lld tested wells in your census tract were above the limit." : {
       "localizations" : {
         "en" : {
@@ -442,6 +481,9 @@
         }
       }
     },
+    "• %@" : {
+
+    },
     "0–40" : {
       "localizations" : {
         "es" : {
@@ -456,6 +498,9 @@
 
     },
     "1 mg/L" : {
+
+    },
+    "1–3 years ago" : {
 
     },
     "2 mg/L" : {
@@ -675,6 +720,9 @@
     "A health-based limit is exceeded, so the score is capped at %lld." : {
 
     },
+    "A made-up report for trying the scanner. Not a real test result." : {
+
+    },
     "A model that fills the gaps" : {
       "localizations" : {
         "es" : {
@@ -696,6 +744,12 @@
       }
     },
     "A report with arsenic over the limit: the safety alert, then Help Finder." : {
+
+    },
+    "A result is above a health limit" : {
+
+    },
+    "A second bacteria test confirms the well stayed clean." : {
 
     },
     "A sediment filter" : {
@@ -826,6 +880,9 @@
         }
       }
     },
+    "Accurate testing needs a state-certified lab, and there are no miracle products. Be wary of companies offering free in-home \"tests\" or pressuring you to buy filters. Report suspicious offers to the NC Attorney General's office." : {
+
+    },
     "Acid-neutralizing (calcite) filter" : {
 
     },
@@ -895,6 +952,9 @@
           }
         }
       }
+    },
+    "Add a result" : {
+
     },
     "Add a test to see it" : {
       "extractionState" : "stale",
@@ -1068,6 +1128,9 @@
         }
       }
     },
+    "All" : {
+
+    },
     "All results" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1091,6 +1154,9 @@
     "an infant" : {
 
     },
+    "An infant or pregnant person lives in your home, and nitrate is most dangerous for babies under 6 months." : {
+
+    },
     "an older adult" : {
 
     },
@@ -1100,7 +1166,13 @@
     "Answer 7 quick questions to see which tests your well needs and where to get them, often for free or low cost." : {
 
     },
+    "Any time of year works. Also test for bacteria after flooding or heavy storms." : {
+
+    },
     "Anyone who drinks the water for many years." : {
+
+    },
+    "Are farm fields, livestock or a septic system near your well?" : {
 
     },
     "Area risk" : {
@@ -1123,6 +1195,9 @@
           }
         }
       }
+    },
+    "Arsenic comes from bedrock in parts of North Carolina and has no taste or smell." : {
+
     },
     "Arsenic comes from certain bedrock. It has no taste or smell, and long-term exposure raises cancer risk." : {
       "localizations" : {
@@ -1199,6 +1274,12 @@
     "At this level you may notice %@." : {
 
     },
+    "Available in your county." : {
+
+    },
+    "Available to households anywhere in North Carolina." : {
+
+    },
     "B: Clean report to scan" : {
 
     },
@@ -1209,6 +1290,9 @@
 
     },
     "Babies under 6 months, especially if formula is mixed with well water, and pregnancy." : {
+
+    },
+    "Back" : {
 
     },
     "Back to Report Quest" : {
@@ -1330,10 +1414,19 @@
         }
       }
     },
+    "Below detection (<)" : {
+
+    },
     "Below guideline" : {
 
     },
+    "Best time of year to test" : {
+
+    },
     "Black or brown stains" : {
+
+    },
+    "Black or brown stains can mean manganese." : {
 
     },
     "black or brown stains on sinks and laundry and a bitter taste" : {
@@ -1351,10 +1444,16 @@
     "Blue-green stains" : {
 
     },
+    "Blue-green stains or a sour taste can mean acidic water that corrodes pipes." : {
+
+    },
     "Boiling" : {
 
     },
     "Boiling does not remove arsenic. As water evaporates, the arsenic left behind becomes more concentrated." : {
+
+    },
+    "Boiling does not remove PFAS. Use a filter certified for PFAS reduction." : {
 
     },
     "Boiling evaporates water and concentrates nitrate." : {
@@ -1452,6 +1551,9 @@
         }
       }
     },
+    "Call %@" : {
+
+    },
     "Call your county health department" : {
       "localizations" : {
         "es" : {
@@ -1505,6 +1607,9 @@
         }
       }
     },
+    "CDC: private water systems" : {
+
+    },
     "CDC: Private water systems" : {
 
     },
@@ -1517,6 +1622,9 @@
           }
         }
       }
+    },
+    "Census-tract well risk map" : {
+
     },
     "Change where your home's water comes from" : {
       "extractionState" : "stale",
@@ -1585,6 +1693,9 @@
           }
         }
       }
+    },
+    "Check for damage around the wellhead" : {
+
     },
     "Check in %lld days" : {
       "localizations" : {
@@ -1719,6 +1830,9 @@
     "Check your pH; acidic water corrodes copper pipes." : {
 
     },
+    "Check your results" : {
+
+    },
     "Checked %@" : {
       "localizations" : {
         "es" : {
@@ -1748,7 +1862,13 @@
     "Children's developing teeth are most sensitive." : {
 
     },
+    "Choose a test" : {
+
+    },
     "Choose later" : {
+
+    },
+    "Choose photo" : {
 
     },
     "City and county water systems must test regularly and publish a yearly water quality report, called a Consumer Confidence Report." : {
@@ -1770,6 +1890,15 @@
           }
         }
       }
+    },
+    "Clear checklist" : {
+
+    },
+    "ClearWell doesn't have permission to use the camera. You can allow it in Settings, choose a photo, or enter results manually." : {
+
+    },
+    "ClearWell doesn't track this test, so it won't be saved. If we misread the name, choose the right test above." : {
+
     },
     "ClearWell is educational and is not medical advice. Only a state-certified lab test can tell you what is in your water." : {
 
@@ -1836,6 +1965,9 @@
     "Common NC well tests" : {
 
     },
+    "Compare them with your report before saving." : {
+
+    },
     "Comparison with the statewide rate" : {
       "localizations" : {
         "es" : {
@@ -1898,6 +2030,9 @@
 
     },
     "Contact your county health department or a state-certified lab to order these tests." : {
+
+    },
+    "Contact: %@, below." : {
 
     },
     "Contaminant" : {
@@ -1998,6 +2133,9 @@
     "Cosmetic guideline (no health-based limit)" : {
 
     },
+    "Counties average many wells. Yours can be very different." : {
+
+    },
     "County" : {
 
     },
@@ -2011,10 +2149,19 @@
         }
       }
     },
+    "County data helps us spot local risks." : {
+
+    },
     "County trend data was not found in the app." : {
 
     },
+    "County well facts (Risk Check)" : {
+
+    },
     "Dashed line and shaded band: forecast and its likely range. Predicted — not a test result." : {
+
+    },
+    "Data in this app" : {
 
     },
     "Data we checked and excluded" : {
@@ -2062,6 +2209,9 @@
           }
         }
       }
+    },
+    "Date Collected: %@" : {
+
     },
     "Delete" : {
       "localizations" : {
@@ -2125,10 +2275,16 @@
     "Demo Mode" : {
 
     },
+    "Demo Mode personas" : {
+
+    },
     "Demo Mode uses separate sample data. Your real results are hidden, not changed, and come back when you turn it off." : {
 
     },
     "Detected" : {
+
+    },
+    "Detection limit" : {
 
     },
     "Diarrhea, stomach cramps, nausea and vomiting, sometimes within a day or two. Some types of E. coli can cause serious illness." : {
@@ -2153,6 +2309,9 @@
           }
         }
       }
+    },
+    "Disinfect the well (shock chlorination)" : {
+
     },
     "Disinfect your well." : {
       "localizations" : {
@@ -2211,6 +2370,9 @@
     "Does boiling water remove nitrate?" : {
 
     },
+    "Does boiling water remove PFAS?" : {
+
+    },
     "Does your home get water from a private well?" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2221,6 +2383,9 @@
           }
         }
       }
+    },
+    "Don't drink or cook with your well water" : {
+
     },
     "Don't drink this water untreated. Use bottled water for drinking and cooking until it's fixed." : {
       "localizations" : {
@@ -2272,6 +2437,9 @@
           }
         }
       }
+    },
+    "Double-tap to mark this step done" : {
+
     },
     "Drinking it for years raises the risk of skin, bladder and lung cancer, and is linked to heart disease and skin changes." : {
 
@@ -2462,6 +2630,15 @@
         }
       }
     },
+    "Email" : {
+
+    },
+    "Email %@" : {
+
+    },
+    "Emergency" : {
+
+    },
     "Enter a number of 0 or more." : {
       "localizations" : {
         "es" : {
@@ -2479,6 +2656,9 @@
 
     },
     "EPA action level" : {
+
+    },
+    "EPA drinking water standards and health advisories, CDC and NC DHHS guidance. See each Learn card for links." : {
 
     },
     "EPA health advisory" : {
@@ -2511,10 +2691,19 @@
     "EPA: National primary drinking water regulations" : {
 
     },
+    "EPA: primary drinking water standards" : {
+
+    },
+    "EPA: private drinking water wells" : {
+
+    },
     "EPA: Private drinking water wells" : {
 
     },
     "EPA: Radon" : {
+
+    },
+    "EPA: secondary drinking water standards" : {
 
     },
     "EPA: Secondary drinking water standards" : {
@@ -2553,6 +2742,12 @@
 
     },
     "Every 2 years with a metals panel." : {
+
+    },
+    "Every well should be retested regularly, and this is the place to start." : {
+
+    },
+    "Every well should be tested for bacteria every year." : {
 
     },
     "Every year" : {
@@ -2627,6 +2822,9 @@
     "falling" : {
 
     },
+    "Farm fields, livestock and septic systems can raise nitrate." : {
+
+    },
     "Faucet-mount filter" : {
       "localizations" : {
         "es" : {
@@ -2661,6 +2859,9 @@
       }
     },
     "Filter certified to NSF/ANSI 53 for lead" : {
+
+    },
+    "Filter programs" : {
 
     },
     "Filters & reminders" : {
@@ -2745,6 +2946,15 @@
     "Fixes the source" : {
 
     },
+    "Flooding can wash nitrate into wells." : {
+
+    },
+    "Floodwater can carry germs and chemicals into your well. Work through these steps in order." : {
+
+    },
+    "Floodwater can carry germs into a well. Test after disinfecting." : {
+
+    },
     "Fluoride" : {
 
     },
@@ -2763,6 +2973,18 @@
           }
         }
       }
+    },
+    "Follow your county health department's instructions, or hire a licensed well contractor." : {
+
+    },
+    "Follow your county health department's instructions. This checklist doesn't replace them." : {
+
+    },
+    "For %@" : {
+
+    },
+    "For example, water covered the wellhead or the area flooded." : {
+
     },
     "For lead pipes, old fixtures, or installing an under-sink filter." : {
       "localizations" : {
@@ -2848,6 +3070,9 @@
         }
       }
     },
+    "Get help" : {
+
+    },
     "Get Help" : {
 
     },
@@ -2863,6 +3088,9 @@
           }
         }
       }
+    },
+    "Get tested" : {
+
     },
     "Go to the last stop" : {
       "localizations" : {
@@ -2884,6 +3112,9 @@
 
     },
     "Granular activated carbon (GAC)" : {
+
+    },
+    "Granular activated carbon (NSF/ANSI 53, certified for PFAS)" : {
 
     },
     "guideline" : {
@@ -2914,6 +3145,12 @@
         }
       }
     },
+    "Has flooding or a hurricane affected your well?" : {
+
+    },
+    "Have you noticed changes in taste, smell, color or staining?" : {
+
+    },
     "Health effects" : {
 
     },
@@ -2932,6 +3169,9 @@
           }
         }
       }
+    },
+    "Help programs" : {
+
     },
     "High" : {
       "localizations" : {
@@ -2952,6 +3192,9 @@
     "High levels can cause nausea, vomiting and stomach cramps." : {
 
     },
+    "High manganese is a concern for infants." : {
+
+    },
     "high-pH water can taste bitter and leave scale" : {
 
     },
@@ -2962,6 +3205,9 @@
 
     },
     "High, when media is replaced on schedule" : {
+
+    },
+    "High, when the filter is changed on schedule" : {
 
     },
     "Higher than typical here" : {
@@ -3073,6 +3319,9 @@
     "Human or animal waste is getting in" : {
 
     },
+    "I don't know" : {
+
+    },
     "I understand" : {
       "localizations" : {
         "es" : {
@@ -3093,6 +3342,9 @@
           }
         }
       }
+    },
+    "If you live in an affected area, and after installing treatment to confirm it works." : {
+
     },
     "If you see blue-green stains or after fixing corrosive water." : {
 
@@ -3120,12 +3372,25 @@
         }
       }
     },
+    "If your wellhead was underwater, don't drink the water" : {
+
+    },
     "Important: your test found a problem" : {
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Importante: su análisis encontró un problema"
+          }
+        }
+      }
+    },
+    "In %@ County, %@%% of tested wells were above the %@ standard." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "In %1$@ County, %2$@%% of tested wells were above the %3$@ standard."
           }
         }
       }
@@ -3217,6 +3482,9 @@
     "Iron's 300 ppb guideline is about staining and taste, not health." : {
 
     },
+    "Is anyone pregnant, or is there a baby under 1 year old in your home?" : {
+
+    },
     "Is hard water a health risk?" : {
 
     },
@@ -3262,6 +3530,9 @@
 
     },
     "It occurs naturally in some bedrock." : {
+
+    },
+    "It's been 3 or more years since your last test, so a full standard panel is due." : {
 
     },
     "It's been a year since this test. Time to test again." : {
@@ -3537,6 +3808,9 @@
     "Lead in well water usually comes from pipes, solder and well parts, not the rock. EPA's health goal for lead is zero, because no level is known to be safe." : {
 
     },
+    "Lead is most harmful during pregnancy and for babies and young children." : {
+
+    },
     "Lead usually comes from your plumbing, not the ground: old pipes, lead solder, and brass fittings or well parts. It varies from house to house." : {
 
     },
@@ -3669,6 +3943,9 @@
         }
       }
     },
+    "Limits and health information" : {
+
+    },
     "Listings come from Apple Maps. ClearWell NC does not review or endorse these businesses. For water tests, choose a lab certified by the State of North Carolina." : {
       "localizations" : {
         "es" : {
@@ -3725,6 +4002,12 @@
     "Long term" : {
 
     },
+    "Look for a loose cap, cracks or debris. Don't use electricity or the pump near standing water." : {
+
+    },
+    "Look for a well permit or ask the previous owner." : {
+
+    },
     "Look for NSF/ANSI 55 Class A. UV kills bacteria but does not remove chemicals or metals." : {
       "localizations" : {
         "es" : {
@@ -3744,6 +4027,9 @@
           }
         }
       }
+    },
+    "Look for reverse osmosis or carbon filters certified for PFAS reduction." : {
+
     },
     "Look up any NC address on the census-tract risk map." : {
 
@@ -3786,6 +4072,9 @@
           }
         }
       }
+    },
+    "Made-up households and results, kept separate from your real data." : {
+
     },
     "Manganese" : {
       "localizations" : {
@@ -3932,6 +4221,9 @@
     "Month" : {
 
     },
+    "Monthly county medians used by the seasonal model. Placeholder values for development." : {
+
+    },
     "More" : {
       "localizations" : {
         "es" : {
@@ -3943,6 +4235,9 @@
       }
     },
     "More help" : {
+
+    },
+    "More than 3 years ago" : {
 
     },
     "Most at risk: %@" : {
@@ -3962,6 +4257,9 @@
       }
     },
     "Must be absent · %@" : {
+
+    },
+    "my" : {
 
     },
     "My area's well risk" : {
@@ -4001,6 +4299,9 @@
     "My well flooded" : {
 
     },
+    "My well flooded: what to do" : {
+
+    },
     "Name, for example \"Iron filter\"" : {
       "localizations" : {
         "es" : {
@@ -4012,6 +4313,12 @@
       }
     },
     "Natural bedrock" : {
+
+    },
+    "NC Attorney General: report a scam" : {
+
+    },
+    "NC county health departments" : {
 
     },
     "NC DHHS: private well safety" : {
@@ -4043,6 +4350,12 @@
         }
       }
     },
+    "NCDEQ: PFAS Treatment System Assistance Program" : {
+
+    },
+    "NCWELL database (Eaves et al. 2021, UNC Superfund Research Program), 1998–2019, with ClearWell's model estimates." : {
+
+    },
     "Near guideline" : {
 
     },
@@ -4055,6 +4368,9 @@
           }
         }
       }
+    },
+    "Never" : {
+
     },
     "New badge" : {
       "localizations" : {
@@ -4130,6 +4446,9 @@
       }
     },
     "Nitrate comes from fertilizer, manure and septic systems. It soaks into groundwater, especially in shallow wells near farms or septic fields." : {
+
+    },
+    "Nitrate has no taste or smell and is most dangerous for babies." : {
 
     },
     "Nitrate is most dangerous for babies under 6 months. Test your well for nitrate before using it to mix infant formula, and use bottled water for formula until you know your result. Never boil water to remove nitrate; boiling concentrates it." : {
@@ -4250,6 +4569,12 @@
         }
       }
     },
+    "No programs match this filter" : {
+
+    },
+    "No report yet? Try the scanner with a made-up sample report." : {
+
+    },
     "No reports yet" : {
 
     },
@@ -4294,6 +4619,9 @@
           }
         }
       }
+    },
+    "No, 2008 or later" : {
+
     },
     "No, city or county water" : {
       "localizations" : {
@@ -4360,6 +4688,9 @@
 
     },
     "Not detected (below %@)" : {
+
+    },
+    "Not done" : {
 
     },
     "Not earned yet" : {
@@ -4482,6 +4813,9 @@
         }
       }
     },
+    "Number" : {
+
+    },
     "of 100" : {
 
     },
@@ -4569,6 +4903,9 @@
         }
       }
     },
+    "Only a lab test can tell you what's in your water." : {
+
+    },
     "Only if you're deciding on a softener or notice more scale." : {
 
     },
@@ -4596,10 +4933,16 @@
         }
       }
     },
+    "Orange stains or a metallic taste can mean iron." : {
+
+    },
     "Orange-brown" : {
 
     },
     "orange-brown stains, a metallic taste and clogged plumbing" : {
+
+    },
+    "Original report photo, page %lld" : {
 
     },
     "Other" : {
@@ -4710,6 +5053,15 @@
     "Oxidation/filtration (iron filter)" : {
 
     },
+    "Pay to fix" : {
+
+    },
+    "Pays for testing or safe water" : {
+
+    },
+    "Pays for treatment" : {
+
+    },
     "pCi/L" : {
 
     },
@@ -4729,7 +5081,19 @@
     "Pets" : {
 
     },
+    "PFAS (\"forever chemicals\")" : {
+
+    },
     "PFAS are \"forever chemicals\" from industry and some products. They build up in the body, and long-term exposure is linked to some cancers and other health effects." : {
+
+    },
+    "PFAS barely break down in the environment or the body." : {
+
+    },
+    "PFAS build up in the body. Long-term exposure is linked to some cancers, and to effects on the liver, immune system, cholesterol and children's growth." : {
+
+    },
+    "PFAS come from industry and some products, like firefighting foam. In North Carolina, PFAS including GenX from a chemical plant near Fayetteville have been found in private wells in the lower Cape Fear area." : {
 
     },
     "PFOA" : {
@@ -4812,6 +5176,9 @@
         }
       }
     },
+    "Please check this" : {
+
+    },
     "Plumbers" : {
       "localizations" : {
         "es" : {
@@ -4867,6 +5234,9 @@
     "Pregnancy and young children, because they are still developing." : {
 
     },
+    "Pregnancy, infants and young children." : {
+
+    },
     "Present" : {
       "localizations" : {
         "es" : {
@@ -4897,6 +5267,9 @@
         }
       }
     },
+    "Private Well Water Analysis" : {
+
+    },
     "Programs that can help" : {
 
     },
@@ -4920,6 +5293,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Aventura terminada"
+          }
+        }
+      }
+    },
+    "Question %lld of %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Question %1$lld of %2$lld"
           }
         }
       }
@@ -4970,6 +5353,9 @@
         }
       }
     },
+    "Read as: %@" : {
+
+    },
     "Read this before anything else." : {
       "localizations" : {
         "es" : {
@@ -4990,6 +5376,9 @@
         }
       }
     },
+    "Reading your report…" : {
+
+    },
     "Real test results" : {
       "localizations" : {
         "es" : {
@@ -5007,6 +5396,9 @@
 
     },
     "Reduces levels in standing water" : {
+
+    },
+    "References" : {
 
     },
     "Refrigerator filter" : {
@@ -5069,10 +5461,16 @@
         }
       }
     },
+    "Remove this result" : {
+
+    },
     "Removes most arsenic (often 90% or more)" : {
 
     },
     "Removes most nitrate (often 80–95%)" : {
+
+    },
+    "Removes most PFAS (often 90% or more)" : {
 
     },
     "Removes most uranium (often 90% or more)" : {
@@ -5179,6 +5577,9 @@
     "Replace lead parts and fix corrosive water" : {
 
     },
+    "Report a scam to the NC Attorney General" : {
+
+    },
     "Report history" : {
 
     },
@@ -5211,6 +5612,18 @@
     "Reset all data" : {
 
     },
+    "Result" : {
+
+    },
+    "Result type" : {
+
+    },
+    "Results saved" : {
+
+    },
+    "Results we found" : {
+
+    },
     "Retest after the chlorine is flushed out" : {
 
     },
@@ -5226,6 +5639,9 @@
           }
         }
       }
+    },
+    "Retest in 1–2 weeks" : {
+
     },
     "Retest in spring, and before using this water for baby formula." : {
 
@@ -5268,10 +5684,16 @@
     "Reverse osmosis" : {
 
     },
+    "Reverse osmosis (NSF/ANSI 58, certified for PFAS)" : {
+
+    },
     "Reverse osmosis (NSF/ANSI 58)" : {
 
     },
     "Reverse osmosis and anion exchange remove most uranium." : {
+
+    },
+    "Reverse osmosis certified for PFAS" : {
 
     },
     "Reverse osmosis certified to NSF/ANSI 58 for arsenic. An under-sink unit is usually enough for drinking and cooking." : {
@@ -5308,9 +5730,6 @@
       }
     },
     "rising" : {
-
-    },
-    "Risk Check" : {
 
     },
     "Risk level: %@" : {
@@ -5367,6 +5786,15 @@
         }
       }
     },
+    "Sample lab report" : {
+
+    },
+    "SAMPLE REPORT - NOT A REAL TEST RESULT" : {
+
+    },
+    "Sample Water Testing Laboratory" : {
+
+    },
     "Sample: a report with a problem" : {
       "localizations" : {
         "es" : {
@@ -5417,6 +5845,15 @@
         }
       }
     },
+    "Save results" : {
+
+    },
+    "Save sample report to Photos" : {
+
+    },
+    "Save this program" : {
+
+    },
     "Save your home on the Check My Area tab, or use your current location. Your location is only used for this search." : {
       "localizations" : {
         "es" : {
@@ -5426,6 +5863,9 @@
           }
         }
       }
+    },
+    "Saved" : {
+
     },
     "Saved as My Home" : {
       "localizations" : {
@@ -5446,6 +5886,12 @@
           }
         }
       }
+    },
+    "Saved. In Scan Report, tap Choose photo and pick the SAMPLE REPORT image." : {
+
+    },
+    "Saved. Tap to remove from saved programs." : {
+
     },
     "Saving keeps this location on this device only. Saving again replaces your current My Well." : {
       "extractionState" : "stale",
@@ -5480,6 +5926,9 @@
     "Scan the bundled sample report, see the score, then play Report Quest." : {
 
     },
+    "Scan with camera" : {
+
+    },
     "Scan your lab report and understand every number" : {
 
     },
@@ -5495,6 +5944,9 @@
           }
         }
       }
+    },
+    "Search \"%@\"" : {
+
     },
     "Searching nearby…" : {
       "localizations" : {
@@ -5552,6 +6004,9 @@
     "Seasonal trend and forecast chart" : {
 
     },
+    "Seasonal trends and forecast" : {
+
+    },
     "Sediment filter" : {
       "localizations" : {
         "es" : {
@@ -5585,6 +6040,12 @@
         }
       }
     },
+    "See my results" : {
+
+    },
+    "See what to do now on your results." : {
+
+    },
     "See your results" : {
       "localizations" : {
         "es" : {
@@ -5601,7 +6062,13 @@
     "Septic systems and fertilizer" : {
 
     },
+    "Septic systems and livestock can let germs reach a well." : {
+
+    },
     "Series" : {
+
+    },
+    "Set your county in Settings to see local programs." : {
 
     },
     "Settings" : {
@@ -5632,7 +6099,19 @@
     "Should I test?" : {
 
     },
+    "Show all" : {
+
+    },
+    "Show original photo" : {
+
+    },
     "Show the welcome screens again" : {
+
+    },
+    "Showing programs for %@ County." : {
+
+    },
+    "Shows programs that may test or pay for treatment" : {
 
     },
     "Shows what happens when a result is over a health limit." : {
@@ -5698,6 +6177,9 @@
     "someone with a weakened immune system" : {
 
     },
+    "Something went wrong" : {
+
+    },
     "Sources" : {
 
     },
@@ -5721,6 +6203,9 @@
 
     },
     "standard" : {
+
+    },
+    "Start over" : {
 
     },
     "Start stop %lld: %@" : {
@@ -5825,6 +6310,9 @@
         }
       }
     },
+    "Take a photo of each page of your lab report, or pick photos you already have. ClearWell reads it on your phone and lets you check every number before saving." : {
+
+    },
     "Tap a census tract to see its estimate." : {
       "localizations" : {
         "es" : {
@@ -5848,6 +6336,9 @@
     "Teenagers" : {
 
     },
+    "Test" : {
+
+    },
     "Test date" : {
       "localizations" : {
         "es" : {
@@ -5869,6 +6360,9 @@
       }
     },
     "Test for %@" : {
+
+    },
+    "Test for bacteria after disinfecting" : {
 
     },
     "Test for bacteria before using it again." : {
@@ -5932,6 +6426,9 @@
           }
         }
       }
+    },
+    "Testing" : {
+
     },
     "Testing labs" : {
       "localizations" : {
@@ -6125,6 +6622,12 @@
         }
       }
     },
+    "They break down very slowly and build up in the body" : {
+
+    },
+    "They make water last longer" : {
+
+    },
     "Thick line: moving average (the trend)" : {
 
     },
@@ -6135,6 +6638,12 @@
 
     },
     "This describes wells in your area, not your well. Only a test tells you about yours." : {
+
+    },
+    "This device can't scan documents. Choose a photo or enter results manually." : {
+
+    },
+    "This happens on your phone. Nothing is uploaded." : {
 
     },
     "This is an estimate for your area, not your well. Only a lab test tells you what is in your water." : {
@@ -6170,6 +6679,9 @@
 
     },
     "This is well below the %@." : {
+
+    },
+    "This sample was made for the ClearWell NC app demo. It is not a real lab result." : {
 
     },
     "This score summarizes the results you entered. It is not a lab result." : {
@@ -6250,6 +6762,9 @@
           }
         }
       }
+    },
+    "Tip: lay the report flat in good light. Multi-page reports are fine." : {
+
     },
     "Total coliform" : {
       "localizations" : {
@@ -6334,6 +6849,9 @@
         }
       }
     },
+    "Try All to see every program for your county." : {
+
+    },
     "Turn off Demo Mode to reset your real data." : {
 
     },
@@ -6411,6 +6929,9 @@
         }
       }
     },
+    "Unit?" : {
+
+    },
     "Unsafe" : {
 
     },
@@ -6439,7 +6960,13 @@
     "Uranium comes from granite and similar bedrock found in parts of the Piedmont and mountains." : {
 
     },
+    "Use a lab test from your county health department once the chlorine has been flushed out." : {
+
+    },
     "Use another water source for drinking, especially for children, and retest." : {
+
+    },
+    "Use bottled water for drinking, cooking, brushing teeth and baby formula until your well is tested." : {
 
     },
     "Use bottled water for infants and consider treatment such as oxidation/filtration (greensand)." : {
@@ -6483,6 +7010,9 @@
     "Use only cold water for drinking and cooking, and retest, especially if children or a pregnant person live here." : {
 
     },
+    "Use the sample report" : {
+
+    },
     "Used filters can become radioactive; ask a professional." : {
 
     },
@@ -6509,6 +7039,9 @@
 
     },
     "UV light" : {
+
+    },
+    "Value" : {
 
     },
     "Very hard" : {
@@ -6538,7 +7071,13 @@
         }
       }
     },
+    "Was your well drilled before 2008?" : {
+
+    },
     "Watch" : {
+
+    },
+    "Watch out for water scams" : {
 
     },
     "Water Health Score" : {
@@ -6654,6 +7193,12 @@
         }
       }
     },
+    "We couldn't open that photo. Try another photo or enter manually." : {
+
+    },
+    "We couldn't read this photo. Try better lighting or enter manually." : {
+
+    },
     "We couldn't search right now. Check your internet connection." : {
       "localizations" : {
         "es" : {
@@ -6663,6 +7208,12 @@
           }
         }
       }
+    },
+    "We don't recognize this test" : {
+
+    },
+    "We read %lld results" : {
+
     },
     "We won't guess a score for tests you haven't done." : {
       "localizations" : {
@@ -6796,6 +7347,9 @@
         }
       }
     },
+    "Wells drilled before 2008 weren't required to be tested when built, so a full panel is a good start." : {
+
+    },
     "What can you do right away to lower copper from standing water?" : {
 
     },
@@ -6923,6 +7477,9 @@
     "When to retest" : {
 
     },
+    "When was your well last tested?" : {
+
+    },
     "When you get your lab report, add the numbers here to compare them with the limits and track them over time." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -6982,6 +7539,12 @@
     "Which county do you live in?" : {
 
     },
+    "Which county is your well in?" : {
+
+    },
+    "Which filter type can reduce PFAS?" : {
+
+    },
     "Which is a common source of nitrate?" : {
 
     },
@@ -7017,6 +7580,9 @@
         }
       }
     },
+    "White scale or poor soap lather can mean hard water." : {
+
+    },
     "Who is most affected by high fluoride?" : {
 
     },
@@ -7026,7 +7592,13 @@
     "Who is most at risk from nitrate?" : {
 
     },
+    "Who it's for" : {
+
+    },
     "Who should avoid water with high manganese?" : {
+
+    },
+    "Why are PFAS called \"forever chemicals\"?" : {
 
     },
     "Why is acidic water a concern?" : {
@@ -7041,6 +7613,9 @@
           }
         }
       }
+    },
+    "Why this matches you" : {
+
     },
     "Winter" : {
       "localizations" : {
@@ -7168,10 +7743,25 @@
         }
       }
     },
+    "You have test results and may want help understanding them." : {
+
+    },
+    "You haven't added test results yet, and this is the place to start." : {
+
+    },
+    "You live in %@ County, which this program serves." : {
+
+    },
     "You may notice %@." : {
 
     },
     "You probably won't notice scale at this level." : {
+
+    },
+    "You said flooding or a hurricane affected your well." : {
+
+    },
+    "You said your household may qualify for income-based help." : {
 
     },
     "You're all set. Test again by %@." : {
@@ -7183,6 +7773,9 @@
           }
         }
       }
+    },
+    "You're dealing with a flooded well." : {
+
     },
     "You're probably on public water" : {
       "extractionState" : "stale",
@@ -7442,6 +8035,18 @@
         }
       }
     },
+    "Your latest test found %@ above a health limit." : {
+
+    },
+    "Your latest test found E. coli." : {
+
+    },
+    "Your latest test found PFAS above the EPA standard." : {
+
+    },
+    "Your latest test found PFAS above the limit." : {
+
+    },
     "Your next step" : {
       "localizations" : {
         "es" : {
@@ -7465,6 +8070,9 @@
         }
       }
     },
+    "Your recommended tests" : {
+
+    },
     "Your result" : {
 
     },
@@ -7477,6 +8085,9 @@
           }
         }
       }
+    },
+    "Your score and explanations are updated." : {
+
     },
     "Your test plan" : {
       "localizations" : {
@@ -7541,6 +8152,9 @@
           }
         }
       }
+    },
+    "Your well has never been tested, so start with a full standard panel." : {
+
     },
     "Your Well's Score" : {
       "localizations" : {

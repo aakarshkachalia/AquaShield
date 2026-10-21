@@ -396,6 +396,38 @@ nonisolated enum LearnLibrary {
             ]),
 
         LearnArticle(
+            id: "pfas", title: String(localized: "PFAS (\"forever chemicals\")"), contaminants: [.pfoa, .pfos, .genx], symbol: "flask",
+            // VERIFY: NC DEQ: PFAS including GenX from the Chemours Fayetteville Works plant has been found in private wells
+            // in the lower Cape Fear area; PFAS also come from firefighting foam, landfills and some biosolids.
+            whereFrom: String(localized: "PFAS come from industry and some products, like firefighting foam. In North Carolina, PFAS including GenX from a chemical plant near Fayetteville have been found in private wells in the lower Cape Fear area."),
+            shortTerm: String(localized: "No short-term symptoms at levels found in wells."),
+            // VERIFY: EPA PFAS rule health basis: some cancers, liver, immune and developmental effects, and cholesterol changes.
+            longTerm: String(localized: "PFAS build up in the body. Long-term exposure is linked to some cancers, and to effects on the liver, immune system, cholesterol and children's growth."),
+            mostAtRisk: String(localized: "Pregnancy, infants and young children."),
+            treatments: [
+                // VERIFY: EPA / NSF: RO (NSF/ANSI 58) and certified carbon (NSF/ANSI 53) filters reduce PFOA/PFOS.
+                Treatment(name: String(localized: "Reverse osmosis (NSF/ANSI 58, certified for PFAS)"), effectiveness: String(localized: "Removes most PFAS (often 90% or more)"), note: nil),
+                Treatment(name: String(localized: "Granular activated carbon (NSF/ANSI 53, certified for PFAS)"), effectiveness: String(localized: "High, when the filter is changed on schedule"), note: nil),
+                Treatment(name: String(localized: "Anion exchange"), effectiveness: String(localized: "High"), note: nil),
+            ],
+            retest: String(localized: "If you live in an affected area, and after installing treatment to confirm it works."),
+            sources: [epaPrimary, SourceLink(title: String(localized: "NCDEQ: PFAS Treatment System Assistance Program"), url: WellResources.ncdeqPFAS)],
+            quiz: [
+                QuizQuestion(prompt: String(localized: "Why are PFAS called \"forever chemicals\"?"),
+                             options: [String(localized: "They break down very slowly and build up in the body"), String(localized: "They make water last longer")],
+                             correctIndex: 0,
+                             explanation: String(localized: "PFAS barely break down in the environment or the body.")),
+                QuizQuestion(prompt: String(localized: "Does boiling water remove PFAS?"),
+                             options: [String(localized: "Yes"), String(localized: "No")],
+                             correctIndex: 1,
+                             explanation: String(localized: "Boiling does not remove PFAS. Use a filter certified for PFAS reduction.")),
+                QuizQuestion(prompt: String(localized: "Which filter type can reduce PFAS?"),
+                             options: [String(localized: "Reverse osmosis certified for PFAS"), String(localized: "A sediment filter")],
+                             correctIndex: 0,
+                             explanation: String(localized: "Look for reverse osmosis or carbon filters certified for PFAS reduction.")),
+            ]),
+
+        LearnArticle(
             id: "radon", title: String(localized: "Radon in water"), contaminants: [.radon], symbol: "wind",
             whereFrom: String(localized: "Radon is a radioactive gas made as uranium in bedrock breaks down. It dissolves in groundwater, especially in granite areas."),
             shortTerm: String(localized: "No short-term symptoms."),

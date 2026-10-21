@@ -430,11 +430,16 @@ struct ScoreRing: View {
                 Text(result.score.map { "\($0)" } ?? "—")
                     .font(.largeTitle.weight(.bold))
                     .monospacedDigit()
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.4)   // stays inside the ring at the largest text sizes
                     .foregroundStyle(Color.textPrimary)
                 Text("of 100")
                     .font(.caption)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
                     .foregroundStyle(Color.textSecondary)
             }
+            .padding(Spacing.l)
         }
         .frame(width: diameter, height: diameter)
         .onAppear {
