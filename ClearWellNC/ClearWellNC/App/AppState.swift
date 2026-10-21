@@ -81,6 +81,27 @@ final class AppSettings {
     var county: String? { didSet { saveScoped(county, Keys.county) } }
     var pregnantInHome: Bool { didSet { saveScoped(pregnantInHome, Keys.pregnant) } }
     var lowIncome: Bool { didSet { saveScoped(lowIncome, Keys.lowIncome) } }
+    /// Help programs the user saved.
+    var savedProgramIDs: Set<String> {
+        didSet {
+            guard !isReloading else { return }
+            setData(try? JSONEncoder().encode(savedProgramIDs), forScopedKey: "savedPrograms")
+        }
+    }
+    /// Storm Mode checklist steps that are done.
+    var stormChecked: Set<Int> {
+        didSet {
+            guard !isReloading else { return }
+            setData(try? JSONEncoder().encode(stormChecked), forScopedKey: "stormChecklist")
+        }
+    }
+    /// Latest Risk Check answers (used by Help Finder and the Home flood card).
+    var riskAnswers: RiskCheckAnswers? {
+        didSet {
+            guard !isReloading else { return }
+            setData(riskAnswers.flatMap { try? JSONEncoder().encode($0) }, forScopedKey: RiskCheckAnswers.storageKey)
+        }
+    }
 
     private enum Keys {
         static let demoEnabled = "settings.demoEnabled"
@@ -97,6 +118,9 @@ final class AppSettings {
         county = nil
         pregnantInHome = false
         lowIncome = false
+        riskAnswers = nil
+        savedProgramIDs = []
+        stormChecked = []
         reloadScoped()
     }
 
@@ -116,6 +140,12 @@ final class AppSettings {
         county = storedCounty ?? (demoEnabled ? demoPersona.county : nil)
         pregnantInHome = defaults.bool(forKey: scopedKey(Keys.pregnant))
         lowIncome = defaults.bool(forKey: scopedKey(Keys.lowIncome))
+        riskAnswers = data(forScopedKey: RiskCheckAnswers.storageKey)
+            .flatMap { try? JSONDecoder().decode(RiskCheckAnswers.self, from: $0) }
+        savedProgramIDs = data(forScopedKey: "savedPrograms")
+            .flatMap { try? JSONDecoder().decode(Set<String>.self, from: $0) } ?? []
+        stormChecked = data(forScopedKey: "stormChecklist")
+            .flatMap { try? JSONDecoder().decode(Set<Int>.self, from: $0) } ?? []
         scopedRevision += 1
     }
 

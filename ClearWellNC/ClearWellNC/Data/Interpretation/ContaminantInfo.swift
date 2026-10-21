@@ -433,6 +433,8 @@ nonisolated enum WellResources {
     static let epaSecondaryStandards = URL(string: "https://www.epa.gov/sdwa/secondary-drinking-water-standards-guidance-nuisance-chemicals")!
     static let epaLead = URL(string: "https://www.epa.gov/ground-water-and-drinking-water/basic-information-about-lead-drinking-water")!
     static let epaRadon = URL(string: "https://www.epa.gov/radon")!
+    static let ncAttorneyGeneralComplaint = URL(string: "https://ncdoj.gov/file-a-complaint/")!
+    static let ncdeqPFAS = URL(string: "https://www.deq.nc.gov/pfas-treatment-system-assistance-program")!
     static let cdcPrivateWells = URL(string: "https://www.cdc.gov/drinking-water/about/about-private-wells.html")!
     static let epaConsumerConfidenceReports = URL(string: "https://www.epa.gov/ccr")!
     static let nsfCertifiedFilters = URL(string: "https://info.nsf.org/Certified/DWTU/")!

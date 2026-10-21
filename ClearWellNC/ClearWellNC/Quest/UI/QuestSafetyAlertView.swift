@@ -86,6 +86,16 @@ struct QuestSafetyAlertView: View {
                 .font(.body.weight(.semibold))
                 .card()
 
+                if let first = findings.first {
+                    NavigationLink {
+                        HelpFinderView(filter: .contaminant(first.id))
+                    } label: {
+                        Label("Get help paying for a fix", systemImage: "dollarsign.circle.fill")
+                    }
+                    .buttonStyle(SecondaryButtonStyle())
+                    .accessibilityHint(Text("Shows programs that may test or pay for treatment"))
+                }
+
                 Button(action: onUnderstand) {
                     Text("I understand")
                         .font(.headline)

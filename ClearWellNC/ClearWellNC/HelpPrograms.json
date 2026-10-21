@@ -1,0 +1,88 @@
+{
+  "programs": [
+    {
+      "id": "chemours-pfas-sampling",
+      "name": "Chemours Private Well PFAS Sampling",
+      "agency": "Chemours (under a state consent order)",
+      "type": "testing",
+      "counties": ["New Hanover", "Pender", "Brunswick", "Columbus", "Bladen", "Cumberland", "Robeson"],
+      "triggers": ["county", "pfas"],
+      "eligibilitySummary": "Free PFAS testing for eligible homes in the lower Cape Fear area. The well must be your home's main source of drinking water.",
+      "phone": "(910) 678-1100",
+      "url": null,
+      "email": null,
+      "searchQuery": null,
+      "relatedProgramID": null
+    },
+    {
+      "id": "ncdeq-pfas-treatment",
+      "name": "NCDEQ PFAS Treatment System Assistance Program",
+      "agency": "NC Department of Environmental Quality",
+      "type": "treatment",
+      "counties": ["statewide"],
+      "triggers": ["pfasExceedance"],
+      "eligibilitySummary": "Partial or full reimbursement for a treatment system when your well is over EPA PFAS standards. The amount depends on the system and your household income, and the well must be your only drinking water source.",
+      "phone": null,
+      "url": "https://www.deq.nc.gov/pfas-treatment-system-assistance-program",
+      "email": null,
+      "searchQuery": null,
+      "relatedProgramID": null
+    },
+    {
+      "id": "bernard-allen-fund",
+      "name": "NCDEQ Bernard Allen Emergency Drinking Water Fund",
+      "agency": "NC Department of Environmental Quality",
+      "type": "alternateWater",
+      "counties": ["statewide"],
+      "triggers": ["healthExceedance", "lowIncome"],
+      "eligibilitySummary": "Can pay for private well testing and a temporary safe drinking water supply for eligible owners whose wells are affected by contamination.",
+      "phone": null,
+      "url": null,
+      "email": null,
+      "searchQuery": "NCDEQ Bernard Allen Emergency Drinking Water Fund",
+      "relatedProgramID": null
+    },
+    {
+      "id": "county-health",
+      "name": "Your county health department",
+      "agency": "Local health department",
+      "type": "testing",
+      "counties": ["statewide"],
+      "triggers": ["testing"],
+      "eligibilitySummary": "Well water testing kits and lab testing for every North Carolina county. Staff can tell you which tests to order and what they cost.",
+      "phone": null,
+      "url": null,
+      "email": null,
+      "searchQuery": "{county} County health department well testing",
+      "relatedProgramID": null
+    },
+    {
+      "id": "ncdhhs-oeeb",
+      "name": "NCDHHS Occupational & Environmental Epidemiology Branch",
+      "agency": "NC Department of Health and Human Services",
+      "type": "testing",
+      "counties": ["statewide"],
+      "triggers": ["healthExceedance", "results"],
+      "eligibilitySummary": "Free help understanding your well test results and what they mean for your health.",
+      "phone": "919-707-5900",
+      "url": null,
+      "email": "oeeb@dhhs.nc.gov",
+      "searchQuery": null,
+      "relatedProgramID": null
+    },
+    {
+      "id": "post-flood-kits",
+      "name": "Post-flood well disinfection and testing kits",
+      "agency": "NC DHHS through local health departments",
+      "type": "emergency",
+      "counties": ["statewide"],
+      "triggers": ["flooding"],
+      "eligibilitySummary": "After declared disasters, the state has given out free well disinfection and testing kits through local health departments. Ask yours what is available now.",
+      "phone": null,
+      "url": null,
+      "email": null,
+      "searchQuery": null,
+      "relatedProgramID": "county-health"
+    }
+  ]
+}
