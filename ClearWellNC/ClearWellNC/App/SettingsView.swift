@@ -86,6 +86,9 @@ struct SettingsView: View {
             Section("About") {
                 NavigationLink("Sources and data") { SourcesView() }
                 NavigationLink("How the estimates work") { HowItWorksView() }
+                #if DEBUG
+                NavigationLink("Design System Gallery") { DesignSystemGalleryView() }
+                #endif
                 Button("Show the welcome screens again") { hasOnboarded = false }
                     .frame(minHeight: TapTarget.minimum)
             }
