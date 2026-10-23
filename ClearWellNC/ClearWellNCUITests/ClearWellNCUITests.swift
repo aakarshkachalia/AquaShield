@@ -68,7 +68,8 @@ final class ClearWellNCUITests: XCTestCase {
 
     @MainActor
     private func back(_ app: XCUIApplication) {
-        tap(app.navigationBars.buttons["Back"])
+        // The system back button's label is the previous screen's title; its identifier is stable.
+        tap(app.navigationBars.buttons["BackButton"])
     }
 
     @MainActor
