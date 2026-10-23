@@ -10,7 +10,8 @@ import SwiftUI
 /// Help near the saved location: live Apple Maps results by category, plus official NC resources.
 struct ResourcesView: View {
     @Query(sort: \SavedWell.savedAt, order: .reverse) private var savedWells: [SavedWell]
-    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
+    @Environment(AppSettings.self) private var settings
+    private var waterSource: WaterSource { settings.waterSource }
 
     @State private var search = LocalResourceSearch()
     @State private var category: ResourceCategory = .testingLabs

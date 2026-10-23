@@ -15,6 +15,13 @@ import NaturalLanguage
 /// One lab report as the game sees it: the latest reading of each contaminant on that report.
 nonisolated struct QuestReport: Sendable {
     let date: Date
+
+    /// Identifies this report's readings, so a saved game is only resumed for the same report.
+    var draftID: String {
+        let readings = values.sorted { $0.key.rawValue < $1.key.rawValue }.map { "\($0.key.rawValue)=\($0.value)" }
+        let bacteria = presence.sorted { $0.key.rawValue < $1.key.rawValue }.map { "\($0.key.rawValue)=\($0.value)" }
+        return ([String(Int(date.timeIntervalSinceReferenceDate))] + readings + bacteria).joined(separator: "|")
+    }
     var values: [ContaminantID: Double] = [:]
     /// Bacteria: true = present.
     var presence: [ContaminantID: Bool] = [:]
@@ -258,6 +265,30 @@ nonisolated struct QuestRun: Sendable {
         self.stops = QuestEngine.stops(for: report)
         self.score = WellHealthScore.compute(report.scoreInput)
     }
+
+    /// The player's answers so far, for saving a game in progress.
+    struct Progress: Codable, Sendable, Equatable {
+        var answers: [Int: QuestAnswer] = [:]
+        var bonusAnswers: [Int: Int] = [:]
+        var scoreGuess: WellHealthScore.Band?
+    }
+
+    var progress: Progress {
+        Progress(answers: answers, bonusAnswers: bonusAnswers, scoreGuess: scoreGuess)
+    }
+
+    /// Resumes a saved game. Answers for stops that no longer exist are dropped.
+    init(report: QuestReport, progress: Progress) {
+        self.init(report: report)
+        let ids = Set(stops.map(\.id))
+        answers = progress.answers.filter { ids.contains($0.key) }
+        bonusAnswers = progress.bonusAnswers.filter { ids.contains($0.key) }
+        scoreGuess = hasScoreGuess ? progress.scoreGuess : nil
+    }
+
+    /// Stops answered, plus the score guess, for the progress bar.
+    var completedCount: Int { answers.count + (scoreGuess == nil ? 0 : 1) }
+    var totalCount: Int { stops.count + (hasScoreGuess ? 1 : 0) }
 
     /// The score stop asks for a guess only when there is a score to reveal.
     var hasScoreGuess: Bool { score.band != nil }

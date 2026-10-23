@@ -8,7 +8,7 @@ import SwiftUI
 struct CheckAreaView: View {
     @Environment(TractStore.self) private var store
     @Environment(\.openURL) private var openURL
-    @AppStorage(StorageKey.infantInHome) private var infantInHome = false
+    @Environment(AppSettings.self) private var settings
 
     @State private var address = ""
     @State private var isWorking = false
@@ -101,7 +101,8 @@ struct CheckAreaView: View {
     }
 
     private var householdCard: some View {
-        Toggle("A baby under 6 months lives here", isOn: $infantInHome)
+        @Bindable var settings = settings
+        return Toggle("A baby under 6 months lives here", isOn: $settings.infantInHome)
             .frame(minHeight: 44)
             .card()
     }

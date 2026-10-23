@@ -26,6 +26,7 @@ struct GetHelpView: View {
                                             systemImage: "checklist")
                     }
                     .buttonStyle(.plain)
+                    .accessibilityIdentifier("getHelp.riskCheck")
 
                     NavigationLink {
                         StormModeView()

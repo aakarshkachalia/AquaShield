@@ -81,7 +81,7 @@ nonisolated enum WellHealthScore {
         }
     }
 
-    enum Band: Sendable {
+    enum Band: Sendable, Codable {
         case good, fair, poor, unsafe
 
         /// 80–100 Good, 60–79 Fair, 41–59 Poor, 0–40 Unsafe. The exceedance cap (40) always lands in Unsafe.

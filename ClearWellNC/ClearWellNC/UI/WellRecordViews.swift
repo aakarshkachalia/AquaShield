@@ -80,7 +80,8 @@ struct TrendChart: View {
 }
 
 struct EColiUrgentCard: View {
-    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
+    @Environment(AppSettings.self) private var settings
+    private var waterSource: WaterSource { settings.waterSource }
 
     var body: some View {
         UrgentBanner {

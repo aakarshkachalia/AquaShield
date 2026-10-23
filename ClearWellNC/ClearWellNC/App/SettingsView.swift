@@ -11,8 +11,6 @@ struct SettingsView: View {
     @Environment(AppSettings.self) private var settings
     @Environment(WellCareStore.self) private var wellCare
     @Environment(\.modelContext) private var modelContext
-    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
-    @AppStorage(StorageKey.infantInHome) private var infantInHome = false
     @AppStorage(StorageKey.hasOnboarded) private var hasOnboarded = true
     @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
 
@@ -37,12 +35,12 @@ struct SettingsView: View {
             }
 
             Section {
-                Picker("Water source", selection: $waterSource) {
+                Picker("Water source", selection: $settings.waterSource) {
                     ForEach(WaterSource.allCases) { source in
                         Text(source.settingName).tag(source)
                     }
                 }
-                Toggle("A baby under 6 months lives here", isOn: $infantInHome)
+                Toggle("A baby under 6 months lives here", isOn: $settings.infantInHome)
                 Toggle("Someone in the home is pregnant", isOn: $settings.pregnantInHome)
                 Toggle("Our household may qualify for income-based help", isOn: $settings.lowIncome)
             } header: {
@@ -104,7 +102,7 @@ struct SettingsView: View {
         }
         .navigationTitle("Settings")
         // City water has no well-care reminders; reschedule when the answer changes.
-        .onChange(of: waterSource) { _, _ in
+        .onChange(of: settings.waterSource) { _, _ in
             let context = modelContext
             Task { await ReminderSync.refresh(using: context) }
         }
@@ -131,7 +129,6 @@ struct SettingsView: View {
         WellCareState().save()
         wellCare.reload()
         for task in WellCareTask.allCases { UserDefaults.standard.removeObject(forKey: task.manualKey) }
-        infantInHome = false
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
 }

@@ -13,7 +13,8 @@ struct RemindersView: View {
     @Environment(\.scenePhase) private var scenePhase
     @Query(sort: \TreatmentSystem.lastServiced) private var systems: [TreatmentSystem]
     @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
-    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
+    @Environment(AppSettings.self) private var settings
+    private var waterSource: WaterSource { settings.waterSource }
 
     @State private var addingSystem = false
     @State private var editingSystem: TreatmentSystem?

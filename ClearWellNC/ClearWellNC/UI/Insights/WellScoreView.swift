@@ -83,7 +83,8 @@ struct ScoreNumber: View {
 /// Full score screen: number, band, top 3 factors with actions, missing tests, disclaimer.
 struct WellScoreView: View {
     @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
-    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
+    @Environment(AppSettings.self) private var settings
+    private var waterSource: WaterSource { settings.waterSource }
 
     var body: some View {
         let result = WellHealthScore.compute(results.latestScoreInput)

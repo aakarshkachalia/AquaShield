@@ -19,7 +19,7 @@ struct MyWaterView: View {
     @Query(sort: \SavedWell.savedAt, order: .reverse) private var savedWells: [SavedWell]
     @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
     @Query(sort: \TreatmentSystem.addedAt) private var systems: [TreatmentSystem]
-    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
+    private var waterSource: WaterSource { settings.waterSource }
 
     @State private var editingResult: LabResult?
     @State private var confirmingRemove = false

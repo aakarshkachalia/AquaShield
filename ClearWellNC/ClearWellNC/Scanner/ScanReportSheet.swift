@@ -20,34 +20,32 @@ struct ScanReportSheet: View {
     @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
     @Query(sort: \SavedWell.savedAt, order: .reverse) private var savedWells: [SavedWell]
 
-    private enum Step {
-        case choose
-        case reading
-        case review(LabReportParser.Result, [UIImage])
-        case manual
-        case saved(LabResult)
-    }
-
-    @State private var step: Step = .choose
+    @State private var draft = ScanFlowDraft()
+    /// Report photos for the review. Kept on disk (protected, not backed up) only while the draft exists.
+    @State private var images: [UIImage] = []
+    @State private var savedResult: LabResult?
+    @State private var resume: StepFlowResume?
+    @State private var loaded = false
+    @State private var isReading = false
+    @State private var showingManual = false
     @State private var showingCamera = false
     @State private var photoItems: [PhotosPickerItem] = []
     @State private var errorMessage: String?
     @State private var cameraDenied = false
     @State private var questSession: QuestSession?
 
+    private let order: [ScanStep] = [.choose, .review, .saved]
+
     var body: some View {
-        switch step {
-        case .manual:
+        if showingManual {
             LabResultForm()
-        default:
-            NavigationStack {
-                content
+        } else {
+            StepFlowContainer(flow: $draft.flow, resume: resume,
+                              progress: { _ in draft.flow.progress(in: order) },
+                              primaryAction: primaryAction,
+                              onClose: { dismiss() }) { step in
+                page(step)
                     .background(Color.appBackground)
-                    .toolbar {
-                        ToolbarItem(placement: .cancellationAction) {
-                            Button("Close") { dismiss() }
-                        }
-                    }
             }
             .fullScreenCover(isPresented: $showingCamera) {
                 DocumentCameraView(onFinish: { images in
@@ -67,34 +65,46 @@ struct ScanReportSheet: View {
                 guard !items.isEmpty else { return }
                 loadPhotos(items)
             }
+            .onAppear(perform: load)
+            .onChange(of: draft) { _, newValue in persist(newValue) }
         }
     }
 
     @ViewBuilder
-    private var content: some View {
+    private func page(_ step: ScanStep) -> some View {
         switch step {
         case .choose:
-            chooser
-        case .reading:
-            VStack(spacing: Spacing.l) {
-                ProgressView()
-                    .controlSize(.large)
-                Text("Reading your report…")
-                    .font(.headline)
-                Text("This happens on your phone. Nothing is uploaded.")
-                    .font(.subheadline)
-                    .foregroundStyle(Color.textSecondary)
+            if isReading { reading } else { chooser }
+        case .review:
+            if let review = Binding($draft.review) {
+                ScanReviewView(draft: review, images: images)
+            } else {
+                chooser
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .accessibilityElement(children: .combine)
-            .navigationTitle("Scan Report")
-        case .review(let result, let images):
-            ScanReviewView(result: result, images: images) { save($0) }
-        case .saved(let result):
-            saved(result)
-        case .manual:
-            EmptyView()
+        case .saved:
+            if let savedResult { saved(savedResult) }
         }
+    }
+
+    private func primaryAction(_ step: ScanStep) -> StepAction? {
+        guard step == .review, let review = draft.review else { return nil }
+        return StepAction(title: "Save results", systemImage: "checkmark", isEnabled: review.canSave,
+                          identifier: "scan.save", action: save)
+    }
+
+    private var reading: some View {
+        VStack(spacing: Spacing.l) {
+            ProgressView()
+                .controlSize(.large)
+            Text("Reading your report…")
+                .font(.headline)
+            Text("This happens on your phone. Nothing is uploaded.")
+                .font(.subheadline)
+                .foregroundStyle(Color.textSecondary)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .accessibilityElement(children: .combine)
+        .navigationTitle("Scan Report")
     }
 
     // MARK: Choose
@@ -107,13 +117,19 @@ struct ScanReportSheet: View {
                     .foregroundStyle(Color.textSecondary)
                     .fixedSize(horizontal: false, vertical: true)
 
+                if draft.review != nil {
+                    PrimaryButton(title: "Keep checking your results", systemImage: "arrow.right") {
+                        draft.flow.push(.review)
+                    }
+                }
+
                 if let errorMessage {
                     InfoCard(style: .status(.watch), systemImage: "exclamationmark.circle.fill",
                              title: String(localized: "Something went wrong"), message: errorMessage) {
                         if cameraDenied, let url = URL(string: UIApplication.openSettingsURLString) {
                             SecondaryButton(title: "Open Settings", systemImage: "gear") { openURL(url) }
                         }
-                        SecondaryButton(title: "Enter manually", systemImage: "keyboard") { step = .manual }
+                        SecondaryButton(title: "Enter manually", systemImage: "keyboard") { showingManual = true }
                     }
                 }
 
@@ -122,7 +138,7 @@ struct ScanReportSheet: View {
                     Label("Choose photo", systemImage: "photo.on.rectangle")
                 }
                 .buttonStyle(SecondaryButtonStyle())
-                SecondaryButton(title: "Enter manually", systemImage: "keyboard") { step = .manual }
+                SecondaryButton(title: "Enter manually", systemImage: "keyboard") { showingManual = true }
 
                 VStack(alignment: .leading, spacing: Spacing.s) {
                     SampleDataTag()
@@ -168,7 +184,6 @@ struct ScanReportSheet: View {
             .screenContainer()
         }
         .navigationTitle("Saved")
-        .navigationBarBackButtonHidden()
     }
 
     // MARK: Actions
@@ -190,7 +205,7 @@ struct ScanReportSheet: View {
 
     private func loadPhotos(_ items: [PhotosPickerItem]) {
         errorMessage = nil
-        step = .reading
+        isReading = true
         Task {
             var images: [UIImage] = []
             for item in items {
@@ -209,7 +224,7 @@ struct ScanReportSheet: View {
 
     private func read(_ images: [UIImage]) {
         errorMessage = nil
-        step = .reading
+        isReading = true
         Task {
             do {
                 let pages = images.compactMap(\.visionPage)
@@ -218,7 +233,7 @@ struct ScanReportSheet: View {
                 if result.rows.isEmpty {
                     fail(ReportOCR.OCRError.unreadable.errorDescription ?? "")
                 } else {
-                    step = .review(result, images)
+                    startReview(result, images: images)
                 }
             } catch {
                 fail((error as? LocalizedError)?.errorDescription ?? ReportOCR.OCRError.unreadable.errorDescription ?? "")
@@ -229,14 +244,59 @@ struct ScanReportSheet: View {
     private func fail(_ message: String) {
         cameraDenied = false
         errorMessage = message
-        step = .choose
+        isReading = false
     }
 
-    private func save(_ result: LabResult) {
+    // MARK: Draft
+
+    private func startReview(_ result: LabReportParser.Result, images newImages: [UIImage]) {
+        var review = ScanReviewDraft(result: result)
+        review.photoCount = settings.scanPhotos.save(newImages)
+        images = newImages
+        isReading = false
+        draft.review = review
+        draft.flow.restart(at: .choose)
+        draft.flow.push(.review)
+    }
+
+    private func load() {
+        guard !loaded else { return }
+        loaded = true
+        if let saved = settings.drafts.load(ScanFlowDraft.key), saved.payload.isResumable {
+            draft = saved.payload
+            images = settings.scanPhotos.load()
+            resume = StepFlowResume(startedAt: saved.startedAt,
+                                    onContinue: { resume = nil },
+                                    onStartOver: { resume = nil; startOver() })
+        } else {
+            // No usable draft, so no photo should be left behind either.
+            startOver()
+        }
+    }
+
+    /// Saved on every edit while a review exists.
+    private func persist(_ value: ScanFlowDraft) {
+        guard loaded, value.review != nil, value.flow.current != .saved else { return }
+        settings.drafts.save(value, for: ScanFlowDraft.key)
+    }
+
+    private func startOver() {
+        settings.drafts.discard(ScanFlowDraft.key)
+        settings.scanPhotos.deleteAll()
+        images = []
+        draft = ScanFlowDraft()
+    }
+
+    private func save() {
+        guard let review = draft.review, review.canSave else { return }
+        let result = ScanDraft.makeResult(rows: review.rows, date: review.date, labName: review.labName)
         modelContext.insert(result)
         try? modelContext.save()
         let context = modelContext
         Task { await ReminderSync.refresh(using: context) }
-        step = .saved(result)
+        // Saved: the draft and the report photos are no longer needed.
+        startOver()
+        savedResult = result
+        draft.flow.restart(at: .saved)
     }
 }

@@ -10,8 +10,8 @@ struct ReportView: View {
     let selection: AreaSelection
     let meta: Meta
 
-    @AppStorage(StorageKey.infantInHome) private var infantInHome = false
-    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
+    @Environment(AppSettings.self) private var settings
+    private var waterSource: WaterSource { settings.waterSource }
     @Environment(\.modelContext) private var modelContext
     @Query private var savedWells: [SavedWell]
 
@@ -34,7 +34,7 @@ struct ReportView: View {
                     cityWaterNote
                 }
                 disclaimer
-                if infantInHome, let nitrate = report.risk(for: .nitrate), nitrate.level.isTypicalOrHigher {
+                if settings.infantInHome, let nitrate = report.risk(for: .nitrate), nitrate.level.isTypicalOrHigher {
                     InfantNitrateNote()
                 }
                 ForEach(report.risks) { risk in

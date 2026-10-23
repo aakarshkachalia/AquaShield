@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct ReviewRow: Identifiable, Equatable {
-    enum Kind: String, CaseIterable, Identifiable {
+nonisolated struct ReviewRow: Identifiable, Equatable, Codable, Sendable {
+    enum Kind: String, CaseIterable, Codable, Identifiable {
         case number, belowDetection, notDetected, present, absent
         var id: String { rawValue }
 
@@ -23,7 +23,7 @@ struct ReviewRow: Identifiable, Equatable {
         }
     }
 
-    let id = UUID()
+    var id = UUID()
     var contaminant: ContaminantID?
     /// What OCR read, shown as "Read as: …".
     var rawText: String
@@ -141,6 +141,39 @@ struct ReviewRow: Identifiable, Equatable {
         }
         result.nonDetects = nonDetects
     }
+}
+
+/// An unsaved scanner review: the edited rows and details. The report photos are stored separately by
+/// ScanPhotoStore and deleted with the draft.
+nonisolated struct ScanReviewDraft: Codable, Sendable, Equatable {
+    var rows: [ReviewRow]
+    var date: Date
+    var labName: String
+    var photoCount = 0
+
+    init(result: LabReportParser.Result) {
+        rows = result.rows.map(ReviewRow.init(parsed:))
+        date = min(result.collectionDate ?? .now, .now)
+        labName = result.labName ?? ""
+    }
+
+    var flaggedCount: Int { rows.filter(\.needsReview).count }
+    var canSave: Bool { rows.contains(where: \.isSavable) }
+}
+
+nonisolated enum ScanStep: String, Codable, Hashable, Sendable {
+    case choose, review, saved
+}
+
+/// The scanner's draft: where the user is, plus the review once a report has been read.
+nonisolated struct ScanFlowDraft: Codable, Sendable, Equatable {
+    var flow = StepFlow(root: ScanStep.choose)
+    var review: ScanReviewDraft?
+
+    static let key = DraftKey<ScanFlowDraft>(name: "scanner", schemaVersion: 1)
+
+    /// Only a review in progress is worth resuming.
+    var isResumable: Bool { review != nil && flow.current == .review }
 }
 
 enum ScanDraft {

@@ -10,9 +10,10 @@ import SwiftData
 import SwiftUI
 
 extension WaterSource {
-    /// The answer saved during onboarding (or changed later). Unknown counts as "Not sure".
+    /// The real household's answer, saved during onboarding (or changed later). Unknown counts as "Not sure".
+    /// Views use `AppSettings.waterSource`, which follows Demo Mode.
     static var current: WaterSource {
-        WaterSource(rawValue: UserDefaults.standard.string(forKey: StorageKey.waterSource) ?? "") ?? .notSure
+        WaterSource(rawValue: UserDefaults.standard.string(forKey: AppSettings.realWaterSourceKey) ?? "") ?? .notSure
     }
 
     var isWell: Bool { self == .privateWell }

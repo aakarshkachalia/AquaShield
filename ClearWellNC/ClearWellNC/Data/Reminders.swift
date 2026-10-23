@@ -67,6 +67,8 @@ enum NotificationScheduler {
 @MainActor
 enum ReminderSync {
     static func refresh(using context: ModelContext) async {
+        // Demo personas run on in-memory stores; their data must never replace the real reminders.
+        guard !context.container.configurations.contains(where: \.isStoredInMemoryOnly) else { return }
         let systems = (try? context.fetch(FetchDescriptor<TreatmentSystem>())) ?? []
         let results = (try? context.fetch(FetchDescriptor<LabResult>())) ?? []
         var reminders = plan(systems: systems, results: results, includeWellCare: WaterSource.current.showsWellCare)

@@ -72,7 +72,7 @@ nonisolated struct ReferenceLine: Sendable, Identifiable {
 }
 
 /// Numeric values the Well Record tracks. Limits and wording come from `ContaminantInfo`.
-nonisolated enum Analyte: String, CaseIterable, Sendable, Identifiable {
+nonisolated enum Analyte: String, CaseIterable, Codable, Sendable, Identifiable {
     case arsenic, lead, nitrate, nitrite, uranium, manganese, iron, copper, fluoride, pH, hardness, radon
     case pfoa, pfos, genx
 

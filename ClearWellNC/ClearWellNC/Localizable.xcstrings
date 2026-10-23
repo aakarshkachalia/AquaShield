@@ -355,6 +355,16 @@
         }
       }
     },
+    "%lld of %lld stops done" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld of %2$lld stops done"
+          }
+        }
+      }
+    },
     "%lld of %lld tested wells in your census tract were above the limit." : {
       "localizations" : {
         "en" : {
@@ -781,6 +791,9 @@
       }
     },
     "About ClearWell" : {
+
+    },
+    "About the test" : {
 
     },
     "Above 2 mg/L, children's teeth can develop spots." : {
@@ -1296,6 +1309,7 @@
 
     },
     "Back to Report Quest" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -1588,6 +1602,7 @@
 
     },
     "Cancel" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -2049,7 +2064,6 @@
 
     },
     "Continue" : {
-      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -2309,6 +2323,9 @@
           }
         }
       }
+    },
+    "Discard changes" : {
+
     },
     "Disinfect the well (shock chlorination)" : {
 
@@ -2649,6 +2666,9 @@
         }
       }
     },
+    "Enter at least one result to save." : {
+
+    },
     "Enter manually" : {
 
     },
@@ -2939,6 +2959,9 @@
           }
         }
       }
+    },
+    "Fix the numbers marked in red before saving." : {
+
     },
     "Fixes the cause (corrosive water)" : {
 
@@ -3555,6 +3578,9 @@
         }
       }
     },
+    "Keep checking your results" : {
+
+    },
     "Keep testing on your regular schedule." : {
 
     },
@@ -3880,6 +3906,9 @@
           }
         }
       }
+    },
+    "Leave blank anything your lab didn't test." : {
+
     },
     "Leave blank anything your lab didn't test. 1 mg/L = 1000 ppb." : {
       "localizations" : {
@@ -5127,6 +5156,9 @@
     "pH tells you how acidic or basic your water is. It has no health limit, but acidic water can corrode pipes." : {
 
     },
+    "Pick up where you left off?" : {
+
+    },
     "Pipes, solder and fittings" : {
 
     },
@@ -6043,6 +6075,9 @@
     "See my results" : {
 
     },
+    "See my score" : {
+
+    },
     "See what to do now on your results." : {
 
     },
@@ -6221,6 +6256,12 @@
     "Start the Risk Check" : {
 
     },
+    "Started %@" : {
+
+    },
+    "Started just now" : {
+
+    },
     "Starts this stop" : {
       "localizations" : {
         "es" : {
@@ -6253,6 +6294,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Cuidador Constante"
+          }
+        }
+      }
+    },
+    "Step %lld of %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Step %1$lld of %2$lld"
           }
         }
       }
@@ -6933,6 +6984,9 @@
 
     },
     "Unsafe" : {
+
+    },
+    "Unsaved changes restored. %@." : {
 
     },
     "Up next" : {
@@ -7957,6 +8011,9 @@
           }
         }
       }
+    },
+    "Your answers are kept" : {
+
     },
     "Your area: %@" : {
       "localizations" : {

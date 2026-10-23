@@ -61,6 +61,44 @@ nonisolated struct RiskCheckAnswers: Codable, Sendable, Equatable {
     static let storageKey = "riskCheckAnswers"
 }
 
+// MARK: - Flow
+
+nonisolated enum RiskCheckStep: String, Codable, Hashable, Sendable, CaseIterable {
+    case county, wellAge, pregnancy, flooding, nearbySources, lastTest, noticedChanges, results
+
+    static let questions = allCases.filter { $0 != .results }
+}
+
+/// In-progress Risk Check: answers plus where the user is. Saved on every answer.
+nonisolated struct RiskCheckDraft: Codable, Sendable, Equatable {
+    var answers: RiskCheckAnswers
+    var flow = StepFlow(root: RiskCheckStep.county)
+
+    static let key = DraftKey<RiskCheckDraft>(name: "riskCheck", schemaVersion: 1)
+
+    init(answers: RiskCheckAnswers = RiskCheckAnswers()) {
+        self.answers = answers
+    }
+
+    /// Whether the current question has an answer (so Next can skip re-tapping it).
+    func isAnswered(_ step: RiskCheckStep) -> Bool {
+        switch step {
+        case .county, .results: true
+        case .wellAge: answers.wellAge != nil
+        case .pregnancy: answers.pregnantOrInfant != nil
+        case .flooding: answers.flooding != nil
+        case .nearbySources: answers.nearbySources != nil
+        case .lastTest: answers.lastTest != nil
+        case .noticedChanges: answers.noticedChanges != nil
+        }
+    }
+
+    /// A restored draft is only usable if its steps still exist and it isn't already finished.
+    var isResumable: Bool {
+        flow.isValid(in: RiskCheckStep.allCases) && flow.current != .results
+    }
+}
+
 // MARK: - Output
 
 nonisolated enum RecommendedTestID: String, Sendable, CaseIterable {
