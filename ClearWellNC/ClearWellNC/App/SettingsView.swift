@@ -93,6 +93,7 @@ struct SettingsView: View {
             }
 
             Section("About") {
+                NavigationLink("Privacy & Sources") { PrivacySourcesView() }
                 NavigationLink("Sources and data") { SourcesView() }
                 NavigationLink("How the estimates work") { HowItWorksView() }
                 #if DEBUG

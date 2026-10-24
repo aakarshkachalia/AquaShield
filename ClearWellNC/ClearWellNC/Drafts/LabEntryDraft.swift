@@ -23,6 +23,8 @@ nonisolated struct LabEntryDraft: Codable, Sendable, Equatable {
     var entries: [Analyte: Entry] = [:]
     var totalColiform: BacteriaResult?
     var eColi: BacteriaResult?
+    /// Optional so drafts saved before this field still load.
+    var testMethod: TestMethod?
     var flow = StepFlow(root: LabEntryStep.details)
 
     init(date: Date = .now) {
@@ -73,6 +75,7 @@ nonisolated struct LabEntryDraft: Codable, Sendable, Equatable {
     init(editing existing: LabResult) {
         self.init(date: existing.date)
         labName = existing.labName
+        testMethod = existing.testMethod
         totalColiform = existing.totalColiform
         eColi = existing.eColi
         for analyte in Analyte.allCases {
@@ -87,6 +90,7 @@ nonisolated struct LabEntryDraft: Codable, Sendable, Equatable {
     func apply(to result: LabResult) {
         result.date = date
         result.labName = labName.trimmingCharacters(in: .whitespacesAndNewlines)
+        result.testMethod = testMethod ?? .certifiedLab
         for analyte in Analyte.allCases {
             result.setValue(storedValue(for: analyte), for: analyte)
         }

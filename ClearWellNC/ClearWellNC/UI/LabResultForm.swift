@@ -57,8 +57,17 @@ struct LabResultForm: View {
                 DatePicker("Test date", selection: $draft.date, in: ...Date.now, displayedComponents: .date)
                 TextField("Lab name (optional)", text: $draft.labName)
                     .textContentType(.organizationName)
+                Picker("How was it tested?", selection: Binding(get: { draft.testMethod ?? .certifiedLab },
+                                                                set: { draft.testMethod = $0 })) {
+                    ForEach([TestMethod.certifiedLab, .homeKit, .unknown], id: \.self) { Text($0.label).tag($0) }
+                }
             } header: {
                 Text("About the test")
+            } footer: {
+                VStack(alignment: .leading, spacing: Spacing.s) {
+                    Text("Home test kits and strips can show a problem, but can't clear lead, arsenic, PFAS, nitrate or uranium.")
+                    PrivacyNote()
+                }
             }
             if existing != nil {
                 Section {

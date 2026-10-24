@@ -272,7 +272,11 @@ struct MyWaterView: View {
                 RetestReminderCard(systems: systemsNeedingRetest)
             }
             if savedWells.first != nil {
-                WeatherAlertsCard(store: alertsStore) { Task { await refreshAlerts() } }
+                if settings.isOptedIn(.stormAlerts) {
+                    WeatherAlertsCard(store: alertsStore) { Task { await refreshAlerts() } }
+                } else {
+                    OptInCard(feature: .stormAlerts)
+                }
             }
             if waterSource.showsCityContent {
                 NavigationLink {
@@ -332,8 +336,9 @@ struct MyWaterView: View {
     }
 
     private func refreshAlerts() async {
-        guard let well = savedWells.first else { return }
-        await alertsStore.refresh(latitude: well.latitude, longitude: well.longitude)
+        guard let well = savedWells.first, settings.isOptedIn(.stormAlerts) else { return }
+        await alertsStore.refresh(latitude: NetworkFeature.coarse(well.latitude),
+                                  longitude: NetworkFeature.coarse(well.longitude))
     }
 }
 

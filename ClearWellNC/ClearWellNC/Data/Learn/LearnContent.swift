@@ -4,7 +4,7 @@
 //
 //  Educational content for the Learn tab: one article + 3-question quiz per contaminant.
 //  Health statements follow EPA / CDC / NC DHHS public guidance. Every effectiveness figure and
-//  health claim is marked // VERIFY with its source so a reviewer can confirm it before release.
+//  health claim carries a SOURCE vr-### id (VerificationRegister.json) so a reviewer can confirm it before release.
 //
 
 import Foundation
@@ -68,20 +68,20 @@ nonisolated enum LearnLibrary {
     static let articles: [LearnArticle] = [
         LearnArticle(
             id: "arsenic", title: String(localized: "Arsenic"), contaminants: [.arsenic], symbol: "mountain.2",
-            // VERIFY: NC DHHS / USGS: arsenic in NC wells is linked to Carolina Slate Belt bedrock in the central Piedmont.
+            // SOURCE vr-031 (needs verification, see VerificationRegister.json): NC DHHS / USGS: arsenic in NC wells is linked to Carolina Slate Belt bedrock in the central Piedmont.
             whereFrom: String(localized: "Arsenic comes from natural bedrock. In North Carolina it is most common in wells on the Carolina Slate Belt, a band of rock across the central Piedmont."),
-            // VERIFY: EPA arsenic fact sheet; very high doses cause stomach upset, rarely seen from wells.
+            // SOURCE vr-032 (needs verification, see VerificationRegister.json): EPA arsenic fact sheet; very high doses cause stomach upset, rarely seen from wells.
             shortTerm: String(localized: "Levels found in wells rarely cause short-term symptoms."),
-            // VERIFY: EPA: long-term exposure linked to skin changes and cancers of the skin, bladder and lung, and heart disease.
+            // SOURCE vr-033 (needs verification, see VerificationRegister.json): EPA: long-term exposure linked to skin changes and cancers of the skin, bladder and lung, and heart disease.
             longTerm: String(localized: "Drinking it for years raises the risk of skin, bladder and lung cancer, and is linked to heart disease and skin changes."),
             mostAtRisk: String(localized: "Pregnancy and young children, because they are still developing."),
             treatments: [
-                // VERIFY: EPA / NSF: RO removal is high for arsenic(V); arsenic(III) may need pre-oxidation.
+                // SOURCE vr-034 (needs verification, see VerificationRegister.json): EPA / NSF: RO removal is high for arsenic(V); arsenic(III) may need pre-oxidation.
                 Treatment(name: String(localized: "Reverse osmosis (NSF/ANSI 58)"), effectiveness: String(localized: "Removes most arsenic (often 90% or more)"),
                           note: String(localized: "Under-sink units treat drinking and cooking water.")),
-                // VERIFY: EPA arsenic treatment technologies: iron-based adsorptive media.
+                // SOURCE vr-035 (needs verification, see VerificationRegister.json): EPA arsenic treatment technologies: iron-based adsorptive media.
                 Treatment(name: String(localized: "Adsorptive media (iron-based)"), effectiveness: String(localized: "High, when media is replaced on schedule"), note: nil),
-                // VERIFY: EPA: anion exchange effective for arsenic(V) only.
+                // SOURCE vr-036 (needs verification, see VerificationRegister.json): EPA: anion exchange effective for arsenic(V) only.
                 Treatment(name: String(localized: "Anion exchange"), effectiveness: String(localized: "High for one form of arsenic (arsenic V)"),
                           note: String(localized: "A water professional can tell you which form you have.")),
             ],
@@ -105,12 +105,12 @@ nonisolated enum LearnLibrary {
         LearnArticle(
             id: "lead", title: String(localized: "Lead"), contaminants: [.lead], symbol: "wrench.and.screwdriver",
             whereFrom: String(localized: "Lead usually comes from your plumbing, not the ground: old pipes, lead solder, and brass fittings or well parts. It varies from house to house."),
-            // VERIFY: EPA basic information about lead in drinking water.
+            // SOURCE vr-037 (needs verification, see VerificationRegister.json): EPA basic information about lead in drinking water.
             shortTerm: String(localized: "Usually no short-term symptoms at levels found in tap water."),
             longTerm: String(localized: "In children, lead can cause learning and behavior problems and slowed growth. In adults it is linked to high blood pressure and kidney problems."),
             mostAtRisk: String(localized: "Infants, young children and pregnancy. EPA's health goal is zero because no level is known to be safe."),
             treatments: [
-                // VERIFY: NSF/ANSI 53 certification claims for lead reduction.
+                // SOURCE vr-038 (needs verification, see VerificationRegister.json): NSF/ANSI 53 certification claims for lead reduction.
                 Treatment(name: String(localized: "Filter certified to NSF/ANSI 53 for lead"), effectiveness: String(localized: "High, if the filter is changed on schedule"), note: nil),
                 Treatment(name: String(localized: "Reverse osmosis (NSF/ANSI 58)"), effectiveness: String(localized: "High"), note: nil),
                 Treatment(name: String(localized: "Replace lead parts and fix corrosive water"), effectiveness: String(localized: "Fixes the source"),
@@ -136,12 +136,12 @@ nonisolated enum LearnLibrary {
         LearnArticle(
             id: "nitrate", title: String(localized: "Nitrate and nitrite"), contaminants: [.nitrate, .nitrite], symbol: "leaf",
             whereFrom: String(localized: "Nitrate comes from fertilizer, manure and septic systems. It soaks into groundwater, especially in shallow wells near farms or septic fields."),
-            // VERIFY: EPA / CDC: methemoglobinemia ("blue baby syndrome") in infants under 6 months.
+            // SOURCE vr-039 (needs verification, see VerificationRegister.json): EPA / CDC: methemoglobinemia ("blue baby syndrome") in infants under 6 months.
             shortTerm: String(localized: "Babies under 6 months can get seriously ill within days. Nitrate keeps blood from carrying oxygen (\"blue baby syndrome\")."),
             longTerm: String(localized: "Researchers are still studying long-term effects in adults."),
             mostAtRisk: String(localized: "Babies under 6 months, especially if formula is mixed with well water, and pregnancy."),
             treatments: [
-                // VERIFY: NSF/ANSI 58 nitrate reduction claims; EPA private well guidance.
+                // SOURCE vr-040 (needs verification, see VerificationRegister.json): NSF/ANSI 58 nitrate reduction claims; EPA private well guidance.
                 Treatment(name: String(localized: "Reverse osmosis (NSF/ANSI 58)"), effectiveness: String(localized: "Removes most nitrate (often 80–95%)"), note: nil),
                 Treatment(name: String(localized: "Anion exchange"), effectiveness: String(localized: "High"), note: nil),
                 Treatment(name: String(localized: "Distillation"), effectiveness: String(localized: "High"), note: nil),
@@ -165,14 +165,14 @@ nonisolated enum LearnLibrary {
 
         LearnArticle(
             id: "uranium", title: String(localized: "Uranium"), contaminants: [.uranium], symbol: "atom",
-            // VERIFY: NC DHHS / USGS: uranium in NC wells associated with granitic bedrock in the Piedmont and mountains.
+            // SOURCE vr-041 (needs verification, see VerificationRegister.json): NC DHHS / USGS: uranium in NC wells associated with granitic bedrock in the Piedmont and mountains.
             whereFrom: String(localized: "Uranium comes from granite and similar bedrock found in parts of the Piedmont and mountains."),
             shortTerm: String(localized: "No short-term symptoms at levels found in wells."),
-            // VERIFY: EPA Radionuclides Rule basis: kidney toxicity and increased cancer risk.
+            // SOURCE vr-042 (needs verification, see VerificationRegister.json): EPA Radionuclides Rule basis: kidney toxicity and increased cancer risk.
             longTerm: String(localized: "Over many years it can damage the kidneys and slightly raise cancer risk."),
             mostAtRisk: String(localized: "Anyone who drinks the water for many years."),
             treatments: [
-                // VERIFY: EPA small-system compliance technology list for uranium.
+                // SOURCE vr-043 (needs verification, see VerificationRegister.json): EPA small-system compliance technology list for uranium.
                 Treatment(name: String(localized: "Reverse osmosis (NSF/ANSI 58)"), effectiveness: String(localized: "Removes most uranium (often 90% or more)"), note: nil),
                 Treatment(name: String(localized: "Anion exchange"), effectiveness: String(localized: "High"), note: nil),
             ],
@@ -197,11 +197,11 @@ nonisolated enum LearnLibrary {
             id: "manganese", title: String(localized: "Manganese"), contaminants: [.manganese], symbol: "paintbrush",
             whereFrom: String(localized: "Manganese comes from rock and soil and is common in NC groundwater."),
             shortTerm: String(localized: "At common levels it mainly causes black stains and a bitter taste."),
-            // VERIFY: EPA manganese health advisory (0.3 mg/L) and infant guidance.
+            // SOURCE vr-044 (needs verification, see VerificationRegister.json): EPA manganese health advisory (0.3 mg/L) and infant guidance.
             longTerm: String(localized: "At high levels over time it may affect the nervous system. EPA's health advisory is 300 ppb."),
             mostAtRisk: String(localized: "Infants, especially if formula is mixed with well water."),
             treatments: [
-                // VERIFY: manufacturer / extension service guidance for greensand and softeners.
+                // SOURCE vr-045 (needs verification, see VerificationRegister.json): manufacturer / extension service guidance for greensand and softeners.
                 Treatment(name: String(localized: "Oxidation/filtration (greensand)"), effectiveness: String(localized: "High"), note: nil),
                 Treatment(name: String(localized: "Water softener rated for manganese"), effectiveness: String(localized: "Moderate, at lower levels"), note: nil),
                 Treatment(name: String(localized: "Reverse osmosis for drinking water"), effectiveness: String(localized: "High"), note: nil),
@@ -253,7 +253,7 @@ nonisolated enum LearnLibrary {
         LearnArticle(
             id: "copper", title: String(localized: "Copper"), contaminants: [.copper], symbol: "pipe.and.drop",
             whereFrom: String(localized: "Copper usually comes from copper pipes that corrode, often because the water is acidic (low pH)."),
-            // VERIFY: EPA copper: short-term gastrointestinal distress; long-term liver/kidney damage; Wilson's disease.
+            // SOURCE vr-046 (needs verification, see VerificationRegister.json): EPA copper: short-term gastrointestinal distress; long-term liver/kidney damage; Wilson's disease.
             shortTerm: String(localized: "High levels can cause nausea, vomiting and stomach cramps."),
             longTerm: String(localized: "Over years, high levels can harm the liver and kidneys."),
             mostAtRisk: String(localized: "Infants and people with Wilson's disease."),
@@ -282,7 +282,7 @@ nonisolated enum LearnLibrary {
         LearnArticle(
             id: "fluoride", title: String(localized: "Fluoride"), contaminants: [.fluoride], symbol: "mouth",
             whereFrom: String(localized: "Fluoride occurs naturally in some rock. Some NC wells have more than others."),
-            // VERIFY: EPA fluoride MCL 4.0 mg/L (skeletal fluorosis) and SMCL 2.0 mg/L (dental fluorosis).
+            // SOURCE vr-047 (needs verification, see VerificationRegister.json): EPA fluoride MCL 4.0 mg/L (skeletal fluorosis) and SMCL 2.0 mg/L (dental fluorosis).
             shortTerm: String(localized: "No short-term symptoms at levels found in wells."),
             longTerm: String(localized: "Above 2 mg/L, children's teeth can get white or brown spots. Above 4 mg/L for years, it can affect bones."),
             mostAtRisk: String(localized: "Children under 9, while their teeth are forming."),
@@ -311,15 +311,15 @@ nonisolated enum LearnLibrary {
         LearnArticle(
             id: "bacteria", title: String(localized: "Bacteria (coliform and E. coli)"), contaminants: [.totalColiform, .eColi], symbol: "allergens",
             whereFrom: String(localized: "Germs get in through cracked or missing well caps, poor seals, nearby septic systems or animal waste, and especially floodwater."),
-            // VERIFY: CDC: diarrhea, cramps, nausea, vomiting from waterborne pathogens.
+            // SOURCE vr-048 (needs verification, see VerificationRegister.json): CDC: diarrhea, cramps, nausea, vomiting from waterborne pathogens.
             shortTerm: String(localized: "Diarrhea, stomach cramps, nausea and vomiting, sometimes within a day or two. Some types of E. coli can cause serious illness."),
             longTerm: String(localized: "Repeated infections are the main concern; the fix is finding and closing the way germs get in."),
             mostAtRisk: String(localized: "Infants, older adults and people with weakened immune systems."),
             treatments: [
-                // VERIFY: NC DHHS shock chlorination guidance.
+                // SOURCE vr-049 (needs verification, see VerificationRegister.json): NC DHHS shock chlorination guidance.
                 Treatment(name: String(localized: "Shock chlorination"), effectiveness: String(localized: "Kills germs in the well for now"),
                           note: String(localized: "Retest after the chlorine is flushed out. Germs come back if the source isn't fixed.")),
-                // VERIFY: EPA / NSF/ANSI 55 Class A UV systems.
+                // SOURCE vr-050 (needs verification, see VerificationRegister.json): EPA / NSF/ANSI 55 Class A UV systems.
                 Treatment(name: String(localized: "UV disinfection (NSF/ANSI 55)"), effectiveness: String(localized: "High, if the water is clear"), note: nil),
                 Treatment(name: String(localized: "Repair the well cap, seal or casing"), effectiveness: String(localized: "Fixes the source"), note: nil),
             ],
@@ -342,7 +342,7 @@ nonisolated enum LearnLibrary {
 
         LearnArticle(
             id: "ph", title: String(localized: "pH"), contaminants: [.pH], symbol: "gauge.with.dots.needle.50percent",
-            // VERIFY: NC groundwater, especially Piedmont/mountain wells, is often slightly acidic (USGS / NC DEQ).
+            // SOURCE vr-051 (needs verification, see VerificationRegister.json): NC groundwater, especially Piedmont/mountain wells, is often slightly acidic (USGS / NC DEQ).
             whereFrom: String(localized: "pH depends on the rock and soil around your well. Many NC wells have slightly acidic water."),
             shortTerm: String(localized: "pH itself is not a health risk."),
             longTerm: String(localized: "Acidic water (below 6.5) corrodes pipes and can release lead and copper. High pH can taste bitter and leave scale."),
@@ -370,7 +370,7 @@ nonisolated enum LearnLibrary {
 
         LearnArticle(
             id: "hardness", title: String(localized: "Hardness"), contaminants: [.hardness], symbol: "sparkles",
-            // VERIFY: USGS: harder groundwater is more common in limestone areas of the NC Coastal Plain.
+            // SOURCE vr-052 (needs verification, see VerificationRegister.json): USGS: harder groundwater is more common in limestone areas of the NC Coastal Plain.
             whereFrom: String(localized: "Hardness is dissolved calcium and magnesium from rock. It tends to be higher where groundwater flows through limestone, like parts of the Coastal Plain."),
             shortTerm: String(localized: "No health effects."),
             longTerm: String(localized: "No health effects. It leaves scale in kettles and water heaters and makes soap lather less."),
@@ -397,15 +397,15 @@ nonisolated enum LearnLibrary {
 
         LearnArticle(
             id: "pfas", title: String(localized: "PFAS (\"forever chemicals\")"), contaminants: [.pfoa, .pfos, .genx], symbol: "flask",
-            // VERIFY: NC DEQ: PFAS including GenX from the Chemours Fayetteville Works plant has been found in private wells
+            // SOURCE vr-053 (needs verification, see VerificationRegister.json): NC DEQ: PFAS including GenX from the Chemours Fayetteville Works plant has been found in private wells
             // in the lower Cape Fear area; PFAS also come from firefighting foam, landfills and some biosolids.
             whereFrom: String(localized: "PFAS come from industry and some products, like firefighting foam. In North Carolina, PFAS including GenX from a chemical plant near Fayetteville have been found in private wells in the lower Cape Fear area."),
             shortTerm: String(localized: "No short-term symptoms at levels found in wells."),
-            // VERIFY: EPA PFAS rule health basis: some cancers, liver, immune and developmental effects, and cholesterol changes.
+            // SOURCE vr-054 (needs verification, see VerificationRegister.json): EPA PFAS rule health basis: some cancers, liver, immune and developmental effects, and cholesterol changes.
             longTerm: String(localized: "PFAS build up in the body. Long-term exposure is linked to some cancers, and to effects on the liver, immune system, cholesterol and children's growth."),
             mostAtRisk: String(localized: "Pregnancy, infants and young children."),
             treatments: [
-                // VERIFY: EPA / NSF: RO (NSF/ANSI 58) and certified carbon (NSF/ANSI 53) filters reduce PFOA/PFOS.
+                // SOURCE vr-055 (needs verification, see VerificationRegister.json): EPA / NSF: RO (NSF/ANSI 58) and certified carbon (NSF/ANSI 53) filters reduce PFOA/PFOS.
                 Treatment(name: String(localized: "Reverse osmosis (NSF/ANSI 58, certified for PFAS)"), effectiveness: String(localized: "Removes most PFAS (often 90% or more)"), note: nil),
                 Treatment(name: String(localized: "Granular activated carbon (NSF/ANSI 53, certified for PFAS)"), effectiveness: String(localized: "High, when the filter is changed on schedule"), note: nil),
                 Treatment(name: String(localized: "Anion exchange"), effectiveness: String(localized: "High"), note: nil),
@@ -431,11 +431,11 @@ nonisolated enum LearnLibrary {
             id: "radon", title: String(localized: "Radon in water"), contaminants: [.radon], symbol: "wind",
             whereFrom: String(localized: "Radon is a radioactive gas made as uranium in bedrock breaks down. It dissolves in groundwater, especially in granite areas."),
             shortTerm: String(localized: "No short-term symptoms."),
-            // VERIFY: EPA radon: main risk is lung cancer from inhaling radon released from water; small stomach-cancer risk from drinking.
+            // SOURCE vr-056 (needs verification, see VerificationRegister.json): EPA radon: main risk is lung cancer from inhaling radon released from water; small stomach-cancer risk from drinking.
             longTerm: String(localized: "Radon escapes into the air when you shower, wash dishes or do laundry. Breathing it over years raises lung cancer risk. Drinking it adds a smaller risk."),
             mostAtRisk: String(localized: "Everyone in the home, especially people who smoke."),
             treatments: [
-                // VERIFY: EPA: aeration removes up to ~99%; GAC is effective but the filter can become radioactive.
+                // SOURCE vr-057 (needs verification, see VerificationRegister.json): EPA: aeration removes up to ~99%; GAC is effective but the filter can become radioactive.
                 Treatment(name: String(localized: "Aeration system"), effectiveness: String(localized: "Very high (up to about 99%)"), note: nil),
                 Treatment(name: String(localized: "Granular activated carbon (GAC)"), effectiveness: String(localized: "High"),
                           note: String(localized: "Used filters can become radioactive; ask a professional.")),

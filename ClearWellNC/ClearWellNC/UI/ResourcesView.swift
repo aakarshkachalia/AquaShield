@@ -29,7 +29,9 @@ struct ResourcesView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.l) {
-                if let center {
+                if !settings.isOptedIn(.helpNearYou) {
+                    OptInCard(feature: .helpNearYou)
+                } else if let center {
                     Text(savedWells.first.map { String(localized: "Places within about 25 miles of \($0.placeName).") }
                          ?? String(localized: "Places within about 25 miles of your current location."))
                         .foregroundStyle(.secondary)
@@ -52,8 +54,8 @@ struct ResourcesView: View {
         .background(Color.appBackground)
         .navigationTitle("Help near you")
         .navigationBarTitleDisplayMode(.inline)
-        .task(id: searchKey) {
-            guard let center else { return }
+        .task(id: "\(searchKey)|\(settings.isOptedIn(.helpNearYou))") {
+            guard settings.isOptedIn(.helpNearYou), let center else { return }
             await search.search(category, near: center)
             cameraPosition = .automatic
         }

@@ -172,7 +172,7 @@ nonisolated enum QuestEngine {
         }
     }
 
-    // VERIFY: facts are reused from LearnContent / ContaminantInfo, which carry their own VERIFY notes.
+    // SOURCE vr-059 (needs verification, see VerificationRegister.json): facts are reused from LearnContent / ContaminantInfo, which carry their own VERIFY notes.
     /// Alternates "where it comes from" and "who is most at risk" from the Learn article, falling back
     /// to the contaminant's summary. Short: at most two sentences.
     static func fact(for id: ContaminantID, index: Int) -> String {

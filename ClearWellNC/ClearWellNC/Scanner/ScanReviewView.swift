@@ -19,6 +19,7 @@ struct ScanReviewView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.xl) {
                 summary
+                PrivacyNote()
 
                 VStack(alignment: .leading, spacing: Spacing.m) {
                     DatePicker("Test date", selection: $draft.date, in: ...Date.now, displayedComponents: .date)

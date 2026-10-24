@@ -15,7 +15,7 @@ nonisolated enum StormChecklist {
         let symbol: String
     }
 
-    // VERIFY: steps follow CDC / NC DHHS private-well guidance after flooding.
+    // SOURCE vr-058 (needs verification, see VerificationRegister.json): steps follow CDC / NC DHHS private-well guidance after flooding.
     static let steps: [Step] = [
         Step(id: 1, title: String(localized: "Don't drink or cook with your well water"),
              detail: String(localized: "Use bottled water for drinking, cooking, brushing teeth and baby formula until your well is tested."),

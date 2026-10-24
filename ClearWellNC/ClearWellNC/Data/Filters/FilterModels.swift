@@ -89,9 +89,14 @@ nonisolated enum CertificationStandard: String, Codable, CaseIterable, Sendable 
     }
 
     /// What each standard can certify, so a claim outside its standard never counts (for example, a
-    /// shower filter's NSF/ANSI 177 claim covers free chlorine only).
-    /// Needs verification against NSF's standard descriptions (`SourceRef.nsfStandards`).
+    /// shower filter's NSF/ANSI 177 claim covers free chlorine only). Read from CertificationStandards.json;
+    /// `compiledAllowedTargets` is the fallback and must match it (tested).
     var allowedTargets: Set<ClaimTarget> {
+        ReferenceStandards.table[self]?.allowedTargets ?? compiledAllowedTargets
+    }
+
+    /// Needs verification against NSF's standard descriptions (`SourceRef.nsfStandards`).
+    var compiledAllowedTargets: Set<ClaimTarget> {
         switch self {
         case .nsf42: [.freeChlorine, .chloramine, .iron, .manganese]
         case .nsf53: [.lead, .arsenic, .copper, .uranium, .pfoa, .pfos, .genx, .tthm, .vocs, .cysts, .radon]

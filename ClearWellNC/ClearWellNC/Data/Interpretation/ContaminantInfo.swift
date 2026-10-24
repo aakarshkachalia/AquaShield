@@ -3,7 +3,7 @@
 //  ClearWellNC
 //
 //  THE single source of truth for limits and interpretation wording. Every screen that shows a
-//  contaminant value reads from here. Values marked `// VERIFY` must be checked against the cited
+//  contaminant value reads from here (limits via ContaminantLimits.json). Values marked `SOURCE vr-###` must be checked against the cited
 //  source before release; none of them were invented, but regulations change.
 //
 
@@ -167,16 +167,35 @@ nonisolated func formatNumber(_ value: Double) -> String {
 // MARK: - The catalog
 
 nonisolated extension ContaminantInfo {
-    // swiftlint:disable function_body_length
+    /// The catalog entry, with its limit and health advisory taken from ContaminantLimits.json (versioned
+    /// reference data). Text stays here so it is translated through the String Catalog.
     static func info(for id: ContaminantID) -> ContaminantInfo {
+        let compiled = compiledInfo(for: id)
+        guard let record = ReferenceLimits.table[id], let limit = record.limit.regulatory else { return compiled }
+        let advisory = record.healthAdvisory.map { value in
+            SecondaryLimit(value: value, source: compiled.healthAdvisory?.source ?? record.source.sourceName)
+        }
+        return ContaminantInfo(
+            id: compiled.id, name: compiled.name, unit: compiled.unit, limit: limit,
+            limitSource: compiled.limitSource, limitType: compiled.limitType, limitPhrase: compiled.limitPhrase,
+            healthAdvisory: advisory ?? (record.healthAdvisory == nil ? nil : compiled.healthAdvisory),
+            sensitiveGroups: compiled.sensitiveGroups, plainSummary: compiled.plainSummary,
+            practicalImpact: compiled.practicalImpact, practicalImpactHigh: compiled.practicalImpactHigh,
+            seasonalContext: compiled.seasonalContext, actionIfAbove: compiled.actionIfAbove,
+            actionIfWatch: compiled.actionIfWatch, classBands: compiled.classBands)
+    }
+
+    // swiftlint:disable function_body_length
+    /// Built-in values: the fallback if the JSON is missing, and what the JSON is tested against.
+    static func compiledInfo(for id: ContaminantID) -> ContaminantInfo {
         switch id {
         case .arsenic:
             return ContaminantInfo(
                 id: id, name: String(localized: "Arsenic"), unit: .ppb,
-                // VERIFY: EPA MCL 0.010 mg/L (10 ppb), 40 CFR 141.62. NC 15A NCAC 02L groundwater standard is also 10 µg/L.
+                // SOURCE vr-001 (needs verification, see VerificationRegister.json): EPA MCL 0.010 mg/L (10 ppb), 40 CFR 141.62. NC 15A NCAC 02L groundwater standard is also 10 µg/L.
                 limit: .maximum(10), limitSource: String(localized: "EPA MCL"), limitType: .health,
                 limitPhrase: String(localized: "safe limit"), healthAdvisory: nil,
-                // VERIFY: EPA / CDC list pregnancy and early childhood as sensitive periods for arsenic exposure.
+                // SOURCE vr-002 (needs verification, see VerificationRegister.json): EPA / CDC list pregnancy and early childhood as sensitive periods for arsenic exposure.
                 sensitiveGroups: [.pregnancy, .children],
                 plainSummary: String(localized: "Arsenic comes from certain bedrock. It has no taste or smell, and long-term exposure raises cancer risk."),
                 practicalImpact: nil, practicalImpactHigh: nil, seasonalContext: nil,
@@ -187,11 +206,11 @@ nonisolated extension ContaminantInfo {
         case .lead:
             return ContaminantInfo(
                 id: id, name: String(localized: "Lead"), unit: .ppb,
-                // VERIFY: EPA Lead and Copper Rule action level 0.015 mg/L (15 ppb); MCLG is zero (no known safe level).
+                // SOURCE vr-003 (needs verification, see VerificationRegister.json): EPA Lead and Copper Rule action level 0.015 mg/L (15 ppb); MCLG is zero (no known safe level).
                 // EPA's 2024 Lead and Copper Rule Improvements lower the action level to 10 ppb (compliance ~2027).
                 limit: .maximum(15), limitSource: String(localized: "EPA action level"), limitType: .health,
                 limitPhrase: String(localized: "action level"), healthAdvisory: nil,
-                // VERIFY: EPA / CDC: infants, children and pregnancy are most at risk from lead.
+                // SOURCE vr-004 (needs verification, see VerificationRegister.json): EPA / CDC: infants, children and pregnancy are most at risk from lead.
                 sensitiveGroups: [.infants, .children, .pregnancy],
                 plainSummary: String(localized: "Lead in well water usually comes from pipes, solder and well parts, not the rock. EPA's health goal for lead is zero, because no level is known to be safe."),
                 practicalImpact: nil, practicalImpactHigh: nil, seasonalContext: nil,
@@ -202,14 +221,14 @@ nonisolated extension ContaminantInfo {
         case .nitrate:
             return ContaminantInfo(
                 id: id, name: String(localized: "Nitrate"), unit: .mgL,
-                // VERIFY: EPA MCL 10 mg/L as nitrogen (40 CFR 141.62). NC 02L standard is also 10 mg/L.
+                // SOURCE vr-005 (needs verification, see VerificationRegister.json): EPA MCL 10 mg/L as nitrogen (40 CFR 141.62). NC 02L standard is also 10 mg/L.
                 limit: .maximum(10), limitSource: String(localized: "EPA MCL (as N)"), limitType: .health,
                 limitPhrase: String(localized: "safe limit"), healthAdvisory: nil,
-                // VERIFY: EPA / CDC: infants under 6 months are most at risk (methemoglobinemia); pregnancy also listed by CDC.
+                // SOURCE vr-006 (needs verification, see VerificationRegister.json): EPA / CDC: infants under 6 months are most at risk (methemoglobinemia); pregnancy also listed by CDC.
                 sensitiveGroups: [.infants, .pregnancy],
                 plainSummary: String(localized: "Nitrate comes from fertilizer, manure and septic systems. It is most dangerous for babies under 6 months."),
                 practicalImpact: nil, practicalImpactHigh: nil,
-                // VERIFY: USGS / NC DEQ: fertilizer application and recharge from rain can raise shallow-groundwater nitrate in spring.
+                // SOURCE vr-007 (needs verification, see VerificationRegister.json): USGS / NC DEQ: fertilizer application and recharge from rain can raise shallow-groundwater nitrate in spring.
                 seasonalContext: String(localized: "Spring fertilizing and heavy rain can carry nitrate into groundwater."),
                 actionIfAbove: String(localized: "Do not use this water for baby formula. Use bottled water for drinking and cooking, and look for nearby sources like septic systems or fertilizer."),
                 actionIfWatch: String(localized: "Retest in spring, and before using this water for baby formula."),
@@ -218,10 +237,10 @@ nonisolated extension ContaminantInfo {
         case .nitrite:
             return ContaminantInfo(
                 id: id, name: String(localized: "Nitrite"), unit: .mgL,
-                // VERIFY: EPA MCL 1 mg/L as nitrogen (40 CFR 141.62).
+                // SOURCE vr-008 (needs verification, see VerificationRegister.json): EPA MCL 1 mg/L as nitrogen (40 CFR 141.62).
                 limit: .maximum(1), limitSource: String(localized: "EPA MCL (as N)"), limitType: .health,
                 limitPhrase: String(localized: "safe limit"), healthAdvisory: nil,
-                // VERIFY: same sensitive groups as nitrate (EPA / CDC).
+                // SOURCE vr-009 (needs verification, see VerificationRegister.json): same sensitive groups as nitrate (EPA / CDC).
                 sensitiveGroups: [.infants, .pregnancy],
                 plainSummary: String(localized: "Nitrite comes from the same sources as nitrate and is even more harmful at lower levels, especially for babies."),
                 practicalImpact: nil, practicalImpactHigh: nil, seasonalContext: nil,
@@ -232,7 +251,7 @@ nonisolated extension ContaminantInfo {
         case .uranium:
             return ContaminantInfo(
                 id: id, name: String(localized: "Uranium"), unit: .ppb,
-                // VERIFY: EPA MCL 30 µg/L (ppb), Radionuclides Rule (40 CFR 141.66).
+                // SOURCE vr-010 (needs verification, see VerificationRegister.json): EPA MCL 30 µg/L (ppb), Radionuclides Rule (40 CFR 141.66).
                 limit: .maximum(30), limitSource: String(localized: "EPA MCL"), limitType: .health,
                 limitPhrase: String(localized: "safe limit"), healthAdvisory: nil,
                 sensitiveGroups: [],
@@ -245,10 +264,10 @@ nonisolated extension ContaminantInfo {
         case .manganese:
             return ContaminantInfo(
                 id: id, name: String(localized: "Manganese"), unit: .ppb,
-                // VERIFY: EPA secondary standard (SMCL) 0.05 mg/L (50 ppb), aesthetic. NC 02L groundwater standard is also 50 µg/L.
+                // SOURCE vr-011 (needs verification, see VerificationRegister.json): EPA secondary standard (SMCL) 0.05 mg/L (50 ppb), aesthetic. NC 02L groundwater standard is also 50 µg/L.
                 limit: .maximum(50), limitSource: String(localized: "EPA secondary standard"), limitType: .aesthetic,
                 limitPhrase: String(localized: "guideline"),
-                // VERIFY: EPA lifetime health advisory 0.3 mg/L (300 ppb); EPA advises applying it to infants under 6 months.
+                // SOURCE vr-012 (needs verification, see VerificationRegister.json): EPA lifetime health advisory 0.3 mg/L (300 ppb); EPA advises applying it to infants under 6 months.
                 healthAdvisory: SecondaryLimit(value: 300, source: String(localized: "EPA health advisory")),
                 sensitiveGroups: [.infants],
                 plainSummary: String(localized: "Manganese comes from rock and soil. Low levels mostly cause stains, but high levels are a concern for infants."),
@@ -261,7 +280,7 @@ nonisolated extension ContaminantInfo {
         case .iron:
             return ContaminantInfo(
                 id: id, name: String(localized: "Iron"), unit: .ppb,
-                // VERIFY: EPA secondary standard (SMCL) 0.3 mg/L (300 ppb), aesthetic only.
+                // SOURCE vr-013 (needs verification, see VerificationRegister.json): EPA secondary standard (SMCL) 0.3 mg/L (300 ppb), aesthetic only.
                 limit: .maximum(300), limitSource: String(localized: "EPA secondary standard"), limitType: .aesthetic,
                 limitPhrase: String(localized: "guideline"), healthAdvisory: nil,
                 sensitiveGroups: [],
@@ -275,10 +294,10 @@ nonisolated extension ContaminantInfo {
         case .copper:
             return ContaminantInfo(
                 id: id, name: String(localized: "Copper"), unit: .mgL,
-                // VERIFY: EPA Lead and Copper Rule action level 1.3 mg/L (MCLG 1.3 mg/L). EPA SMCL is 1.0 mg/L (taste/staining).
+                // SOURCE vr-014 (needs verification, see VerificationRegister.json): EPA Lead and Copper Rule action level 1.3 mg/L (MCLG 1.3 mg/L). EPA SMCL is 1.0 mg/L (taste/staining).
                 limit: .maximum(1.3), limitSource: String(localized: "EPA action level"), limitType: .health,
                 limitPhrase: String(localized: "action level"), healthAdvisory: nil,
-                // VERIFY: EPA lists infants and people with Wilson's disease as more sensitive to copper.
+                // SOURCE vr-015 (needs verification, see VerificationRegister.json): EPA lists infants and people with Wilson's disease as more sensitive to copper.
                 sensitiveGroups: [.infants],
                 plainSummary: String(localized: "Copper usually comes from copper pipes that corrode, often because the water is acidic."),
                 practicalImpact: nil, practicalImpactHigh: nil, seasonalContext: nil,
@@ -289,10 +308,10 @@ nonisolated extension ContaminantInfo {
         case .fluoride:
             return ContaminantInfo(
                 id: id, name: String(localized: "Fluoride"), unit: .mgL,
-                // VERIFY: EPA MCL 4.0 mg/L (bone effects); EPA SMCL 2.0 mg/L (dental fluorosis in children).
+                // SOURCE vr-016 (needs verification, see VerificationRegister.json): EPA MCL 4.0 mg/L (bone effects); EPA SMCL 2.0 mg/L (dental fluorosis in children).
                 limit: .maximum(4.0), limitSource: String(localized: "EPA MCL"), limitType: .health,
                 limitPhrase: String(localized: "safe limit"), healthAdvisory: nil,
-                // VERIFY: EPA: children under 9 are at risk of dental fluorosis above 2 mg/L.
+                // SOURCE vr-017 (needs verification, see VerificationRegister.json): EPA: children under 9 are at risk of dental fluorosis above 2 mg/L.
                 sensitiveGroups: [.children],
                 plainSummary: String(localized: "Fluoride occurs naturally in some rock. Above 2 mg/L it can spot children's teeth; above 4 mg/L it can affect bones over time."),
                 practicalImpact: nil, practicalImpactHigh: nil, seasonalContext: nil,
@@ -303,10 +322,10 @@ nonisolated extension ContaminantInfo {
         case .totalColiform:
             return ContaminantInfo(
                 id: id, name: String(localized: "Total coliform"), unit: .presence,
-                // VERIFY: EPA Revised Total Coliform Rule: presence triggers corrective action; private wells should test absent.
+                // SOURCE vr-018 (needs verification, see VerificationRegister.json): EPA Revised Total Coliform Rule: presence triggers corrective action; private wells should test absent.
                 limit: .mustBeAbsent, limitSource: String(localized: "EPA"), limitType: .health,
                 limitPhrase: String(localized: "standard"), healthAdvisory: nil,
-                // VERIFY: CDC: infants, older adults and people with weakened immune systems are most at risk from waterborne germs.
+                // SOURCE vr-019 (needs verification, see VerificationRegister.json): CDC: infants, older adults and people with weakened immune systems are most at risk from waterborne germs.
                 sensitiveGroups: [.infants, .olderAdults, .weakenedImmunity],
                 plainSummary: String(localized: "Coliform bacteria are a warning sign that germs can get into your well, often through a damaged cap or after flooding."),
                 practicalImpact: nil, practicalImpactHigh: nil, seasonalContext: nil,
@@ -317,7 +336,7 @@ nonisolated extension ContaminantInfo {
         case .eColi:
             return ContaminantInfo(
                 id: id, name: String(localized: "E. coli"), unit: .presence,
-                // VERIFY: EPA MCL for E. coli: any confirmed presence is a violation (40 CFR 141.63).
+                // SOURCE vr-020 (needs verification, see VerificationRegister.json): EPA MCL for E. coli: any confirmed presence is a violation (40 CFR 141.63).
                 limit: .mustBeAbsent, limitSource: String(localized: "EPA MCL"), limitType: .health,
                 limitPhrase: String(localized: "standard"), healthAdvisory: nil,
                 sensitiveGroups: [.infants, .olderAdults, .weakenedImmunity],
@@ -330,7 +349,7 @@ nonisolated extension ContaminantInfo {
         case .pH:
             return ContaminantInfo(
                 id: id, name: String(localized: "pH"), unit: .pH,
-                // VERIFY: EPA secondary standard 6.5–8.5, aesthetic.
+                // SOURCE vr-021 (needs verification, see VerificationRegister.json): EPA secondary standard 6.5–8.5, aesthetic.
                 limit: .range(low: 6.5, high: 8.5), limitSource: String(localized: "EPA secondary standard"), limitType: .aesthetic,
                 limitPhrase: String(localized: "recommended range"), healthAdvisory: nil,
                 sensitiveGroups: [],
@@ -345,7 +364,7 @@ nonisolated extension ContaminantInfo {
         case .hardness:
             return ContaminantInfo(
                 id: id, name: String(localized: "Hardness"), unit: .mgLAsCaCO3,
-                // VERIFY: no EPA or NC limit. Bands from USGS water-hardness classification (mg/L as CaCO₃).
+                // SOURCE vr-022 (needs verification, see VerificationRegister.json): no EPA or NC limit. Bands from USGS water-hardness classification (mg/L as CaCO₃).
                 limit: .none, limitSource: String(localized: "No limit (USGS hardness scale)"), limitType: .aesthetic,
                 limitPhrase: String(localized: "scale"), healthAdvisory: nil,
                 sensitiveGroups: [],
@@ -355,7 +374,7 @@ nonisolated extension ContaminantInfo {
                 actionIfAbove: String(localized: "Consider a water softener if scale bothers you."),
                 actionIfWatch: String(localized: "No action needed."),
                 classBands: [
-                    // VERIFY: USGS: 0–60 soft, 61–120 moderately hard, 121–180 hard, >180 very hard.
+                    // SOURCE vr-023 (needs verification, see VerificationRegister.json): USGS: 0–60 soft, 61–120 moderately hard, 121–180 hard, >180 very hard.
                     ClassBand(upTo: 60, label: String(localized: "Soft"), isNoticeable: false),
                     ClassBand(upTo: 120, label: String(localized: "Moderately hard"), isNoticeable: false),
                     ClassBand(upTo: 180, label: String(localized: "Hard"), isNoticeable: true),
@@ -368,7 +387,7 @@ nonisolated extension ContaminantInfo {
         case .radon:
             return ContaminantInfo(
                 id: id, name: String(localized: "Radon in water"), unit: .pCiL,
-                // VERIFY: there is NO final federal limit. EPA's 1999 proposal: MCL 300 pCi/L, or an alternative MCL of
+                // SOURCE vr-024 (needs verification, see VerificationRegister.json): there is NO final federal limit. EPA's 1999 proposal: MCL 300 pCi/L, or an alternative MCL of
                 // 4,000 pCi/L where a state runs an indoor-air radon program. NC has no private-well radon standard.
                 limit: .maximum(4000), limitSource: String(localized: "EPA proposed alternative limit (not final)"), limitType: .health,
                 limitPhrase: String(localized: "proposed limit"), healthAdvisory: nil,
@@ -392,16 +411,16 @@ nonisolated extension ContaminantInfo {
         switch id {
         case .pfoa:
             name = String(localized: "PFOA")
-            // VERIFY: EPA PFAS National Primary Drinking Water Regulation (April 2024): PFOA MCL 4.0 ppt (ng/L).
+            // SOURCE vr-025 (needs verification, see VerificationRegister.json): EPA PFAS National Primary Drinking Water Regulation (April 2024): PFOA MCL 4.0 ppt (ng/L).
             // In 2025 EPA said it would keep the PFOA/PFOS MCLs but extend compliance to 2031.
             limit = 4.0
         case .pfos:
             name = String(localized: "PFOS")
-            // VERIFY: EPA 2024 PFAS rule: PFOS MCL 4.0 ppt.
+            // SOURCE vr-026 (needs verification, see VerificationRegister.json): EPA 2024 PFAS rule: PFOS MCL 4.0 ppt.
             limit = 4.0
         default:
             name = String(localized: "GenX (HFPO-DA)")
-            // VERIFY: EPA 2024 PFAS rule: HFPO-DA (GenX) MCL 10 ppt. In 2025 EPA announced it intends to rescind and
+            // SOURCE vr-027 (needs verification, see VerificationRegister.json): EPA 2024 PFAS rule: HFPO-DA (GenX) MCL 10 ppt. In 2025 EPA announced it intends to rescind and
             // reconsider this limit; NC DEQ PFAS programs may use a different threshold.
             limit = 10
         }
@@ -409,7 +428,7 @@ nonisolated extension ContaminantInfo {
             id: id, name: name, unit: .ppt,
             limit: .maximum(limit), limitSource: String(localized: "EPA MCL (2024 PFAS rule)"), limitType: .health,
             limitPhrase: String(localized: "safe limit"), healthAdvisory: nil,
-            // VERIFY: EPA lists pregnancy, infants and children as sensitive to PFAS exposure.
+            // SOURCE vr-028 (needs verification, see VerificationRegister.json): EPA lists pregnancy, infants and children as sensitive to PFAS exposure.
             sensitiveGroups: [.pregnancy, .infants, .children],
             plainSummary: String(localized: "PFAS are \"forever chemicals\" from industry and some products. They build up in the body, and long-term exposure is linked to some cancers and other health effects."),
             practicalImpact: nil, practicalImpactHigh: nil, seasonalContext: nil,
@@ -423,7 +442,7 @@ nonisolated extension ContaminantInfo {
 
 /// External links used by disclaimers and the Learn tab.
 nonisolated enum WellResources {
-    // VERIFY: all URLs below were current to the best of our knowledge; confirm before release.
+    // SOURCE vr-029 (needs verification, see VerificationRegister.json): all URLs below were current to the best of our knowledge; confirm before release.
     static let ncdhhsPrivateWells = URL(string: "https://epi.dph.ncdhhs.gov/oee/programs/wells.html")!
     static let ncCountyHealthDepartments = URL(string: "https://www.ncdhhs.gov/divisions/public-health/county-health-departments")!
     static let ncStateLab = URL(string: "https://slph.dph.ncdhhs.gov/")!

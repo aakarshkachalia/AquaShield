@@ -195,7 +195,7 @@ nonisolated enum RiskCheckEngine {
             add(.nitrate, 7, String(localized: "Farm fields, livestock and septic systems can raise nitrate."))
             add(.bacteria, 7, String(localized: "Septic systems and livestock can let germs reach a well."))
         }
-        // VERIFY: NC began requiring testing of newly constructed private wells in July 2008 (NC DHHS / 15A NCAC 18A).
+        // SOURCE vr-062 (needs verification, see VerificationRegister.json): NC began requiring testing of newly constructed private wells in July 2008 (NC DHHS / 15A NCAC 18A).
         if answers.wellAge == .before2008 || answers.wellAge == .unknown {
             let text = String(localized: "Wells drilled before 2008 weren't required to be tested when built, so a full panel is a good start.")
             add(.lead, 5, text)
@@ -232,7 +232,7 @@ nonisolated enum RiskCheckEngine {
                 }
             }
         }
-        // VERIFY: PFAS from the Chemours Fayetteville Works plant has been found in private wells in the lower Cape Fear area.
+        // SOURCE vr-063 (needs verification, see VerificationRegister.json): PFAS from the Chemours Fayetteville Works plant has been found in private wells in the lower Cape Fear area.
         if let county, pfasCounties.contains(county) {
             add(.pfas, 10, String(localized: "\(county) County is in the lower Cape Fear area, where PFAS from industry has been found in wells. Free testing may be available."))
         }

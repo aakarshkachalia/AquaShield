@@ -41,8 +41,11 @@ struct RiskCheckView: View {
             results
         } else {
             ScrollView {
-                question(step)
-                    .dsScreen()
+                VStack(alignment: .leading, spacing: DS.Space.xl) {
+                    question(step)
+                    PrivacyNote()
+                }
+                .dsScreen()
             }
         }
     }

@@ -1,0 +1,242 @@
+{
+  "version": 1,
+  "limits": [
+    {
+      "id": "arsenic",
+      "limit": {
+        "kind": "maximum",
+        "value": 10.0
+      },
+      "source": {
+        "sourceName": "EPA MCL",
+        "sourceURL": null,
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-001"
+    },
+    {
+      "id": "lead",
+      "limit": {
+        "kind": "maximum",
+        "value": 15.0
+      },
+      "source": {
+        "sourceName": "EPA action level",
+        "sourceURL": null,
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-003"
+    },
+    {
+      "id": "nitrate",
+      "limit": {
+        "kind": "maximum",
+        "value": 10.0
+      },
+      "source": {
+        "sourceName": "EPA MCL (as N)",
+        "sourceURL": null,
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-005"
+    },
+    {
+      "id": "nitrite",
+      "limit": {
+        "kind": "maximum",
+        "value": 1.0
+      },
+      "source": {
+        "sourceName": "EPA MCL (as N)",
+        "sourceURL": null,
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-008"
+    },
+    {
+      "id": "uranium",
+      "limit": {
+        "kind": "maximum",
+        "value": 30.0
+      },
+      "source": {
+        "sourceName": "EPA MCL",
+        "sourceURL": null,
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-010"
+    },
+    {
+      "id": "manganese",
+      "limit": {
+        "kind": "maximum",
+        "value": 50.0
+      },
+      "healthAdvisory": 300.0,
+      "source": {
+        "sourceName": "EPA secondary standard",
+        "sourceURL": null,
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-011"
+    },
+    {
+      "id": "iron",
+      "limit": {
+        "kind": "maximum",
+        "value": 300.0
+      },
+      "source": {
+        "sourceName": "EPA secondary standard",
+        "sourceURL": null,
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-013"
+    },
+    {
+      "id": "copper",
+      "limit": {
+        "kind": "maximum",
+        "value": 1.3
+      },
+      "source": {
+        "sourceName": "EPA action level",
+        "sourceURL": null,
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-014"
+    },
+    {
+      "id": "fluoride",
+      "limit": {
+        "kind": "maximum",
+        "value": 4.0
+      },
+      "source": {
+        "sourceName": "EPA MCL",
+        "sourceURL": null,
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-016"
+    },
+    {
+      "id": "totalColiform",
+      "limit": {
+        "kind": "mustBeAbsent"
+      },
+      "source": {
+        "sourceName": "EPA",
+        "sourceURL": null,
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-018"
+    },
+    {
+      "id": "eColi",
+      "limit": {
+        "kind": "mustBeAbsent"
+      },
+      "source": {
+        "sourceName": "EPA MCL",
+        "sourceURL": null,
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-020"
+    },
+    {
+      "id": "pH",
+      "limit": {
+        "kind": "range",
+        "low": 6.5,
+        "high": 8.5
+      },
+      "source": {
+        "sourceName": "EPA secondary standard",
+        "sourceURL": null,
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-021"
+    },
+    {
+      "id": "hardness",
+      "limit": {
+        "kind": "none"
+      },
+      "source": {
+        "sourceName": "No limit (USGS hardness scale)",
+        "sourceURL": null,
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-022"
+    },
+    {
+      "id": "radon",
+      "limit": {
+        "kind": "maximum",
+        "value": 4000.0
+      },
+      "source": {
+        "sourceName": "EPA proposed alternative limit (not final)",
+        "sourceURL": null,
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-024"
+    },
+    {
+      "id": "pfoa",
+      "limit": {
+        "kind": "maximum",
+        "value": 4.0
+      },
+      "source": {
+        "sourceName": "EPA MCL (2024 PFAS rule)",
+        "sourceURL": "https://www.epa.gov/sdwa/and-polyfluoroalkyl-substances-pfas",
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-025"
+    },
+    {
+      "id": "pfos",
+      "limit": {
+        "kind": "maximum",
+        "value": 4.0
+      },
+      "source": {
+        "sourceName": "EPA MCL (2024 PFAS rule)",
+        "sourceURL": "https://www.epa.gov/sdwa/and-polyfluoroalkyl-substances-pfas",
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-026"
+    },
+    {
+      "id": "genx",
+      "limit": {
+        "kind": "maximum",
+        "value": 10.0
+      },
+      "source": {
+        "sourceName": "EPA MCL (2024 PFAS rule)",
+        "sourceURL": "https://www.epa.gov/sdwa/and-polyfluoroalkyl-substances-pfas",
+        "lastVerified": null,
+        "needsVerification": true
+      },
+      "register": "vr-027"
+    }
+  ]
+}

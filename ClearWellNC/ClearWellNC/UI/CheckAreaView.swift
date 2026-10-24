@@ -33,7 +33,11 @@ struct CheckAreaView: View {
                 case .failed(let message):
                     errorCard(message)
                 case .loaded(let db):
-                    searchCard
+                    if settings.isOptedIn(.addressLookup) {
+                        searchCard
+                    } else {
+                        OptInCard(feature: .addressLookup)
+                    }
                     AreaMapSection(database: db,
                                    contaminant: $mapContaminant,
                                    selection: $mapSelection,
