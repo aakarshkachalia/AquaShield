@@ -40,7 +40,7 @@ struct LearnView: View {
                     badgeStrip
                     WellCareSummaryCard(context: context)
 
-                    SectionHeader(title: "About ClearWell")
+                    SectionHeader(title: "About \(AppName.display)")
                     NavigationLink {
                         HowItWorksView()
                     } label: {
@@ -103,24 +103,15 @@ struct LearnArticleView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.l) {
+                hero
                 limitsCard
-                section("Where it comes from in NC wells", systemImage: "map", text: article.whereFrom)
-                VStack(alignment: .leading, spacing: Spacing.m) {
-                    sectionTitle("Health effects", systemImage: "heart.text.square")
-                    labeled("Short term", article.shortTerm)
-                    labeled("Long term", article.longTerm)
-                }
-                .card()
-                section("Who is most at risk", systemImage: "person.2", text: article.mostAtRisk)
-                Label {
-                    Text(LearnArticle.symptomsNote)
-                } icon: {
-                    Image(systemName: "eye.slash").foregroundStyle(.tint)
-                }
-                .font(.subheadline.weight(.semibold))
-                .card()
+                keyPoint("map", String(localized: "Where it comes from"), article.whereFrom)
+                keyPoint("heart.text.square", String(localized: "Short-term health effects"), article.shortTerm)
+                keyPoint("heart.text.square.fill", String(localized: "Long-term health effects"), article.longTerm)
+                keyPoint("person.2", String(localized: "Who is most at risk"), article.mostAtRisk)
+                DS.InfoCard(systemImage: "eye.slash", title: LearnArticle.symptomsNote)
                 treatments
-                section("When to retest", systemImage: "calendar", text: article.retest)
+                keyPoint("calendar", String(localized: "When to retest"), article.retest)
                 sources
                 QuizView(questions: article.quiz, quizID: article.id)
                 Text(LearnArticle.footer)
@@ -132,6 +123,24 @@ struct LearnArticleView: View {
         .background(Color.appBackground)
         .navigationTitle(article.title)
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    /// Leads with the answer: what it is, in one or two sentences.
+    private var hero: some View {
+        HStack(alignment: .top, spacing: Spacing.m) {
+            DS.IconBadge(systemImage: article.contaminants.first.map(DS.Icon.contaminant) ?? article.symbol)
+            Text(article.contaminants.first?.info.plainSummary ?? "")
+                .font(DS.Typography.body)
+                .foregroundStyle(DS.Colors.textPrimary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
+    /// First sentence on the card; the rest behind "Learn why".
+    private func keyPoint(_ symbol: String, _ title: String, _ text: String) -> some View {
+        let first = QuestText.firstSentences(text, max: 1)
+        let rest = text.hasPrefix(first) ? text.dropFirst(first.count).trimmingCharacters(in: .whitespaces) : ""
+        return DS.InfoCard(systemImage: symbol, title: title, message: first, learnMore: rest.isEmpty ? nil : rest)
     }
 
     private var limitsCard: some View {
@@ -213,12 +222,26 @@ struct LearnArticleView: View {
     }
 }
 
-/// 3-question quiz scored on the device. Shows right/wrong with icon + text and the explanation.
+/// A Learn quiz in progress: answers plus the question on screen. Step `questions.count` is the score.
+nonisolated struct QuizDraft: Codable, Sendable, Equatable {
+    var answers: [String: Int] = [:]
+    var flow = StepFlow(root: 0)
+
+    static func key(quizID: String) -> DraftKey<QuizDraft> { DraftKey(name: "quiz.\(quizID)", schemaVersion: 1) }
+}
+
+/// Quiz scored on the device, one question at a time with Back and progress. Shows right/wrong with
+/// icon + text and the explanation. Answers are saved as you go.
 struct QuizView: View {
     let questions: [QuizQuestion]
-    /// Counts toward the Learner badge once every question is answered.
+    /// Counts toward the Learner badge once every question is answered. Also keys the saved answers.
     var quizID: String?
-    @State private var answers: [String: Int] = [:]
+    @Environment(AppSettings.self) private var settings
+    @State private var draft = QuizDraft()
+    @State private var loaded = false
+
+    private var answers: [String: Int] { draft.answers }
+    private var order: [Int] { Array(0...questions.count) }
 
     private var correctCount: Int {
         questions.filter { answers[$0.id] == $0.correctIndex }.count
@@ -229,23 +252,56 @@ struct QuizView: View {
             Label("Quick quiz", systemImage: "questionmark.circle")
                 .font(.headline)
                 .accessibilityAddTraits(.isHeader)
-            ForEach(Array(questions.enumerated()), id: \.element.id) { index, question in
-                questionView(index: index, question: question)
+            let step = draft.flow.current
+            if questions.indices.contains(step) {
+                StepProgressBar(progress: StepProgress(position: step + 1, total: questions.count,
+                                                       label: String(localized: "Question \(step + 1) of \(questions.count)")))
+                questionView(index: step, question: questions[step])
+            } else {
+                Text("You got \(correctCount) of \(questions.count) right.")
+                    .font(.headline)
             }
-            if answers.count == questions.count {
-                HStack {
-                    Text("You got \(correctCount) of \(questions.count) right.")
-                        .font(.headline)
-                    Spacer()
-                    Button("Try again") { answers.removeAll() }
-                        .frame(minHeight: 44)
+            HStack(spacing: Spacing.m) {
+                if draft.flow.canGoBack {
+                    SecondaryButton(title: "Back", systemImage: "chevron.left") { draft.flow.back() }
                 }
-                .accessibilityElement(children: .combine)
+                if questions.indices.contains(step) {
+                    if answers[questions[step].id] != nil {
+                        PrimaryButton(title: step + 1 == questions.count ? "See my score" : "Next") {
+                            draft.flow.advance(in: order)
+                        }
+                    }
+                } else {
+                    PrimaryButton(title: "Try again", systemImage: "arrow.counterclockwise") {
+                        draft = QuizDraft()
+                    }
+                }
             }
         }
         .card()
+        .onAppear(perform: load)
+        .onChange(of: draft) { _, newValue in
+            guard loaded, let quizID else { return }
+            if newValue == QuizDraft() {
+                settings.drafts.discard(QuizDraft.key(quizID: quizID))
+            } else {
+                settings.drafts.save(newValue, for: QuizDraft.key(quizID: quizID))
+            }
+        }
         .onChange(of: answers.count) { _, count in
             if count == questions.count, let quizID { WellCareStore.recordLearnQuiz(quizID) }
+        }
+    }
+
+    /// Picks up where the reader left off. Inline in an article, so there is no separate prompt.
+    private func load() {
+        guard !loaded else { return }
+        loaded = true
+        guard let quizID else { return }
+        if let saved = settings.drafts.load(QuizDraft.key(quizID: quizID)), saved.payload.flow.isValid(in: order) {
+            draft = saved.payload
+        } else {
+            settings.drafts.discard(QuizDraft.key(quizID: quizID))
         }
     }
 
@@ -256,7 +312,7 @@ struct QuizView: View {
                 .font(.body.weight(.semibold))
             ForEach(Array(question.options.enumerated()), id: \.offset) { optionIndex, option in
                 Button {
-                    if chosen == nil { answers[question.id] = optionIndex }
+                    if chosen == nil { draft.answers[question.id] = optionIndex }
                 } label: {
                     HStack {
                         Text(option).multilineTextAlignment(.leading)

@@ -14,8 +14,13 @@ struct ClearWellNCApp: App {
     @State private var alertsStore = WeatherAlertsStore()
     @State private var wellCareStore = WellCareStore()
     @State private var router = AppRouter()
-    @State private var settings = AppSettings()
+    @State private var settings: AppSettings
     @State private var demoStores = DemoStores()
+
+    init() {
+        UITestSupport.applyLaunchArguments()
+        _settings = State(initialValue: AppSettings())
+    }
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
@@ -43,6 +48,9 @@ struct ClearWellNCApp: App {
                 .environment(tractStore)
                 .environment(alertsStore)
                 .environment(wellCareStore)
+                // Every step flow (onboarding, Risk Check, lab entry, scanning) uses the design system look.
+                .stepFlowStyle(ClearWellStepFlowStyle())
+                .preferredColorScheme(UITestSupport.forcedColorScheme)
                 // Parse the bundled tract data once at launch, off the main thread.
                 .task { await tractStore.load() }
         }

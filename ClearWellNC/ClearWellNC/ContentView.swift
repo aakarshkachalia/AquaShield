@@ -36,6 +36,7 @@ struct ContentView: View {
 /// Exactly four tabs, in priority order.
 struct RootTabView: View {
     @Environment(AppRouter.self) private var router
+    @Environment(AppSettings.self) private var settings
     @Environment(\.modelContext) private var modelContext
     @Environment(WeatherAlertsStore.self) private var alertsStore
     @Query(sort: \SavedWell.savedAt, order: .reverse) private var savedWells: [SavedWell]
@@ -49,9 +50,9 @@ struct RootTabView: View {
         @Bindable var router = router
         TabView(selection: $router.selectedTab) {
             Tab("Home", systemImage: "house.fill", value: AppTab.home) {
-                HomeView()
+                DashboardView()
             }
-            .badge(alertsStore.relevantAlerts.count)
+            .badge(settings.isOptedIn(.stormAlerts) ? alertsStore.relevantAlerts.count : 0)
             Tab("My Water", systemImage: "drop.fill", value: AppTab.myWater) {
                 MyWaterView()
             }
@@ -65,9 +66,10 @@ struct RootTabView: View {
         // Keep scheduled notifications in step with stored data on every launch.
         .task { await ReminderSync.refresh(using: modelContext) }
         // Check NWS alerts for the saved well on launch and whenever it changes.
-        .task(id: wellKey) {
-            if let well = savedWells.first {
-                await alertsStore.refresh(latitude: well.latitude, longitude: well.longitude)
+        .task(id: "\(wellKey ?? "")|\(settings.isOptedIn(.stormAlerts))") {
+            if let well = savedWells.first, settings.isOptedIn(.stormAlerts) {
+                await alertsStore.refresh(latitude: NetworkFeature.coarse(well.latitude),
+                                          longitude: NetworkFeature.coarse(well.longitude))
             } else {
                 alertsStore.clear()
             }
@@ -99,11 +101,18 @@ final class DemoStores {
 private struct DemoBannerModifier: ViewModifier {
     @Environment(AppSettings.self) private var settings
 
+    /// Stacked above the content (not a safe-area inset): navigation bars and their toolbar buttons then
+    /// start below the banner instead of drawing over it.
     func body(content: Content) -> some View {
-        content.safeAreaInset(edge: .top, spacing: 0) {
+        VStack(spacing: 0) {
             if settings.demoEnabled {
                 SampleDataBanner(text: "Sample data · Demo Mode")
+                    .background(DS.Colors.background)
+                    // Tint the status bar area too, so the banner reads as one strip.
+                    .background(Color.statusWatch.opacity(0.18).ignoresSafeArea(edges: .top))
+                    .background(DS.Colors.background.ignoresSafeArea(edges: .top))
             }
+            content
         }
     }
 }

@@ -1,0 +1,572 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "vr-001",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA MCL 0.010 mg/L (10 ppb), 40 CFR 141.62. NC 15A NCAC 02L groundwater standard is also 10 µg/L.",
+      "sourceName": "EPA / NC",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-002",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA / CDC list pregnancy and early childhood as sensitive periods for arsenic exposure.",
+      "sourceName": "EPA / CDC",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-003",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA Lead and Copper Rule action level 0.015 mg/L (15 ppb); MCLG is zero (no known safe level). EPA's 2024 Lead and Copper Rule Improvements lower the action level to 10 ppb (compliance ~2027).",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-004",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA / CDC: infants, children and pregnancy are most at risk from lead.",
+      "sourceName": "EPA / CDC",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-005",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA MCL 10 mg/L as nitrogen (40 CFR 141.62). NC 02L standard is also 10 mg/L.",
+      "sourceName": "EPA / NC",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-006",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA / CDC: infants under 6 months are most at risk (methemoglobinemia); pregnancy also listed by CDC.",
+      "sourceName": "EPA / CDC",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-007",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "USGS / NC DEQ: fertilizer application and recharge from rain can raise shallow-groundwater nitrate in spring.",
+      "sourceName": "USGS / NC DEQ",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-008",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA MCL 1 mg/L as nitrogen (40 CFR 141.62).",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-009",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "same sensitive groups as nitrate (EPA / CDC).",
+      "sourceName": "EPA / CDC",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-010",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA MCL 30 µg/L (ppb), Radionuclides Rule (40 CFR 141.66).",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-011",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA secondary standard (SMCL) 0.05 mg/L (50 ppb), aesthetic. NC 02L groundwater standard is also 50 µg/L.",
+      "sourceName": "EPA / NC",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-012",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA lifetime health advisory 0.3 mg/L (300 ppb); EPA advises applying it to infants under 6 months.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-013",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA secondary standard (SMCL) 0.3 mg/L (300 ppb), aesthetic only.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-014",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA Lead and Copper Rule action level 1.3 mg/L (MCLG 1.3 mg/L). EPA SMCL is 1.0 mg/L (taste/staining).",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-015",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA lists infants and people with Wilson's disease as more sensitive to copper.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-016",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA MCL 4.0 mg/L (bone effects); EPA SMCL 2.0 mg/L (dental fluorosis in children).",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-017",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA: children under 9 are at risk of dental fluorosis above 2 mg/L.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-018",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA Revised Total Coliform Rule: presence triggers corrective action; private wells should test absent.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-019",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "CDC: infants, older adults and people with weakened immune systems are most at risk from waterborne germs.",
+      "sourceName": "CDC",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-020",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA MCL for E. coli: any confirmed presence is a violation (40 CFR 141.63).",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-021",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA secondary standard 6.5–8.5, aesthetic.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-022",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "no EPA or NC limit. Bands from USGS water-hardness classification (mg/L as CaCO₃).",
+      "sourceName": "EPA / NC / USGS",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-023",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "USGS: 0–60 soft, 61–120 moderately hard, 121–180 hard, >180 very hard.",
+      "sourceName": "USGS",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-024",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "there is NO final federal limit. EPA's 1999 proposal: MCL 300 pCi/L, or an alternative MCL of 4,000 pCi/L where a state runs an indoor-air radon program. NC has no private-well radon standard.",
+      "sourceName": "EPA / NC",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-025",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA PFAS National Primary Drinking Water Regulation (April 2024): PFOA MCL 4.0 ppt (ng/L). In 2025 EPA said it would keep the PFOA/PFOS MCLs but extend compliance to 2031.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-026",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA 2024 PFAS rule: PFOS MCL 4.0 ppt.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-027",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA 2024 PFAS rule: HFPO-DA (GenX) MCL 10 ppt. In 2025 EPA announced it intends to rescind and reconsider this limit; NC DEQ PFAS programs may use a different threshold.",
+      "sourceName": "EPA / NC DEQ",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-028",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "EPA lists pregnancy, infants and children as sensitive to PFAS exposure.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-029",
+      "file": "Data/Interpretation/ContaminantInfo.swift",
+      "note": "all URLs below were current to the best of our knowledge; confirm before release.",
+      "sourceName": "",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-030",
+      "file": "Data/Interpretation/WellHealthScore.swift",
+      "note": "chosen from NC DHHS new-well testing guidance (bacteria, nitrate/nitrite, arsenic, lead, manganese, pH among others). Confirm the list matches current NC DHHS recommendations.",
+      "sourceName": "NC DHHS",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-031",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "NC DHHS / USGS: arsenic in NC wells is linked to Carolina Slate Belt bedrock in the central Piedmont.",
+      "sourceName": "NC DHHS / USGS",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-032",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA arsenic fact sheet; very high doses cause stomach upset, rarely seen from wells.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-033",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA: long-term exposure linked to skin changes and cancers of the skin, bladder and lung, and heart disease.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-034",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA / NSF: RO removal is high for arsenic(V); arsenic(III) may need pre-oxidation.",
+      "sourceName": "EPA / NSF",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-035",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA arsenic treatment technologies: iron-based adsorptive media.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-036",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA: anion exchange effective for arsenic(V) only.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-037",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA basic information about lead in drinking water.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-038",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "NSF/ANSI 53 certification claims for lead reduction.",
+      "sourceName": "NSF",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-039",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA / CDC: methemoglobinemia (\"blue baby syndrome\") in infants under 6 months.",
+      "sourceName": "EPA / CDC",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-040",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "NSF/ANSI 58 nitrate reduction claims; EPA private well guidance.",
+      "sourceName": "NSF / EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-041",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "NC DHHS / USGS: uranium in NC wells associated with granitic bedrock in the Piedmont and mountains.",
+      "sourceName": "NC DHHS / USGS",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-042",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA Radionuclides Rule basis: kidney toxicity and increased cancer risk.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-043",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA small-system compliance technology list for uranium.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-044",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA manganese health advisory (0.3 mg/L) and infant guidance.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-045",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "manufacturer / extension service guidance for greensand and softeners.",
+      "sourceName": "",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-046",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA copper: short-term gastrointestinal distress; long-term liver/kidney damage; Wilson's disease.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-047",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA fluoride MCL 4.0 mg/L (skeletal fluorosis) and SMCL 2.0 mg/L (dental fluorosis).",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-048",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "CDC: diarrhea, cramps, nausea, vomiting from waterborne pathogens.",
+      "sourceName": "CDC",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-049",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "NC DHHS shock chlorination guidance.",
+      "sourceName": "NC DHHS",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-050",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA / NSF/ANSI 55 Class A UV systems.",
+      "sourceName": "EPA / NSF",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-051",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "NC groundwater, especially Piedmont/mountain wells, is often slightly acidic (USGS / NC DEQ).",
+      "sourceName": "USGS / NC DEQ",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-052",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "USGS: harder groundwater is more common in limestone areas of the NC Coastal Plain.",
+      "sourceName": "USGS / NC",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-053",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "NC DEQ: PFAS including GenX from the Chemours Fayetteville Works plant has been found in private wells in the lower Cape Fear area; PFAS also come from firefighting foam, landfills and some biosolids.",
+      "sourceName": "NC DEQ",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-054",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA PFAS rule health basis: some cancers, liver, immune and developmental effects, and cholesterol changes.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-055",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA / NSF: RO (NSF/ANSI 58) and certified carbon (NSF/ANSI 53) filters reduce PFOA/PFOS.",
+      "sourceName": "EPA / NSF",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-056",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA radon: main risk is lung cancer from inhaling radon released from water; small stomach-cancer risk from drinking.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-057",
+      "file": "Data/Learn/LearnContent.swift",
+      "note": "EPA: aeration removes up to ~99%; GAC is effective but the filter can become radioactive.",
+      "sourceName": "EPA",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-058",
+      "file": "Help/StormModeView.swift",
+      "note": "steps follow CDC / NC DHHS private-well guidance after flooding.",
+      "sourceName": "CDC / NC DHHS",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-059",
+      "file": "Quest/Logic/QuestEngine.swift",
+      "note": "facts are reused from LearnContent / ContaminantInfo, which carry their own VERIFY notes. / Alternates \"where it comes from\" and \"who is most at risk\" from the Learn article, falling back / to the contaminant's summary. Short: at most two sentences.",
+      "sourceName": "",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-060",
+      "file": "Quest/Logic/WellCareProgress.swift",
+      "note": "\"usually highest\" comes from the county forecast. The bundled county_trends.csv is placeholder sample data, so the card shows a \"Sample data\" label until real aggregates replace it.",
+      "sourceName": "",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-061",
+      "file": "Quest/UI/QuestSafetyAlertView.swift",
+      "note": "CDC / NC DHHS guidance after a positive E. coli test: use bottled (or boiled) water for drinking, cooking and brushing teeth until the well is disinfected and retested.",
+      "sourceName": "CDC / NC DHHS",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-062",
+      "file": "RiskCheck/RiskCheck.swift",
+      "note": "NC began requiring testing of newly constructed private wells in July 2008 (NC DHHS / 15A NCAC 18A).",
+      "sourceName": "NC DHHS",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    },
+    {
+      "id": "vr-063",
+      "file": "RiskCheck/RiskCheck.swift",
+      "note": "PFAS from the Chemours Fayetteville Works plant has been found in private wells in the lower Cape Fear area.",
+      "sourceName": "",
+      "sourceURL": null,
+      "lastVerified": null,
+      "needsVerification": true
+    }
+  ]
+}

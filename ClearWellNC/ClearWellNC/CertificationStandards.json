@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "standards": [
+    {
+      "id": "nsf42",
+      "allowedTargets": [
+        "freeChlorine",
+        "chloramine",
+        "iron",
+        "manganese"
+      ],
+      "source": {
+        "sourceName": "NSF drinking water treatment standards",
+        "sourceURL": "https://www.nsf.org/consumer-resources/articles/standards-water-treatment-systems",
+        "lastVerified": null,
+        "needsVerification": true
+      }
+    },
+    {
+      "id": "nsf53",
+      "allowedTargets": [
+        "lead",
+        "arsenic",
+        "copper",
+        "uranium",
+        "pfoa",
+        "pfos",
+        "genx",
+        "tthm",
+        "vocs",
+        "cysts",
+        "radon"
+      ],
+      "source": {
+        "sourceName": "NSF drinking water treatment standards",
+        "sourceURL": "https://www.nsf.org/consumer-resources/articles/standards-water-treatment-systems",
+        "lastVerified": null,
+        "needsVerification": true
+      }
+    },
+    {
+      "id": "nsf55",
+      "allowedTargets": [
+        "bacteria",
+        "viruses",
+        "cysts"
+      ],
+      "source": {
+        "sourceName": "NSF drinking water treatment standards",
+        "sourceURL": "https://www.nsf.org/consumer-resources/articles/standards-water-treatment-systems",
+        "lastVerified": null,
+        "needsVerification": true
+      }
+    },
+    {
+      "id": "nsf58",
+      "allowedTargets": [
+        "arsenic",
+        "nitrate",
+        "nitrite",
+        "fluoride",
+        "lead",
+        "copper",
+        "uranium",
+        "pfoa",
+        "pfos",
+        "genx",
+        "cysts"
+      ],
+      "source": {
+        "sourceName": "NSF drinking water treatment standards",
+        "sourceURL": "https://www.nsf.org/consumer-resources/articles/standards-water-treatment-systems",
+        "lastVerified": null,
+        "needsVerification": true
+      }
+    },
+    {
+      "id": "nsf62",
+      "allowedTargets": [
+        "arsenic",
+        "nitrate",
+        "nitrite",
+        "fluoride",
+        "lead",
+        "copper",
+        "uranium",
+        "bacteria",
+        "cysts"
+      ],
+      "source": {
+        "sourceName": "NSF drinking water treatment standards",
+        "sourceURL": "https://www.nsf.org/consumer-resources/articles/standards-water-treatment-systems",
+        "lastVerified": null,
+        "needsVerification": true
+      }
+    },
+    {
+      "id": "nsf177",
+      "allowedTargets": [
+        "freeChlorine"
+      ],
+      "source": {
+        "sourceName": "NSF drinking water treatment standards",
+        "sourceURL": "https://www.nsf.org/consumer-resources/articles/standards-water-treatment-systems",
+        "lastVerified": null,
+        "needsVerification": true
+      }
+    },
+    {
+      "id": "nsf401",
+      "allowedTargets": [],
+      "source": {
+        "sourceName": "NSF drinking water treatment standards",
+        "sourceURL": "https://www.nsf.org/consumer-resources/articles/standards-water-treatment-systems",
+        "lastVerified": null,
+        "needsVerification": true
+      }
+    },
+    {
+      "id": "nsf44",
+      "allowedTargets": [
+        "hardness"
+      ],
+      "source": {
+        "sourceName": "NSF drinking water treatment standards",
+        "sourceURL": "https://www.nsf.org/consumer-resources/articles/standards-water-treatment-systems",
+        "lastVerified": null,
+        "needsVerification": true
+      }
+    },
+    {
+      "id": "nsf244",
+      "allowedTargets": [
+        "bacteria",
+        "viruses",
+        "cysts"
+      ],
+      "source": {
+        "sourceName": "NSF drinking water treatment standards",
+        "sourceURL": "https://www.nsf.org/consumer-resources/articles/standards-water-treatment-systems",
+        "lastVerified": null,
+        "needsVerification": true
+      }
+    },
+    {
+      "id": "p231",
+      "allowedTargets": [
+        "bacteria",
+        "viruses",
+        "cysts"
+      ],
+      "source": {
+        "sourceName": "NSF drinking water treatment standards",
+        "sourceURL": "https://www.nsf.org/consumer-resources/articles/standards-water-treatment-systems",
+        "lastVerified": null,
+        "needsVerification": true
+      }
+    }
+  ]
+}

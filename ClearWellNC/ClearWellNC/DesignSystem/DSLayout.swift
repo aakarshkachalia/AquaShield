@@ -17,11 +17,12 @@ enum Spacing {
     static let xxl: CGFloat = 32
 }
 
+/// Older names, now pointing at the v2 tokens so every screen shares one look.
 enum Radius {
     /// Cards, banners, buttons.
-    static let card: CGFloat = 12
+    static let card: CGFloat = DS.Corner.large
     /// Chips and rows inside a card.
-    static let chip: CGFloat = 8
+    static let chip: CGFloat = DS.Corner.small
     /// Older name for rows inside a card.
     static let inner: CGFloat = chip
 }
@@ -31,23 +32,9 @@ enum TapTarget {
     static let minimum: CGFloat = 44
 }
 
-private struct CardModifier: ViewModifier {
-    @Environment(\.colorScheme) private var colorScheme
-
-    func body(content: Content) -> some View {
-        let shape = RoundedRectangle(cornerRadius: Radius.card, style: .continuous)
-        content
-            .padding(Spacing.l)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.surface, in: shape)
-            .overlay(shape.strokeBorder(Color.cardBorder))
-            .shadow(color: .black.opacity(colorScheme == .dark ? 0 : 0.04), radius: Spacing.s, y: 2)
-    }
-}
-
 extension View {
-    /// The standard card surface.
-    func card() -> some View { modifier(CardModifier()) }
+    /// The standard card surface (same as `dsCard()`).
+    func card() -> some View { dsCard() }
 
     /// Keeps reading width comfortable on iPad while filling the screen on iPhone.
     func readableWidth() -> some View {
@@ -56,7 +43,6 @@ extension View {
 
     /// Standard scrolling screen body: padded, readable width, app background.
     func screenContainer() -> some View {
-        padding(Spacing.l)
-            .readableWidth()
+        dsScreen()
     }
 }

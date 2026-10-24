@@ -61,6 +61,44 @@ nonisolated struct RiskCheckAnswers: Codable, Sendable, Equatable {
     static let storageKey = "riskCheckAnswers"
 }
 
+// MARK: - Flow
+
+nonisolated enum RiskCheckStep: String, Codable, Hashable, Sendable, CaseIterable {
+    case county, wellAge, pregnancy, flooding, nearbySources, lastTest, noticedChanges, results
+
+    static let questions = allCases.filter { $0 != .results }
+}
+
+/// In-progress Risk Check: answers plus where the user is. Saved on every answer.
+nonisolated struct RiskCheckDraft: Codable, Sendable, Equatable {
+    var answers: RiskCheckAnswers
+    var flow = StepFlow(root: RiskCheckStep.county)
+
+    static let key = DraftKey<RiskCheckDraft>(name: "riskCheck", schemaVersion: 1)
+
+    init(answers: RiskCheckAnswers = RiskCheckAnswers()) {
+        self.answers = answers
+    }
+
+    /// Whether the current question has an answer (so Next can skip re-tapping it).
+    func isAnswered(_ step: RiskCheckStep) -> Bool {
+        switch step {
+        case .county, .results: true
+        case .wellAge: answers.wellAge != nil
+        case .pregnancy: answers.pregnantOrInfant != nil
+        case .flooding: answers.flooding != nil
+        case .nearbySources: answers.nearbySources != nil
+        case .lastTest: answers.lastTest != nil
+        case .noticedChanges: answers.noticedChanges != nil
+        }
+    }
+
+    /// A restored draft is only usable if its steps still exist and it isn't already finished.
+    var isResumable: Bool {
+        flow.isValid(in: RiskCheckStep.allCases) && flow.current != .results
+    }
+}
+
 // MARK: - Output
 
 nonisolated enum RecommendedTestID: String, Sendable, CaseIterable {
@@ -157,7 +195,7 @@ nonisolated enum RiskCheckEngine {
             add(.nitrate, 7, String(localized: "Farm fields, livestock and septic systems can raise nitrate."))
             add(.bacteria, 7, String(localized: "Septic systems and livestock can let germs reach a well."))
         }
-        // VERIFY: NC began requiring testing of newly constructed private wells in July 2008 (NC DHHS / 15A NCAC 18A).
+        // SOURCE vr-062 (needs verification, see VerificationRegister.json): NC began requiring testing of newly constructed private wells in July 2008 (NC DHHS / 15A NCAC 18A).
         if answers.wellAge == .before2008 || answers.wellAge == .unknown {
             let text = String(localized: "Wells drilled before 2008 weren't required to be tested when built, so a full panel is a good start.")
             add(.lead, 5, text)
@@ -194,7 +232,7 @@ nonisolated enum RiskCheckEngine {
                 }
             }
         }
-        // VERIFY: PFAS from the Chemours Fayetteville Works plant has been found in private wells in the lower Cape Fear area.
+        // SOURCE vr-063 (needs verification, see VerificationRegister.json): PFAS from the Chemours Fayetteville Works plant has been found in private wells in the lower Cape Fear area.
         if let county, pfasCounties.contains(county) {
             add(.pfas, 10, String(localized: "\(county) County is in the lower Cape Fear area, where PFAS from industry has been found in wells. Free testing may be available."))
         }

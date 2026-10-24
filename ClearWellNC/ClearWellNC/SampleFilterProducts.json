@@ -1,0 +1,339 @@
+{
+  "version": 1,
+  "products": [
+    {
+      "id": "sample-pitcher-a",
+      "brand": "Sample",
+      "model": "Pitcher A",
+      "type": "pitcher",
+      "claims": [
+        {
+          "id": "sample-pitcher-a-chlorine",
+          "standard": "nsf42",
+          "certifier": "nsf",
+          "target": "freeChlorine",
+          "reductionPercent": 97,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          },
+          "influentChallengeConcentration": 2.0
+        },
+        {
+          "id": "sample-pitcher-a-lead",
+          "standard": "nsf53",
+          "certifier": "nsf",
+          "target": "lead",
+          "reductionPercent": 99,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          },
+          "influentChallengeConcentration": 150
+        }
+      ],
+      "isUserEntered": false,
+      "source": {
+        "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+        "needsVerification": true
+      },
+      "ratedCapacityGallons": 40,
+      "ratedLifeMonths": 2,
+      "priceUSD": 30,
+      "annualCostUSD": 90
+    },
+    {
+      "id": "sample-faucet-b",
+      "brand": "Sample",
+      "model": "Faucet B",
+      "type": "faucet",
+      "claims": [
+        {
+          "id": "sample-faucet-b-lead",
+          "standard": "nsf53",
+          "certifier": "wqa",
+          "target": "lead",
+          "reductionPercent": 99,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          },
+          "influentChallengeConcentration": 150
+        },
+        {
+          "id": "sample-faucet-b-pfoa",
+          "standard": "nsf53",
+          "certifier": "wqa",
+          "target": "pfoa",
+          "reductionPercent": 96,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          },
+          "influentChallengeConcentration": 1000
+        },
+        {
+          "id": "sample-faucet-b-pfos",
+          "standard": "nsf53",
+          "certifier": "wqa",
+          "target": "pfos",
+          "reductionPercent": 96,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          },
+          "influentChallengeConcentration": 1000
+        }
+      ],
+      "isUserEntered": false,
+      "source": {
+        "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+        "needsVerification": true
+      },
+      "ratedCapacityGallons": 100,
+      "ratedLifeMonths": 3,
+      "priceUSD": 40,
+      "annualCostUSD": 80
+    },
+    {
+      "id": "sample-undersink-c",
+      "brand": "Sample",
+      "model": "Under-Sink C",
+      "type": "underSinkCarbon",
+      "claims": [
+        {
+          "id": "sample-undersink-c-lead",
+          "standard": "nsf53",
+          "certifier": "iapmo",
+          "target": "lead",
+          "reductionPercent": 99,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          },
+          "influentChallengeConcentration": 150
+        },
+        {
+          "id": "sample-undersink-c-tthm",
+          "standard": "nsf53",
+          "certifier": "iapmo",
+          "target": "tthm",
+          "reductionPercent": 95,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          },
+          "influentChallengeConcentration": 450
+        },
+        {
+          "id": "sample-undersink-c-chlorine",
+          "standard": "nsf42",
+          "certifier": "iapmo",
+          "target": "freeChlorine",
+          "reductionPercent": 97,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          },
+          "influentChallengeConcentration": 2.0
+        }
+      ],
+      "isUserEntered": false,
+      "source": {
+        "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+        "needsVerification": true
+      },
+      "ratedCapacityGallons": 750,
+      "ratedLifeMonths": 6,
+      "priceUSD": 150,
+      "annualCostUSD": 90
+    },
+    {
+      "id": "sample-ro-d",
+      "brand": "Sample",
+      "model": "RO System D",
+      "type": "reverseOsmosis",
+      "claims": [
+        {
+          "id": "sample-ro-d-arsenic",
+          "standard": "nsf58",
+          "certifier": "nsf",
+          "target": "arsenic",
+          "reductionPercent": 96,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          },
+          "influentChallengeConcentration": 300
+        },
+        {
+          "id": "sample-ro-d-nitrate",
+          "standard": "nsf58",
+          "certifier": "nsf",
+          "target": "nitrate",
+          "reductionPercent": 85,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          },
+          "influentChallengeConcentration": 30
+        },
+        {
+          "id": "sample-ro-d-lead",
+          "standard": "nsf58",
+          "certifier": "nsf",
+          "target": "lead",
+          "reductionPercent": 99,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          },
+          "influentChallengeConcentration": 150
+        },
+        {
+          "id": "sample-ro-d-pfoa",
+          "standard": "nsf58",
+          "certifier": "nsf",
+          "target": "pfoa",
+          "reductionPercent": 95,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          },
+          "influentChallengeConcentration": 1000
+        },
+        {
+          "id": "sample-ro-d-pfos",
+          "standard": "nsf58",
+          "certifier": "nsf",
+          "target": "pfos",
+          "reductionPercent": 95,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          },
+          "influentChallengeConcentration": 1000
+        },
+        {
+          "id": "sample-ro-d-uranium",
+          "standard": "nsf58",
+          "certifier": "nsf",
+          "target": "uranium",
+          "reductionPercent": 95,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          },
+          "influentChallengeConcentration": 150
+        }
+      ],
+      "isUserEntered": false,
+      "source": {
+        "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+        "needsVerification": true
+      },
+      "ratedLifeMonths": 24,
+      "priceUSD": 350,
+      "annualCostUSD": 120
+    },
+    {
+      "id": "sample-shower-e",
+      "brand": "Sample",
+      "model": "Shower E",
+      "type": "shower",
+      "claims": [
+        {
+          "id": "sample-shower-e-chlorine",
+          "standard": "nsf177",
+          "certifier": "nsf",
+          "target": "freeChlorine",
+          "reductionPercent": 50,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          },
+          "influentChallengeConcentration": 2.0
+        }
+      ],
+      "isUserEntered": false,
+      "source": {
+        "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+        "needsVerification": true
+      },
+      "ratedLifeMonths": 6,
+      "priceUSD": 35,
+      "annualCostUSD": 50
+    },
+    {
+      "id": "sample-uv-f",
+      "brand": "Sample",
+      "model": "UV System F",
+      "type": "uv",
+      "claims": [
+        {
+          "id": "sample-uv-f-bacteria",
+          "standard": "nsf55",
+          "certifier": "nsf",
+          "target": "bacteria",
+          "reductionPercent": 99.99,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          }
+        }
+      ],
+      "isUserEntered": false,
+      "source": {
+        "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+        "needsVerification": true
+      },
+      "ratedLifeMonths": 12,
+      "priceUSD": 600,
+      "annualCostUSD": 90
+    },
+    {
+      "id": "sample-wholehouse-g",
+      "brand": "Sample",
+      "model": "Whole House G",
+      "type": "wholeHouse",
+      "claims": [
+        {
+          "id": "sample-wholehouse-g-chlorine",
+          "standard": "nsf42",
+          "certifier": "csa",
+          "target": "freeChlorine",
+          "reductionPercent": 95,
+          "source": {
+            "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+            "needsVerification": true
+          },
+          "influentChallengeConcentration": 2.0
+        }
+      ],
+      "isUserEntered": false,
+      "source": {
+        "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+        "needsVerification": true
+      },
+      "ratedCapacityGallons": 100000,
+      "ratedLifeMonths": 12,
+      "priceUSD": 500,
+      "annualCostUSD": 150
+    },
+    {
+      "id": "sample-uncertified-h",
+      "brand": "Sample",
+      "model": "Uncertified Pitcher H",
+      "type": "pitcher",
+      "claims": [],
+      "isUserEntered": false,
+      "source": {
+        "sourceName": "Sample data — not a real product. Replace with a certifier listing.",
+        "needsVerification": true
+      },
+      "ratedLifeMonths": 2,
+      "priceUSD": 15,
+      "annualCostUSD": 60
+    }
+  ]
+}

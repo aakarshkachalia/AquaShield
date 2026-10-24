@@ -53,7 +53,7 @@ nonisolated enum WellHealthScore {
     }
 
     /// The core tests every NC well should have on file.
-    // VERIFY: chosen from NC DHHS new-well testing guidance (bacteria, nitrate/nitrite, arsenic, lead,
+    // SOURCE vr-030 (needs verification, see VerificationRegister.json): chosen from NC DHHS new-well testing guidance (bacteria, nitrate/nitrite, arsenic, lead,
     // manganese, pH among others). Confirm the list matches current NC DHHS recommendations.
     enum KeyTest: String, CaseIterable, Sendable {
         case bacteria, nitrate, arsenic, lead, manganese, pH
@@ -81,7 +81,7 @@ nonisolated enum WellHealthScore {
         }
     }
 
-    enum Band: Sendable {
+    enum Band: Sendable, Codable {
         case good, fair, poor, unsafe
 
         /// 80–100 Good, 60–79 Fair, 41–59 Poor, 0–40 Unsafe. The exceedance cap (40) always lands in Unsafe.

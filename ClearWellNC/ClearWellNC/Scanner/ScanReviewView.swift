@@ -2,39 +2,29 @@
 //  ScanReviewView.swift
 //  ClearWellNC
 //
-//  Required before saving: every parsed row, editable, with low-confidence rows flagged.
+//  Required before saving: every parsed row, editable, with low-confidence rows flagged. Save lives in
+//  the scanner flow's action bar.
 //
 
 import SwiftUI
 
 struct ScanReviewView: View {
+    /// Rows and details, owned by the scanner's draft so every edit is saved.
+    @Binding var draft: ScanReviewDraft
     let images: [UIImage]
-    let onSave: (LabResult) -> Void
 
-    @State private var rows: [ReviewRow]
-    @State private var date: Date
-    @State private var labName: String
     @State private var showingOriginal = false
-
-    init(result: LabReportParser.Result, images: [UIImage], onSave: @escaping (LabResult) -> Void) {
-        self.images = images
-        self.onSave = onSave
-        _rows = State(initialValue: result.rows.map(ReviewRow.init(parsed:)))
-        _date = State(initialValue: min(result.collectionDate ?? .now, .now))
-        _labName = State(initialValue: result.labName ?? "")
-    }
-
-    private var flaggedCount: Int { rows.filter(\.needsReview).count }
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.xl) {
                 summary
+                PrivacyNote()
 
                 VStack(alignment: .leading, spacing: Spacing.m) {
-                    DatePicker("Test date", selection: $date, in: ...Date.now, displayedComponents: .date)
+                    DatePicker("Test date", selection: $draft.date, in: ...Date.now, displayedComponents: .date)
                         .frame(minHeight: TapTarget.minimum)
-                    TextField("Lab name (optional)", text: $labName)
+                    TextField("Lab name (optional)", text: $draft.labName)
                         .frame(minHeight: TapTarget.minimum)
                 }
                 .card()
@@ -55,15 +45,13 @@ struct ScanReviewView: View {
                 }
 
                 SectionHeader(title: "Results we found")
-                ForEach($rows) { $row in
-                    ReviewRowEditor(row: $row) { rows.removeAll { $0.id == row.id } }
+                ForEach($draft.rows) { $row in
+                    ReviewRowEditor(row: $row) { draft.rows.removeAll { $0.id == row.id } }
                 }
                 SecondaryButton(title: "Add a result", systemImage: "plus") {
-                    rows.append(ReviewRow())
+                    draft.rows.append(ReviewRow())
                 }
 
-                PrimaryButton(title: "Save results", systemImage: "checkmark") { save() }
-                    .disabled(!rows.contains(where: \.isSavable))
                 DisclaimerFooter(showsLinks: false)
             }
             .screenContainer()
@@ -74,17 +62,14 @@ struct ScanReviewView: View {
     }
 
     private var summary: some View {
-        let found = rows.filter { $0.contaminant != nil }.count
+        let found = draft.rows.filter { $0.contaminant != nil }.count
+        let flaggedCount = draft.flaggedCount
         return InfoCard(style: flaggedCount > 0 ? .status(.watch) : .status(.safe),
                         systemImage: flaggedCount > 0 ? "exclamationmark.circle.fill" : "checkmark.circle.fill",
                         title: String(localized: "We read \(found) results"),
                         message: flaggedCount > 0
                             ? String(localized: "\(flaggedCount) need a quick check. Compare them with your report and fix anything we misread.")
                             : String(localized: "Compare them with your report before saving."))
-    }
-
-    private func save() {
-        onSave(ScanDraft.makeResult(rows: rows, date: date, labName: labName))
     }
 }
 
@@ -123,7 +108,7 @@ private struct ReviewRowEditor: View {
             if row.contaminant != nil {
                 ReviewValueEditor(row: $row)
             } else {
-                Text("ClearWell doesn't track this test, so it won't be saved. If we misread the name, choose the right test above.")
+                Text("\(AppName.display) doesn't track this test, so it won't be saved. If we misread the name, choose the right test above.")
                     .font(.subheadline)
                     .foregroundStyle(Color.textSecondary)
                     .fixedSize(horizontal: false, vertical: true)

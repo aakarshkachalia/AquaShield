@@ -142,7 +142,7 @@ nonisolated struct SeasonalChallenge: Sendable {
         String(localized: "\(seasonName) \(contaminant.info.name) Check")
     }
 
-    // VERIFY: "usually highest" comes from the county forecast. The bundled county_trends.csv is
+    // SOURCE vr-060 (needs verification, see VerificationRegister.json): "usually highest" comes from the county forecast. The bundled county_trends.csv is
     // placeholder sample data, so the card shows a "Sample data" label until real aggregates replace it.
     var detail: String {
         String(localized: "Test in \(monthRange), when \(contaminant.info.name.lowercased()) in \(county) County wells is usually highest, to earn the Seasonal Scout badge.")

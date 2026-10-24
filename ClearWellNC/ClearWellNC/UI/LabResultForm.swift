@@ -6,92 +6,123 @@
 import SwiftData
 import SwiftUI
 
-/// Add a new lab result, or edit an existing one.
+/// Add a new lab result, or edit an existing one, in four short steps. Everything typed is kept as a
+/// draft until Save, so closing or force-quitting loses nothing.
 struct LabResultForm: View {
     /// Nil to add a new result.
     let existing: LabResult?
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
-
-    @State private var date = Date.now
-    @State private var labName = ""
-    @State private var entries: [Analyte: Entry] = [:]
-    @State private var totalColiform: BacteriaResult?
-    @State private var eColi: BacteriaResult?
-    @State private var confirmingDelete = false
-    @State private var loaded = false
+    @Environment(AppSettings.self) private var settings
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    struct Entry {
-        var text = ""
-        var unit: ConcentrationUnit?
-    }
+    @State private var draft = LabEntryDraft()
+    @State private var pristine = LabEntryDraft()
+    @State private var resume: StepFlowResume?
+    @State private var confirmingDelete = false
+    @State private var loaded = false
+
+    private let order = LabEntryStep.allCases
+    private var draftKey: DraftKey<LabEntryDraft> { LabEntryDraft.key(editingCreatedAt: existing?.createdAt) }
 
     init(existing: LabResult? = nil) {
         self.existing = existing
     }
 
     var body: some View {
-        NavigationStack {
-            Form {
-                Section {
-                    DatePicker("Test date", selection: $date, in: ...Date.now, displayedComponents: .date)
-                    TextField("Lab name (optional)", text: $labName)
-                        .textContentType(.organizationName)
-                }
-
-                Section {
-                    ForEach(Analyte.allCases.filter(\.isCommon)) { analyte in
-                        analyteRow(analyte)
-                    }
-                } header: {
-                    Text("Common NC well tests")
-                } footer: {
-                    Text("Leave blank anything your lab didn't test. 1 mg/L = 1000 ppb.")
-                }
-
-                Section("Other tests") {
-                    ForEach(Analyte.allCases.filter { !$0.isCommon }) { analyte in
-                        analyteRow(analyte)
-                    }
-                }
-
-                Section("Bacteria") {
-                    bacteriaPicker("Total coliform", selection: $totalColiform)
-                    bacteriaPicker("E. coli", selection: $eColi)
-                }
-
-                if existing != nil {
-                    Section {
-                        Button("Delete this result", role: .destructive) { confirmingDelete = true }
-                            .frame(minHeight: 44)
-                    }
-                }
-            }
-            .navigationTitle(existing == nil ? "Add lab result" : "Edit lab result")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Save", action: save)
-                        .disabled(!canSave)
-                }
-            }
-            .confirmationDialog("Delete this lab result?", isPresented: $confirmingDelete, titleVisibility: .visible) {
-                Button("Delete", role: .destructive, action: delete)
-            }
-            .onAppear(perform: load)
+        StepFlowContainer(flow: $draft.flow, resume: resume,
+                          progress: { _ in draft.flow.progress(in: order) },
+                          primaryAction: primaryAction,
+                          onClose: { dismiss() }) { step in
+            Form { section(for: step) }
+                .navigationTitle(existing == nil ? "Add lab result" : "Edit lab result")
+                .navigationBarTitleDisplayMode(.inline)
         }
+        .confirmationDialog("Delete this lab result?", isPresented: $confirmingDelete, titleVisibility: .visible) {
+            Button("Delete", role: .destructive, action: delete)
+        }
+        .onAppear(perform: load)
+        .onChange(of: draft) { _, newValue in
+            guard loaded, newValue != pristine else { return }
+            settings.drafts.save(newValue, for: draftKey)
+        }
+    }
+
+    @ViewBuilder
+    private func section(for step: LabEntryStep) -> some View {
+        switch step {
+        case .details:
+            Section {
+                DatePicker("Test date", selection: $draft.date, in: ...Date.now, displayedComponents: .date)
+                TextField("Lab name (optional)", text: $draft.labName)
+                    .textContentType(.organizationName)
+                Picker("How was it tested?", selection: Binding(get: { draft.testMethod ?? .certifiedLab },
+                                                                set: { draft.testMethod = $0 })) {
+                    ForEach([TestMethod.certifiedLab, .homeKit, .unknown], id: \.self) { Text($0.label).tag($0) }
+                }
+            } header: {
+                Text("About the test")
+            } footer: {
+                VStack(alignment: .leading, spacing: Spacing.s) {
+                    Text("Home test kits and strips can show a problem, but can't clear lead, arsenic, PFAS, nitrate or uranium.")
+                    PrivacyNote()
+                }
+            }
+            if existing != nil {
+                Section {
+                    Button("Delete this result", role: .destructive) { confirmingDelete = true }
+                        .frame(minHeight: 44)
+                }
+            }
+        case .commonTests:
+            Section {
+                ForEach(Analyte.allCases.filter(\.isCommon)) { analyte in
+                    analyteRow(analyte)
+                }
+            } header: {
+                Text("Common NC well tests")
+            } footer: {
+                Text("Leave blank anything your lab didn't test. 1 mg/L = 1000 ppb.")
+            }
+        case .otherTests:
+            Section {
+                ForEach(Analyte.allCases.filter { !$0.isCommon }) { analyte in
+                    analyteRow(analyte)
+                }
+            } header: {
+                Text("Other tests")
+            } footer: {
+                Text("Leave blank anything your lab didn't test.")
+            }
+        case .bacteria:
+            Section("Bacteria") {
+                bacteriaPicker("Total coliform", selection: $draft.totalColiform)
+                bacteriaPicker("E. coli", selection: $draft.eColi)
+            }
+            if !draft.canSave {
+                Section {
+                    Text(draft.hasInvalidEntry ? "Fix the numbers marked in red before saving."
+                                               : "Enter at least one result to save.")
+                        .foregroundStyle(Color.textSecondary)
+                }
+            }
+        }
+    }
+
+    private func primaryAction(_ step: LabEntryStep) -> StepAction? {
+        if step == .bacteria {
+            return StepAction(title: "Save", systemImage: "checkmark", isEnabled: draft.canSave,
+                              identifier: "labEntry.save", action: save)
+        }
+        return StepAction(title: "Next", systemImage: "arrow.right") { draft.flow.advance(in: order) }
     }
 
     // MARK: Rows
 
     private func analyteRow(_ analyte: Analyte) -> some View {
-        let entry = entries[analyte] ?? Entry(unit: analyte.storedUnit)
-        let invalid = !entry.text.isEmpty && parse(entry.text) == nil
+        let entry = draft.entry(for: analyte)
+        let invalid = draft.isInvalid(analyte)
         // Stack name, field and unit vertically at accessibility text sizes so nothing truncates.
         let stacked = dynamicTypeSize.isAccessibilitySize
         let layout = stacked ? AnyLayout(VStackLayout(alignment: .leading, spacing: Spacing.s)) : AnyLayout(HStackLayout())
@@ -130,7 +161,7 @@ struct LabResultForm: View {
                     .foregroundStyle(RiskLevel.high.color)
             }
             // Live meaning of what was just typed.
-            if let value = storedValue(for: analyte) {
+            if let value = draft.storedValue(for: analyte) {
                 let interpretation = analyte.interpret(value)
                 HStack(spacing: Spacing.s) {
                     StatusChip(tier: interpretation.tier, label: interpretation.chipLabel)
@@ -152,75 +183,50 @@ struct LabResultForm: View {
         .frame(minHeight: 44)
     }
 
-    private func binding(for analyte: Analyte) -> Binding<Entry> {
+    private func binding(for analyte: Analyte) -> Binding<LabEntryDraft.Entry> {
         Binding {
-            entries[analyte] ?? Entry(unit: analyte.storedUnit)
+            draft.entry(for: analyte)
         } set: {
-            entries[analyte] = $0
+            draft.entries[analyte] = $0
         }
     }
 
-    // MARK: Parsing and saving
-
-    private func parse(_ text: String) -> Double? {
-        let trimmed = text.trimmingCharacters(in: .whitespaces)
-        guard !trimmed.isEmpty,
-              let value = try? FloatingPointFormatStyle<Double>(locale: .current).parseStrategy.parse(trimmed),
-              value >= 0, value.isFinite
-        else { return nil }
-        return value
-    }
-
-    /// The value converted to the analyte's stored unit, or nil if blank or invalid.
-    private func storedValue(for analyte: Analyte) -> Double? {
-        guard let entry = entries[analyte], let value = parse(entry.text) else { return nil }
-        guard let stored = analyte.storedUnit, let unit = entry.unit else { return value }
-        return ConcentrationUnit.convert(value, from: unit, to: stored)
-    }
-
-    private var hasInvalidEntry: Bool {
-        entries.values.contains { !$0.text.isEmpty && parse($0.text) == nil }
-    }
-
-    private var canSave: Bool {
-        guard !hasInvalidEntry else { return false }
-        let anyValue = Analyte.allCases.contains { storedValue(for: $0) != nil }
-        return anyValue || totalColiform != nil || eColi != nil
-    }
+    // MARK: Draft and saving
 
     private func load() {
         guard !loaded else { return }
         loaded = true
-        guard let existing else { return }
-        date = existing.date
-        labName = existing.labName
-        totalColiform = existing.totalColiform
-        eColi = existing.eColi
-        for analyte in Analyte.allCases {
-            if let value = existing.value(for: analyte) {
-                entries[analyte] = Entry(text: value.formatted(.number.precision(.fractionLength(0...4)).grouping(.never)),
-                                         unit: analyte.storedUnit)
-            }
+        let fresh = existing.map(LabEntryDraft.init(editing:)) ?? LabEntryDraft()
+        if let saved = settings.drafts.load(draftKey), saved.payload.flow.isValid(in: order) {
+            draft = saved.payload
+            resume = StepFlowResume(startedAt: saved.startedAt,
+                                    onContinue: { resume = nil },
+                                    onStartOver: {
+                                        resume = nil
+                                        settings.drafts.discard(draftKey)
+                                        draft = fresh
+                                    })
+        } else {
+            settings.drafts.discard(draftKey)
+            draft = fresh
         }
+        pristine = fresh
     }
 
     private func save() {
+        guard draft.canSave else { return }
         let result = existing ?? LabResult()
-        result.date = date
-        result.labName = labName.trimmingCharacters(in: .whitespacesAndNewlines)
-        for analyte in Analyte.allCases {
-            result.setValue(storedValue(for: analyte), for: analyte)
-        }
-        result.totalColiform = totalColiform
-        result.eColi = eColi
+        draft.apply(to: result)
         if existing == nil { modelContext.insert(result) }
         try? modelContext.save()
+        settings.drafts.discard(draftKey)
         Task { await ReminderSync.refresh(using: modelContext) }
         dismiss()
     }
 
     private func delete() {
         guard let existing else { return }
+        settings.drafts.discard(draftKey)
         modelContext.delete(existing)
         try? modelContext.save()
         Task { await ReminderSync.refresh(using: modelContext) }

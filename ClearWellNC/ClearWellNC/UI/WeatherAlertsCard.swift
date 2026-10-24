@@ -9,7 +9,8 @@ import SwiftUI
 struct WeatherAlertsCard: View {
     let store: WeatherAlertsStore
     let onRetry: () -> Void
-    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
+    @Environment(AppSettings.self) private var settings
+    private var waterSource: WaterSource { settings.waterSource }
 
     var body: some View {
         let relevant = store.relevantAlerts

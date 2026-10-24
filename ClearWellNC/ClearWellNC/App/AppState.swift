@@ -12,25 +12,12 @@ import SwiftUI
 /// UserDefaults keys for small on-device preferences.
 enum StorageKey {
     static let hasOnboarded = "hasOnboarded"
+    /// Legacy global keys. The values now live in AppSettings (real/demo scoped); migrated once at launch.
     static let waterSource = "waterSource"
     static let infantInHome = "infantInHome"
 }
 
-enum WaterSource: String, CaseIterable, Identifiable {
-    case privateWell
-    case publicWater
-    case notSure
-
-    var id: String { rawValue }
-
-    var label: LocalizedStringKey {
-        switch self {
-        case .privateWell: "Yes"
-        case .publicWater: "No, city or county water"
-        case .notSure: "Not sure"
-        }
-    }
-}
+// WaterSource lives in Data/WaterSourceMode.swift.
 
 // MARK: - Navigation
 
@@ -55,6 +42,8 @@ final class AppRouter {
     var selectedTab: AppTab = .home
     var showingScanner = false
     var showingRiskCheck = false
+    /// Opens Household on the Home tab (from the Risk Check results).
+    var showingHousehold = false
     /// Set before switching to the Get Help tab; Help Finder applies it once.
     var pendingHelpFilter: HelpFilter?
 
@@ -78,8 +67,10 @@ final class AppSettings {
     var demoPersona: DemoPersona { didSet { defaults.set(demoPersona.rawValue, forKey: Keys.demoPersona); reloadScoped() } }
 
     // Scoped (real vs. demo)
+    var waterSource: WaterSource { didSet { saveScoped(waterSource.rawValue, Keys.waterSource) } }
     var county: String? { didSet { saveScoped(county, Keys.county) } }
     var pregnantInHome: Bool { didSet { saveScoped(pregnantInHome, Keys.pregnant) } }
+    var infantInHome: Bool { didSet { saveScoped(infantInHome, Keys.infant) } }
     var lowIncome: Bool { didSet { saveScoped(lowIncome, Keys.lowIncome) } }
     /// Help programs the user saved.
     var savedProgramIDs: Set<String> {
@@ -103,11 +94,41 @@ final class AppSettings {
         }
     }
 
+    /// City/public water: values copied from the utility's yearly report.
+    var utilityReport: UtilityReport {
+        didSet {
+            guard !isReloading else { return }
+            setCodable(utilityReport.isEmpty ? nil : utilityReport, forScopedKey: UtilityReport.storageKey)
+        }
+    }
+
+    /// Filters the user entered from a certifier listing.
+    var customFilterProducts: [FilterProduct] {
+        didSet { guard !isReloading else { return }; setCodable(customFilterProducts, forScopedKey: "customFilterProducts") }
+    }
+    /// Household members (nickname only).
+    var householdMembers: [HouseholdMember] {
+        didSet { guard !isReloading else { return }; setCodable(householdMembers, forScopedKey: "householdMembers") }
+    }
+    var homeProfile: HomeProfile {
+        didSet { guard !isReloading else { return }; setCodable(homeProfile, forScopedKey: HomeProfile.storageKey) }
+    }
+    /// Flood, infant and boil-water modes the user turned on.
+    var activeModes: Set<WaterMode> {
+        didSet { guard !isReloading else { return }; setCodable(activeModes, forScopedKey: "activeModes") }
+    }
+    /// Features that send data off the phone, each turned on only after the user agrees.
+    var networkOptIns: Set<NetworkFeature> {
+        didSet { guard !isReloading else { return }; setCodable(networkOptIns, forScopedKey: "networkOptIns") }
+    }
+
     private enum Keys {
         static let demoEnabled = "settings.demoEnabled"
         static let demoPersona = "settings.demoPersona"
+        static let waterSource = "waterSource"
         static let county = "county"
         static let pregnant = "pregnantInHome"
+        static let infant = "infantInHome"
         static let lowIncome = "lowIncome"
     }
 
@@ -115,18 +136,44 @@ final class AppSettings {
         self.defaults = defaults
         demoEnabled = defaults.bool(forKey: Keys.demoEnabled)
         demoPersona = DemoPersona(rawValue: defaults.string(forKey: Keys.demoPersona) ?? "") ?? .neverTested
+        waterSource = .notSure
         county = nil
         pregnantInHome = false
+        infantInHome = false
         lowIncome = false
         riskAnswers = nil
+        utilityReport = UtilityReport()
+        customFilterProducts = []
+        householdMembers = []
+        homeProfile = HomeProfile()
+        activeModes = []
+        networkOptIns = []
         savedProgramIDs = []
         stormChecked = []
+        Self.migrateLegacyGlobals(defaults)
+        Self.migrateNetworkOptIns(defaults)
         reloadScoped()
     }
 
+    /// The infant flag and water source used to be global values, so Demo Mode could overwrite the real
+    /// answers. Move them into the real household scope once.
+    static func migrateLegacyGlobals(_ defaults: UserDefaults) {
+        for (legacy, key) in [(StorageKey.infantInHome, Keys.infant), (StorageKey.waterSource, Keys.waterSource)] {
+            guard let value = defaults.object(forKey: legacy) else { continue }
+            if defaults.object(forKey: realScope + key) == nil {
+                defaults.set(value, forKey: realScope + key)
+            }
+            defaults.removeObject(forKey: legacy)
+        }
+    }
+
+    static let realScope = "settings.real."
+    /// The real household's water source, for code that runs outside Demo Mode (reminders).
+    nonisolated static let realWaterSourceKey = "settings.real.waterSource"
+
     /// "settings.real." or "settings.demo.<persona>." prefix for household values.
     private var scope: String {
-        demoEnabled ? "settings.demo.\(demoPersona.rawValue)." : "settings.real."
+        demoEnabled ? "settings.demo.\(demoPersona.rawValue)." : Self.realScope
     }
 
     func scopedKey(_ key: String) -> String { scope + key }
@@ -136,12 +183,22 @@ final class AppSettings {
     private func reloadScoped() {
         isReloading = true
         defer { isReloading = false }
+        // Demo personas all have private wells.
+        waterSource = WaterSource(rawValue: defaults.string(forKey: scopedKey(Keys.waterSource)) ?? "")
+            ?? (demoEnabled ? .privateWell : .notSure)
         let storedCounty = defaults.string(forKey: scopedKey(Keys.county))
         county = storedCounty ?? (demoEnabled ? demoPersona.county : nil)
         pregnantInHome = defaults.bool(forKey: scopedKey(Keys.pregnant))
+        infantInHome = defaults.bool(forKey: scopedKey(Keys.infant))
         lowIncome = defaults.bool(forKey: scopedKey(Keys.lowIncome))
         riskAnswers = data(forScopedKey: RiskCheckAnswers.storageKey)
             .flatMap { try? JSONDecoder().decode(RiskCheckAnswers.self, from: $0) }
+        utilityReport = codable(UtilityReport.self, forScopedKey: UtilityReport.storageKey) ?? UtilityReport()
+        customFilterProducts = codable([FilterProduct].self, forScopedKey: "customFilterProducts") ?? []
+        householdMembers = codable([HouseholdMember].self, forScopedKey: "householdMembers") ?? []
+        homeProfile = codable(HomeProfile.self, forScopedKey: HomeProfile.storageKey) ?? HomeProfile()
+        activeModes = codable(Set<WaterMode>.self, forScopedKey: "activeModes") ?? []
+        networkOptIns = codable(Set<NetworkFeature>.self, forScopedKey: "networkOptIns") ?? []
         savedProgramIDs = data(forScopedKey: "savedPrograms")
             .flatMap { try? JSONDecoder().decode(Set<String>.self, from: $0) } ?? []
         stormChecked = data(forScopedKey: "stormChecklist")
@@ -157,6 +214,23 @@ final class AppSettings {
     /// Bumped whenever scoped values reload (Demo Mode on/off, persona change), so dependents can refresh.
     private(set) var scopedRevision = 0
 
+    /// Read without an AppSettings instance (background reminder sync). Real scope only.
+    static func realCustomFilterProducts(_ defaults: UserDefaults = .standard) -> [FilterProduct] {
+        defaults.data(forKey: realScope + "customFilterProducts")
+            .flatMap { try? JSONDecoder().decode([FilterProduct].self, from: $0) } ?? []
+    }
+
+    static func realRetestEvents(_ defaults: UserDefaults = .standard) -> [RetestEvent] {
+        defaults.data(forKey: realScope + RetestEvent.storageKey)
+            .flatMap { try? JSONDecoder().decode([RetestEvent].self, from: $0) } ?? []
+    }
+
+    /// Flooding, repairs or a change in taste, color or smell: each prompts a retest.
+    var retestEvents: [RetestEvent] {
+        get { _ = scopedRevision; return codable([RetestEvent].self, forScopedKey: RetestEvent.storageKey) ?? [] }
+        set { setCodable(newValue, forScopedKey: RetestEvent.storageKey); scopedRevision += 1 }
+    }
+
     /// The county to use: the one chosen in settings or onboarding, else the saved home's county.
     func effectiveCounty(savedWellCounty: String?) -> String? {
         county ?? savedWellCounty
@@ -169,11 +243,31 @@ final class AppSettings {
         if let data { defaults.set(data, forKey: scopedKey(key)) } else { defaults.removeObject(forKey: scopedKey(key)) }
     }
 
-    /// Removes every real (non-demo) household value. Used by "Reset all data".
+    /// JSON-coded value for the current scope. Nil when missing or unreadable (never crashes on old data).
+    func codable<T: Decodable>(_ type: T.Type, forScopedKey key: String) -> T? {
+        data(forScopedKey: key).flatMap { try? JSONDecoder().decode(T.self, from: $0) }
+    }
+
+    func setCodable<T: Encodable>(_ value: T?, forScopedKey key: String) {
+        setData(value.flatMap { try? JSONEncoder().encode($0) }, forScopedKey: key)
+    }
+
+    // MARK: Drafts
+
+    /// In-progress flow answers for the current scope, so demo drafts never mix with real ones.
+    var drafts: DraftStore { DraftStore(defaults: defaults, prefix: scopedKey("draft.")) }
+
+    /// Unsaved scanner photos for the current scope.
+    var scanPhotos: ScanPhotoStore {
+        ScanPhotoStore(scope: demoEnabled ? "demo-\(demoPersona.rawValue)" : "real")
+    }
+
+    /// Removes every real (non-demo) household value and draft. Used by "Reset all data".
     func resetRealData() {
-        for key in defaults.dictionaryRepresentation().keys where key.hasPrefix("settings.real.") {
+        for key in defaults.dictionaryRepresentation().keys where key.hasPrefix(Self.realScope) {
             defaults.removeObject(forKey: key)
         }
+        ScanPhotoStore(scope: "real").deleteAll()
         reloadScoped()
     }
 }

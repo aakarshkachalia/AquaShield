@@ -11,12 +11,11 @@ struct SettingsView: View {
     @Environment(AppSettings.self) private var settings
     @Environment(WellCareStore.self) private var wellCare
     @Environment(\.modelContext) private var modelContext
-    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
-    @AppStorage(StorageKey.infantInHome) private var infantInHome = false
     @AppStorage(StorageKey.hasOnboarded) private var hasOnboarded = true
     @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
 
     @State private var confirmingReset = false
+    @State private var editingHome = false
     @State private var photoMessage: String?
 
     var body: some View {
@@ -37,18 +36,26 @@ struct SettingsView: View {
             }
 
             Section {
-                Picker("Water source", selection: $waterSource) {
+                Picker("Water source", selection: $settings.waterSource) {
                     ForEach(WaterSource.allCases) { source in
                         Text(source.settingName).tag(source)
                     }
                 }
-                Toggle("A baby under 6 months lives here", isOn: $infantInHome)
+                Toggle("A baby under 6 months lives here", isOn: $settings.infantInHome)
                 Toggle("Someone in the home is pregnant", isOn: $settings.pregnantInHome)
                 Toggle("Our household may qualify for income-based help", isOn: $settings.lowIncome)
             } header: {
                 Text("Household")
             } footer: {
                 Text("These answers tailor test advice and help programs. They never leave this device.")
+            }
+
+            Section("Your home") {
+                NavigationLink("Household") { HouseholdView() }
+                Button("Home and plumbing") { editingHome = true }
+                    .frame(minHeight: TapTarget.minimum)
+                NavigationLink("Filters") { FiltersView() }
+                NavigationLink("Testing and modes") { ModesView() }
             }
 
             Section("Notifications") {
@@ -86,8 +93,12 @@ struct SettingsView: View {
             }
 
             Section("About") {
+                NavigationLink("Privacy & Sources") { PrivacySourcesView() }
                 NavigationLink("Sources and data") { SourcesView() }
                 NavigationLink("How the estimates work") { HowItWorksView() }
+                #if DEBUG
+                NavigationLink("Design System Gallery") { DesignSystemGalleryView() }
+                #endif
                 Button("Show the welcome screens again") { hasOnboarded = false }
                     .frame(minHeight: TapTarget.minimum)
             }
@@ -103,12 +114,13 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Settings")
+        .fullScreenCover(isPresented: $editingHome) { HomeProfileFlow() }
         // City water has no well-care reminders; reschedule when the answer changes.
-        .onChange(of: waterSource) { _, _ in
+        .onChange(of: settings.waterSource) { _, _ in
             let context = modelContext
             Task { await ReminderSync.refresh(using: context) }
         }
-        .confirmationDialog("Delete all ClearWell data on this device?", isPresented: $confirmingReset, titleVisibility: .visible) {
+        .confirmationDialog("Delete all \(AppName.display) data on this device?", isPresented: $confirmingReset, titleVisibility: .visible) {
             Button("Delete everything", role: .destructive, action: resetAll)
         } message: {
             Text("This can't be undone.")
@@ -131,7 +143,6 @@ struct SettingsView: View {
         WellCareState().save()
         wellCare.reload()
         for task in WellCareTask.allCases { UserDefaults.standard.removeObject(forKey: task.manualKey) }
-        infantInHome = false
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
 }

@@ -54,7 +54,7 @@ struct QuestSafetyAlertView: View {
                     Text("What to do now")
                         .font(.headline)
                         .accessibilityAddTraits(.isHeader)
-                    // VERIFY: CDC / NC DHHS guidance after a positive E. coli test: use bottled (or boiled) water
+                    // SOURCE vr-061 (needs verification, see VerificationRegister.json): CDC / NC DHHS guidance after a positive E. coli test: use bottled (or boiled) water
                     // for drinking, cooking and brushing teeth until the well is disinfected and retested.
                     Text(QuestEngine.eColiPositive(report)
                          ? String(localized: "Don't drink untreated water. Use bottled water for drinking, cooking and brushing teeth.")

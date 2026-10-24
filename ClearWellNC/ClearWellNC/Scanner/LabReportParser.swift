@@ -29,7 +29,7 @@ nonisolated enum LabReportParser {
         case absent
     }
 
-    enum ReportedUnit: String, CaseIterable, Sendable, Identifiable {
+    enum ReportedUnit: String, CaseIterable, Codable, Sendable, Identifiable {
         case mgL, ugL, ppm, ppb, ppt, ngL, pCiL, gpg, su
 
         var id: String { rawValue }

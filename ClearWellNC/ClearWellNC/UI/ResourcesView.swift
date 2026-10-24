@@ -10,7 +10,8 @@ import SwiftUI
 /// Help near the saved location: live Apple Maps results by category, plus official NC resources.
 struct ResourcesView: View {
     @Query(sort: \SavedWell.savedAt, order: .reverse) private var savedWells: [SavedWell]
-    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
+    @Environment(AppSettings.self) private var settings
+    private var waterSource: WaterSource { settings.waterSource }
 
     @State private var search = LocalResourceSearch()
     @State private var category: ResourceCategory = .testingLabs
@@ -28,7 +29,9 @@ struct ResourcesView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.l) {
-                if let center {
+                if !settings.isOptedIn(.helpNearYou) {
+                    OptInCard(feature: .helpNearYou)
+                } else if let center {
                     Text(savedWells.first.map { String(localized: "Places within about 25 miles of \($0.placeName).") }
                          ?? String(localized: "Places within about 25 miles of your current location."))
                         .foregroundStyle(.secondary)
@@ -41,7 +44,7 @@ struct ResourcesView: View {
                     locationPrompt
                 }
                 officialResources
-                Text("Listings come from Apple Maps. ClearWell NC does not review or endorse these businesses. For water tests, choose a lab certified by the State of North Carolina.")
+                Text("Listings come from Apple Maps. \(AppName.display) does not review or endorse these businesses. For water tests, choose a lab certified by the State of North Carolina.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -51,8 +54,8 @@ struct ResourcesView: View {
         .background(Color.appBackground)
         .navigationTitle("Help near you")
         .navigationBarTitleDisplayMode(.inline)
-        .task(id: searchKey) {
-            guard let center else { return }
+        .task(id: "\(searchKey)|\(settings.isOptedIn(.helpNearYou))") {
+            guard settings.isOptedIn(.helpNearYou), let center else { return }
             await search.search(category, near: center)
             cameraPosition = .automatic
         }
@@ -162,7 +165,7 @@ struct ResourcesView: View {
             .buttonStyle(PrimaryButtonStyle())
             .disabled(locating)
             if locationFailed {
-                Text("We couldn't get your location. Check that location access is on for ClearWell NC in Settings.")
+                Text("We couldn't get your location. Check that location access is on for \(AppName.display) in Settings.")
                     .font(.caption)
                     .foregroundStyle(Color.statusAbove)
             }

@@ -67,9 +67,15 @@ enum NotificationScheduler {
 @MainActor
 enum ReminderSync {
     static func refresh(using context: ModelContext) async {
+        // Demo personas run on in-memory stores; their data must never replace the real reminders.
+        guard !context.container.configurations.contains(where: \.isStoredInMemoryOnly) else { return }
         let systems = (try? context.fetch(FetchDescriptor<TreatmentSystem>())) ?? []
         let results = (try? context.fetch(FetchDescriptor<LabResult>())) ?? []
-        var reminders = plan(systems: systems, results: results, includeWellCare: WaterSource.current.showsWellCare)
+        let products = ReferenceDataStore.shared.filterProducts(custom: AppSettings.realCustomFilterProducts())
+        var reminders = plan(systems: systems, results: results, includeWellCare: WaterSource.current.showsWellCare,
+                             products: products)
+        reminders += WellTestingCalendar.reminders(results: results, source: WaterSource.current,
+                                                   events: AppSettings.realRetestEvents(), now: .now)
 
         // Report Quest test reminder: opt-in, at most one a month.
         var wellCare = WellCareState.load()
@@ -85,16 +91,30 @@ enum ReminderSync {
         await NotificationScheduler.reschedule(reminders)
     }
 
+    /// Filters remind 2 weeks before and on the due date (the earlier of months or gallons).
+    static let earlyReminderDays = 14
+
     static func plan(systems: [TreatmentSystem], results: [LabResult], includeWellCare: Bool = true,
-                     now: Date = .now) -> [PlannedReminder] {
-        var reminders = systems.map { system in
-            PlannedReminder(
+                     products: [FilterProduct] = [], now: Date = .now) -> [PlannedReminder] {
+        var reminders: [PlannedReminder] = []
+        for system in systems {
+            let product = products.first { $0.id == system.productID }
+            let due = system.installed(product: product).dueDate() ?? system.dueDate
+            reminders.append(PlannedReminder(
                 id: "treatment.\(system.reminderID.uuidString)",
                 title: system.displayName,
                 body: system.kind.isCheck
                     ? String(localized: "Time to check your water softener salt.")
-                    : String(localized: "Time to replace this. Mark it replaced in ClearWell NC to reset the reminder."),
-                fireDate: ReminderPlanner.fireDate(due: system.dueDate, now: now))
+                    : String(localized: "Time to replace this. Mark it replaced in \(AppName.display) to reset the reminder."),
+                fireDate: ReminderPlanner.fireDate(due: due, now: now)))
+            if !system.kind.isCheck,
+               let early = Calendar.current.date(byAdding: .day, value: -earlyReminderDays, to: due), early > now {
+                reminders.append(PlannedReminder(
+                    id: "treatment.\(system.reminderID.uuidString).soon",
+                    title: system.displayName,
+                    body: String(localized: "Due in 2 weeks. Order a replacement now."),
+                    fireDate: ReminderPlanner.fireDate(due: early, now: now)))
+            }
         }
         for task in WellCareTask.allCases where includeWellCare {
             reminders.append(PlannedReminder(

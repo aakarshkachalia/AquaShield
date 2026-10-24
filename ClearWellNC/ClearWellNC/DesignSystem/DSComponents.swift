@@ -41,7 +41,7 @@ struct SectionHeader: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.xs) {
             Text(title)
-                .font(.title2.bold())
+                .font(DS.Typography.title)
                 .foregroundStyle(Color.textPrimary)
                 .accessibilityAddTraits(.isHeader)
             if let subtitle {
@@ -138,40 +138,9 @@ extension InfoCard where Content == EmptyView {
 
 // MARK: - Buttons
 
-/// Filled brand button for the one primary action on a screen.
-struct PrimaryButtonStyle: ButtonStyle {
-    @Environment(\.isEnabled) private var isEnabled
-
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.headline)
-            .foregroundStyle(Color.onBrand)
-            .frame(maxWidth: .infinity, minHeight: 50)
-            .padding(.horizontal, Spacing.l)
-            .background(Color.brandPrimary.opacity(isEnabled ? 1 : 0.4),
-                        in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
-            .opacity(configuration.isPressed ? 0.8 : 1)
-            .contentShape(Rectangle())
-    }
-}
-
-/// Outlined button for secondary actions.
-struct SecondaryButtonStyle: ButtonStyle {
-    @Environment(\.isEnabled) private var isEnabled
-
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.headline)
-            .foregroundStyle(Color.brandPrimary.opacity(isEnabled ? 1 : 0.4))
-            .frame(maxWidth: .infinity, minHeight: TapTarget.minimum)
-            .padding(.horizontal, Spacing.l)
-            .background(Color.brandPrimary.opacity(configuration.isPressed ? 0.16 : 0.08),
-                        in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: Radius.card, style: .continuous)
-                .strokeBorder(Color.brandPrimary.opacity(0.35)))
-            .contentShape(Rectangle())
-    }
-}
+/// Older names for the v2 button styles.
+typealias PrimaryButtonStyle = DS.PrimaryButtonStyle
+typealias SecondaryButtonStyle = DS.SecondaryButtonStyle
 
 struct PrimaryButton: View {
     let title: LocalizedStringKey
@@ -297,7 +266,7 @@ struct DisclaimerFooter: View {
     var showsLinks = true
 
     static var standardText: String {
-        String(localized: "ClearWell is educational and is not medical advice. Only a state-certified lab test can tell you what is in your water.")
+        String(localized: "\(AppName.display) is educational and is not medical advice. Only a state-certified lab test can tell you what is in your water.")
     }
 
     var body: some View {
@@ -343,7 +312,7 @@ struct IconTile: View {
             .font(.title2)
             .foregroundStyle(color)
             .frame(width: size, height: size)
-            .background(color.opacity(0.12), in: RoundedRectangle(cornerRadius: Radius.chip, style: .continuous))
+            .background(color.opacity(0.12), in: RoundedRectangle(cornerRadius: DS.Corner.medium, style: .continuous))
             .accessibilityHidden(true)
     }
 }
@@ -409,45 +378,13 @@ struct SampleDataTag: View {
     }
 }
 
-/// Health Score ring. The number and band are text; the ring is decoration.
+/// Older name: the v2 ring sized by diameter.
 struct ScoreRing: View {
     let result: WellHealthScore.Result
     var diameter: CGFloat = 132
 
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var shown = false
-
     var body: some View {
-        let fraction = Double(result.score ?? 0) / 100
-        let color = result.band?.tier.color ?? .statusUnknown
-        ZStack {
-            Circle().stroke(Color.textPrimary.opacity(0.08), lineWidth: 12)
-            Circle()
-                .trim(from: 0, to: shown ? fraction : 0)
-                .stroke(color, style: StrokeStyle(lineWidth: 12, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-            VStack(spacing: 0) {
-                Text(result.score.map { "\($0)" } ?? "—")
-                    .font(.largeTitle.weight(.bold))
-                    .monospacedDigit()
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.4)   // stays inside the ring at the largest text sizes
-                    .foregroundStyle(Color.textPrimary)
-                Text("of 100")
-                    .font(.caption)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .foregroundStyle(Color.textSecondary)
-            }
-            .padding(Spacing.l)
-        }
-        .frame(width: diameter, height: diameter)
-        .onAppear {
-            if reduceMotion { shown = true } else { withAnimation(.easeOut(duration: 0.6)) { shown = true } }
-        }
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(result.score.map { Text("Health score \($0) out of 100") } ?? Text("No health score yet"))
-        .accessibilityValue(Text(result.band?.label ?? ""))
+        DS.ScoreRing(result: result, scale: diameter / 188)
     }
 }
 

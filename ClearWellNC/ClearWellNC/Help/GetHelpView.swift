@@ -9,32 +9,59 @@ import SwiftUI
 
 struct GetHelpView: View {
     @Environment(AppRouter.self) private var router
+    @Environment(AppSettings.self) private var settings
+
+    private var source: WaterSource { settings.waterSource }
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: Spacing.xl) {
-                    Text("Find free or low-cost testing, programs that may pay to fix a problem, and help after a flood.")
-                        .font(.subheadline)
-                        .foregroundStyle(Color.textSecondary)
+                VStack(alignment: .leading, spacing: DS.Space.xl) {
+                    Text("Free or low-cost testing, help paying for fixes, and what to do in an emergency.")
+                        .font(DS.Typography.body)
+                        .foregroundStyle(DS.Colors.textSecondary)
 
-                    Button {
-                        router.showingRiskCheck = true
-                    } label: {
-                        NavigationCardLabel(title: Text("Should I test?"),
-                                            subtitle: Text("A 7-question Risk Check."),
-                                            systemImage: "checklist")
-                    }
-                    .buttonStyle(.plain)
+                    VStack(spacing: DS.Space.m) {
+                        NavigationLink {
+                            FindTestingView()
+                        } label: {
+                            NavigationCardLabel(title: Text("Find testing"),
+                                                subtitle: Text("Who to call, and how to take a sample."),
+                                                systemImage: DS.Icon.test)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("getHelp.findTesting")
+                        if source.showsWellCare {
+                            Button {
+                                router.showingRiskCheck = true
+                            } label: {
+                                NavigationCardLabel(title: Text("Should I test my well?"),
+                                                    subtitle: Text("7 quick questions"),
+                                                    systemImage: DS.Icon.riskCheck)
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityIdentifier("getHelp.riskCheck")
 
-                    NavigationLink {
-                        StormModeView()
-                    } label: {
-                        NavigationCardLabel(title: Text("My well flooded"),
-                                            subtitle: Text("Step-by-step: stay safe, disinfect, and retest."),
-                                            systemImage: "cloud.heavyrain.fill")
+                            NavigationLink {
+                                StormModeView()
+                            } label: {
+                                NavigationCardLabel(title: Text("My well flooded"),
+                                                    subtitle: Text("Stay safe, disinfect, then retest."),
+                                                    systemImage: DS.Icon.alert(.flood))
+                            }
+                            .buttonStyle(.plain)
+                        }
+                        if source.showsCityContent {
+                            NavigationLink {
+                                UtilityReportView()
+                            } label: {
+                                NavigationCardLabel(title: Text("My water utility"),
+                                                    subtitle: Text("Your yearly water report, lead pipes, boil notices."),
+                                                    systemImage: "building.2.fill")
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
-                    .buttonStyle(.plain)
 
                     HelpFinderSection()
 
@@ -43,24 +70,26 @@ struct GetHelpView: View {
                         ResourcesView()
                     } label: {
                         NavigationCardLabel(title: Text("Labs and services near you"),
-                                            subtitle: Text("Testing labs, well services, plumbers and filter dealers on the map."),
+                                            subtitle: Text("Labs, plumbers and filter dealers on a map."),
                                             systemImage: "mappin.and.ellipse")
                     }
                     .buttonStyle(.plain)
-                    NavigationLink {
-                        CheckAreaView()
-                    } label: {
-                        NavigationCardLabel(title: Text("Well risk in my area"),
-                                            subtitle: Text("Look up any NC address on the census-tract risk map."),
-                                            systemImage: "map.fill")
+                    if source.showsWellCare {
+                        NavigationLink {
+                            CheckAreaView()
+                        } label: {
+                            NavigationCardLabel(title: Text("Well risk in my area"),
+                                                subtitle: Text("Look up any NC address on the risk map."),
+                                                systemImage: "map.fill")
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
 
                     DisclaimerFooter()
                 }
-                .screenContainer()
+                .dsScreen()
             }
-            .background(Color.appBackground)
+            .background(DS.Colors.background)
             .navigationTitle("Get Help")
         }
     }

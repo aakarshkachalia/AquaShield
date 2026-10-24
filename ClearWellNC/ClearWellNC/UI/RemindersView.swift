@@ -13,7 +13,8 @@ struct RemindersView: View {
     @Environment(\.scenePhase) private var scenePhase
     @Query(sort: \TreatmentSystem.lastServiced) private var systems: [TreatmentSystem]
     @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
-    @AppStorage(StorageKey.waterSource) private var waterSource: WaterSource = .notSure
+    @Environment(AppSettings.self) private var settings
+    private var waterSource: WaterSource { settings.waterSource }
 
     @State private var addingSystem = false
     @State private var editingSystem: TreatmentSystem?
@@ -93,8 +94,8 @@ struct RemindersView: View {
                 Label("Get reminders on time", systemImage: "bell.badge")
                     .font(.headline)
                 Text(waterSource.showsWellCare
-                     ? String(localized: "ClearWell NC can send a notification when a filter is due or it's time to test your well.")
-                     : String(localized: "ClearWell NC can send a notification when a filter is due."))
+                     ? String(localized: "\(AppName.display) can send a notification when a filter is due or it's time to test your well.")
+                     : String(localized: "\(AppName.display) can send a notification when a filter is due."))
                 Button {
                     Task {
                         await NotificationScheduler.requestAuthorization()
