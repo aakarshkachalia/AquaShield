@@ -17,21 +17,7 @@ enum StorageKey {
     static let infantInHome = "infantInHome"
 }
 
-enum WaterSource: String, CaseIterable, Identifiable {
-    case privateWell
-    case publicWater
-    case notSure
-
-    var id: String { rawValue }
-
-    var label: LocalizedStringKey {
-        switch self {
-        case .privateWell: "Yes"
-        case .publicWater: "No, city or county water"
-        case .notSure: "Not sure"
-        }
-    }
-}
+// WaterSource lives in Data/WaterSourceMode.swift.
 
 // MARK: - Navigation
 
@@ -106,6 +92,14 @@ final class AppSettings {
         }
     }
 
+    /// City/public water: values copied from the utility's yearly report.
+    var utilityReport: UtilityReport {
+        didSet {
+            guard !isReloading else { return }
+            setCodable(utilityReport.isEmpty ? nil : utilityReport, forScopedKey: UtilityReport.storageKey)
+        }
+    }
+
     private enum Keys {
         static let demoEnabled = "settings.demoEnabled"
         static let demoPersona = "settings.demoPersona"
@@ -126,6 +120,7 @@ final class AppSettings {
         infantInHome = false
         lowIncome = false
         riskAnswers = nil
+        utilityReport = UtilityReport()
         savedProgramIDs = []
         stormChecked = []
         Self.migrateLegacyGlobals(defaults)
@@ -170,6 +165,7 @@ final class AppSettings {
         lowIncome = defaults.bool(forKey: scopedKey(Keys.lowIncome))
         riskAnswers = data(forScopedKey: RiskCheckAnswers.storageKey)
             .flatMap { try? JSONDecoder().decode(RiskCheckAnswers.self, from: $0) }
+        utilityReport = codable(UtilityReport.self, forScopedKey: UtilityReport.storageKey) ?? UtilityReport()
         savedProgramIDs = data(forScopedKey: "savedPrograms")
             .flatMap { try? JSONDecoder().decode(Set<String>.self, from: $0) } ?? []
         stormChecked = data(forScopedKey: "stormChecklist")
@@ -195,6 +191,15 @@ final class AppSettings {
     func data(forScopedKey key: String) -> Data? { defaults.data(forKey: scopedKey(key)) }
     func setData(_ data: Data?, forScopedKey key: String) {
         if let data { defaults.set(data, forKey: scopedKey(key)) } else { defaults.removeObject(forKey: scopedKey(key)) }
+    }
+
+    /// JSON-coded value for the current scope. Nil when missing or unreadable (never crashes on old data).
+    func codable<T: Decodable>(_ type: T.Type, forScopedKey key: String) -> T? {
+        data(forScopedKey: key).flatMap { try? JSONDecoder().decode(T.self, from: $0) }
+    }
+
+    func setCodable<T: Encodable>(_ value: T?, forScopedKey key: String) {
+        setData(value.flatMap { try? JSONEncoder().encode($0) }, forScopedKey: key)
     }
 
     // MARK: Drafts

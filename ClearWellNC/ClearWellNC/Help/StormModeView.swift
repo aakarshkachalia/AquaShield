@@ -128,7 +128,7 @@ struct StormHomeCard: View {
     @Environment(AppSettings.self) private var settings
 
     var body: some View {
-        if settings.riskAnswers?.flooding == true {
+        if settings.waterSource.showsWellCare, settings.riskAnswers?.flooding == true {
             NavigationLink {
                 StormModeView()
             } label: {

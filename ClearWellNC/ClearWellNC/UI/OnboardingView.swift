@@ -2,14 +2,14 @@
 //  OnboardingView.swift
 //  ClearWellNC
 //
-//  First launch only, skippable: what ClearWell does → pick your county → "Do you have a lab report?"
+//  First launch only, skippable: what ClearWell does → where your water comes from → pick your county → "Do you have a lab report?"
 //  Steps with Back and progress; the current step is saved so a force-quit resumes there.
 //
 
 import SwiftUI
 
 nonisolated enum OnboardingStep: String, Codable, Hashable, Sendable, CaseIterable {
-    case welcome, county, report
+    case welcome, waterSource, county, report
 }
 
 nonisolated struct OnboardingDraft: Codable, Sendable, Equatable {
@@ -58,6 +58,7 @@ struct OnboardingView: View {
     private func page(for step: OnboardingStep) -> some View {
         switch step {
         case .welcome: welcome
+        case .waterSource: waterSourcePage
         case .county: countyPage
         case .report: reportPage
         }
@@ -65,7 +66,7 @@ struct OnboardingView: View {
 
     private func primaryAction(_ step: OnboardingStep) -> StepAction? {
         switch step {
-        case .welcome:
+        case .welcome, .waterSource:
             StepAction(title: "Next", systemImage: "arrow.right") { draft.flow.advance(in: order) }
         case .county:
             StepAction(title: settings.county == nil ? "Skip for now" : "Next", systemImage: "arrow.right") {
@@ -112,7 +113,7 @@ struct OnboardingView: View {
                     .font(DS.Typography.display)
                     .foregroundStyle(DS.Colors.textPrimary)
                     .accessibilityAddTraits(.isHeader)
-                Text("Know what's in your well water, and what to do about it.")
+                Text("Know what's in your water, and what to do about it.")
                     .font(DS.Typography.body)
                     .foregroundStyle(DS.Colors.textSecondary)
             }
@@ -123,6 +124,22 @@ struct OnboardingView: View {
                 feature(DS.Icon.riskCheck, "Find out what to test for")
                 feature(DS.Icon.scan, "Understand every number on your report")
                 feature("dollarsign.circle.fill", "Find free testing and help paying for fixes")
+            }
+        }
+    }
+
+    private var waterSourcePage: some View {
+        content {
+            pageTitle("Where does your water come from?",
+                      subtitle: "Do you get a water bill? Is there a well head or pressure tank?")
+            VStack(spacing: DS.Space.m) {
+                ForEach(WaterSource.allCases) { source in
+                    DS.ChoiceCard(title: source.choiceTitle, subtitle: source.choiceHint, systemImage: source.symbol,
+                                  isSelected: settings.waterSource == source) {
+                        settings.waterSource = source
+                    }
+                    .accessibilityIdentifier("onboarding.waterSource.\(source.rawValue)")
+                }
             }
         }
     }
@@ -197,8 +214,6 @@ struct OnboardingView: View {
 
     private func finish() {
         settings.drafts.discard(OnboardingDraft.key)
-        // ClearWell is built for private wells; city-water users can change this in Settings.
-        if settings.waterSource == .notSure { settings.waterSource = .privateWell }
         hasOnboarded = true
     }
 }

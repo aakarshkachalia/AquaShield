@@ -274,8 +274,15 @@ struct MyWaterView: View {
             if savedWells.first != nil {
                 WeatherAlertsCard(store: alertsStore) { Task { await refreshAlerts() } }
             }
-            if !waterSource.showsWellCare {
-                CityWaterCard()
+            if waterSource.showsCityContent {
+                NavigationLink {
+                    UtilityReportView()
+                } label: {
+                    NavigationCardLabel(title: Text("My water utility"),
+                                        subtitle: Text("Your yearly water report, lead pipes, boil notices."),
+                                        systemImage: "building.2.fill")
+                }
+                .buttonStyle(.plain)
             }
             NavigationLink {
                 RemindersView()

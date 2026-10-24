@@ -121,7 +121,9 @@ struct HomeView: View {
 
     @ViewBuilder
     private var noResults: some View {
-        if let answers = settings.riskAnswers {
+        if !settings.waterSource.showsWellCare {
+            cityNoResults
+        } else if let answers = settings.riskAnswers {
             recommendedTests(answers)
         } else {
             VStack(spacing: DS.Space.m) {
@@ -133,6 +135,38 @@ struct HomeView: View {
                               subtitle: String(localized: "We'll explain every number")) {
                     router.showingScanner = true
                 }
+            }
+        }
+    }
+
+    /// City water: start from the utility's report, then test your own tap for lead.
+    private var cityNoResults: some View {
+        VStack(spacing: DS.Space.m) {
+            NavigationLink {
+                UtilityReportView()
+            } label: {
+                HStack(spacing: DS.Space.m) {
+                    Image(systemName: "building.2.fill")
+                        .font(.title3.weight(.semibold))
+                        .frame(width: 44, height: 44)
+                        .background(DS.Colors.onAccent.opacity(0.18), in: RoundedRectangle(cornerRadius: DS.Corner.medium, style: .continuous))
+                        .accessibilityHidden(true)
+                    VStack(alignment: .leading, spacing: DS.Space.xxs) {
+                        Text("Add your water report").font(DS.Typography.headline)
+                        Text("From your utility, about 2 minutes").font(DS.Typography.subheadline).opacity(0.9)
+                    }
+                    Spacer(minLength: DS.Space.s)
+                    Image(systemName: "arrow.right").font(.body.weight(.bold)).accessibilityHidden(true)
+                }
+                .foregroundStyle(DS.Colors.onAccent)
+                .padding(DS.Space.l)
+                .frame(maxWidth: .infinity, minHeight: 76, alignment: .leading)
+                .background(DS.Colors.accent, in: RoundedRectangle(cornerRadius: DS.Corner.large, style: .continuous))
+            }
+            .buttonStyle(DS.PressableCardStyle())
+            DS.ActionCard(systemImage: DS.Icon.scan, title: String(localized: "Tested your tap? Scan the results"),
+                          subtitle: String(localized: "We'll explain every number")) {
+                router.showingScanner = true
             }
         }
     }
