@@ -19,6 +19,9 @@ struct ModesView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: DS.Space.xl) {
                 DSSectionTitle(String(localized: "Testing calendar"))
+                if !snapshot.testsDue.isEmpty {
+                    TestTimeline(dues: snapshot.testsDue, now: snapshot.now).dsCard()
+                }
                 if snapshot.testsDue.isEmpty {
                     Text("Add a test result to start your calendar.")
                         .font(DS.Typography.body).foregroundStyle(DS.Colors.textSecondary)

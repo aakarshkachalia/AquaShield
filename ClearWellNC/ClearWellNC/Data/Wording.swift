@@ -32,6 +32,8 @@ nonisolated enum Wording {
         (", shock-chlorinate the well and retest.", ", and call your water utility."),
         ("Shock-chlorinate your well, then retest.", "Call your water utility, then retest."),
         ("not test results for your well", "not test results for your tap"),
+        ("This is well below", "This is far below"),
+        ("were well under", "were far under"),
         ("Many test wells for free or low cost.", "Many can help you test your tap."),
         ("is getting into your well", "is getting into your water"),
         ("into your well", "into your water"),

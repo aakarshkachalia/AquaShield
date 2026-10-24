@@ -21,6 +21,11 @@ struct SourcesView: View {
 
     private var dataSources: [DataSource] {
         [
+            DataSource(id: "water-systems", name: String(localized: "Water system service areas (address lookup)"),
+                       detail: WaterSystemIndex.info.map {
+                           String(localized: "\($0.sourceName). \($0.systems) NC systems, \($0.version), downloaded \($0.downloaded). Checked on your phone.")
+                       } ?? String(localized: "EPA Community Water System Service Area Boundaries."),
+                       isSample: false),
             DataSource(id: "tracts", name: String(localized: "Census-tract well risk map"),
                        detail: String(localized: "NCWELL database (Eaves et al. 2021, UNC Superfund Research Program), 1998–2019, with \(AppName.display)'s model estimates."),
                        isSample: false),

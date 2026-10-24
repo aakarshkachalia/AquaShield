@@ -71,6 +71,16 @@ struct DataReviewView: View {
             rows.append(Row(id: "sampling-\(instruction.id)", area: "Sampling instructions", title: instruction.title,
                             detail: instruction.steps.joined(separator: " "), source: instruction.source.sourceName))
         }
+        for id in ContaminantID.allCases where !BodyArea.areas(for: id).isEmpty {
+            rows.append(Row(id: "body-\(id.rawValue)", area: "Learn: body areas", title: id.info.name,
+                            detail: BodyArea.areas(for: id).map(\.label).joined(separator: ", "),
+                            source: "CDC / ATSDR and EPA health summaries"))
+        }
+        if let info = WaterSystemIndex.info {
+            rows.append(Row(id: "epa-cws", area: "Water system boundaries", title: info.sourceName,
+                            detail: "\(info.systems) NC systems · \(info.version) · downloaded \(info.downloaded)",
+                            source: info.sourceURL))
+        }
         for entry in VerificationRegister.entries where entry.needsVerification {
             rows.append(Row(id: entry.id, area: "Notes in code (\(entry.file.split(separator: "/").last ?? ""))",
                             title: entry.id, detail: entry.note, source: entry.sourceName))

@@ -124,16 +124,7 @@ struct FiltersView: View {
                 }
             }
             Spacer(minLength: 0)
-            VStack(alignment: .trailing, spacing: DS.Space.xxs) {
-                if let days {
-                    Text(days <= 0 ? String(localized: "Replace now") : String(localized: "\(days) days"))
-                        .font(DS.Typography.headline)
-                        .foregroundStyle(days <= 0 ? DS.Colors.poor : DS.Colors.textPrimary)
-                    Text(days <= 0 ? String(localized: "expired") : String(localized: "left"))
-                        .font(DS.Typography.footnote)
-                        .foregroundStyle(DS.Colors.textSecondary)
-                }
-            }
+            FilterLifeRing(daysLeft: days, totalDays: installed.lifeMonths.map { $0 * 30 })
         }
         .dsCard()
         .accessibilityElement(children: .combine)

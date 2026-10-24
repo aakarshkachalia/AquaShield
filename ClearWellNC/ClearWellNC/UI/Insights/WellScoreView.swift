@@ -84,6 +84,8 @@ struct WellScoreView: View {
     private func factors(_ result: WellHealthScore.Result) -> some View {
         VStack(alignment: .leading, spacing: DS.Space.m) {
             sectionTitle("What's pulling your score down")
+            DriversChart(factors: result.topFactors)
+                .dsCard()
             ForEach(result.topFactors) { factor in
                 VStack(alignment: .leading, spacing: DS.Space.m) {
                     let name = factor.id.info.name

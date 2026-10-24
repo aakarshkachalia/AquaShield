@@ -42,15 +42,17 @@ struct LearnView: View {
                     badgeStrip
                     WellCareSummaryCard(context: context)
 
-                    SectionHeader(title: "About \(AppName.display)")
-                    NavigationLink {
-                        HowItWorksView()
-                    } label: {
-                        NavigationCardLabel(title: Text("How It Works"),
-                                            subtitle: Text("Where the data comes from and how the estimates are made."),
-                                            systemImage: "info.circle.fill")
+                    if settings.waterSource.showsWellCare {
+                        SectionHeader(title: "About \(AppName.display)")
+                        NavigationLink {
+                            HowItWorksView()
+                        } label: {
+                            NavigationCardLabel(title: Text("How It Works"),
+                                                subtitle: Text("Where the data comes from and how the estimates are made."),
+                                                systemImage: "info.circle.fill")
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
                     Text(LearnArticle.footer)
                         .font(.caption)
                         .foregroundStyle(.secondary)
@@ -121,8 +123,14 @@ struct LearnArticleView: View {
                 hero
                 limitsCard
                 keyPoint("map", String(localized: "Where it comes from"), article.whereFrom)
-                keyPoint("heart.text.square", String(localized: "Short-term health effects"), article.shortTerm)
-                keyPoint("heart.text.square.fill", String(localized: "Long-term health effects"), article.longTerm)
+                VStack(alignment: .leading, spacing: DS.Space.m) {
+                    Text("Where it can affect the body").font(DS.Typography.headline).foregroundStyle(DS.Colors.textPrimary)
+                    BodyAreaGrid(areas: article.contaminants.flatMap(BodyArea.areas(for:)).uniqued())
+                    DS.InfoCard(systemImage: "heart.text.square", title: String(localized: "Health effects"),
+                                message: QuestText.firstSentences(article.shortTerm, max: 1),
+                                learnMore: article.shortTerm + "\n\n" + article.longTerm)
+                }
+                .dsCard()
                 keyPoint("person.2", String(localized: "Who is most at risk"), article.mostAtRisk)
                 DS.InfoCard(systemImage: "eye.slash", title: LearnArticle.symptomsNote)
                 treatments
