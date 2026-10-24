@@ -1,0 +1,150 @@
+//
+//  ScreenshotTests.swift
+//  ClearWellNCUITests
+//
+//  Captures every main screen in light and dark mode for review. Screenshots are attached to the test
+//  result, and on the simulator also written as PNGs to SCREENSHOT_DIR (default /tmp/ClearWellScreenshots).
+//  Run:
+//    TEST_RUNNER_SCREENSHOT_DIR=~/clearwell/Screenshots xcodebuild test -scheme ClearWellNC \
+//      -destination 'platform=iOS Simulator,name=iPhone 18 Pro' -only-testing:ClearWellNCUITests/ScreenshotTests
+//
+
+import XCTest
+
+final class ScreenshotTests: XCTestCase {
+    private var appearance = "light"
+    private var index = 0
+
+    override func setUpWithError() throws {
+        continueAfterFailure = true
+    }
+
+    @MainActor func testScreenshotsLight() { capture("light") }
+    @MainActor func testScreenshotsDark() { capture("dark") }
+
+    // MARK: Walkthrough
+
+    @MainActor
+    private func capture(_ appearance: String) {
+        self.appearance = appearance
+        index = 0
+
+        // Onboarding, from a clean install.
+        let fresh = XCUIApplication()
+        fresh.launchArguments = ["-uiTestReset", "-uiTestAppearance", appearance]
+        fresh.launch()
+        snap(fresh, "onboarding-welcome")
+        if tapIfExists(fresh.buttons["flow.next"]) { snap(fresh, "onboarding-water-source") }
+        if tapIfExists(fresh.buttons["flow.next"]) { snap(fresh, "onboarding-county") }
+        if tapIfExists(fresh.buttons["flow.next"]) { snap(fresh, "onboarding-report") }
+        fresh.terminate()
+
+        // The rest with sample data that has a problem to show.
+        let app = XCUIApplication()
+        app.launchArguments = ["-uiTestSkipOnboarding", "-uiTestDemo", "arsenicProblem", "-uiTestAppearance", appearance]
+        app.launch()
+
+        tab(app, "Home")
+        snap(app, "dashboard")
+        scroll(app); snap(app, "dashboard-lower")
+        open(app, app.buttons["dashboard.score"], "tap-score-kitchen")
+        open(app, app.buttons["dashboard.nextStep"], "what-to-do")
+        open(app, app.buttons["dashboard.household"], "household")
+
+        tab(app, "My Water")
+        snap(app, "my-water-latest")
+        let segments = app.segmentedControls.firstMatch
+        if segments.waitForExistence(timeout: 3) {
+            segments.buttons.element(boundBy: 1).tap(); snap(app, "my-water-history")
+            segments.buttons.element(boundBy: 2).tap(); snap(app, "my-water-trends")
+            segments.buttons.element(boundBy: 0).tap()
+        }
+        open(app, labeled(app, "Filters"), "filters")
+        open(app, labeled(app, "Testing and modes"), "testing-and-modes")
+        open(app, labeled(app, "Share a report"), "share-report")
+        open(app, labeled(app, "My water utility"), "utility-report")
+
+        tab(app, "Get Help")
+        snap(app, "get-help")
+        open(app, app.buttons["getHelp.findTesting"], "find-testing")
+        if tapIfExists(app.buttons["getHelp.riskCheck"]) {
+            snap(app, "risk-check-question")
+            tapIfExists(app.buttons["flow.close"])
+        }
+
+        tab(app, "Learn")
+        snap(app, "learn")
+
+        tab(app, "Home")
+        if tapIfExists(app.navigationBars.buttons["Settings"]) {
+            snap(app, "settings")
+            open(app, labeled(app, "Privacy & Sources"), "privacy-and-sources")
+            back(app)
+        }
+    }
+
+    // MARK: Helpers
+
+    @MainActor
+    private func snap(_ app: XCUIApplication, _ name: String) {
+        index += 1
+        let file = String(format: "%02d-%@-%@", index, name, appearance)
+        let screenshot = app.screenshot()
+        let attachment = XCTAttachment(screenshot: screenshot)
+        attachment.name = file
+        attachment.lifetime = .keepAlways
+        add(attachment)
+
+        let dir = ProcessInfo.processInfo.environment["SCREENSHOT_DIR"] ?? "/tmp/ClearWellScreenshots"
+        let folder = URL(fileURLWithPath: (dir as NSString).expandingTildeInPath).appendingPathComponent(appearance)
+        try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        try? screenshot.pngRepresentation.write(to: folder.appendingPathComponent(file + ".png"))
+    }
+
+    @MainActor
+    private func tab(_ app: XCUIApplication, _ name: String) {
+        tapIfExists(app.tabBars.buttons[name])
+    }
+
+    /// Opens a screen, snaps it, and comes back.
+    @MainActor
+    private func open(_ app: XCUIApplication, _ element: XCUIElement, _ name: String) {
+        guard reveal(app, element) else { return }
+        element.tap()
+        snap(app, name)
+        back(app)
+    }
+
+    @MainActor
+    private func back(_ app: XCUIApplication) {
+        let back = app.navigationBars.buttons["BackButton"]
+        if back.waitForExistence(timeout: 2) { back.tap() }
+    }
+
+    @MainActor
+    private func labeled(_ app: XCUIApplication, _ prefix: String) -> XCUIElement {
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", prefix)).firstMatch
+    }
+
+    @MainActor
+    private func scroll(_ app: XCUIApplication) {
+        app.swipeUp()
+    }
+
+    /// Scrolls until the element is on screen (up to 6 swipes).
+    @MainActor
+    private func reveal(_ app: XCUIApplication, _ element: XCUIElement) -> Bool {
+        for _ in 0..<6 {
+            if element.exists && element.isHittable { return true }
+            app.swipeUp()
+        }
+        return element.exists && element.isHittable
+    }
+
+    @discardableResult @MainActor
+    private func tapIfExists(_ element: XCUIElement) -> Bool {
+        guard element.waitForExistence(timeout: 4) else { return false }
+        element.tap()
+        return true
+    }
+}

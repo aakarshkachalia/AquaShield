@@ -50,6 +50,7 @@ struct ClearWellNCApp: App {
                 .environment(wellCareStore)
                 // Every step flow (onboarding, Risk Check, lab entry, scanning) uses the design system look.
                 .stepFlowStyle(ClearWellStepFlowStyle())
+                .preferredColorScheme(UITestSupport.forcedColorScheme)
                 // Parse the bundled tract data once at launch, off the main thread.
                 .task { await tractStore.load() }
         }
