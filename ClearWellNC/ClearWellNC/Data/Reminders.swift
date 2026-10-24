@@ -72,9 +72,9 @@ enum ReminderSync {
         let systems = (try? context.fetch(FetchDescriptor<TreatmentSystem>())) ?? []
         let results = (try? context.fetch(FetchDescriptor<LabResult>())) ?? []
         let products = ReferenceDataStore.shared.filterProducts(custom: AppSettings.realCustomFilterProducts())
-        var reminders = plan(systems: systems, results: results, includeWellCare: WaterSource.current.showsWellCare,
+        var reminders = plan(systems: systems, results: results, includeWellCare: AppSettings.realWaterSource().showsWellCare,
                              products: products)
-        reminders += WellTestingCalendar.reminders(results: results, source: WaterSource.current,
+        reminders += WellTestingCalendar.reminders(results: results, source: AppSettings.realWaterSource(),
                                                    events: AppSettings.realRetestEvents(), now: .now)
 
         // Report Quest test reminder: opt-in, at most one a month.

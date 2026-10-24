@@ -13,10 +13,15 @@ nonisolated struct RetestEvent: Codable, Equatable, Sendable, Identifiable {
     enum Kind: String, Codable, CaseIterable, Sendable {
         case flood, repair, tasteColorSmell
 
+        /// City homes never see "well".
+        func label(for source: WaterSource) -> String {
+            self == .repair && !source.showsWellCare ? String(localized: "Plumbing repair") : label
+        }
+
         var label: String {
             switch self {
             case .flood: String(localized: "Flooding")
-            case .repair: String(localized: "Well or plumbing repair")
+            case .repair: String(localized: "Plumbing or well repair")
             case .tasteColorSmell: String(localized: "Taste, color or smell changed")
             }
         }
@@ -70,7 +75,7 @@ nonisolated enum WellTestingCalendar {
         let lastTest = history.any.max() ?? .distantPast
         if let event = events.filter({ $0.date > lastTest }).max(by: { $0.date < $1.date }) {
             due.append(TestDue(kind: .afterEvent, due: event.date,
-                               title: String(localized: "Retest after \(event.kind.label.lowercased())"),
+                               title: String(localized: "Retest after \(event.kind.label(for: source).lowercased())"),
                                detail: source.showsWellCare
                                    ? String(localized: "Test for bacteria before drinking the water again.")
                                    : String(localized: "Ask your utility, and test your tap if something seems off.")))

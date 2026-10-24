@@ -63,11 +63,21 @@ final class AppSettings {
     private let defaults: UserDefaults
 
     // Global
+    /// Set only when onboarding finishes; cleared only by Settings > Reset app. Not scoped: Demo Mode and
+    /// UI-test flags never change the real value (UI tests use their own defaults suite).
+    var hasCompletedOnboarding: Bool { didSet { defaults.set(hasCompletedOnboarding, forKey: Self.onboardingKey) } }
+    static let onboardingKey = "settings.hasCompletedOnboarding"
+
     var demoEnabled: Bool { didSet { defaults.set(demoEnabled, forKey: Keys.demoEnabled); reloadScoped() } }
     var demoPersona: DemoPersona { didSet { defaults.set(demoPersona.rawValue, forKey: Keys.demoPersona); reloadScoped() } }
 
     // Scoped (real vs. demo)
-    var waterSource: WaterSource { didSet { saveScoped(waterSource.rawValue, Keys.waterSource) } }
+    var waterSource: WaterSource {
+        didSet {
+            Wording.source = waterSource
+            saveScoped(waterSource.rawValue, Keys.waterSource)
+        }
+    }
     var county: String? { didSet { saveScoped(county, Keys.county) } }
     var pregnantInHome: Bool { didSet { saveScoped(pregnantInHome, Keys.pregnant) } }
     var infantInHome: Bool { didSet { saveScoped(infantInHome, Keys.infant) } }
@@ -102,6 +112,14 @@ final class AppSettings {
         }
     }
 
+    /// The home's address and location (on this phone only).
+    var homeLocation: HomeLocation? {
+        didSet { guard !isReloading else { return }; setCodable(homeLocation, forScopedKey: HomeLocation.storageKey) }
+    }
+    /// The app's guess from the address. A hint only: `waterSource` is the user's confirmed answer.
+    var waterSourceEstimate: WaterSourceEstimate? {
+        didSet { guard !isReloading else { return }; setCodable(waterSourceEstimate, forScopedKey: WaterSourceEstimate.storageKey) }
+    }
     /// Filters the user entered from a certifier listing.
     var customFilterProducts: [FilterProduct] {
         didSet { guard !isReloading else { return }; setCodable(customFilterProducts, forScopedKey: "customFilterProducts") }
@@ -134,6 +152,11 @@ final class AppSettings {
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
+        // Older versions kept this in "hasOnboarded" (AppStorage). Carry it over once.
+        if defaults.object(forKey: Self.onboardingKey) == nil, defaults.bool(forKey: StorageKey.hasOnboarded) {
+            defaults.set(true, forKey: Self.onboardingKey)
+        }
+        hasCompletedOnboarding = defaults.bool(forKey: Self.onboardingKey)
         demoEnabled = defaults.bool(forKey: Keys.demoEnabled)
         demoPersona = DemoPersona(rawValue: defaults.string(forKey: Keys.demoPersona) ?? "") ?? .neverTested
         waterSource = .notSure
@@ -143,6 +166,8 @@ final class AppSettings {
         lowIncome = false
         riskAnswers = nil
         utilityReport = UtilityReport()
+        homeLocation = nil
+        waterSourceEstimate = nil
         customFilterProducts = []
         householdMembers = []
         homeProfile = HomeProfile()
@@ -194,6 +219,8 @@ final class AppSettings {
         riskAnswers = data(forScopedKey: RiskCheckAnswers.storageKey)
             .flatMap { try? JSONDecoder().decode(RiskCheckAnswers.self, from: $0) }
         utilityReport = codable(UtilityReport.self, forScopedKey: UtilityReport.storageKey) ?? UtilityReport()
+        homeLocation = codable(HomeLocation.self, forScopedKey: HomeLocation.storageKey)
+        waterSourceEstimate = codable(WaterSourceEstimate.self, forScopedKey: WaterSourceEstimate.storageKey)
         customFilterProducts = codable([FilterProduct].self, forScopedKey: "customFilterProducts") ?? []
         householdMembers = codable([HouseholdMember].self, forScopedKey: "householdMembers") ?? []
         homeProfile = codable(HomeProfile.self, forScopedKey: HomeProfile.storageKey) ?? HomeProfile()
@@ -214,13 +241,19 @@ final class AppSettings {
     /// Bumped whenever scoped values reload (Demo Mode on/off, persona change), so dependents can refresh.
     private(set) var scopedRevision = 0
 
+    /// The real household's confirmed water source, read without an AppSettings instance (background reminder
+    /// sync). Same stored value as `waterSource`; there is no other copy.
+    static func realWaterSource(_ defaults: UserDefaults = UITestSupport.defaults) -> WaterSource {
+        WaterSource(storedValue: defaults.string(forKey: realWaterSourceKey))
+    }
+
     /// Read without an AppSettings instance (background reminder sync). Real scope only.
-    static func realCustomFilterProducts(_ defaults: UserDefaults = .standard) -> [FilterProduct] {
+    static func realCustomFilterProducts(_ defaults: UserDefaults = UITestSupport.defaults) -> [FilterProduct] {
         defaults.data(forKey: realScope + "customFilterProducts")
             .flatMap { try? JSONDecoder().decode([FilterProduct].self, from: $0) } ?? []
     }
 
-    static func realRetestEvents(_ defaults: UserDefaults = .standard) -> [RetestEvent] {
+    static func realRetestEvents(_ defaults: UserDefaults = UITestSupport.defaults) -> [RetestEvent] {
         defaults.data(forKey: realScope + RetestEvent.storageKey)
             .flatMap { try? JSONDecoder().decode([RetestEvent].self, from: $0) } ?? []
     }
@@ -262,8 +295,9 @@ final class AppSettings {
         ScanPhotoStore(scope: demoEnabled ? "demo-\(demoPersona.rawValue)" : "real")
     }
 
-    /// Removes every real (non-demo) household value and draft. Used by "Reset all data".
+    /// Removes every real (non-demo) household value and draft, and shows onboarding again. Settings > Reset app.
     func resetRealData() {
+        hasCompletedOnboarding = false
         for key in defaults.dictionaryRepresentation().keys where key.hasPrefix(Self.realScope) {
             defaults.removeObject(forKey: key)
         }

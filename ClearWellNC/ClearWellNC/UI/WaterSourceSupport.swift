@@ -10,11 +10,8 @@ import SwiftData
 import SwiftUI
 
 extension WaterSource {
-    /// The real household's answer, saved during onboarding (or changed later). Unknown counts as "Not sure".
-    /// Views use `AppSettings.waterSource`, which follows Demo Mode.
-    static var current: WaterSource {
-        WaterSource(rawValue: UserDefaults.standard.string(forKey: AppSettings.realWaterSourceKey) ?? "") ?? .notSure
-    }
+    /// Report Quest streak and badges.
+    var careTitle: String { isWell ? String(localized: "Well Care") : String(localized: "Water Care") }
 
     /// Tab and screen title.
     var homeTitle: String {

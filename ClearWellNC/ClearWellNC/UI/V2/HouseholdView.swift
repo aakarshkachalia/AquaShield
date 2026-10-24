@@ -53,7 +53,7 @@ struct HouseholdView: View {
 
     private func memberRow(_ member: HouseholdMember, exposure: MemberExposure?) -> some View {
         HStack(spacing: DS.Space.m) {
-            DS.IconBadge(systemImage: member.ageBand.isChild ? "figure.child" : "person.fill")
+            MemberAvatar(member: member, flagged: !(exposure?.flags.isEmpty ?? true))
             VStack(alignment: .leading, spacing: DS.Space.xxs) {
                 Text(member.displayName).font(DS.Typography.headline)
                 Text(member.ageBand.label).font(DS.Typography.subheadline).foregroundStyle(DS.Colors.textSecondary)

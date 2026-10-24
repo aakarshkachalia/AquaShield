@@ -19,7 +19,7 @@ struct ClearWellNCApp: App {
 
     init() {
         UITestSupport.applyLaunchArguments()
-        _settings = State(initialValue: AppSettings())
+        _settings = State(initialValue: AppSettings(defaults: UITestSupport.defaults))
     }
 
     var sharedModelContainer: ModelContainer = {
@@ -28,7 +28,10 @@ struct ClearWellNCApp: App {
             LabResult.self,
             TreatmentSystem.self,
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        // UI tests get their own file, so they never read or change the real data.
+        let modelConfiguration = UITestSupport.isUITesting
+            ? ModelConfiguration(schema: schema, url: UITestSupport.testStoreURL)
+            : ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])

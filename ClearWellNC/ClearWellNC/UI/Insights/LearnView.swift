@@ -23,32 +23,36 @@ struct LearnView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: Spacing.m) {
-                    Text("What's in well water, where it comes from, who is most at risk, and how to fix it.")
+                    Text(Wording.adapt(String(localized: "What's in well water, where it comes from, who is most at risk, and how to fix it."),
+                                       for: settings.waterSource))
                         .foregroundStyle(Color.textSecondary)
                         .padding(.bottom, Spacing.xs)
-                    SectionHeader(title: "Contaminants")
-                    ForEach(LearnLibrary.articles) { article in
-                        NavigationLink {
-                            LearnArticleView(article: article)
-                        } label: {
-                            LearnCardRow(article: article)
-                        }
-                        .buttonStyle(.plain)
+                    // Everything stays browsable; city users just see city topics first.
+                    let featured = settings.waterSource.showsWellCare ? LearnLibrary.articles
+                        : LearnLibrary.articles.filter { $0.contaminants.contains(where: Self.cityTopics.contains) }
+                    let more = LearnLibrary.articles.filter { article in !featured.contains { $0.id == article.id } }
+                    SectionHeader(title: settings.waterSource.showsWellCare ? "Contaminants" : "For city water")
+                    ForEach(featured) { articleLink($0) }
+                    if !more.isEmpty {
+                        SectionHeader(title: "More topics")
+                        ForEach(more) { articleLink($0) }
                     }
 
                     SectionHeader(title: "Badges")
                     badgeStrip
                     WellCareSummaryCard(context: context)
 
-                    SectionHeader(title: "About \(AppName.display)")
-                    NavigationLink {
-                        HowItWorksView()
-                    } label: {
-                        NavigationCardLabel(title: Text("How It Works"),
-                                            subtitle: Text("Where the data comes from and how the estimates are made."),
-                                            systemImage: "info.circle.fill")
+                    if settings.waterSource.showsWellCare {
+                        SectionHeader(title: "About \(AppName.display)")
+                        NavigationLink {
+                            HowItWorksView()
+                        } label: {
+                            NavigationCardLabel(title: Text("How It Works"),
+                                                subtitle: Text("Where the data comes from and how the estimates are made."),
+                                                systemImage: "info.circle.fill")
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
                     Text(LearnArticle.footer)
                         .font(.caption)
                         .foregroundStyle(.secondary)
@@ -97,6 +101,19 @@ private struct LearnCardRow: View {
     }
 }
 
+extension LearnView {
+    static let cityTopics: Set<ContaminantID> = [.lead, .copper, .pfoa, .pfos, .genx, .totalColiform, .eColi]
+
+    func articleLink(_ article: LearnArticle) -> some View {
+        NavigationLink {
+            LearnArticleView(article: article)
+        } label: {
+            LearnCardRow(article: article)
+        }
+        .buttonStyle(.plain)
+    }
+}
+
 struct LearnArticleView: View {
     let article: LearnArticle
 
@@ -106,8 +123,14 @@ struct LearnArticleView: View {
                 hero
                 limitsCard
                 keyPoint("map", String(localized: "Where it comes from"), article.whereFrom)
-                keyPoint("heart.text.square", String(localized: "Short-term health effects"), article.shortTerm)
-                keyPoint("heart.text.square.fill", String(localized: "Long-term health effects"), article.longTerm)
+                VStack(alignment: .leading, spacing: DS.Space.m) {
+                    Text("Where it can affect the body").font(DS.Typography.headline).foregroundStyle(DS.Colors.textPrimary)
+                    BodyAreaGrid(areas: article.contaminants.flatMap(BodyArea.areas(for:)).uniqued())
+                    DS.InfoCard(systemImage: "heart.text.square", title: String(localized: "Health effects"),
+                                message: QuestText.firstSentences(article.shortTerm, max: 1),
+                                learnMore: article.shortTerm + "\n\n" + article.longTerm)
+                }
+                .dsCard()
                 keyPoint("person.2", String(localized: "Who is most at risk"), article.mostAtRisk)
                 DS.InfoCard(systemImage: "eye.slash", title: LearnArticle.symptomsNote)
                 treatments

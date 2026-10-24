@@ -9,14 +9,13 @@ import SwiftData
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage(StorageKey.hasOnboarded) private var hasOnboarded = false
     @Environment(AppRouter.self) private var router
     @Environment(AppSettings.self) private var settings
 
     var body: some View {
         @Bindable var router = router
         Group {
-            if hasOnboarded {
+            if settings.hasCompletedOnboarding {
                 RootTabView()
             } else {
                 OnboardingView()
@@ -64,7 +63,10 @@ struct RootTabView: View {
             }
         }
         // Keep scheduled notifications in step with stored data on every launch.
-        .task { await ReminderSync.refresh(using: modelContext) }
+        .task {
+            UITestSupport.seedResultsIfAsked(modelContext)
+            await ReminderSync.refresh(using: modelContext)
+        }
         // Check NWS alerts for the saved well on launch and whenever it changes.
         .task(id: "\(wellKey ?? "")|\(settings.isOptedIn(.stormAlerts))") {
             if let well = savedWells.first, settings.isOptedIn(.stormAlerts) {

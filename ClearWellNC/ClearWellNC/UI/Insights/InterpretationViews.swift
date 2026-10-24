@@ -86,7 +86,7 @@ struct TestingDisclaimer: View {
         switch kind {
         case .estimate: String(localized: "This is an estimate, not a test result.")
         case .score: String(localized: "This score summarizes the results you entered. It is not a lab result.")
-        case .forecast: String(localized: "Forecasts are predictions from county-wide data, not test results for your well.")
+        case .forecast: Wording.adapt(String(localized: "Forecasts are predictions from county-wide data, not test results for your well."))
         }
     }
 }

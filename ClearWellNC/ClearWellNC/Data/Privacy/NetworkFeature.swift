@@ -80,7 +80,7 @@ extension AppSettings {
         defaults.set(true, forKey: marker)
         let key = realScope + "networkOptIns"
         guard defaults.object(forKey: key) == nil else { return }
-        let granted: Set<NetworkFeature> = defaults.bool(forKey: StorageKey.hasOnboarded) ? Set(NetworkFeature.allCases) : []
+        let granted: Set<NetworkFeature> = (defaults.bool(forKey: StorageKey.hasOnboarded) || defaults.bool(forKey: onboardingKey)) ? Set(NetworkFeature.allCases) : []
         defaults.set(try? JSONEncoder().encode(granted), forKey: key)
     }
 

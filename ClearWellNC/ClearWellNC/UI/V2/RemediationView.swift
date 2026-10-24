@@ -157,7 +157,9 @@ struct CompareProductsView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: DS.Space.m) {
                     row(String(localized: "Coverage")) { "\($0.coveragePercent)%" }
-                    row(String(localized: "Covers")) { $0.covered.map(\.name).joined(separator: ", ") }
+                    CoverageGrid(products: matches.map(\.product),
+                                 targets: Array(Set(matches.flatMap(\.drivers))).sorted { $0.rawValue < $1.rawValue })
+                        .dsCard()
                     row(String(localized: "Capacity")) { $0.capacityGallons.map { "\(formatNumber($0)) gal" } ?? "—" }
                     row(String(localized: "Yearly cost")) {
                         $0.annualCost.map { $0.formatted(.currency(code: "USD").precision(.fractionLength(0))) } ?? "—"

@@ -17,6 +17,7 @@ struct DashboardView: View {
     @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
     @Query(sort: \TreatmentSystem.addedAt) private var systems: [TreatmentSystem]
     @State private var trends = CountyTrendData.loadBundled()
+    @State private var sourceArea: WaterSystemArea?
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private var snapshot: WaterSnapshot {
@@ -33,21 +34,25 @@ struct DashboardView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: DS.Space.xl) {
-                    ForEach(snapshot.alerts) { SafetyAlertCard(alert: $0) }
+                    ForEach(snapshot.alerts) { AlertBanner(alert: $0) }
                     if settings.isOptedIn(.stormAlerts), !alertsStore.relevantAlerts.isEmpty {
                         WeatherAlertsCard(store: alertsStore) {}
                     }
                     modes
                     hero(snapshot)
+                    if snapshot.hasReadings {
+                        tapRings(snapshot)
+                    }
                     if snapshot.hasReadings || !snapshot.filters.isEmpty || !snapshot.members.isEmpty {
                         tiles(snapshot)
                     }
+                    sourceCard
                     nextStep(snapshot)
                     StormHomeCard()
                     if let latest = results.first {
                         ReportQuestCard(latest: latest, context: wellCareContext)
                     }
-                    if let challenge = wellCareContext.challenge {
+                    if settings.waterSource.showsWellCare, let challenge = wellCareContext.challenge {
                         SeasonalChallengeCard(challenge: challenge)
                     }
                     if snapshot.hasReadings { DisclaimerFooter() }
@@ -113,10 +118,8 @@ struct DashboardView: View {
                     Label(snapshot.source.settingName, systemImage: snapshot.source.symbol)
                         .font(DS.Typography.subheadline.weight(.semibold))
                         .foregroundStyle(DS.Colors.textSecondary)
-                    Text("Confidence: \(drinking.confidenceText)")
-                        .font(DS.Typography.subheadline)
-                        .foregroundStyle(drinking.confidence == .high ? DS.Colors.textSecondary : DS.Colors.textPrimary)
-                        .multilineTextAlignment(.center)
+                    ConfidenceBar(recommended: WellHealthScore.recommendedTargets(for: snapshot.source, isShower: false),
+                                  missing: drinking.missingTests)
                     Text("See what's behind it")
                         .font(DS.Typography.headline)
                         .foregroundStyle(DS.Colors.accent)
@@ -172,15 +175,6 @@ struct DashboardView: View {
     private func tiles(_ snapshot: WaterSnapshot) -> some View {
         // Not a LazyVGrid: it left the last tile out of the accessibility tree (VoiceOver couldn't reach it).
         TileGrid(columns: dynamicTypeSize.isAccessibilitySize ? 1 : 2, spacing: DS.Space.m) {
-            if snapshot.hasReadings {
-                NavigationLink { TapScoresListView() } label: {
-                    let shower = snapshot.showers.first
-                    DashboardTile(systemImage: "shower.fill", title: String(localized: "Drinking vs shower"),
-                                  value: "\(snapshot.drinking?.score ?? 0) · \(shower?.score ?? 0)",
-                                  caption: String(localized: "Kitchen tap · shower"))
-                }
-                .buttonStyle(DS.PressableCardStyle())
-            }
             if let latest = snapshot.latest {
                 NavigationLink { WellScoreView() } label: {
                     DashboardTile(systemImage: DS.Icon.test, title: String(localized: "Latest test"),
@@ -191,11 +185,22 @@ struct DashboardView: View {
             }
             NavigationLink { FiltersView() } label: {
                 if let soonest = snapshot.filtersByDue.first {
-                    DashboardTile(systemImage: DS.Icon.filter(.underSinkFilter), title: String(localized: "Filters"),
-                                  value: soonest.days.map { $0 <= 0 ? String(localized: "Replace now") : String(localized: "\($0) days") }
-                                      ?? String(localized: "No date"),
-                                  caption: String(localized: "until \(soonest.filter.name) is due"),
-                                  level: (soonest.days ?? 99) <= 0 ? .poor : nil)
+                    VStack(alignment: .leading, spacing: DS.Space.s) {
+                        Label(String(localized: "Filters"), systemImage: DS.Icon.filter(.underSinkFilter))
+                            .font(DS.Typography.caption)
+                            .textCase(.uppercase)
+                            .foregroundStyle(DS.Colors.textSecondary)
+                        HStack(spacing: DS.Space.m) {
+                            FilterLifeRing(daysLeft: soonest.days,
+                                           totalDays: soonest.filter.lifeMonths.map { $0 * 30 })
+                            Text(soonest.filter.name)
+                                .font(DS.Typography.subheadline)
+                                .foregroundStyle(DS.Colors.textPrimary)
+                                .lineLimit(2)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 120, alignment: .topLeading)
+                    .dsCard(padding: DS.Space.m)
                 } else {
                     DashboardTile(systemImage: DS.Icon.filter(.underSinkFilter), title: String(localized: "Filters"),
                                   value: String(localized: "None yet"), caption: String(localized: "Add one to see what it removes"))
@@ -214,6 +219,25 @@ struct DashboardView: View {
             }
             NavigationLink { HouseholdView() } label: {
                 let flagged = snapshot.exposures.values.filter { !$0.flags.isEmpty }.count
+                if !snapshot.members.isEmpty {
+                    VStack(alignment: .leading, spacing: DS.Space.s) {
+                        Label(String(localized: "Household"), systemImage: "person.2.fill")
+                            .font(DS.Typography.caption)
+                            .textCase(.uppercase)
+                            .foregroundStyle(DS.Colors.textSecondary)
+                        HStack(spacing: -DS.Space.s) {
+                            ForEach(snapshot.members.prefix(4)) { member in
+                                MemberAvatar(member: member,
+                                             flagged: !(snapshot.exposures[member.id]?.flags.isEmpty ?? true))
+                            }
+                        }
+                        Text(flagged == 0 ? String(localized: "No risk flags") : String(localized: "\(flagged) with risk flags"))
+                            .font(DS.Typography.footnote)
+                            .foregroundStyle(DS.Colors.textSecondary)
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 120, alignment: .topLeading)
+                    .dsCard(padding: DS.Space.m)
+                } else {
                 DashboardTile(systemImage: "person.2.fill", title: String(localized: "Household"),
                               value: snapshot.members.isEmpty ? String(localized: "Add people")
                                   : String(localized: "\(snapshot.members.count) people"),
@@ -221,9 +245,44 @@ struct DashboardView: View {
                                   : (flagged == 0 ? String(localized: "No risk flags")
                                                   : String(localized: "\(flagged) with risk flags")),
                               level: flagged > 0 ? .fair : nil)
+                }
             }
             .buttonStyle(DS.PressableCardStyle())
             .accessibilityIdentifier("dashboard.household")
+        }
+    }
+
+    // MARK: Tap rings and source
+
+    private func tapRings(_ snapshot: WaterSnapshot) -> some View {
+        let taps = [snapshot.drinking].compactMap { $0 } + Array(snapshot.showers.prefix(1))
+            + [snapshot.taps[.wholeHouse]].compactMap { $0 }
+        return NavigationLink { TapScoresListView() } label: {
+            TapRingsRow(results: taps)
+                .dsCard()
+        }
+        .buttonStyle(DS.PressableCardStyle())
+        .accessibilityIdentifier("dashboard.taps")
+    }
+
+    /// Small map of the home inside its water system, when the address and a system are known.
+    @ViewBuilder
+    private var sourceCard: some View {
+        if let home = settings.homeLocation {
+            VStack(alignment: .leading, spacing: DS.Space.s) {
+                SourceMap(location: home, area: sourceArea)
+                    .frame(height: 140)
+                    .clipShape(RoundedRectangle(cornerRadius: DS.Corner.medium, style: .continuous))
+                Label(settings.waterSourceEstimate?.systemName.map { String(localized: "\(settings.waterSource.choiceTitle) · \($0)") }
+                      ?? settings.waterSource.choiceTitle, systemImage: settings.waterSource.symbol)
+                    .font(DS.Typography.subheadline.weight(.semibold))
+                    .foregroundStyle(DS.Colors.textPrimary)
+            }
+            .dsCard()
+            .task(id: settings.waterSourceEstimate?.pwsid) {
+                guard let pwsid = settings.waterSourceEstimate?.pwsid else { sourceArea = nil; return }
+                sourceArea = await Task.detached { WaterSystemIndex.bundled?.areas.first { $0.pwsid == pwsid } }.value
+            }
         }
     }
 

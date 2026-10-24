@@ -13,35 +13,47 @@ import XCTest
 
 final class ScreenshotTests: XCTestCase {
     private var appearance = "light"
+    private var mode = "well"
     private var index = 0
 
     override func setUpWithError() throws {
         continueAfterFailure = true
     }
 
-    @MainActor func testScreenshotsLight() { capture("light") }
-    @MainActor func testScreenshotsDark() { capture("dark") }
+    @MainActor func testScreenshotsWellLight() { capture("light", mode: "well") }
+    @MainActor func testScreenshotsWellDark() { capture("dark", mode: "well") }
+    @MainActor func testScreenshotsCityLight() { capture("light", mode: "city") }
+    @MainActor func testScreenshotsCityDark() { capture("dark", mode: "city") }
 
     // MARK: Walkthrough
 
     @MainActor
-    private func capture(_ appearance: String) {
+    private func capture(_ appearance: String, mode: String) {
         self.appearance = appearance
+        self.mode = mode
         index = 0
 
-        // Onboarding, from a clean install.
-        let fresh = XCUIApplication()
-        fresh.launchArguments = ["-uiTestReset", "-uiTestAppearance", appearance]
-        fresh.launch()
-        snap(fresh, "onboarding-welcome")
-        if tapIfExists(fresh.buttons["flow.next"]) { snap(fresh, "onboarding-water-source") }
-        if tapIfExists(fresh.buttons["flow.next"]) { snap(fresh, "onboarding-county") }
-        if tapIfExists(fresh.buttons["flow.next"]) { snap(fresh, "onboarding-report") }
-        fresh.terminate()
+        // Onboarding, from a clean install (city mode only: it's the same for both).
+        if mode == "city" {
+            let fresh = XCUIApplication()
+            fresh.launchArguments = ["-uiTestReset", "-uiTestAppearance", appearance]
+            fresh.launch()
+            snap(fresh, "onboarding-welcome")
+            if tapIfExists(fresh.buttons["onboarding.getStarted"]) { snap(fresh, "onboarding-address") }
+            tapIfExists(fresh.buttons["onboarding.skipAddress"])
+            if tapIfExists(fresh.buttons["onboarding.continueWithoutAddress"]) { snap(fresh, "onboarding-estimate") }
+            if tapIfExists(fresh.buttons["flow.next"]) { snap(fresh, "onboarding-confirm") }
+            tapIfExists(fresh.descendants(matching: .any)["onboarding.source.publicWater"])
+            if tapIfExists(fresh.buttons["flow.next"]) { snap(fresh, "onboarding-household") }
+            fresh.terminate()
+        }
 
-        // The rest with sample data that has a problem to show.
+        // City: a sample city result. Well: Demo Mode's arsenic persona.
         let app = XCUIApplication()
-        app.launchArguments = ["-uiTestSkipOnboarding", "-uiTestDemo", "arsenicProblem", "-uiTestAppearance", appearance]
+        app.launchArguments = mode == "city"
+            ? ["-uiTestReset", "-uiTestSkipOnboarding", "-uiTestSource", "publicWater", "-uiTestSeedResults",
+               "-uiTestAppearance", appearance]
+            : ["-uiTestReset", "-uiTestSkipOnboarding", "-uiTestDemo", "arsenicProblem", "-uiTestAppearance", appearance]
         app.launch()
 
         tab(app, "Home")
@@ -89,7 +101,7 @@ final class ScreenshotTests: XCTestCase {
     @MainActor
     private func snap(_ app: XCUIApplication, _ name: String) {
         index += 1
-        let file = String(format: "%02d-%@-%@", index, name, appearance)
+        let file = String(format: "%02d-%@-%@-%@", index, name, mode, appearance)
         let screenshot = app.screenshot()
         let attachment = XCTAttachment(screenshot: screenshot)
         attachment.name = file
@@ -97,7 +109,8 @@ final class ScreenshotTests: XCTestCase {
         add(attachment)
 
         let dir = ProcessInfo.processInfo.environment["SCREENSHOT_DIR"] ?? "/tmp/ClearWellScreenshots"
-        let folder = URL(fileURLWithPath: (dir as NSString).expandingTildeInPath).appendingPathComponent(appearance)
+        let folder = URL(fileURLWithPath: (dir as NSString).expandingTildeInPath)
+            .appendingPathComponent(mode).appendingPathComponent(appearance)
         try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         try? screenshot.pngRepresentation.write(to: folder.appendingPathComponent(file + ".png"))
     }

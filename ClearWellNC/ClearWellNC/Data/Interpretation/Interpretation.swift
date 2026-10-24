@@ -35,6 +35,19 @@ nonisolated struct Interpretation: Sendable {
     /// True when a health-based limit (or health advisory) is met or exceeded.
     let isHealthExceedance: Bool
 
+    /// The sentence follows the confirmed water source (city users never read "your well").
+    init(id: ContaminantID, readingText: String, limitText: String, percentOfLimit: Double?, tier: Tier,
+         chipLabel: String, sentence: String, isHealthExceedance: Bool) {
+        self.id = id
+        self.readingText = readingText
+        self.limitText = limitText
+        self.percentOfLimit = percentOfLimit
+        self.tier = tier
+        self.chipLabel = chipLabel
+        self.sentence = Wording.adapt(sentence)
+        self.isHealthExceedance = isHealthExceedance
+    }
+
     var percentText: String? {
         guard let percentOfLimit else { return nil }
         let pct = percentOfLimit.formatted(.number.precision(.fractionLength(0)))

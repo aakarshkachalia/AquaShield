@@ -23,6 +23,13 @@ struct TapScoreView: View {
             VStack(alignment: .leading, spacing: DS.Space.xl) {
                 if let result = snapshot.taps[tap] {
                     header(result)
+                    if result.items.contains(where: { $0.penalty > 0.5 }) {
+                        VStack(alignment: .leading, spacing: DS.Space.s) {
+                            Text("What lowers the score").font(DS.Typography.headline).foregroundStyle(DS.Colors.textPrimary)
+                            DriversChart(items: result.items)
+                        }
+                        .dsCard()
+                    }
                     DSSectionTitle(String(localized: "Each result"))
                     ForEach(result.items.filter { $0.level != .notScored }) { ItemCard(item: $0) }
                     let notScored = result.items.filter { $0.level == .notScored }
@@ -73,10 +80,9 @@ struct TapScoreView: View {
         VStack(spacing: DS.Space.m) {
             DS.ScoreRing(score: result.score, level: result.dsLevel,
                          title: tap.isDrinking ? String(localized: "Drinking water score") : String(localized: "Shower water score"))
-            Text("Confidence: \(result.confidenceText)")
-                .font(DS.Typography.subheadline)
-                .foregroundStyle(DS.Colors.textPrimary)
-                .multilineTextAlignment(.center)
+            ConfidenceBar(recommended: WellHealthScore.recommendedTargets(for: settings.waterSource,
+                                                                          isShower: tap.kind == .shower),
+                          missing: result.missingTests)
             Text(result.explanation)
                 .font(DS.Typography.subheadline)
                 .foregroundStyle(DS.Colors.textSecondary)
@@ -113,10 +119,13 @@ private struct ItemCard: View {
                     }
                 }
             }
+            if !item.appliedFilters.isEmpty {
+                FilterEffectChart(item: item)
+            }
             Text(item.explanation)
                 .font(DS.Typography.subheadline)
                 .foregroundStyle(DS.Colors.textSecondary)
-                .fixedSize(horizontal: false, vertical: true)
+                .lineLimit(2)
             if !item.flags.isEmpty {
                 FlowChips(flags: item.flags)
             }

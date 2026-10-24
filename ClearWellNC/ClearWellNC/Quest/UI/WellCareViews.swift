@@ -26,7 +26,7 @@ struct WellCareProgressView: View {
                          systemImage: "calendar")
                     stat(value: "\(wellCare.state.points)", label: String(localized: "points"), systemImage: "star.fill")
                 }
-                Text("Your Well Care streak counts years in a row with at least one water test. Opening the app doesn't count. Testing does.")
+                Text("Your streak counts years in a row with at least one water test. Opening the app doesn't count. Testing does.")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
@@ -187,6 +187,7 @@ struct QuestSession: Identifiable {
 
 /// Streak, points and badges at a glance; opens the progress screen.
 struct WellCareSummaryCard: View {
+    @Environment(AppSettings.self) private var settings
     let context: WellCareContext
     @Environment(WellCareStore.self) private var wellCare
 
@@ -197,7 +198,7 @@ struct WellCareSummaryCard: View {
             WellCareProgressView(context: context)
         } label: {
             NavigationCardLabel(
-                title: Text("Well Care"),
+                title: Text(settings.waterSource.careTitle),
                 subtitle: Text("\(streak)-year testing streak · \(earned) of \(Badge.allCases.count) badges · \(wellCare.state.points) points"),
                 systemImage: "rosette")
         }
