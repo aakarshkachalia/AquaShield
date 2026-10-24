@@ -297,6 +297,14 @@ struct MyWaterView: View {
             }
             .buttonStyle(.plain)
             NavigationLink {
+                ReportExportView()
+            } label: {
+                NavigationCardLabel(title: Text("Share a report"),
+                                    subtitle: Text("A PDF for a doctor, landlord or well contractor."),
+                                    systemImage: "doc.richtext")
+            }
+            .buttonStyle(.plain)
+            NavigationLink {
                 ModesView()
             } label: {
                 NavigationCardLabel(title: Text("Testing and modes"),

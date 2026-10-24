@@ -22,6 +22,15 @@ struct GetHelpView: View {
                         .foregroundStyle(DS.Colors.textSecondary)
 
                     VStack(spacing: DS.Space.m) {
+                        NavigationLink {
+                            FindTestingView()
+                        } label: {
+                            NavigationCardLabel(title: Text("Find testing"),
+                                                subtitle: Text("Who to call, and how to take a sample."),
+                                                systemImage: DS.Icon.test)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("getHelp.findTesting")
                         if source.showsWellCare {
                             Button {
                                 router.showingRiskCheck = true

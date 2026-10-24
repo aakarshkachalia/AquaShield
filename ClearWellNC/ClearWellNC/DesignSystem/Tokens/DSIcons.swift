@@ -83,7 +83,7 @@ extension DS {
             }
         }
 
-        static func category(_ category: ContaminantCategory) -> String {
+        nonisolated static func category(_ category: ContaminantCategory) -> String {
             switch category {
             case .bacteria: "allergens.fill"
             case .metals: "circle.hexagongrid.fill"

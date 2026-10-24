@@ -63,6 +63,14 @@ struct DataReviewView: View {
                         source: "EPA Exposure Factors Handbook (rounded)"))
         rows.append(Row(id: "septic", area: "Household defaults", title: "Well to septic distance",
                         detail: "\(formatNumber(HomeProfile.septicSetbackFeet)) feet", source: "NC well construction rules"))
+        for contact in TestingContact.samples(county: settings.county) where contact.needsVerification {
+            rows.append(Row(id: "contact-\(contact.id)", area: "Find testing", title: contact.name, detail: contact.detail,
+                            source: contact.source.sourceName))
+        }
+        for instruction in SamplingInstruction.all where instruction.source.needsVerification {
+            rows.append(Row(id: "sampling-\(instruction.id)", area: "Sampling instructions", title: instruction.title,
+                            detail: instruction.steps.joined(separator: " "), source: instruction.source.sourceName))
+        }
         for entry in VerificationRegister.entries where entry.needsVerification {
             rows.append(Row(id: entry.id, area: "Notes in code (\(entry.file.split(separator: "/").last ?? ""))",
                             title: entry.id, detail: entry.note, source: entry.sourceName))

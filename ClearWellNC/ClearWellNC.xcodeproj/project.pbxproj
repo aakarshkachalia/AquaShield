@@ -363,6 +363,7 @@
 		7045E00330709C60001F38C8 /* Debug configuration for PBXNativeTarget "ClearWellNC" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APP_DISPLAY_NAME = "ClearWell NC";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -373,7 +374,6 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				APP_DISPLAY_NAME = "ClearWell NC";
 				INFOPLIST_KEY_CFBundleDisplayName = "$(APP_DISPLAY_NAME)";
 				INFOPLIST_KEY_NSCameraUsageDescription = "$(APP_DISPLAY_NAME) uses the camera to scan your water test report. The photo is read on your phone and is not uploaded.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "$(APP_DISPLAY_NAME) uses your location to find your census tract, show your area's water risk, and find water help nearby. Your location is not saved unless you choose to save it.";
@@ -412,6 +412,7 @@
 		7045E00430709C60001F38C8 /* Release configuration for PBXNativeTarget "ClearWellNC" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APP_DISPLAY_NAME = "ClearWell NC";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -422,7 +423,6 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				APP_DISPLAY_NAME = "ClearWell NC";
 				INFOPLIST_KEY_CFBundleDisplayName = "$(APP_DISPLAY_NAME)";
 				INFOPLIST_KEY_NSCameraUsageDescription = "$(APP_DISPLAY_NAME) uses the camera to scan your water test report. The photo is read on your phone and is not uploaded.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "$(APP_DISPLAY_NAME) uses your location to find your census tract, show your area's water risk, and find water help nearby. Your location is not saved unless you choose to save it.";
