@@ -17,6 +17,7 @@ struct DashboardView: View {
     @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
     @Query(sort: \TreatmentSystem.addedAt) private var systems: [TreatmentSystem]
     @State private var trends = CountyTrendData.loadBundled()
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private var snapshot: WaterSnapshot {
         _ = settings.scopedRevision
@@ -169,7 +170,8 @@ struct DashboardView: View {
     // MARK: Tiles
 
     private func tiles(_ snapshot: WaterSnapshot) -> some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: DS.Space.m)], spacing: DS.Space.m) {
+        // Not a LazyVGrid: it left the last tile out of the accessibility tree (VoiceOver couldn't reach it).
+        TileGrid(columns: dynamicTypeSize.isAccessibilitySize ? 1 : 2, spacing: DS.Space.m) {
             if snapshot.hasReadings {
                 NavigationLink { TapScoresListView() } label: {
                     let shower = snapshot.showers.first

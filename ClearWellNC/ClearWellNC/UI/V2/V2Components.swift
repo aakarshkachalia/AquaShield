@@ -46,7 +46,8 @@ struct DashboardTile: View {
         .frame(maxWidth: .infinity, minHeight: 120, alignment: .topLeading)
         .dsCard(padding: DS.Space.m)
         .contentShape(Rectangle())
-        .accessibilityElement(children: .combine)
+        // No accessibilityElement here: the NavigationLink around it already reads as one button, and an
+        // inner element would hide the link's identifier from UI tests.
     }
 }
 
@@ -141,5 +142,47 @@ struct DSSectionTitle: View {
             .accessibilityAddTraits(.isHeader)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.top, DS.Space.s)
+    }
+}
+
+/// Equal-width columns; each row is as tall as its tallest tile. Every child is laid out (not lazy), so all
+/// of them stay in the accessibility tree.
+struct TileGrid: Layout {
+    var columns: Int
+    var spacing: CGFloat
+
+    private func columnWidth(_ width: CGFloat) -> CGFloat {
+        let count = CGFloat(max(columns, 1))
+        return max(0, (width - spacing * (count - 1)) / count)
+    }
+
+    private func rowHeights(_ subviews: Subviews, width: CGFloat) -> [CGFloat] {
+        let proposal = ProposedViewSize(width: columnWidth(width), height: nil)
+        return stride(from: 0, to: subviews.count, by: max(columns, 1)).map { start in
+            subviews[start..<min(start + max(columns, 1), subviews.count)]
+                .map { $0.sizeThatFits(proposal).height }.max() ?? 0
+        }
+    }
+
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let width = proposal.width ?? 360
+        let heights = rowHeights(subviews, width: width)
+        return CGSize(width: width, height: heights.reduce(0, +) + spacing * CGFloat(max(heights.count - 1, 0)))
+    }
+
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let width = columnWidth(bounds.width)
+        let heights = rowHeights(subviews, width: bounds.width)
+        var y = bounds.minY
+        for (row, height) in heights.enumerated() {
+            for column in 0..<max(columns, 1) {
+                let index = row * max(columns, 1) + column
+                guard index < subviews.count else { break }
+                let x = bounds.minX + CGFloat(column) * (width + spacing)
+                subviews[index].place(at: CGPoint(x: x, y: y), anchor: .topLeading,
+                                      proposal: ProposedViewSize(width: width, height: height))
+            }
+            y += height + spacing
+        }
     }
 }

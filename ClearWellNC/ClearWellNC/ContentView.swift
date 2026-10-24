@@ -101,11 +101,18 @@ final class DemoStores {
 private struct DemoBannerModifier: ViewModifier {
     @Environment(AppSettings.self) private var settings
 
+    /// Stacked above the content (not a safe-area inset): navigation bars and their toolbar buttons then
+    /// start below the banner instead of drawing over it.
     func body(content: Content) -> some View {
-        content.safeAreaInset(edge: .top, spacing: 0) {
+        VStack(spacing: 0) {
             if settings.demoEnabled {
                 SampleDataBanner(text: "Sample data · Demo Mode")
+                    .background(DS.Colors.background)
+                    // Tint the status bar area too, so the banner reads as one strip.
+                    .background(Color.statusWatch.opacity(0.18).ignoresSafeArea(edges: .top))
+                    .background(DS.Colors.background.ignoresSafeArea(edges: .top))
             }
+            content
         }
     }
 }

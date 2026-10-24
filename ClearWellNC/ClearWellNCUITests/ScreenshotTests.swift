@@ -49,7 +49,8 @@ final class ScreenshotTests: XCTestCase {
         scroll(app); snap(app, "dashboard-lower")
         open(app, element(app, "dashboard.score"), "tap-score-kitchen")
         open(app, element(app, "dashboard.nextStep"), "what-to-do")
-        open(app, element(app, "dashboard.household"), "household")
+        let household = element(app, "dashboard.household")
+        open(app, household, "household")
 
         tab(app, "My Water")
         snap(app, "my-water-latest")
@@ -123,7 +124,7 @@ final class ScreenshotTests: XCTestCase {
 
     @MainActor
     private func labeled(_ app: XCUIApplication, _ prefix: String) -> XCUIElement {
-        app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", prefix)).firstMatch
+        app.buttons.matching(NSPredicate(format: "label BEGINSWITH[c] %@", prefix)).firstMatch
     }
 
     @MainActor
