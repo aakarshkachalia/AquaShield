@@ -270,13 +270,15 @@ nonisolated struct TapScoreResult: Sendable, Equatable {
     let capReason: String?
 
     var confidenceText: String {
-        let names = missingTests.prefix(2).map(\.name).formatted(.list(type: .and))
+        let shown = Array(missingTests.prefix(2))
+        let names = shown.map { $0.name.lowercased() }.formatted(.list(type: .and))
+        let tests = shown.count == 1 ? String(localized: "test") : String(localized: "tests")
         switch confidence {
         case .high: return String(localized: "High")
-        case .medium: return String(localized: "Medium — missing \(names) test")
+        case .medium: return String(localized: "Medium — missing \(names) \(tests)")
         case .low:
             return missingTests.isEmpty ? String(localized: "Low")
-                : String(localized: "Low — missing \(names) test")
+                : String(localized: "Low — missing \(names) \(tests)")
         }
     }
 

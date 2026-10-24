@@ -152,7 +152,7 @@ final class TapScoreTests: XCTestCase {
         XCTAssertEqual(full.confidence, .high)
         XCTAssertEqual(partial.confidence, .low)
         XCTAssertTrue(partial.missingTests.contains(.arsenic))
-        XCTAssertTrue(partial.confidenceText.contains("Arsenic"))
+        XCTAssertTrue(partial.confidenceText.contains("arsenic"))
         XCTAssertGreaterThanOrEqual(partial.score, full.score - 1)
     }
 

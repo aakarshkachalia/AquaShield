@@ -47,9 +47,9 @@ final class ScreenshotTests: XCTestCase {
         tab(app, "Home")
         snap(app, "dashboard")
         scroll(app); snap(app, "dashboard-lower")
-        open(app, app.buttons["dashboard.score"], "tap-score-kitchen")
-        open(app, app.buttons["dashboard.nextStep"], "what-to-do")
-        open(app, app.buttons["dashboard.household"], "household")
+        open(app, element(app, "dashboard.score"), "tap-score-kitchen")
+        open(app, element(app, "dashboard.nextStep"), "what-to-do")
+        open(app, element(app, "dashboard.household"), "household")
 
         tab(app, "My Water")
         snap(app, "my-water-latest")
@@ -66,7 +66,7 @@ final class ScreenshotTests: XCTestCase {
 
         tab(app, "Get Help")
         snap(app, "get-help")
-        open(app, app.buttons["getHelp.findTesting"], "find-testing")
+        open(app, element(app, "getHelp.findTesting"), "find-testing")
         if tapIfExists(app.buttons["getHelp.riskCheck"]) {
             snap(app, "risk-check-question")
             tapIfExists(app.buttons["flow.close"])
@@ -131,10 +131,17 @@ final class ScreenshotTests: XCTestCase {
         app.swipeUp()
     }
 
-    /// Scrolls until the element is on screen (up to 6 swipes).
+    /// Any element with this identifier (SwiftUI links don't always report as buttons).
+    @MainActor
+    private func element(_ app: XCUIApplication, _ identifier: String) -> XCUIElement {
+        app.descendants(matching: .any)[identifier].firstMatch
+    }
+
+    /// Scrolls to the top, then down until the element is on screen.
     @MainActor
     private func reveal(_ app: XCUIApplication, _ element: XCUIElement) -> Bool {
-        for _ in 0..<6 {
+        for _ in 0..<4 { app.swipeDown() }
+        for _ in 0..<8 {
             if element.exists && element.isHittable { return true }
             app.swipeUp()
         }
