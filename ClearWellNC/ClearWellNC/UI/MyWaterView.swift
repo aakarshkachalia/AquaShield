@@ -269,7 +269,7 @@ struct MyWaterView: View {
     @ViewBuilder
     private var more: some View {
         VStack(alignment: .leading, spacing: DS.Space.m) {
-            SectionHeader(title: "More")
+            Text("MORE").tracking(1).font(DS.Typography.eyebrow).foregroundStyle(DS.Colors.textSecondary)
             if !systemsNeedingRetest.isEmpty {
                 RetestReminderCard(systems: systemsNeedingRetest)
             }
@@ -280,53 +280,42 @@ struct MyWaterView: View {
                     OptInCard(feature: .stormAlerts)
                 }
             }
-            if waterSource.showsCityContent {
-                NavigationLink {
-                    UtilityReportView()
-                } label: {
-                    NavigationCardLabel(title: Text("My water utility"),
-                                        subtitle: Text("Your yearly water report, lead pipes, boil notices."),
-                                        systemImage: "building.2.fill")
+            TileGrid(columns: 2, spacing: DS.Space.m) {
+                if waterSource.showsCityContent {
+                    NavigationLink { UtilityReportView() } label: {
+                        ShortcutTile(title: String(localized: "My water utility"), systemImage: "building.2",
+                                     caption: String(localized: "Yearly report"))
+                    }
+                    .buttonStyle(DS.PressableCardStyle())
                 }
-                .buttonStyle(.plain)
-            }
-            NavigationLink {
-                FiltersView()
-            } label: {
-                NavigationCardLabel(title: Text("Filters"),
-                                    subtitle: Text("What they remove, and when to replace them."),
-                                    systemImage: "line.3.horizontal.decrease.circle.fill")
-            }
-            .buttonStyle(.plain)
-            NavigationLink {
-                ReportExportView()
-            } label: {
-                NavigationCardLabel(title: Text("Share a report"),
-                                    subtitle: Text("A PDF for a doctor, landlord or contractor."),
-                                    systemImage: "doc.richtext")
-            }
-            .buttonStyle(.plain)
-            NavigationLink {
-                ModesView()
-            } label: {
-                NavigationCardLabel(title: Text("Testing and modes"),
-                                    subtitle: Text("When to test next, and flood, baby or boil-water modes."),
-                                    systemImage: "calendar.badge.clock")
-            }
-            .buttonStyle(.plain)
-            if waterSource.showsWellCare, let well = savedWells.first, let db = store.database,
-               let tract = db.tract(fips: well.fips) {
-                NavigationLink {
-                    ReportView(selection: AreaSelection(
-                        tract: tract,
-                        coordinate: CLLocationCoordinate2D(latitude: well.latitude, longitude: well.longitude),
-                        placeName: well.placeName), meta: db.meta)
-                } label: {
-                    NavigationCardLabel(title: Text("My area's well risk"),
-                                        subtitle: Text("Estimates for wells near \(well.placeName)."),
-                                        systemImage: "map.fill")
+                NavigationLink { FiltersView() } label: {
+                    ShortcutTile(title: String(localized: "Filters"), systemImage: "line.3.horizontal.decrease.circle",
+                                 caption: String(localized: "Life and coverage"))
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(DS.PressableCardStyle())
+                NavigationLink { ModesView() } label: {
+                    ShortcutTile(title: String(localized: "Testing and modes"), systemImage: "calendar",
+                                 caption: String(localized: "What's due"))
+                }
+                .buttonStyle(DS.PressableCardStyle())
+                NavigationLink { ReportExportView() } label: {
+                    ShortcutTile(title: String(localized: "Share a report"), systemImage: "square.and.arrow.up",
+                                 caption: String(localized: "PDF"))
+                }
+                .buttonStyle(DS.PressableCardStyle())
+                if waterSource.showsWellCare, let well = savedWells.first, let db = store.database,
+                   let tract = db.tract(fips: well.fips) {
+                    NavigationLink {
+                        ReportView(selection: AreaSelection(
+                            tract: tract,
+                            coordinate: CLLocationCoordinate2D(latitude: well.latitude, longitude: well.longitude),
+                            placeName: well.placeName), meta: db.meta)
+                    } label: {
+                        ShortcutTile(title: String(localized: "My area's well risk"), systemImage: "map",
+                                     caption: well.placeName)
+                    }
+                    .buttonStyle(DS.PressableCardStyle())
+                }
             }
         }
     }

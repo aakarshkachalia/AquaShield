@@ -149,6 +149,18 @@ extension DS {
         static let metric = Font.system(.title3, design: .rounded, weight: .semibold).monospacedDigit()
         /// The number inside the score ring.
         static let score = Font.system(.largeTitle, design: .rounded, weight: .bold).monospacedDigit()
+
+        // Light weights for the landing page: thin at large sizes, never below regular at small sizes.
+        static let lightTitle = Font.system(.title, design: .rounded, weight: .light)
+        static let lightTitle2 = Font.system(.title2, design: .rounded, weight: .light)
+        static let lightBody = Font.system(.body, design: .rounded, weight: .light)
+        /// Small uppercase section labels.
+        static let eyebrow = Font.system(.caption, design: .rounded, weight: .semibold)
+
+        /// A big thin number that still follows Dynamic Type (size from @ScaledMetric).
+        static func thinNumber(size: CGFloat) -> Font {
+            .system(size: size, weight: .thin, design: .rounded).monospacedDigit()
+        }
     }
 }
 
