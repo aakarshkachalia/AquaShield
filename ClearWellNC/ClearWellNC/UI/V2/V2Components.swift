@@ -186,3 +186,38 @@ struct TileGrid: Layout {
         }
     }
 }
+
+/// A compact icon shortcut for tab menus: icon in a soft circle, one-line title, optional caption.
+struct ShortcutTile: View {
+    let title: String
+    let systemImage: String
+    var caption: String?
+    var tint: Color = DS.Colors.accent
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: DS.Space.s) {
+            Image(systemName: systemImage)
+                .font(.system(.title3, weight: .regular))
+                .foregroundStyle(tint)
+                .frame(width: 40, height: 40)
+                .background(tint.opacity(0.12), in: Circle())
+                .accessibilityHidden(true)
+            Text(title)
+                .font(DS.Typography.headline)
+                .foregroundStyle(DS.Colors.textPrimary)
+                .lineLimit(2)
+                .multilineTextAlignment(.leading)
+            if let caption {
+                Text(caption)
+                    .font(DS.Typography.footnote)
+                    .foregroundStyle(DS.Colors.textSecondary)
+                    .lineLimit(1)
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(DS.Space.l)
+        .frame(maxWidth: .infinity, minHeight: 120, alignment: .topLeading)
+        .background(DS.Colors.surface, in: RoundedRectangle(cornerRadius: DS.Corner.large, style: .continuous))
+        .contentShape(Rectangle())
+    }
+}

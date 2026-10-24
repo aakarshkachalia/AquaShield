@@ -246,7 +246,7 @@ struct CustomFilterFlow: View {
             number(String(localized: "Reduction (%)"), value: $newClaim.reduction)
             number(String(localized: "Tested at (\(ReadingUnit.canonical(for: newClaim.target).label))"), value: $newClaim.challenge)
             if !newClaim.standard.allowedTargets.contains(newClaim.target) {
-                FlagChip(text: String(localized: "\(newClaim.standard.name) doesn't cover \(newClaim.target.name.lowercased()), so this claim won't count."))
+                FlagChip(text: String(localized: "\(newClaim.standard.name) doesn't cover \(newClaim.target.name.inSentence), so this claim won't count."))
             }
             Button {
                 product.claims.append(CertificationClaim(

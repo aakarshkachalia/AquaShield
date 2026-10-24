@@ -17,50 +17,42 @@ struct GetHelpView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: DS.Space.xl) {
-                    Text("Free or low-cost testing, help paying for fixes, and what to do in an emergency.")
-                        .font(DS.Typography.body)
+                    Text("Testing, help paying for fixes, emergencies.")
+                        .font(DS.Typography.lightBody)
                         .foregroundStyle(DS.Colors.textSecondary)
 
-                    VStack(spacing: DS.Space.m) {
-                        NavigationLink {
-                            FindTestingView()
-                        } label: {
-                            NavigationCardLabel(title: Text("Find testing"),
-                                                subtitle: Text("Who to call, and how to take a sample."),
-                                                systemImage: DS.Icon.test)
+                    TileGrid(columns: 2, spacing: DS.Space.m) {
+                        NavigationLink { FindTestingView() } label: {
+                            ShortcutTile(title: String(localized: "Find testing"), systemImage: "testtube.2",
+                                         caption: String(localized: "Who to call"))
                         }
-                        .buttonStyle(.plain)
+                        .buttonStyle(DS.PressableCardStyle())
                         .accessibilityIdentifier("getHelp.findTesting")
                         if source.showsWellCare {
-                            Button {
-                                router.showingRiskCheck = true
-                            } label: {
-                                NavigationCardLabel(title: Text("Should I test my well?"),
-                                                    subtitle: Text("7 quick questions"),
-                                                    systemImage: DS.Icon.riskCheck)
+                            Button { router.showingRiskCheck = true } label: {
+                                ShortcutTile(title: String(localized: "Should I test my well?"), systemImage: "checklist",
+                                             caption: String(localized: "7 questions"))
                             }
-                            .buttonStyle(.plain)
+                            .buttonStyle(DS.PressableCardStyle())
                             .accessibilityIdentifier("getHelp.riskCheck")
-
-                            NavigationLink {
-                                StormModeView()
-                            } label: {
-                                NavigationCardLabel(title: Text("My well flooded"),
-                                                    subtitle: Text("Stay safe, disinfect, then retest."),
-                                                    systemImage: DS.Icon.alert(.flood))
+                            NavigationLink { StormModeView() } label: {
+                                ShortcutTile(title: String(localized: "My well flooded"), systemImage: "water.waves",
+                                             caption: String(localized: "Step by step"), tint: DS.Colors.fair)
                             }
-                            .buttonStyle(.plain)
+                            .buttonStyle(DS.PressableCardStyle())
                         }
                         if source.showsCityContent {
-                            NavigationLink {
-                                UtilityReportView()
-                            } label: {
-                                NavigationCardLabel(title: Text("My water utility"),
-                                                    subtitle: Text("Your yearly water report, lead pipes, boil notices."),
-                                                    systemImage: "building.2.fill")
+                            NavigationLink { UtilityReportView() } label: {
+                                ShortcutTile(title: String(localized: "My water utility"), systemImage: "building.2",
+                                             caption: String(localized: "Boil notices, lead"))
                             }
-                            .buttonStyle(.plain)
+                            .buttonStyle(DS.PressableCardStyle())
                         }
+                        NavigationLink { ResourcesView() } label: {
+                            ShortcutTile(title: String(localized: "Help near you"), systemImage: "mappin.and.ellipse",
+                                         caption: String(localized: "Labs and plumbers"))
+                        }
+                        .buttonStyle(DS.PressableCardStyle())
                     }
 
                     // Every bundled help program is for private wells.
@@ -71,15 +63,6 @@ struct GetHelpView: View {
                                     message: String(localized: "For boil notices, lead pipes or a change in your water."))
                     }
 
-                    SectionHeader(title: "More help")
-                    NavigationLink {
-                        ResourcesView()
-                    } label: {
-                        NavigationCardLabel(title: Text("Labs and services near you"),
-                                            subtitle: Text("Labs, plumbers and filter dealers on a map."),
-                                            systemImage: "mappin.and.ellipse")
-                    }
-                    .buttonStyle(.plain)
                     if source.showsWellCare {
                         NavigationLink {
                             CheckAreaView()

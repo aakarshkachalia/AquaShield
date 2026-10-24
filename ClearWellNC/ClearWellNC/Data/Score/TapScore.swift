@@ -271,7 +271,7 @@ nonisolated struct TapScoreResult: Sendable, Equatable {
 
     var confidenceText: String {
         let shown = Array(missingTests.prefix(2))
-        let names = shown.map { $0.name.lowercased() }.formatted(.list(type: .and))
+        let names = shown.map { $0.name.inSentence }.formatted(.list(type: .and))
         let tests = shown.count == 1 ? String(localized: "test") : String(localized: "tests")
         switch confidence {
         case .high: return String(localized: "High")
@@ -283,7 +283,7 @@ nonisolated struct TapScoreResult: Sendable, Equatable {
     }
 
     var explanation: String {
-        var text = String(localized: "\(score) out of 100 for \(tap.name.lowercased()).")
+        var text = String(localized: "\(score) out of 100 for \(tap.name.inSentence).")
         if let capReason { text += " " + capReason }
         return text
     }

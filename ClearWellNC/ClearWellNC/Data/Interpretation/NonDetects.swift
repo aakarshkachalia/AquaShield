@@ -43,7 +43,7 @@ nonisolated extension Interpretation {
     /// A reading reported as below the lab's detection limit.
     static func interpretNonDetect(_ id: ContaminantID, detectionLimit: Double?) -> Interpretation {
         let info = id.info
-        let name = info.name.lowercased()
+        let name = info.name.inSentence
         let reading: String
         let sentence: String
         if let detectionLimit {
