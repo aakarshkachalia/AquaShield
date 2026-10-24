@@ -50,7 +50,7 @@ struct SampleLabReportView: View {
                 row(r, bold: false)
             }
             Rectangle().frame(height: 2)
-            Text("This sample was made for the ClearWell NC app demo. It is not a real lab result.")
+            Text("This sample was made for the \(AppName.display) app demo. It is not a real lab result.")
                 .font(.system(size: 22))
                 .foregroundStyle(Color(white: 0.3))
         }

@@ -112,7 +112,7 @@ struct ScanReportSheet: View {
     private var chooser: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.l) {
-                Text("Take a photo of each page of your lab report, or pick photos you already have. ClearWell reads it on your phone and lets you check every number before saving.")
+                Text("Take a photo of each page of your lab report, or pick photos you already have. \(AppName.display) reads it on your phone and lets you check every number before saving.")
                     .font(.subheadline)
                     .foregroundStyle(Color.textSecondary)
                     .fixedSize(horizontal: false, vertical: true)
@@ -196,7 +196,7 @@ struct ScanReportSheet: View {
                 showingCamera = true
             case .denied:
                 cameraDenied = true
-                errorMessage = String(localized: "ClearWell doesn't have permission to use the camera. You can allow it in Settings, choose a photo, or enter results manually.")
+                errorMessage = String(localized: "\(AppName.display) doesn't have permission to use the camera. You can allow it in Settings, choose a photo, or enter results manually.")
             case .unsupported:
                 errorMessage = String(localized: "This device can't scan documents. Choose a photo or enter results manually.")
             }

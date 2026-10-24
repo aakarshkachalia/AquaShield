@@ -109,7 +109,7 @@ struct OnboardingView: View {
                                                startPoint: .topLeading, endPoint: .bottomTrailing),
                                 in: Circle())
                     .accessibilityHidden(true)
-                Text("ClearWell NC")
+                Text("\(AppName.display)")
                     .font(DS.Typography.display)
                     .foregroundStyle(DS.Colors.textPrimary)
                     .accessibilityAddTraits(.isHeader)

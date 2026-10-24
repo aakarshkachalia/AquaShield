@@ -22,7 +22,7 @@ struct SourcesView: View {
     private var dataSources: [DataSource] {
         [
             DataSource(id: "tracts", name: String(localized: "Census-tract well risk map"),
-                       detail: String(localized: "NCWELL database (Eaves et al. 2021, UNC Superfund Research Program), 1998–2019, with ClearWell's model estimates."),
+                       detail: String(localized: "NCWELL database (Eaves et al. 2021, UNC Superfund Research Program), 1998–2019, with \(AppName.display)'s model estimates."),
                        isSample: false),
             DataSource(id: "county", name: String(localized: "County well facts (Risk Check)"),
                        detail: countyData?.source ?? "", isSample: countyData?.sample ?? true),

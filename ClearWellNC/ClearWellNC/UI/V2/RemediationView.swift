@@ -98,7 +98,7 @@ struct RemediationView: View {
                 }
 
                 MedicalDisclaimer()
-                Text("No affiliate links. ClearWell earns nothing from these products.")
+                Text("No affiliate links. \(AppName.display) earns nothing from these products.")
                     .font(DS.Typography.footnote)
                     .foregroundStyle(DS.Colors.textSecondary)
             }

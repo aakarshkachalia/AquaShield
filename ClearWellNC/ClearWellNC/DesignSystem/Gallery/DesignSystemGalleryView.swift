@@ -224,7 +224,7 @@ struct DesignSystemGalleryView: View {
     }
 
     private var flow: some View {
-        section("Step flow style", note: "Progress bar, Back, and Next, using ClearWellStepFlowStyle. The real flows don't use it yet.") {
+        section("Step flow style", note: "Progress bar, Back, and Next, using ClearWellStepFlowStyle, which every flow in the app now uses.") {
             DS.ActionCard(systemImage: "rectangle.stack.fill", title: "Open a sample flow", subtitle: "4 questions") {
                 showingFlow = true
             }

@@ -120,7 +120,7 @@ struct SettingsView: View {
             let context = modelContext
             Task { await ReminderSync.refresh(using: context) }
         }
-        .confirmationDialog("Delete all ClearWell data on this device?", isPresented: $confirmingReset, titleVisibility: .visible) {
+        .confirmationDialog("Delete all \(AppName.display) data on this device?", isPresented: $confirmingReset, titleVisibility: .visible) {
             Button("Delete everything", role: .destructive, action: resetAll)
         } message: {
             Text("This can't be undone.")

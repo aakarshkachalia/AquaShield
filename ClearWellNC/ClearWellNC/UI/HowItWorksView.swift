@@ -44,7 +44,7 @@ struct HowItWorksView: View {
     private var explainers: some View {
         VStack(alignment: .leading, spacing: Spacing.m) {
             ExplainerCard(number: 1, title: "Real test results", symbol: "testtube.2",
-                          text: "The NC State Laboratory of Public Health tested private wells from 1998 to 2019. UNC researchers geocoded 117,960 of those tests (the NCWELL database). ClearWell uses the census-tract summaries.")
+                          text: "The NC State Laboratory of Public Health tested private wells from 1998 to 2019. UNC researchers geocoded 117,960 of those tests (the NCWELL database). \(AppName.display) uses the census-tract summaries.")
             ExplainerCard(number: 2, title: "The rock beneath you", symbol: "mountain.2",
                           text: "Arsenic follows geology. Tracts on the Carolina Slate Belt's metasedimentary rock have about 12% of wells over the arsenic limit, roughly 5 times the state average.")
             ExplainerCard(number: 3, title: "A model that fills the gaps", symbol: "square.grid.3x3.middle.filled",
@@ -88,7 +88,7 @@ struct HowItWorksView: View {
             Text("Data we checked and excluded")
                 .font(.title2.bold())
                 .accessibilityAddTraits(.isHeader)
-            Text("While auditing the public data, we found three columns where the lab's reporting limit is above the state standard (silver, cadmium and chromium), which makes almost every test look contaminated. We excluded them. The tract file's manganese health-limit column also duplicates the 50 ppb column, so ClearWell uses the 50 ppb NC standard.")
+            Text("While auditing the public data, we found three columns where the lab's reporting limit is above the state standard (silver, cadmium and chromium), which makes almost every test look contaminated. We excluded them. The tract file's manganese health-limit column also duplicates the 50 ppb column, so \(AppName.display) uses the 50 ppb NC standard.")
         }
         .card()
     }
@@ -127,7 +127,7 @@ private struct ScoresTable: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private let columns: [LocalizedStringKey] = [
-        "County average", "Nearby tracts only", "ClearWell model", "Stress test: unseen county",
+        "County average", "Nearby tracts only", "\(AppName.display) model", "Stress test: unseen county",
     ]
 
     var body: some View {

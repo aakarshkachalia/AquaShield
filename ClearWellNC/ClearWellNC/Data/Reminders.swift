@@ -105,7 +105,7 @@ enum ReminderSync {
                 title: system.displayName,
                 body: system.kind.isCheck
                     ? String(localized: "Time to check your water softener salt.")
-                    : String(localized: "Time to replace this. Mark it replaced in ClearWell NC to reset the reminder."),
+                    : String(localized: "Time to replace this. Mark it replaced in \(AppName.display) to reset the reminder."),
                 fireDate: ReminderPlanner.fireDate(due: due, now: now)))
             if !system.kind.isCheck,
                let early = Calendar.current.date(byAdding: .day, value: -earlyReminderDays, to: due), early > now {

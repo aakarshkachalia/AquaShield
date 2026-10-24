@@ -44,7 +44,7 @@ struct ResourcesView: View {
                     locationPrompt
                 }
                 officialResources
-                Text("Listings come from Apple Maps. ClearWell NC does not review or endorse these businesses. For water tests, choose a lab certified by the State of North Carolina.")
+                Text("Listings come from Apple Maps. \(AppName.display) does not review or endorse these businesses. For water tests, choose a lab certified by the State of North Carolina.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -165,7 +165,7 @@ struct ResourcesView: View {
             .buttonStyle(PrimaryButtonStyle())
             .disabled(locating)
             if locationFailed {
-                Text("We couldn't get your location. Check that location access is on for ClearWell NC in Settings.")
+                Text("We couldn't get your location. Check that location access is on for \(AppName.display) in Settings.")
                     .font(.caption)
                     .foregroundStyle(Color.statusAbove)
             }

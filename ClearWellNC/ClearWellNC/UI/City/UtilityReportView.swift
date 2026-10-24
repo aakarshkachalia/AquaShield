@@ -113,7 +113,7 @@ struct CityTopicCards: View {
 /// Shown on every screen that collects health or household information.
 struct PrivacyNote: View {
     var body: some View {
-        Label("Stays on this phone. ClearWell never uploads your health or household information.",
+        Label("Stays on this phone. \(AppName.display) never uploads your health or household information.",
               systemImage: "lock.fill")
             .font(DS.Typography.footnote)
             .foregroundStyle(DS.Colors.textSecondary)

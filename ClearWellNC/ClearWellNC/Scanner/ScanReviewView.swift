@@ -108,7 +108,7 @@ private struct ReviewRowEditor: View {
             if row.contaminant != nil {
                 ReviewValueEditor(row: $row)
             } else {
-                Text("ClearWell doesn't track this test, so it won't be saved. If we misread the name, choose the right test above.")
+                Text("\(AppName.display) doesn't track this test, so it won't be saved. If we misread the name, choose the right test above.")
                     .font(.subheadline)
                     .foregroundStyle(Color.textSecondary)
                     .fixedSize(horizontal: false, vertical: true)

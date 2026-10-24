@@ -94,8 +94,8 @@ struct RemindersView: View {
                 Label("Get reminders on time", systemImage: "bell.badge")
                     .font(.headline)
                 Text(waterSource.showsWellCare
-                     ? String(localized: "ClearWell NC can send a notification when a filter is due or it's time to test your well.")
-                     : String(localized: "ClearWell NC can send a notification when a filter is due."))
+                     ? String(localized: "\(AppName.display) can send a notification when a filter is due or it's time to test your well.")
+                     : String(localized: "\(AppName.display) can send a notification when a filter is due."))
                 Button {
                     Task {
                         await NotificationScheduler.requestAuthorization()

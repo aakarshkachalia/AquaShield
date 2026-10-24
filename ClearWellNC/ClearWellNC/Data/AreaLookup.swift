@@ -33,11 +33,11 @@ enum AreaLookupError: LocalizedError {
         case .addressNotFound:
             String(localized: "We couldn't find that address. Try including the town and \"NC\", for example \"123 Main St, Monroe, NC\".")
         case .outsideNC:
-            String(localized: "That location is outside North Carolina. ClearWell NC only has well data for North Carolina.")
+            String(localized: "That location is outside North Carolina. \(AppName.display) only has well data for North Carolina.")
         case .network:
             String(localized: "We couldn't look up that address. Check your internet connection and try again.")
         case .locationDenied:
-            String(localized: "Location access is off for ClearWell NC. You can turn it on in Settings, or type an address instead.")
+            String(localized: "Location access is off for \(AppName.display). You can turn it on in Settings, or type an address instead.")
         case .locationUnavailable:
             String(localized: "We couldn't find your location right now. Try again, or type an address instead.")
         }

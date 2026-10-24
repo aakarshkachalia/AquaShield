@@ -297,7 +297,7 @@ struct DisclaimerFooter: View {
     var showsLinks = true
 
     static var standardText: String {
-        String(localized: "ClearWell is educational and is not medical advice. Only a state-certified lab test can tell you what is in your water.")
+        String(localized: "\(AppName.display) is educational and is not medical advice. Only a state-certified lab test can tell you what is in your water.")
     }
 
     var body: some View {

@@ -40,7 +40,7 @@ struct LearnView: View {
                     badgeStrip
                     WellCareSummaryCard(context: context)
 
-                    SectionHeader(title: "About ClearWell")
+                    SectionHeader(title: "About \(AppName.display)")
                     NavigationLink {
                         HowItWorksView()
                     } label: {
