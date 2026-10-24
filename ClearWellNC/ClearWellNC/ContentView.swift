@@ -9,14 +9,13 @@ import SwiftData
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage(StorageKey.hasOnboarded) private var hasOnboarded = false
     @Environment(AppRouter.self) private var router
     @Environment(AppSettings.self) private var settings
 
     var body: some View {
         @Bindable var router = router
         Group {
-            if hasOnboarded {
+            if settings.hasCompletedOnboarding {
                 RootTabView()
             } else {
                 OnboardingView()

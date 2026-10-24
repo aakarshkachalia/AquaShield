@@ -11,7 +11,7 @@ struct SettingsView: View {
     @Environment(AppSettings.self) private var settings
     @Environment(WellCareStore.self) private var wellCare
     @Environment(\.modelContext) private var modelContext
-    @AppStorage(StorageKey.hasOnboarded) private var hasOnboarded = true
+    @State private var changingSource = false
     @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
 
     @State private var confirmingReset = false
@@ -51,6 +51,9 @@ struct SettingsView: View {
             }
 
             Section("Your home") {
+                Button("Change address or water source") { changingSource = true }
+                    .frame(minHeight: TapTarget.minimum)
+                    .accessibilityIdentifier("settings.changeSource")
                 NavigationLink("Household") { HouseholdView() }
                 Button("Home and plumbing") { editingHome = true }
                     .frame(minHeight: TapTarget.minimum)
@@ -99,22 +102,21 @@ struct SettingsView: View {
                 #if DEBUG
                 NavigationLink("Design System Gallery") { DesignSystemGalleryView() }
                 #endif
-                Button("Show the welcome screens again") { hasOnboarded = false }
-                    .frame(minHeight: TapTarget.minimum)
             }
 
             Section {
-                Button("Reset all data", role: .destructive) { confirmingReset = true }
+                Button("Reset app", role: .destructive) { confirmingReset = true }
                     .frame(minHeight: TapTarget.minimum)
                     .disabled(settings.demoEnabled)
             } footer: {
                 Text(settings.demoEnabled
                      ? String(localized: "Turn off Demo Mode to reset your real data.")
-                     : String(localized: "Deletes your lab results, saved home, filters, answers, badges and reminders from this device."))
+                     : String(localized: "Deletes your lab results, address, filters, household, answers, badges and reminders from this device, and starts the welcome screens again."))
             }
         }
         .navigationTitle("Settings")
         .fullScreenCover(isPresented: $editingHome) { HomeProfileFlow() }
+        .fullScreenCover(isPresented: $changingSource) { OnboardingView(mode: .changeSource) }
         // City water has no well-care reminders; reschedule when the answer changes.
         .onChange(of: settings.waterSource) { _, _ in
             let context = modelContext

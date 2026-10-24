@@ -1,0 +1,9 @@
+{
+  "sourceName": "EPA Community Water System Service Area Boundaries",
+  "sourceURL": "https://www.epa.gov/ground-water-and-drinking-water/community-water-system-service-area-boundaries",
+  "serviceURL": "https://services.arcgis.com/cJ9YHowT8TU7DUyn/arcgis/rest/services/Water_System_Boundaries/FeatureServer/0",
+  "version": "service last edited 2026-05-29",
+  "downloaded": "2026-10-24",
+  "systems": 1841,
+  "simplificationDegrees": 0.0005
+}
