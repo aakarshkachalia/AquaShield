@@ -285,12 +285,19 @@ struct MyWaterView: View {
                 .buttonStyle(.plain)
             }
             NavigationLink {
-                RemindersView()
-                    .navigationTitle("Filters & reminders")
+                FiltersView()
             } label: {
-                NavigationCardLabel(title: Text("Filters & reminders"),
-                                    subtitle: Text("Track filters and get reminders for well care and retests."),
-                                    systemImage: "bell.fill")
+                NavigationCardLabel(title: Text("Filters"),
+                                    subtitle: Text("What they remove, and when to replace them."),
+                                    systemImage: "line.3.horizontal.decrease.circle.fill")
+            }
+            .buttonStyle(.plain)
+            NavigationLink {
+                ModesView()
+            } label: {
+                NavigationCardLabel(title: Text("Testing and modes"),
+                                    subtitle: Text("When to test next, and flood, baby or boil-water modes."),
+                                    systemImage: "calendar.badge.clock")
             }
             .buttonStyle(.plain)
             if let well = savedWells.first, let db = store.database, let tract = db.tract(fips: well.fips) {

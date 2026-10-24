@@ -1,0 +1,145 @@
+//
+//  V2Components.swift
+//  ClearWellNC
+//
+//  Small pieces shared by the dashboard and its detail screens, built from DS tokens.
+//
+
+import SwiftUI
+
+/// A square-ish dashboard card: icon, label, one big value, one short caption.
+struct DashboardTile: View {
+    let systemImage: String
+    let title: String
+    let value: String
+    var caption: String?
+    var level: DS.Level?
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: DS.Space.s) {
+            HStack {
+                Image(systemName: systemImage)
+                    .font(.headline)
+                    .foregroundStyle(level?.color ?? DS.Colors.accent)
+                    .accessibilityHidden(true)
+                Text(title)
+                    .font(DS.Typography.caption)
+                    .foregroundStyle(DS.Colors.textSecondary)
+                    .textCase(.uppercase)
+                Spacer(minLength: 0)
+            }
+            Text(value)
+                .font(DS.Typography.metric)
+                .foregroundStyle(DS.Colors.textPrimary)
+                .fixedSize(horizontal: false, vertical: true)
+            if let caption {
+                Text(caption)
+                    .font(DS.Typography.footnote)
+                    .foregroundStyle(DS.Colors.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            if let level {
+                DS.StatusBadge(level: level)
+            }
+            Spacer(minLength: 0)
+        }
+        .frame(maxWidth: .infinity, minHeight: 120, alignment: .topLeading)
+        .dsCard(padding: DS.Space.m)
+        .contentShape(Rectangle())
+        .accessibilityElement(children: .combine)
+    }
+}
+
+/// A filter or reading flag: icon + words, never color alone.
+struct FlagChip: View {
+    let text: String
+    var systemImage = "exclamationmark.triangle.fill"
+    var color: Color = DS.Colors.fair
+
+    var body: some View {
+        Label(text, systemImage: systemImage)
+            .font(DS.Typography.footnote.weight(.semibold))
+            .foregroundStyle(DS.Colors.textPrimary)
+            .padding(.horizontal, DS.Space.s)
+            .padding(.vertical, DS.Space.xs)
+            .background(color.opacity(0.14), in: Capsule())
+            .overlay(Capsule().strokeBorder(color.opacity(0.4)))
+    }
+}
+
+/// Hard safety alert: fixed red in both modes so white text always passes contrast.
+struct SafetyAlertCard: View {
+    let alert: SafetyAlert
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: DS.Space.s) {
+            Label(alert.title, systemImage: DS.Level.unsafe.symbol)
+                .font(DS.Typography.headline)
+                .accessibilityAddTraits(.isHeader)
+            Text(alert.message)
+                .font(DS.Typography.subheadline)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .foregroundStyle(.white)
+        .padding(DS.Space.l)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color(hex: 0xB3161F), in: RoundedRectangle(cornerRadius: DS.Corner.large, style: .continuous))
+        .accessibilityElement(children: .combine)
+        .onAppear { DS.Haptics.warning() }
+    }
+}
+
+extension TapItem.Level {
+    var dsLevel: DS.Level? {
+        switch self {
+        case .good: .good
+        case .fair: .fair
+        case .poor: .poor
+        case .unsafe: .unsafe
+        case .inconclusive, .notScored: nil
+        }
+    }
+}
+
+extension TapScoreResult {
+    var dsLevel: DS.Level { DS.Level(band) }
+}
+
+extension FilterFlag {
+    var symbol: String {
+        switch self {
+        case .uncertified: "questionmark.diamond.fill"
+        case .expired: "clock.badge.exclamationmark.fill"
+        case .aboveCertifiedLevel: "arrow.up.to.line"
+        case .noChallengeLevel: "questionmark.circle.fill"
+        case .notCovered: "minus.circle.fill"
+        case .showerChlorineOnly: "shower.fill"
+        case .uvMicrobesOnly: "sun.max.fill"
+        }
+    }
+}
+
+/// "Educational, not medical advice" footer for household and results screens.
+struct MedicalDisclaimer: View {
+    var body: some View {
+        Label(ExposureRisk.disclaimer, systemImage: "stethoscope")
+            .font(DS.Typography.footnote)
+            .foregroundStyle(DS.Colors.textSecondary)
+    }
+}
+
+/// Section title used across v2 screens.
+struct DSSectionTitle: View {
+    let title: String
+
+    init(_ title: String) { self.title = title }
+
+    var body: some View {
+        Text(title)
+            .font(DS.Typography.title)
+            .foregroundStyle(DS.Colors.textPrimary)
+            .accessibilityAddTraits(.isHeader)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.top, DS.Space.s)
+    }
+}

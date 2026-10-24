@@ -14,6 +14,11 @@ nonisolated struct TreatmentDraft: Codable, Sendable, Equatable {
     var lastServiced = Date.now
     var intervalMonths: Int
     var intervalEdited = false
+    /// FilterProduct.id, or "" for none.
+    var productID = ""
+    /// TapLocation.rawValue, or "" for the type's usual place.
+    var locationRaw = ""
+    var gallonsPerDay: Double = 0
 
     init(kind: TreatmentKind) {
         self.kind = kind
@@ -22,7 +27,7 @@ nonisolated struct TreatmentDraft: Codable, Sendable, Equatable {
 
     /// One draft for a new system, and one per system being edited.
     static func key(editing reminderID: UUID?) -> DraftKey<TreatmentDraft> {
-        DraftKey(name: reminderID.map { "treatment.edit.\($0.uuidString)" } ?? "treatment.new", schemaVersion: 1)
+        DraftKey(name: reminderID.map { "treatment.edit.\($0.uuidString)" } ?? "treatment.new", schemaVersion: 2)
     }
 }
 
@@ -82,6 +87,37 @@ struct TreatmentForm: View {
                 }
 
                 Section {
+                    Picker("Certified product", selection: $draft.productID) {
+                        Text("None or not sure").tag("")
+                        ForEach(productChoices) { product in
+                            Text(product.isCertified ? product.displayName
+                                 : String(localized: "\(product.displayName) (uncertified)")).tag(product.id)
+                        }
+                    }
+                    .frame(minHeight: 44)
+                    Picker("Where it's installed", selection: $draft.locationRaw) {
+                        Text("Usual place (\(FilterType(kind: draft.kind).defaultLocation.name))").tag("")
+                        ForEach(locationChoices) { tap in
+                            Text(tap.name).tag(tap.rawValue)
+                        }
+                    }
+                    .frame(minHeight: 44)
+                    HStack {
+                        Text("Gallons per day (optional)")
+                        Spacer()
+                        TextField("—", value: $draft.gallonsPerDay, format: .number)
+                            .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing)
+                            .frame(maxWidth: 80)
+                    }
+                    .frame(minHeight: 44)
+                } header: {
+                    Text("For your score")
+                } footer: {
+                    Text("Only certified claims count. A filter with no certification lowers nothing in your score. Can't find yours? Add it from Filters > Add my own filter.")
+                }
+
+                Section {
                     DatePicker(draft.kind.isCheck ? "Last checked" : "Installed or last replaced",
                                selection: $draft.lastServiced, in: ...Date.now, displayedComponents: .date)
                     Stepper(value: $draft.intervalMonths, in: 1...60) {
@@ -130,6 +166,20 @@ struct TreatmentForm: View {
         }
     }
 
+    private var productChoices: [FilterProduct] {
+        let type = FilterType(kind: draft.kind)
+        let all = ReferenceDataStore.shared.filterProducts(custom: settings.customFilterProducts)
+        let sameType = all.filter { $0.type == type }
+        return sameType.isEmpty ? all : sameType
+    }
+
+    private var locationChoices: [TapLocation] {
+        var taps: [TapLocation] = [.wholeHouse, .kitchen, TapLocation(kind: .fridge)]
+        for i in 1...max(1, settings.homeProfile.bathroomSinkCount) { taps.append(TapLocation(kind: .bathroomSink, index: i)) }
+        for i in 1...max(1, settings.homeProfile.showerCount) { taps.append(TapLocation(kind: .shower, index: i)) }
+        return taps
+    }
+
     private func load() {
         guard !loaded else { return }
         loaded = true
@@ -141,6 +191,9 @@ struct TreatmentForm: View {
             fresh.lastServiced = existing.lastServiced
             fresh.intervalMonths = existing.intervalMonths
             fresh.intervalEdited = true
+            fresh.productID = existing.productID
+            fresh.locationRaw = existing.locationRaw
+            fresh.gallonsPerDay = existing.gallonsPerDay
         }
         pristine = fresh
         if let saved = settings.drafts.load(draftKey) {
@@ -166,12 +219,19 @@ struct TreatmentForm: View {
             existing.productName = draft.productName
             existing.lastServiced = draft.lastServiced
             existing.intervalMonths = draft.intervalMonths
+            existing.productID = draft.productID
+            existing.locationRaw = draft.locationRaw
+            existing.gallonsPerDay = draft.gallonsPerDay
         } else {
-            modelContext.insert(TreatmentSystem(kind: kind,
-                                                customName: customName,
-                                                productName: draft.productName,
-                                                lastServiced: draft.lastServiced,
-                                                intervalMonths: draft.intervalMonths))
+            let system = TreatmentSystem(kind: kind,
+                                         customName: customName,
+                                         productName: draft.productName,
+                                         lastServiced: draft.lastServiced,
+                                         intervalMonths: draft.intervalMonths)
+            system.productID = draft.productID
+            system.locationRaw = draft.locationRaw
+            system.gallonsPerDay = draft.gallonsPerDay
+            modelContext.insert(system)
         }
         try? modelContext.save()
         settings.drafts.discard(draftKey)

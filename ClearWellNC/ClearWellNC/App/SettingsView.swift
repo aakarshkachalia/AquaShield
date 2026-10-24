@@ -15,6 +15,7 @@ struct SettingsView: View {
     @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
 
     @State private var confirmingReset = false
+    @State private var editingHome = false
     @State private var photoMessage: String?
 
     var body: some View {
@@ -47,6 +48,14 @@ struct SettingsView: View {
                 Text("Household")
             } footer: {
                 Text("These answers tailor test advice and help programs. They never leave this device.")
+            }
+
+            Section("Your home") {
+                NavigationLink("Household") { HouseholdView() }
+                Button("Home and plumbing") { editingHome = true }
+                    .frame(minHeight: TapTarget.minimum)
+                NavigationLink("Filters") { FiltersView() }
+                NavigationLink("Testing and modes") { ModesView() }
             }
 
             Section("Notifications") {
@@ -104,6 +113,7 @@ struct SettingsView: View {
             }
         }
         .navigationTitle("Settings")
+        .fullScreenCover(isPresented: $editingHome) { HomeProfileFlow() }
         // City water has no well-care reminders; reschedule when the answer changes.
         .onChange(of: settings.waterSource) { _, _ in
             let context = modelContext

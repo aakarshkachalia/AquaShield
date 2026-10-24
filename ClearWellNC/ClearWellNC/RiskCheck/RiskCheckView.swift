@@ -174,6 +174,12 @@ struct RiskCheckView: View {
                     Label("Get tested", systemImage: "arrow.right.circle.fill")
                 }
                 .buttonStyle(DS.PrimaryButtonStyle())
+                DS.ActionCard(systemImage: "person.2.fill", title: String(localized: "Add your household"),
+                              subtitle: String(localized: "See risks for each person who drinks this water")) {
+                    dismiss()
+                    router.selectedTab = .home
+                    router.showingHousehold = true
+                }
                 if draft.answers.flooding == true {
                     DS.ActionCard(systemImage: DS.Icon.alert(.flood), title: String(localized: "My well flooded"),
                                   subtitle: String(localized: "What to do first")) {

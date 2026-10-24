@@ -25,6 +25,17 @@ nonisolated enum ReadingUnit: String, Codable, CaseIterable, Sendable {
         }
     }
 
+    /// Unit of a daily dose per kilogram of body weight, from a concentration in this unit.
+    var doseLabel: String {
+        switch self {
+        case .mgL, .ppm, .mgLAsCaCO3: "mg/kg/day"
+        case .ugL, .ppb: "µg/kg/day"
+        case .ngL, .ppt: "ng/kg/day"
+        case .pCiL: "pCi/kg/day"
+        case .gpg, .presence: ""
+        }
+    }
+
     /// Milligrams per liter for one unit, for mass concentrations. In water, 1 ppm = 1 mg/L,
     /// 1 ppb = 1 µg/L and 1 ppt = 1 ng/L.
     private var mgPerLiter: Double? {

@@ -42,6 +42,8 @@ final class AppRouter {
     var selectedTab: AppTab = .home
     var showingScanner = false
     var showingRiskCheck = false
+    /// Opens Household on the Home tab (from the Risk Check results).
+    var showingHousehold = false
     /// Set before switching to the Get Help tab; Help Finder applies it once.
     var pendingHelpFilter: HelpFilter?
 
@@ -211,6 +213,23 @@ final class AppSettings {
 
     /// Bumped whenever scoped values reload (Demo Mode on/off, persona change), so dependents can refresh.
     private(set) var scopedRevision = 0
+
+    /// Read without an AppSettings instance (background reminder sync). Real scope only.
+    static func realCustomFilterProducts(_ defaults: UserDefaults = .standard) -> [FilterProduct] {
+        defaults.data(forKey: realScope + "customFilterProducts")
+            .flatMap { try? JSONDecoder().decode([FilterProduct].self, from: $0) } ?? []
+    }
+
+    static func realRetestEvents(_ defaults: UserDefaults = .standard) -> [RetestEvent] {
+        defaults.data(forKey: realScope + RetestEvent.storageKey)
+            .flatMap { try? JSONDecoder().decode([RetestEvent].self, from: $0) } ?? []
+    }
+
+    /// Flooding, repairs or a change in taste, color or smell: each prompts a retest.
+    var retestEvents: [RetestEvent] {
+        get { _ = scopedRevision; return codable([RetestEvent].self, forScopedKey: RetestEvent.storageKey) ?? [] }
+        set { setCodable(newValue, forScopedKey: RetestEvent.storageKey); scopedRevision += 1 }
+    }
 
     /// The county to use: the one chosen in settings or onboarding, else the saved home's county.
     func effectiveCounty(savedWellCounty: String?) -> String? {
