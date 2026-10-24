@@ -21,62 +21,14 @@ func incompleteText(_ result: WellHealthScore.Result) -> String {
     String(localized: "Incomplete — \(result.keyTestsOnFile) of \(result.keyTestsTotal) key tests on file")
 }
 
-/// Score inside a ring that fills to the score, colored by band. Number and band text carry the meaning;
-/// the ring only reinforces them.
+/// Score ring used by Report Quest: the v2 ring at hero or compact size.
 struct ScoreNumber: View {
     enum Size { case compact, large }
-
     let result: WellHealthScore.Result
     let size: Size
-    @ScaledMetric(relativeTo: .largeTitle) private var largeDiameter: CGFloat = 168
-    @ScaledMetric(relativeTo: .title) private var compactDiameter: CGFloat = 68
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var shownFraction: Double = 0
-
-    private var fraction: Double { Double(result.score ?? 0) / 100 }
-    private var color: Color { result.band?.tier.color ?? .secondary }
 
     var body: some View {
-        let diameter = size == .large ? largeDiameter : compactDiameter
-        let lineWidth: CGFloat = size == .large ? 14 : 7
-        ZStack {
-            Circle()
-                .stroke(Color.primary.opacity(0.08), lineWidth: lineWidth)
-            Circle()
-                .trim(from: 0, to: shownFraction)
-                .stroke(color, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-            VStack(spacing: 0) {
-                Text(result.score.map { "\($0)" } ?? "—")
-                    .font(size == .large
-                          ? .largeTitle.weight(.bold)
-                          : .title2.weight(.bold))
-                    .fontDesign(.rounded)
-                    .monospacedDigit()
-                    .foregroundStyle(color)
-                    .minimumScaleFactor(0.6)
-                    .lineLimit(1)
-                if size == .large, result.score != nil {
-                    Text("out of 100")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
-            .padding(lineWidth)
-        }
-        .frame(width: diameter, height: diameter)
-        .onAppear { animate(to: fraction) }
-        .onChange(of: fraction) { _, new in animate(to: new) }
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(result.score.map { Text("Score \($0) out of 100") } ?? Text("No score yet"))
-    }
-
-    private func animate(to value: Double) {
-        if reduceMotion {
-            shownFraction = value
-        } else {
-            withAnimation(.easeOut(duration: 0.6)) { shownFraction = value }
-        }
+        DS.ScoreRing(result: result, scale: size == .large ? 1 : 0.4)
     }
 }
 

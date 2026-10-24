@@ -21,8 +21,17 @@ struct HowItWorksView: View {
                         .frame(maxWidth: .infinity)
                         .card()
                 }
-                figures
-                auditNote
+                DisclosureGroup {
+                    VStack(alignment: .leading, spacing: Spacing.xl) {
+                        figures
+                        auditNote
+                    }
+                    .padding(.top, Spacing.m)
+                } label: {
+                    Text("Details for researchers")
+                        .font(DS.Typography.headline)
+                        .frame(minHeight: DS.Size.tapTarget)
+                }
                 if let meta = store.database?.meta {
                     Text("Data: \(meta.dataSource). Tract estimates generated \(meta.generated).")
                         .font(.caption)
@@ -100,22 +109,30 @@ private struct ExplainerCard: View {
     let symbol: String
     let text: LocalizedStringKey
 
+    @State private var expanded = false
+
+    /// Title first; the explanation sits behind "Learn why" so the screen reads at a glance.
     var body: some View {
-        HStack(alignment: .top, spacing: Spacing.l) {
-            Image(systemName: symbol)
-                .font(.title2)
-                .foregroundStyle(.tint)
-                .frame(width: 32)
-                .accessibilityHidden(true)
-            VStack(alignment: .leading, spacing: Spacing.s) {
+        VStack(alignment: .leading, spacing: Spacing.s) {
+            HStack(alignment: .center, spacing: Spacing.m) {
+                DS.IconBadge(systemImage: symbol)
                 Text("\(number). \(Text(title))")
-                    .font(.headline)
+                    .font(DS.Typography.headline)
                     .accessibilityAddTraits(.isHeader)
+                Spacer(minLength: 0)
+            }
+            DisclosureGroup(isExpanded: $expanded) {
                 Text(text)
+                    .font(DS.Typography.subheadline)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.top, Spacing.xs)
+            } label: {
+                Text("Learn why")
+                    .font(DS.Typography.subheadline.weight(.semibold))
+                    .frame(minHeight: DS.Size.tapTarget)
             }
         }
         .card()
-        .accessibilityElement(children: .combine)
     }
 }
 

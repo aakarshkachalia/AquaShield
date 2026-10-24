@@ -103,24 +103,15 @@ struct LearnArticleView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.l) {
+                hero
                 limitsCard
-                section("Where it comes from in NC wells", systemImage: "map", text: article.whereFrom)
-                VStack(alignment: .leading, spacing: Spacing.m) {
-                    sectionTitle("Health effects", systemImage: "heart.text.square")
-                    labeled("Short term", article.shortTerm)
-                    labeled("Long term", article.longTerm)
-                }
-                .card()
-                section("Who is most at risk", systemImage: "person.2", text: article.mostAtRisk)
-                Label {
-                    Text(LearnArticle.symptomsNote)
-                } icon: {
-                    Image(systemName: "eye.slash").foregroundStyle(.tint)
-                }
-                .font(.subheadline.weight(.semibold))
-                .card()
+                keyPoint("map", String(localized: "Where it comes from"), article.whereFrom)
+                keyPoint("heart.text.square", String(localized: "Short-term health effects"), article.shortTerm)
+                keyPoint("heart.text.square.fill", String(localized: "Long-term health effects"), article.longTerm)
+                keyPoint("person.2", String(localized: "Who is most at risk"), article.mostAtRisk)
+                DS.InfoCard(systemImage: "eye.slash", title: LearnArticle.symptomsNote)
                 treatments
-                section("When to retest", systemImage: "calendar", text: article.retest)
+                keyPoint("calendar", String(localized: "When to retest"), article.retest)
                 sources
                 QuizView(questions: article.quiz, quizID: article.id)
                 Text(LearnArticle.footer)
@@ -132,6 +123,24 @@ struct LearnArticleView: View {
         .background(Color.appBackground)
         .navigationTitle(article.title)
         .navigationBarTitleDisplayMode(.inline)
+    }
+
+    /// Leads with the answer: what it is, in one or two sentences.
+    private var hero: some View {
+        HStack(alignment: .top, spacing: Spacing.m) {
+            DS.IconBadge(systemImage: article.contaminants.first.map(DS.Icon.contaminant) ?? article.symbol)
+            Text(article.contaminants.first?.info.plainSummary ?? "")
+                .font(DS.Typography.body)
+                .foregroundStyle(DS.Colors.textPrimary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
+    /// First sentence on the card; the rest behind "Learn why".
+    private func keyPoint(_ symbol: String, _ title: String, _ text: String) -> some View {
+        let first = QuestText.firstSentences(text, max: 1)
+        let rest = text.hasPrefix(first) ? text.dropFirst(first.count).trimmingCharacters(in: .whitespaces) : ""
+        return DS.InfoCard(systemImage: symbol, title: title, message: first, learnMore: rest.isEmpty ? nil : rest)
     }
 
     private var limitsCard: some View {
