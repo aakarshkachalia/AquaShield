@@ -100,6 +100,26 @@ final class AppSettings {
         }
     }
 
+    /// Filters the user entered from a certifier listing.
+    var customFilterProducts: [FilterProduct] {
+        didSet { guard !isReloading else { return }; setCodable(customFilterProducts, forScopedKey: "customFilterProducts") }
+    }
+    /// Household members (nickname only).
+    var householdMembers: [HouseholdMember] {
+        didSet { guard !isReloading else { return }; setCodable(householdMembers, forScopedKey: "householdMembers") }
+    }
+    var homeProfile: HomeProfile {
+        didSet { guard !isReloading else { return }; setCodable(homeProfile, forScopedKey: HomeProfile.storageKey) }
+    }
+    /// Flood, infant and boil-water modes the user turned on.
+    var activeModes: Set<WaterMode> {
+        didSet { guard !isReloading else { return }; setCodable(activeModes, forScopedKey: "activeModes") }
+    }
+    /// Features that send data off the phone, each turned on only after the user agrees.
+    var networkOptIns: Set<NetworkFeature> {
+        didSet { guard !isReloading else { return }; setCodable(networkOptIns, forScopedKey: "networkOptIns") }
+    }
+
     private enum Keys {
         static let demoEnabled = "settings.demoEnabled"
         static let demoPersona = "settings.demoPersona"
@@ -121,9 +141,15 @@ final class AppSettings {
         lowIncome = false
         riskAnswers = nil
         utilityReport = UtilityReport()
+        customFilterProducts = []
+        householdMembers = []
+        homeProfile = HomeProfile()
+        activeModes = []
+        networkOptIns = []
         savedProgramIDs = []
         stormChecked = []
         Self.migrateLegacyGlobals(defaults)
+        Self.migrateNetworkOptIns(defaults)
         reloadScoped()
     }
 
@@ -166,6 +192,11 @@ final class AppSettings {
         riskAnswers = data(forScopedKey: RiskCheckAnswers.storageKey)
             .flatMap { try? JSONDecoder().decode(RiskCheckAnswers.self, from: $0) }
         utilityReport = codable(UtilityReport.self, forScopedKey: UtilityReport.storageKey) ?? UtilityReport()
+        customFilterProducts = codable([FilterProduct].self, forScopedKey: "customFilterProducts") ?? []
+        householdMembers = codable([HouseholdMember].self, forScopedKey: "householdMembers") ?? []
+        homeProfile = codable(HomeProfile.self, forScopedKey: HomeProfile.storageKey) ?? HomeProfile()
+        activeModes = codable(Set<WaterMode>.self, forScopedKey: "activeModes") ?? []
+        networkOptIns = codable(Set<NetworkFeature>.self, forScopedKey: "networkOptIns") ?? []
         savedProgramIDs = data(forScopedKey: "savedPrograms")
             .flatMap { try? JSONDecoder().decode(Set<String>.self, from: $0) } ?? []
         stormChecked = data(forScopedKey: "stormChecklist")

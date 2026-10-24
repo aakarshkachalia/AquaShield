@@ -34,20 +34,20 @@ nonisolated struct SourcedValue: Codable, Sendable, Hashable {
 extension SourceRef {
     // Common sources. URLs point at the agency page that states the value; each still needs a person to
     // confirm the value and date before release.
-    static let epaNPDWR = SourceRef("EPA National Primary Drinking Water Regulations",
+    nonisolated static let epaNPDWR = SourceRef("EPA National Primary Drinking Water Regulations",
                                     url: "https://www.epa.gov/ground-water-and-drinking-water/national-primary-drinking-water-regulations")
-    static let epaLeadCopper = SourceRef("EPA Lead and Copper Rule",
+    nonisolated static let epaLeadCopper = SourceRef("EPA Lead and Copper Rule",
                                          url: "https://www.epa.gov/dwreginfo/lead-and-copper-rule")
-    static let epaPFAS = SourceRef("EPA PFAS National Primary Drinking Water Regulation",
+    nonisolated static let epaPFAS = SourceRef("EPA PFAS National Primary Drinking Water Regulation",
                                    url: "https://www.epa.gov/sdwa/and-polyfluoroalkyl-substances-pfas")
-    static let epaDBP = SourceRef("EPA Stage 2 Disinfectants and Disinfection Byproducts Rule",
+    nonisolated static let epaDBP = SourceRef("EPA Stage 2 Disinfectants and Disinfection Byproducts Rule",
                                   url: "https://www.epa.gov/dwreginfo/stage-1-and-stage-2-disinfectants-and-disinfection-byproducts-rules")
-    static let epaCCR = SourceRef("EPA Consumer Confidence Reports",
+    nonisolated static let epaCCR = SourceRef("EPA Consumer Confidence Reports",
                                   url: "https://www.epa.gov/ccr")
-    static let nsfStandards = SourceRef("NSF drinking water treatment standards",
+    nonisolated static let nsfStandards = SourceRef("NSF drinking water treatment standards",
                                         url: "https://www.nsf.org/consumer-resources/articles/standards-water-treatment-systems")
-    static let cdcBoilWater = SourceRef("CDC: boil water advisories",
+    nonisolated static let cdcBoilWater = SourceRef("CDC: boil water advisories",
                                         url: "https://www.cdc.gov/healthywater/emergency/drinking/drinking-water-advisories/boil-water-advisory.html")
-    static let ncdhhsWells = SourceRef("NC DHHS private well program",
+    nonisolated static let ncdhhsWells = SourceRef("NC DHHS private well program",
                                        url: "https://epi.dph.ncdhhs.gov/oee/programs/private_well.html")
 }

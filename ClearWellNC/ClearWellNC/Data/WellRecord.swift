@@ -192,6 +192,8 @@ final class LabResult {
     var totalColiformRaw: String?
     var eColiRaw: String?
     var createdAt: Date
+    /// TestMethod.rawValue. Nil for results saved before this field existed, which came from lab reports.
+    var testMethodRaw: String?
 
     init(date: Date = .now, labName: String = "") {
         self.date = date
@@ -250,6 +252,11 @@ final class LabResult {
     }
 
     var includesBacteria: Bool { totalColiform != nil || eColi != nil }
+
+    var testMethod: TestMethod {
+        get { testMethodRaw.flatMap(TestMethod.init(rawValue:)) ?? .certifiedLab }
+        set { testMethodRaw = newValue.rawValue }
+    }
 
     var includesMetalsOrNitrate: Bool {
         [Analyte.arsenic, .lead, .manganese, .nitrate].contains { value(for: $0) != nil }

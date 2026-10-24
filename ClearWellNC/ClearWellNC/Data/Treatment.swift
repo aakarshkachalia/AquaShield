@@ -12,6 +12,7 @@ nonisolated enum TreatmentKind: String, CaseIterable, Codable, Sendable, Identif
     case faucetFilter
     case refrigeratorFilter
     case underSinkFilter
+    case showerFilter
     // Whole-house and well treatment.
     case sedimentFilter
     case carbonFilter
@@ -28,6 +29,7 @@ nonisolated enum TreatmentKind: String, CaseIterable, Codable, Sendable, Identif
         case .faucetFilter: String(localized: "Faucet-mount filter")
         case .refrigeratorFilter: String(localized: "Refrigerator filter")
         case .underSinkFilter: String(localized: "Under-sink filter")
+        case .showerFilter: String(localized: "Shower filter")
         case .sedimentFilter: String(localized: "Sediment filter")
         case .carbonFilter: String(localized: "Carbon filter")
         case .roMembrane: String(localized: "Reverse osmosis membrane")
@@ -44,6 +46,7 @@ nonisolated enum TreatmentKind: String, CaseIterable, Codable, Sendable, Identif
         case .faucetFilter: 3
         case .refrigeratorFilter: 6
         case .underSinkFilter: 6
+        case .showerFilter: 6
         case .sedimentFilter: 3
         case .carbonFilter: 6
         case .roMembrane: 24
@@ -61,6 +64,8 @@ nonisolated enum TreatmentKind: String, CaseIterable, Codable, Sendable, Identif
         switch self {
         case .pitcherFilter, .faucetFilter, .refrigeratorFilter, .underSinkFilter, .carbonFilter:
             String(localized: "For lead, look for NSF/ANSI 53 certification. NSF/ANSI 42 only covers taste and odor. Some filters are also certified for PFAS.")
+        case .showerFilter:
+            String(localized: "NSF/ANSI 177 shower filters only reduce chlorine. They don't remove lead, arsenic or bacteria.")
         case .roMembrane:
             String(localized: "Look for NSF/ANSI 58 certification. Reverse osmosis removes arsenic, nitrate, lead and most PFAS.")
         case .uvBulb:
@@ -80,6 +85,7 @@ nonisolated enum TreatmentKind: String, CaseIterable, Codable, Sendable, Identif
         case .faucetFilter: "spigot"
         case .refrigeratorFilter: "refrigerator"
         case .underSinkFilter: "sink"
+        case .showerFilter: "shower"
         case .sedimentFilter, .carbonFilter: "line.3.horizontal.decrease.circle"
         case .roMembrane: "drop.triangle"
         case .uvBulb: "lightbulb"
@@ -102,6 +108,13 @@ final class TreatmentSystem {
     var addedAt: Date
     /// Optional brand and model, e.g. "Brita Elite". Defaulted so existing stores migrate.
     var productName: String = ""
+    // Added with certification claims; defaulted so existing stores migrate without losing anything.
+    /// FilterProduct.id from ReferenceDataStore (bundled samples or the user's own). Empty = none chosen.
+    var productID: String = ""
+    /// TapLocation.rawValue. Empty = the filter type's usual place (see `location`).
+    var locationRaw: String = ""
+    /// Estimated gallons per day through this filter; 0 = unknown.
+    var gallonsPerDay: Double = 0
 
     init(kind: TreatmentKind, customName: String = "", productName: String = "", lastServiced: Date, intervalMonths: Int) {
         self.reminderID = UUID()
@@ -125,6 +138,19 @@ final class TreatmentSystem {
 
     var dueDate: Date {
         Calendar.current.date(byAdding: .month, value: intervalMonths, to: lastServiced) ?? lastServiced
+    }
+
+    var location: TapLocation {
+        get { TapLocation(rawValue: locationRaw) ?? FilterType(kind: kind).defaultLocation }
+        set { locationRaw = newValue.rawValue }
+    }
+
+    /// The pure value the score engine uses.
+    func installed(product: FilterProduct?) -> InstalledFilter {
+        InstalledFilter(id: reminderID.uuidString, name: product?.displayName ?? trimmedProductName ?? displayName,
+                        type: product?.type ?? FilterType(kind: kind), location: location, product: product,
+                        installedAt: lastServiced, intervalMonths: intervalMonths,
+                        gallonsPerDay: gallonsPerDay > 0 ? gallonsPerDay : nil)
     }
 
     var trimmedProductName: String? {

@@ -116,6 +116,7 @@ extension DS {
             case .faucetFilter: "spigot.fill"
             case .refrigeratorFilter: "refrigerator.fill"
             case .underSinkFilter: "sink.fill"
+            case .showerFilter: "shower.fill"
             case .sedimentFilter: "line.3.horizontal.decrease.circle.fill"
             case .carbonFilter: "cylinder.fill"
             case .roMembrane: "square.stack.3d.down.right.fill"
