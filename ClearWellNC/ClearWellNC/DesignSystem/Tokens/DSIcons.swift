@@ -97,6 +97,19 @@ extension DS {
 
         static func contaminant(_ id: ContaminantID) -> String { category(ContaminantCategory(id)) }
 
+        /// Risk Check recommendations use the same icon as their contaminant category.
+        static func recommendedTest(_ id: RecommendedTestID) -> String {
+            switch id {
+            case .bacteria: category(.bacteria)
+            case .nitrate: category(.nitrates)
+            case .arsenic, .lead: category(.metals)
+            case .manganese, .iron, .hardness: category(.minerals)
+            case .pH: category(.acidity)
+            case .uranium, .radon: category(.radioactive)
+            case .pfas: category(.pfas)
+            }
+        }
+
         static func filter(_ kind: TreatmentKind) -> String {
             switch kind {
             case .pitcherFilter: "waterbottle.fill"

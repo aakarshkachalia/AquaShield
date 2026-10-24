@@ -19,6 +19,8 @@ extension DS {
         let limitText: String
         /// Reading divided by limit (1 = at the limit).
         let ratio: Double
+        /// Overrides the badge word ("Above limit"). Defaults to the level name.
+        var badgeText: String?
 
         /// Where the limit tick sits along the bar.
         static let limitPosition: Double = 2.0 / 3.0
@@ -51,7 +53,7 @@ extension DS {
             .onChange(of: fill) { _, _ in reveal() }
             .accessibilityElement(children: .ignore)
             .accessibilityLabel(Text(name))
-            .accessibilityValue(Text("\(valueText). Limit \(limitText). \(level.label)"))
+            .accessibilityValue(Text("\(valueText). Limit \(limitText). \(badgeText ?? level.label)"))
         }
 
         @ViewBuilder
@@ -59,13 +61,13 @@ extension DS {
             if dynamicTypeSize.isAccessibilitySize {
                 VStack(alignment: .leading, spacing: DS.Space.s) {
                     title
-                    DS.StatusBadge(level: level)
+                    DS.StatusBadge(level: level, text: badgeText)
                 }
             } else {
                 HStack(alignment: .firstTextBaseline) {
                     title
                     Spacer(minLength: DS.Space.s)
-                    DS.StatusBadge(level: level)
+                    DS.StatusBadge(level: level, text: badgeText)
                 }
             }
         }
@@ -118,7 +120,7 @@ extension DS.LevelMeter {
     init?(name: String, interpretation: Interpretation) {
         guard let percent = interpretation.percentOfLimit, let level = DS.Level(interpretation.tier) else { return nil }
         self.init(name: name, level: level, valueText: interpretation.readingText,
-                  limitText: interpretation.limitText, ratio: percent / 100)
+                  limitText: interpretation.limitText, ratio: percent / 100, badgeText: interpretation.chipLabel)
     }
 }
 

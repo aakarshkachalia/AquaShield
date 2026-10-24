@@ -13,6 +13,8 @@ extension DS {
         let score: Int?
         let level: Level?
         var title: String = String(localized: "Water Health Score")
+        /// 1 is the hero size; smaller for summary cards.
+        var scale: CGFloat = 1
 
         @ScaledMetric(relativeTo: .largeTitle) private var diameter: CGFloat = 188
         @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -21,7 +23,7 @@ extension DS {
         private var fraction: Double { Double(min(max(score ?? 0, 0), 100)) / 100 }
         private var color: Color { level?.color ?? DS.Colors.textSecondary }
         /// Grows with text size, but never wider than a phone screen.
-        private var size: CGFloat { min(diameter, 300) }
+        private var size: CGFloat { min(diameter * scale, 300 * scale) }
         private var lineWidth: CGFloat { size * 0.085 }
 
         var body: some View {
@@ -85,8 +87,8 @@ extension DS {
 }
 
 extension DS.ScoreRing {
-    init(result: WellHealthScore.Result) {
-        self.init(score: result.score, level: result.band.map { DS.Level($0) })
+    init(result: WellHealthScore.Result, scale: CGFloat = 1) {
+        self.init(score: result.score, level: result.band.map { DS.Level($0) }, scale: scale)
     }
 }
 

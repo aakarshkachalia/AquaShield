@@ -24,6 +24,19 @@ struct MyWaterView: View {
     @State private var editingResult: LabResult?
     @State private var confirmingRemove = false
     @State private var questSession: QuestSession?
+    @State private var section = Pane.latest
+
+    private enum Pane: CaseIterable, Identifiable {
+        case latest, history, trends
+        var id: Self { self }
+        var title: String {
+            switch self {
+            case .latest: String(localized: "Latest")
+            case .history: String(localized: "History")
+            case .trends: String(localized: "Trends")
+            }
+        }
+    }
 
     private var county: String? {
         settings.effectiveCounty(savedWellCounty: savedWellCounty(savedWells, store: store))
@@ -32,29 +45,42 @@ struct MyWaterView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: Spacing.xl) {
-                    PrimaryButton(title: "Scan Report", systemImage: "doc.viewfinder") { router.showingScanner = true }
-
+                VStack(alignment: .leading, spacing: DS.Space.xl) {
                     if let latest = results.first {
                         if latest.eColi == .present { EColiUrgentCard() }
-                        latestReport(latest)
-                        history
-                        trends
+                        Picker("Show", selection: $section) {
+                            ForEach(Pane.allCases) { Text($0.title).tag($0) }
+                        }
+                        .pickerStyle(.segmented)
+                        switch section {
+                        case .latest:
+                            latestReport(latest)
+                            more
+                        case .history:
+                            history
+                        case .trends:
+                            trends
+                        }
                     } else {
-                        EmptyStateView(systemImage: "doc.text.magnifyingglass",
-                                       title: "No reports yet",
-                                       message: "Scan your lab report or enter the numbers by hand. ClearWell explains every result in plain English.",
-                                       actionTitle: "Scan Report") { router.showingScanner = true }
+                        DS.EmptyStateView(systemImage: "doc.text.magnifyingglass",
+                                          message: String(localized: "Add your lab report and we'll explain every result."),
+                                          actionTitle: String(localized: "Scan a report"), actionImage: DS.Icon.scan) {
+                            router.showingScanner = true
+                        }
+                        more
                     }
-
-                    more
                 }
-                .screenContainer()
+                .dsScreen()
             }
-            .background(Color.appBackground)
+            .background(DS.Colors.background)
             .navigationTitle("My Water")
             .refreshable { await refreshAlerts() }
             .toolbar {
+                if !results.isEmpty {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Scan Report", systemImage: DS.Icon.scan) { router.showingScanner = true }
+                    }
+                }
                 if savedWells.first != nil {
                     ToolbarItem(placement: .topBarTrailing) {
                         Menu {
@@ -87,24 +113,26 @@ struct MyWaterView: View {
         let report = QuestReport(result: latest)
         let readings = latest.displayInterpretations
         let score = WellHealthScore.compute(results.latestScoreInput)
-        return VStack(alignment: .leading, spacing: Spacing.m) {
-            SectionHeader(title: "Latest report",
-                          subtitle: subtitle(for: latest))
+        return VStack(alignment: .leading, spacing: DS.Space.m) {
+            Text(subtitle(for: latest))
+                .font(DS.Typography.subheadline)
+                .foregroundStyle(DS.Colors.textSecondary)
 
             NavigationLink {
                 WellScoreView()
             } label: {
-                HStack(spacing: Spacing.l) {
-                    ScoreRing(result: score, diameter: 88)
-                    VStack(alignment: .leading, spacing: Spacing.xs) {
-                        Text(waterSource.scoreTitle).font(.headline)
-                        if let band = score.band {
-                            StatusChip(tier: band.tier, label: band.label)
-                        }
+                HStack(spacing: DS.Space.l) {
+                    DS.ScoreRing(result: score, scale: 0.55)
+                    VStack(alignment: .leading, spacing: DS.Space.xs) {
+                        Text(waterSource.scoreTitle)
+                            .font(DS.Typography.headline)
+                        Text("See what's behind it")
+                            .font(DS.Typography.subheadline)
+                            .foregroundStyle(DS.Colors.accent)
                         if !score.isComplete {
                             Text(incompleteText(score))
-                                .font(.subheadline)
-                                .foregroundStyle(Color.textSecondary)
+                                .font(DS.Typography.footnote)
+                                .foregroundStyle(DS.Colors.textSecondary)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                     }
@@ -113,26 +141,27 @@ struct MyWaterView: View {
                         .foregroundStyle(.tertiary)
                         .accessibilityHidden(true)
                 }
-                .foregroundStyle(Color.textPrimary)
+                .foregroundStyle(DS.Colors.textPrimary)
                 .contentShape(Rectangle())
-                .card()
+                .dsCard()
                 .accessibilityElement(children: .combine)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(DS.PressableCardStyle())
 
-            VStack(alignment: .leading, spacing: 0) {
-                ForEach(Array(readings.enumerated()), id: \.offset) { index, interpretation in
-                    NavigationLink {
-                        ContaminantDetailView(id: interpretation.id)
-                    } label: {
-                        ContaminantRow(name: interpretation.id.info.name, interpretation: interpretation)
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityHint(Text("Opens details, trend and what to do"))
-                    if index < readings.count - 1 { Divider() }
+            Text("Your results")
+                .font(DS.Typography.title)
+                .foregroundStyle(DS.Colors.textPrimary)
+                .accessibilityAddTraits(.isHeader)
+                .padding(.top, DS.Space.s)
+            ForEach(Array(readings.enumerated()), id: \.offset) { _, interpretation in
+                NavigationLink {
+                    ContaminantDetailView(id: interpretation.id)
+                } label: {
+                    readingCard(interpretation)
                 }
+                .buttonStyle(DS.PressableCardStyle())
+                .accessibilityHint(Text("Opens details, trend and what to do"))
             }
-            .card()
 
             Button {
                 questSession = QuestSession(report: report.markingSample(settings.demoEnabled))
@@ -145,6 +174,18 @@ struct MyWaterView: View {
         }
     }
 
+    /// A meter when the reading has a single limit; otherwise the name, status and reading.
+    @ViewBuilder
+    private func readingCard(_ interpretation: Interpretation) -> some View {
+        let name = interpretation.id.info.name
+        if let meter = DS.LevelMeter(name: name, interpretation: interpretation) {
+            meter.dsCard()
+        } else {
+            ContaminantRow(name: name, interpretation: interpretation, showsChevron: false)
+                .dsCard()
+        }
+    }
+
     private func subtitle(for result: LabResult) -> String {
         let date = result.date.formatted(date: .long, time: .omitted)
         return result.labName.isEmpty ? date : "\(date) · \(result.labName)"
@@ -153,15 +194,14 @@ struct MyWaterView: View {
     // MARK: History
 
     private var history: some View {
-        VStack(alignment: .leading, spacing: Spacing.m) {
-            SectionHeader(title: "Report history")
+        VStack(alignment: .leading, spacing: DS.Space.m) {
             VStack(alignment: .leading, spacing: 0) {
                 ForEach(results) { result in
                     Button {
                         editingResult = result
                     } label: {
                         HStack {
-                            VStack(alignment: .leading, spacing: Spacing.xs) {
+                            VStack(alignment: .leading, spacing: DS.Space.xs) {
                                 Text(result.date.formatted(date: .abbreviated, time: .omitted))
                                     .font(.headline)
                                 let findings = result.healthFindings.count
@@ -173,16 +213,16 @@ struct MyWaterView: View {
                                     Image(systemName: tier.symbol).foregroundStyle(tier.color)
                                 }
                                 .font(.subheadline)
-                                .foregroundStyle(Color.textSecondary)
+                                .foregroundStyle(DS.Colors.textSecondary)
                             }
                             Spacer()
                             Image(systemName: "chevron.right")
                                 .foregroundStyle(.tertiary)
                                 .accessibilityHidden(true)
                         }
-                        .foregroundStyle(Color.textPrimary)
-                        .frame(minHeight: TapTarget.minimum)
-                        .padding(.vertical, Spacing.s)
+                        .foregroundStyle(DS.Colors.textPrimary)
+                        .frame(minHeight: DS.Size.tapTarget)
+                        .padding(.vertical, DS.Space.s)
                         .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
@@ -191,7 +231,7 @@ struct MyWaterView: View {
                     if result.persistentModelID != results.last?.persistentModelID { Divider() }
                 }
             }
-            .card()
+            .dsCard()
         }
     }
 
@@ -202,8 +242,7 @@ struct MyWaterView: View {
     }
 
     private var trends: some View {
-        VStack(alignment: .leading, spacing: Spacing.m) {
-            SectionHeader(title: "Trends & forecast")
+        VStack(alignment: .leading, spacing: DS.Space.m) {
             NavigationLink {
                 SeasonalOutlookView(initialCounty: county)
             } label: {
@@ -218,7 +257,7 @@ struct MyWaterView: View {
             if !chartedAnalytes.isEmpty {
                 Text("Triangles mark results above the limit. Dashed lines show limits.")
                     .font(.caption)
-                    .foregroundStyle(Color.textSecondary)
+                    .foregroundStyle(DS.Colors.textSecondary)
             }
         }
     }
@@ -227,7 +266,7 @@ struct MyWaterView: View {
 
     @ViewBuilder
     private var more: some View {
-        VStack(alignment: .leading, spacing: Spacing.m) {
+        VStack(alignment: .leading, spacing: DS.Space.m) {
             SectionHeader(title: "More")
             if !systemsNeedingRetest.isEmpty {
                 RetestReminderCard(systems: systemsNeedingRetest)

@@ -34,7 +34,6 @@ struct OnboardingView: View {
                           progress: { _ in draft.flow.progress(in: order) },
                           primaryAction: primaryAction) { step in
             page(for: step)
-                .background(Color.appBackground)
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Skip") { finish() }
@@ -99,66 +98,57 @@ struct OnboardingView: View {
 
     private var welcome: some View {
         content {
-            Image(systemName: "drop.fill")
-                .font(.largeTitle)
-                .foregroundStyle(Color.brandPrimary)
-                .accessibilityHidden(true)
-            Text("ClearWell NC")
-                .font(.largeTitle.bold())
-                .accessibilityAddTraits(.isHeader)
-            Text("From \"I've never tested my well\" to \"I know what's in it, what it means, and who will pay to fix it.\"")
-                .font(.title2)
-                .fixedSize(horizontal: false, vertical: true)
-            VStack(alignment: .leading, spacing: Spacing.m) {
-                bullet("checklist", "Find out if and what to test")
-                bullet("doc.viewfinder", "Scan your lab report and understand every number")
-                bullet("dollarsign.circle", "Find programs that test for free or help pay for fixes")
+            VStack(spacing: DS.Space.l) {
+                Image(systemName: "drop.fill")
+                    .font(.system(.largeTitle, weight: .semibold))
+                    .imageScale(.large)
+                    .foregroundStyle(DS.Colors.onAccent)
+                    .frame(width: 112, height: 112)
+                    .background(LinearGradient(colors: [DS.Colors.water, DS.Colors.accent],
+                                               startPoint: .topLeading, endPoint: .bottomTrailing),
+                                in: Circle())
+                    .accessibilityHidden(true)
+                Text("ClearWell NC")
+                    .font(DS.Typography.display)
+                    .foregroundStyle(DS.Colors.textPrimary)
+                    .accessibilityAddTraits(.isHeader)
+                Text("Know what's in your well water, and what to do about it.")
+                    .font(DS.Typography.body)
+                    .foregroundStyle(DS.Colors.textSecondary)
             }
-            .card()
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, DS.Space.l)
+            VStack(spacing: DS.Space.m) {
+                feature(DS.Icon.riskCheck, "Find out what to test for")
+                feature(DS.Icon.scan, "Understand every number on your report")
+                feature("dollarsign.circle.fill", "Find free testing and help paying for fixes")
+            }
         }
     }
 
     private var countyPage: some View {
         @Bindable var settings = settings
         return content {
-            Text("Which county do you live in?")
-                .font(.largeTitle.bold())
-                .fixedSize(horizontal: false, vertical: true)
-                .accessibilityAddTraits(.isHeader)
-            Text("Well risks differ across North Carolina's 100 counties. We use this for local facts and help programs. It stays on this device.")
-                .foregroundStyle(Color.textSecondary)
-                .fixedSize(horizontal: false, vertical: true)
+            pageTitle("Which county do you live in?",
+                      subtitle: "We use it for local facts and help programs. It stays on this phone.")
             // Saved as soon as it changes.
-            Picker("County", selection: $settings.county) {
-                Text("Choose later").tag(String?.none)
-                ForEach(CountyNames.all, id: \.self) { name in
-                    Text(String(localized: "\(name) County")).tag(Optional(name))
-                }
-            }
-            .pickerStyle(.wheel)
-            .frame(maxWidth: .infinity)
-            .card()
+            CountyPicker(selection: $settings.county, noneLabel: String(localized: "Choose later"))
         }
     }
 
     private var reportPage: some View {
         content {
-            Image(systemName: "doc.text.magnifyingglass")
-                .font(.largeTitle)
-                .foregroundStyle(Color.brandPrimary)
-                .accessibilityHidden(true)
-            Text("Do you have a lab report?")
-                .font(.largeTitle.bold())
-                .accessibilityAddTraits(.isHeader)
-            Text("If your well has been tested, scan the report and we'll explain each result. If not, a quick Risk Check shows what to test for.")
-                .foregroundStyle(Color.textSecondary)
-                .fixedSize(horizontal: false, vertical: true)
-            VStack(spacing: Spacing.m) {
-                PrimaryButton(title: "Yes, scan my report", systemImage: "doc.viewfinder") {
+            pageTitle("Do you have a lab report?",
+                      subtitle: "We'll explain it. If not, we'll help you decide what to test.")
+            VStack(spacing: DS.Space.m) {
+                DS.ActionCard(systemImage: DS.Icon.scan, title: String(localized: "Yes, scan my report"),
+                              subtitle: String(localized: "Takes about a minute"), style: .prominent) {
                     finish()
                     router.showingScanner = true
                 }
-                SecondaryButton(title: "Not yet, help me decide", systemImage: "checklist") {
+                DS.ActionCard(systemImage: DS.Icon.riskCheck, title: String(localized: "Not yet, help me decide"),
+                              subtitle: String(localized: "7 quick questions")) {
                     finish()
                     router.showingRiskCheck = true
                 }
@@ -170,20 +160,39 @@ struct OnboardingView: View {
 
     private func content<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: Spacing.l) {
+            VStack(alignment: .leading, spacing: DS.Space.xl) {
                 content()
             }
-            .screenContainer()
+            .dsScreen()
+        }
+        .background(DS.Colors.background)
+    }
+
+    private func pageTitle(_ title: LocalizedStringKey, subtitle: LocalizedStringKey) -> some View {
+        VStack(alignment: .leading, spacing: DS.Space.s) {
+            Text(title)
+                .font(DS.Typography.title)
+                .foregroundStyle(DS.Colors.textPrimary)
+                .fixedSize(horizontal: false, vertical: true)
+                .accessibilityAddTraits(.isHeader)
+            Text(subtitle)
+                .font(DS.Typography.body)
+                .foregroundStyle(DS.Colors.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 
-    private func bullet(_ symbol: String, _ text: LocalizedStringKey) -> some View {
-        Label {
-            Text(text).fixedSize(horizontal: false, vertical: true)
-        } icon: {
-            Image(systemName: symbol).foregroundStyle(Color.brandPrimary)
+    private func feature(_ symbol: String, _ text: LocalizedStringKey) -> some View {
+        HStack(spacing: DS.Space.m) {
+            DS.IconBadge(systemImage: symbol)
+            Text(text)
+                .font(DS.Typography.headline)
+                .foregroundStyle(DS.Colors.textPrimary)
+                .fixedSize(horizontal: false, vertical: true)
+            Spacer(minLength: 0)
         }
-        .font(.body)
+        .dsCard(padding: DS.Space.m)
+        .accessibilityElement(children: .combine)
     }
 
     private func finish() {

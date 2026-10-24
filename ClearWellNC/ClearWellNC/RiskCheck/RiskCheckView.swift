@@ -27,7 +27,7 @@ struct RiskCheckView: View {
                           progress: progress, primaryAction: primaryAction,
                           onClose: { dismiss() }) { step in
             page(step)
-                .background(Color.appBackground)
+                .background(DS.Colors.background)
                 .navigationTitle("Should I test?")
                 .navigationBarTitleDisplayMode(.inline)
         }
@@ -42,7 +42,7 @@ struct RiskCheckView: View {
         } else {
             ScrollView {
                 question(step)
-                    .screenContainer()
+                    .dsScreen()
             }
         }
     }
@@ -55,25 +55,28 @@ struct RiskCheckView: View {
         case .county: countyQuestion
         case .wellAge:
             choice(step, "Was your well drilled before 2008?", hint: "Look for a well permit or ask the previous owner.",
-                   options: [("Yes", RiskCheckAnswers.WellAge.before2008), ("No, 2008 or later", .after2008),
-                             ("I don't know", .unknown)], selected: draft.answers.wellAge) { draft.answers.wellAge = $0 }
+                   options: [(String(localized: "Yes"), "checkmark", RiskCheckAnswers.WellAge.before2008),
+                             (String(localized: "No, 2008 or later"), "xmark", .after2008),
+                             (String(localized: "I don't know"), "questionmark", .unknown)],
+                   selected: draft.answers.wellAge) { draft.answers.wellAge = $0 }
         case .pregnancy:
-            yesNo(step, "Is anyone pregnant, or is there a baby under 1 year old in your home?",
+            yesNo(step, "Is anyone pregnant, or is there a baby under 1 in your home?",
                   selected: draft.answers.pregnantOrInfant) { draft.answers.pregnantOrInfant = $0 }
         case .flooding:
-            yesNo(step, "Has flooding or a hurricane affected your well?",
-                  hint: "For example, water covered the wellhead or the area flooded.",
+            yesNo(step, "Has a flood or hurricane reached your well?",
+                  hint: "For example, water covered the top of the well.",
                   selected: draft.answers.flooding) { draft.answers.flooding = $0 }
         case .nearbySources:
-            yesNo(step, "Are farm fields, livestock or a septic system near your well?",
+            yesNo(step, "Are farm fields, animals or a septic system near your well?",
                   selected: draft.answers.nearbySources) { draft.answers.nearbySources = $0 }
         case .lastTest:
             choice(step, "When was your well last tested?", hint: nil,
-                   options: [("Never", RiskCheckAnswers.LastTest.never), ("1–3 years ago", .oneToThreeYears),
-                             ("More than 3 years ago", .threePlusYears)],
+                   options: [(String(localized: "Never"), "calendar.badge.exclamationmark", RiskCheckAnswers.LastTest.never),
+                             (String(localized: "1–3 years ago"), "calendar", .oneToThreeYears),
+                             (String(localized: "More than 3 years ago"), "calendar.badge.clock", .threePlusYears)],
                    selected: draft.answers.lastTest) { draft.answers.lastTest = $0 }
         case .noticedChanges:
-            yesNo(step, "Have you noticed changes in taste, smell, color or staining?",
+            yesNo(step, "Has the taste, smell or color changed, or is there staining?",
                   selected: draft.answers.noticedChanges) { draft.answers.noticedChanges = $0 }
         case .results:
             EmptyView()
@@ -81,62 +84,48 @@ struct RiskCheckView: View {
     }
 
     private var countyQuestion: some View {
-        VStack(alignment: .leading, spacing: Spacing.l) {
-            questionTitle("Which county is your well in?", hint: "County data helps us spot local risks.")
-            Picker("County", selection: $draft.answers.county) {
-                Text("Not sure").tag(String?.none)
-                ForEach(CountyNames.all, id: \.self) { Text(String(localized: "\($0) County")).tag(Optional($0)) }
-            }
-            .pickerStyle(.wheel)
-            .card()
+        VStack(alignment: .leading, spacing: DS.Space.l) {
+            questionTitle("Which county is your well in?", hint: "This helps us spot local risks.")
+            CountyPicker(selection: $draft.answers.county, noneLabel: String(localized: "Not sure"))
         }
     }
 
     private func questionTitle(_ title: LocalizedStringKey, hint: LocalizedStringKey?) -> some View {
-        VStack(alignment: .leading, spacing: Spacing.s) {
+        VStack(alignment: .leading, spacing: DS.Space.s) {
             Text(title)
-                .font(.title2.bold())
+                .font(DS.Typography.title)
+                .foregroundStyle(DS.Colors.textPrimary)
                 .fixedSize(horizontal: false, vertical: true)
                 .accessibilityAddTraits(.isHeader)
             if let hint {
-                Text(hint).font(.subheadline).foregroundStyle(Color.textSecondary)
+                Text(hint)
+                    .font(DS.Typography.body)
+                    .foregroundStyle(DS.Colors.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
+        .padding(.bottom, DS.Space.s)
     }
 
     private func yesNo(_ step: RiskCheckStep, _ title: LocalizedStringKey, hint: LocalizedStringKey? = nil,
                        selected: Bool?, set: @escaping (Bool) -> Void) -> some View {
-        choice(step, title, hint: hint, options: [("Yes", true), ("No", false)], selected: selected, set: set)
+        choice(step, title, hint: hint,
+               options: [(String(localized: "Yes"), "checkmark", true), (String(localized: "No"), "xmark", false)],
+               selected: selected, set: set)
     }
 
+    /// Tapping an answer saves it and moves to the next question.
     private func choice<T: Equatable>(_ step: RiskCheckStep, _ title: LocalizedStringKey, hint: LocalizedStringKey?,
-                                      options: [(LocalizedStringKey, T)], selected: T?,
+                                      options: [(title: String, icon: String, value: T)], selected: T?,
                                       set: @escaping (T) -> Void) -> some View {
-        VStack(alignment: .leading, spacing: Spacing.l) {
+        VStack(alignment: .leading, spacing: DS.Space.m) {
             questionTitle(title, hint: hint)
             ForEach(options.indices, id: \.self) { i in
-                let isSelected = selected == options[i].1
-                Button {
-                    set(options[i].1)
+                DS.ChoiceCard(title: options[i].title, systemImage: options[i].icon,
+                              isSelected: selected == options[i].value) {
+                    set(options[i].value)
                     draft.flow.advance(in: order)
-                } label: {
-                    HStack {
-                        Text(options[i].0).font(.headline)
-                        Spacer()
-                        Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                            .foregroundStyle(Color.brandPrimary)
-                            .accessibilityHidden(true)
-                    }
-                    .foregroundStyle(Color.textPrimary)
-                    .frame(minHeight: 52)
-                    .padding(.horizontal, Spacing.l)
-                    .background(Color.surface, in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
-                    .overlay(RoundedRectangle(cornerRadius: Radius.card, style: .continuous)
-                        .strokeBorder(isSelected ? Color.brandPrimary : Color.cardBorder, lineWidth: isSelected ? 2 : 1))
-                    .contentShape(Rectangle())
                 }
-                .buttonStyle(.plain)
-                .accessibilityAddTraits(isSelected ? .isSelected : [])
                 .accessibilityIdentifier("riskCheck.\(step.rawValue).\(i)")
             }
         }
@@ -161,66 +150,74 @@ struct RiskCheckView: View {
         let result = RiskCheckEngine.recommend(answers: draft.answers, countyData: countyData, trends: trends,
                                                pfasCounties: HelpLibrary.pfasTestingCounties)
         return ScrollView {
-            VStack(alignment: .leading, spacing: Spacing.xl) {
-                InfoCard(style: .status(.watch), systemImage: "testtube.2",
-                         title: String(localized: "Your recommended tests"),
-                         message: RiskCheckResult.disclaimer) {
-                    VStack(alignment: .leading, spacing: Spacing.m) {
-                        ForEach(result.tests) { test in
-                            VStack(alignment: .leading, spacing: Spacing.xs) {
-                                Label(test.id.name, systemImage: "checkmark.square")
-                                    .font(.headline)
-                                Text(test.reason)
-                                    .font(.subheadline)
-                                    .foregroundStyle(Color.textSecondary)
-                                    .fixedSize(horizontal: false, vertical: true)
-                            }
-                            .accessibilityElement(children: .combine)
-                        }
+            VStack(alignment: .leading, spacing: DS.Space.xl) {
+                VStack(alignment: .leading, spacing: DS.Space.s) {
+                    DS.IconBadge(systemImage: DS.Icon.test)
+                    Text("Test your well for these \(result.tests.count)")
+                        .font(DS.Typography.title)
+                        .foregroundStyle(DS.Colors.textPrimary)
+                        .accessibilityAddTraits(.isHeader)
+                    Text(RiskCheckResult.disclaimer)
+                        .font(DS.Typography.body)
+                        .foregroundStyle(DS.Colors.textSecondary)
+                }
+                VStack(spacing: DS.Space.m) {
+                    ForEach(result.tests) { test in
+                        DS.InfoCard(systemImage: DS.Icon.recommendedTest(test.id), title: test.id.name,
+                                    learnMore: test.reason.isEmpty ? nil : test.reason)
                     }
                 }
-
-                PrimaryButton(title: "Get tested", systemImage: "arrow.right.circle.fill") {
+                Button {
                     dismiss()
                     router.openHelp(.testing)
+                } label: {
+                    Label("Get tested", systemImage: "arrow.right.circle.fill")
                 }
-
-                if !result.countyFacts.isEmpty, let county = draft.answers.county {
-                    VStack(alignment: .leading, spacing: Spacing.m) {
-                        HStack {
-                            Text("\(county) County facts").font(.headline).accessibilityAddTraits(.isHeader)
-                            Spacer()
-                            if result.countyFacts.contains(where: \.isSample) { SampleDataTag() }
-                        }
-                        ForEach(result.countyFacts) { fact in
-                            Text(fact.text).font(.subheadline).fixedSize(horizontal: false, vertical: true)
-                        }
-                        Text("Counties average many wells. Yours can be very different.")
-                            .font(.caption)
-                            .foregroundStyle(Color.textSecondary)
-                    }
-                    .card()
-                }
-
-                InfoCard(systemImage: "calendar", title: String(localized: "Best time of year to test"),
-                         message: result.bestTimeToTest) {
-                    if trends?.isSample == true { SampleDataTag() }
-                }
-
+                .buttonStyle(DS.PrimaryButtonStyle())
                 if draft.answers.flooding == true {
-                    SecondaryButton(title: "My well flooded: what to do", systemImage: "cloud.heavyrain.fill") {
+                    DS.ActionCard(systemImage: DS.Icon.alert(.flood), title: String(localized: "My well flooded"),
+                                  subtitle: String(localized: "What to do first")) {
                         dismiss()
                         router.openHelp(.emergency)
                     }
                 }
-
-                SecondaryButton(title: "Start over", systemImage: "arrow.counterclockwise") {
-                    startOver()
+                if !result.countyFacts.isEmpty, let county = draft.answers.county {
+                    VStack(alignment: .leading, spacing: DS.Space.m) {
+                        HStack {
+                            Label(String(localized: "\(county) County"), systemImage: "map.fill")
+                                .font(DS.Typography.headline)
+                                .foregroundStyle(DS.Colors.textPrimary)
+                                .accessibilityAddTraits(.isHeader)
+                            Spacer()
+                            if result.countyFacts.contains(where: \.isSample) { SampleDataTag() }
+                        }
+                        ForEach(result.countyFacts) { fact in
+                            Text(fact.text)
+                                .font(DS.Typography.subheadline)
+                                .foregroundStyle(DS.Colors.textPrimary)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        Text("Your well can be very different from the county average.")
+                            .font(DS.Typography.footnote)
+                            .foregroundStyle(DS.Colors.textSecondary)
+                    }
+                    .dsCard()
                 }
-
-                DisclaimerFooter(lead: RiskCheckResult.disclaimer)
+                DS.InfoCard(systemImage: "calendar", title: String(localized: "Best time to test"),
+                            message: result.bestTimeToTest)
+                if trends?.isSample == true { SampleDataTag() }
+                HStack {
+                    Button("Start over", systemImage: "arrow.counterclockwise") { startOver() }
+                    Spacer()
+                    Button("Done") { dismiss() }
+                        .fontWeight(.semibold)
+                }
+                .font(DS.Typography.subheadline)
+                .foregroundStyle(DS.Colors.accent)
+                .frame(minHeight: DS.Size.tapTarget)
+                DisclaimerFooter()
             }
-            .screenContainer()
+            .dsScreen()
         }
         .onAppear(perform: finish)
     }

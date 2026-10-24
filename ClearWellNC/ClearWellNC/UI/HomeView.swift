@@ -33,6 +33,7 @@ struct HomeView: View {
     @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
 
     @State private var trends = CountyTrendData.loadBundled()
+    @State private var countyData = CountyWellData.loadBundled()
 
     private enum State {
         case noResults
@@ -57,20 +58,18 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: Spacing.xl) {
+                VStack(alignment: .leading, spacing: DS.Space.xl) {
                     if !alertsStore.relevantAlerts.isEmpty {
                         WeatherAlertsCard(store: alertsStore) {}
                     }
 
                     switch state {
                     case .noResults:
-                        noResultsCard
+                        noResults
                     case .allOK(let latest):
                         allOKCard(latest)
-                        PrimaryButton(title: "Scan Report", systemImage: "doc.viewfinder") { router.showingScanner = true }
                     case .problem(let latest, let findings):
                         problemCard(latest, findings: findings)
-                        PrimaryButton(title: "Scan Report", systemImage: "doc.viewfinder") { router.showingScanner = true }
                     }
 
                     StormHomeCard()
@@ -81,18 +80,26 @@ struct HomeView: View {
                     if let challenge = wellCareContext.challenge {
                         SeasonalChallengeCard(challenge: challenge)
                     } else if case .allOK = state {
-                        seasonalTip
+                        DS.InfoCard(systemImage: "leaf.fill",
+                                    title: String(localized: "Test for germs every year"),
+                                    message: String(localized: "And again after any flood or big storm."),
+                                    level: .good)
                     }
 
                     if case .noResults = state {} else {
                         DisclaimerFooter()
                     }
                 }
-                .screenContainer()
+                .dsScreen()
             }
-            .background(Color.appBackground)
+            .background(DS.Colors.background)
             .navigationTitle("Home")
             .toolbar {
+                if !results.isEmpty {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Scan Report", systemImage: DS.Icon.scan) { router.showingScanner = true }
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink {
                         SettingsView()
@@ -112,16 +119,56 @@ struct HomeView: View {
 
     // MARK: a) No results
 
-    private var noResultsCard: some View {
-        InfoCard(systemImage: "questionmark.circle.fill",
-                 title: String(localized: "Should I test my well?"),
-                 message: String(localized: "Answer 7 quick questions to see which tests your well needs and where to get them, often for free or low cost.")) {
-            VStack(spacing: Spacing.m) {
-                PrimaryButton(title: "Start the Risk Check", systemImage: "checklist") { router.showingRiskCheck = true }
-                SecondaryButton(title: "Already have a report? Scan it", systemImage: "doc.viewfinder") {
+    @ViewBuilder
+    private var noResults: some View {
+        if let answers = settings.riskAnswers {
+            recommendedTests(answers)
+        } else {
+            VStack(spacing: DS.Space.m) {
+                DS.ActionCard(systemImage: DS.Icon.riskCheck, title: String(localized: "Should I test my well?"),
+                              subtitle: String(localized: "7 quick questions"), style: .prominent) {
+                    router.showingRiskCheck = true
+                }
+                DS.ActionCard(systemImage: DS.Icon.scan, title: String(localized: "Already tested? Scan your report"),
+                              subtitle: String(localized: "We'll explain every number")) {
                     router.showingScanner = true
                 }
             }
+        }
+    }
+
+    /// After a finished Risk Check: its tests stay on Home until a report is added.
+    private func recommendedTests(_ answers: RiskCheckAnswers) -> some View {
+        let result = RiskCheckEngine.recommend(answers: answers, countyData: countyData, trends: trends,
+                                               pfasCounties: HelpLibrary.pfasTestingCounties)
+        return VStack(alignment: .leading, spacing: DS.Space.m) {
+            VStack(alignment: .leading, spacing: DS.Space.m) {
+                Text("Your recommended tests")
+                    .font(DS.Typography.title)
+                    .foregroundStyle(DS.Colors.textPrimary)
+                    .accessibilityAddTraits(.isHeader)
+                ForEach(result.tests) { test in
+                    Label {
+                        Text(test.id.name).font(DS.Typography.headline)
+                    } icon: {
+                        Image(systemName: DS.Icon.recommendedTest(test.id)).foregroundStyle(DS.Colors.accent)
+                    }
+                    .foregroundStyle(DS.Colors.textPrimary)
+                }
+            }
+            .dsCard()
+            DS.ActionCard(systemImage: "mappin.and.ellipse", title: String(localized: "Get tested"),
+                          subtitle: String(localized: "Labs and free programs near you"), style: .prominent) {
+                router.openHelp(.testing)
+            }
+            HStack {
+                Button("Redo the Risk Check") { router.showingRiskCheck = true }
+                Spacer()
+                Button("Scan a report") { router.showingScanner = true }
+            }
+            .font(DS.Typography.subheadline.weight(.semibold))
+            .foregroundStyle(DS.Colors.accent)
+            .frame(minHeight: DS.Size.tapTarget)
         }
     }
 
@@ -130,59 +177,41 @@ struct HomeView: View {
     private func allOKCard(_ latest: LabResult) -> some View {
         let score = WellHealthScore.compute(results.latestScoreInput)
         let nextTest = QuestReminderRule.nextTestDue(testDates: results.map(\.date))
-        return VStack(alignment: .leading, spacing: Spacing.l) {
-            ViewThatFits(in: .horizontal) {
-                HStack(spacing: Spacing.l) {
-                    ScoreRing(result: score)
-                    summary(score: score, latest: latest)
-                }
-                VStack(alignment: .leading, spacing: Spacing.l) {
-                    ScoreRing(result: score)
-                    summary(score: score, latest: latest)
+        return VStack(spacing: DS.Space.l) {
+            DS.ScoreRing(result: score)
+                .padding(.top, DS.Space.s)
+            VStack(spacing: DS.Space.xs) {
+                Text("Your water meets all health limits")
+                    .font(DS.Typography.title)
+                    .foregroundStyle(DS.Colors.textPrimary)
+                    .accessibilityAddTraits(.isHeader)
+                Text("From your test on \(latest.date.formatted(date: .abbreviated, time: .omitted))")
+                    .font(DS.Typography.subheadline)
+                    .foregroundStyle(DS.Colors.textSecondary)
+                if !score.isComplete {
+                    Label(incompleteText(score), systemImage: "list.bullet.clipboard")
+                        .font(DS.Typography.subheadline)
+                        .foregroundStyle(DS.Colors.textSecondary)
                 }
             }
-            Label {
-                Text("Next retest: \(nextTest.formatted(date: .long, time: .omitted))")
-            } icon: {
-                Image(systemName: "calendar.badge.clock").foregroundStyle(Color.brandPrimary)
-            }
-            .font(.subheadline.weight(.semibold))
+            .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
             NavigationLink {
                 WellScoreView()
             } label: {
-                Label("What's behind my score", systemImage: "chevron.right")
-                    .labelStyle(.titleOnly)
+                Text("What's behind my score")
             }
-            .buttonStyle(SecondaryButtonStyle())
+            .buttonStyle(DS.PrimaryButtonStyle())
+            Label {
+                Text("Next test: \(nextTest.formatted(date: .long, time: .omitted))")
+            } icon: {
+                Image(systemName: "calendar.badge.clock").foregroundStyle(DS.Colors.accent)
+            }
+            .font(DS.Typography.subheadline.weight(.semibold))
+            .foregroundStyle(DS.Colors.textPrimary)
         }
-        .card()
-    }
-
-    private func summary(score: WellHealthScore.Result, latest: LabResult) -> some View {
-        VStack(alignment: .leading, spacing: Spacing.s) {
-            Text("Your water meets all health limits")
-                .font(.title2.bold())
-                .fixedSize(horizontal: false, vertical: true)
-                .accessibilityAddTraits(.isHeader)
-            if let band = score.band {
-                StatusChip(tier: band.tier, label: band.label)
-            }
-            Text("Based on your test from \(latest.date.formatted(date: .abbreviated, time: .omitted)).")
-                .font(.subheadline)
-                .foregroundStyle(Color.textSecondary)
-            if !score.isComplete {
-                Text(incompleteText(score))
-                    .font(.subheadline)
-                    .foregroundStyle(Color.textSecondary)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-        }
-    }
-
-    private var seasonalTip: some View {
-        InfoCard(style: .status(.safe), systemImage: "leaf.fill",
-                 title: String(localized: "Seasonal tip"),
-                 message: String(localized: "Test for bacteria every year, and again after any flooding or heavy storms."))
+        .frame(maxWidth: .infinity)
+        .dsCard(padding: DS.Space.xl)
     }
 
     // MARK: c) Problem
@@ -197,35 +226,55 @@ struct HomeView: View {
         } else {
             String(localized: "\(name) and \(findings.count - 1) more are above health limits")
         }
-        return InfoCard(style: .danger, systemImage: "exclamationmark.octagon.fill", title: title,
-                        message: String(localized: "From your test on \(latest.date.formatted(date: .abbreviated, time: .omitted)).")) {
-            VStack(alignment: .leading, spacing: Spacing.m) {
-                Text("What to do now")
-                    .font(.headline)
-                    .accessibilityAddTraits(.isHeader)
-                Text(first.id.info.actionIfAbove)
-                    .font(.body)
-                    .fixedSize(horizontal: false, vertical: true)
-                Button {
-                    router.openHelp(.contaminant(first.id))
-                } label: {
-                    Label("Get help paying for a fix", systemImage: "dollarsign.circle.fill")
-                        .font(.headline)
-                        .foregroundStyle(Color(hex: 0xB3161F))
-                        .frame(maxWidth: .infinity, minHeight: 50)
-                        .background(.white, in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
-                }
-                .buttonStyle(.plain)
-                Button {
-                    router.selectedTab = .myWater
-                } label: {
-                    Text("See all my results")
-                        .font(.headline)
-                        .underline()
-                        .frame(maxWidth: .infinity, minHeight: TapTarget.minimum)
-                }
-                .buttonStyle(.plain)
+        let action = first.id.info.actionIfAbove
+        let shortAction = QuestText.firstSentences(action, max: 1)
+        return VStack(alignment: .leading, spacing: DS.Space.l) {
+            Label {
+                Text(title).font(DS.Typography.title)
+            } icon: {
+                Image(systemName: DS.Level.unsafe.symbol)
             }
+            .accessibilityAddTraits(.isHeader)
+            VStack(alignment: .leading, spacing: DS.Space.xs) {
+                Text("Do this now").font(DS.Typography.caption).textCase(.uppercase)
+                Text(shortAction).font(DS.Typography.headline)
+            }
+            .fixedSize(horizontal: false, vertical: true)
+            if shortAction != action {
+                DisclosureGroup {
+                    Text(action)
+                        .font(DS.Typography.subheadline)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.top, DS.Space.s)
+                } label: {
+                    Text("Learn why").font(DS.Typography.subheadline.weight(.semibold))
+                }
+                .tint(.white)
+            }
+            Button {
+                router.openHelp(.contaminant(first.id))
+            } label: {
+                Label("Get help paying for a fix", systemImage: "dollarsign.circle.fill")
+                    .font(DS.Typography.headline)
+                    .foregroundStyle(Color(hex: 0xB3161F))
+                    .frame(maxWidth: .infinity, minHeight: DS.Size.largeTapTarget)
+                    .background(.white, in: RoundedRectangle(cornerRadius: DS.Corner.medium, style: .continuous))
+            }
+            .buttonStyle(.plain)
+            Button("See all my results") { router.selectedTab = .myWater }
+                .font(DS.Typography.subheadline.weight(.semibold))
+                .underline()
+                .frame(maxWidth: .infinity, minHeight: DS.Size.tapTarget)
+                .buttonStyle(.plain)
+            Text("From your test on \(latest.date.formatted(date: .abbreviated, time: .omitted))")
+                .font(DS.Typography.footnote)
+                .opacity(0.9)
         }
+        .foregroundStyle(.white)
+        .padding(DS.Space.xl)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        // Fixed red in both modes so white text always passes contrast.
+        .background(Color(hex: 0xB3161F), in: RoundedRectangle(cornerRadius: DS.Corner.large, style: .continuous))
+        .accessibilityElement(children: .contain)
     }
 }

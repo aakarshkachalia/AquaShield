@@ -48,6 +48,8 @@ struct ClearWellNCApp: App {
                 .environment(tractStore)
                 .environment(alertsStore)
                 .environment(wellCareStore)
+                // Every step flow (onboarding, Risk Check, lab entry, scanning) uses the design system look.
+                .stepFlowStyle(ClearWellStepFlowStyle())
                 // Parse the bundled tract data once at launch, off the main thread.
                 .task { await tractStore.load() }
         }

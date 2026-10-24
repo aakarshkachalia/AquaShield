@@ -89,117 +89,131 @@ struct WellScoreView: View {
     var body: some View {
         let result = WellHealthScore.compute(results.latestScoreInput)
         ScrollView {
-            VStack(alignment: .leading, spacing: Spacing.xl) {
+            VStack(alignment: .leading, spacing: DS.Space.xl) {
                 if result.eColiPositive {
                     DoNotDrinkBanner()
                 }
-
                 header(result)
-
                 if !result.topFactors.isEmpty {
                     factors(result)
                 }
-
                 if !result.missingKeyTests.isEmpty {
                     missing(result)
                 }
-
                 howItWorks
                 TestingDisclaimer(kind: .score)
             }
-            .padding(Spacing.l)
-            .readableWidth()
+            .dsScreen()
         }
-        .background(Color.appBackground)
+        .background(DS.Colors.background)
         .navigationTitle(waterSource.scoreTitle)
         .navigationBarTitleDisplayMode(.inline)
     }
 
     private func header(_ result: WellHealthScore.Result) -> some View {
-        VStack(alignment: .leading, spacing: Spacing.m) {
-            VStack(spacing: Spacing.m) {
-                ScoreNumber(result: result, size: .large)
-                if let band = result.band {
-                    StatusChip(tier: band.tier, label: band.label)
-                }
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, Spacing.s)
+        VStack(spacing: DS.Space.l) {
+            DS.ScoreRing(result: result)
+                .frame(maxWidth: .infinity)
             if !result.isComplete {
-                Label(incompleteText(result), systemImage: "list.bullet.clipboard")
-                    .font(.headline)
-                Text(result.score == nil
-                     ? String(localized: "We won't guess a score for tests you haven't done. Missing tests are not counted as safe.")
-                     : String(localized: "Some key tests are missing, but a known problem means the score can't be higher than this."))
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                DS.InfoCard(systemImage: "list.bullet.clipboard", title: incompleteText(result),
+                            message: result.score == nil
+                                ? String(localized: "We don't guess. Tests you haven't done don't count as safe.")
+                                : String(localized: "A known problem keeps the score this low, even with tests missing."))
             }
             if result.healthLimitExceeded && !result.eColiPositive {
-                Text("A health-based limit is exceeded, so the score is capped at \(WellHealthScore.healthExceedanceCap).")
-                    .font(.subheadline.weight(.semibold))
+                DS.InfoCard(systemImage: DS.Level.unsafe.symbol,
+                            title: String(localized: "Score held at \(WellHealthScore.healthExceedanceCap) or lower"),
+                            message: String(localized: "A result is above a health limit."),
+                            level: .unsafe)
             }
         }
-        .card()
-        .accessibilityElement(children: .combine)
     }
 
     private func factors(_ result: WellHealthScore.Result) -> some View {
-        VStack(alignment: .leading, spacing: Spacing.m) {
-            Text("What's pulling your score down")
-                .font(.headline)
-                .accessibilityAddTraits(.isHeader)
-            ForEach(Array(result.topFactors.enumerated()), id: \.element.id) { index, factor in
-                VStack(alignment: .leading, spacing: Spacing.s) {
-                    InterpretationBlock(name: "\(index + 1). \(factor.id.info.name)", interpretation: factor.interpretation)
+        VStack(alignment: .leading, spacing: DS.Space.m) {
+            sectionTitle("What's pulling your score down")
+            ForEach(result.topFactors) { factor in
+                VStack(alignment: .leading, spacing: DS.Space.m) {
+                    let name = factor.id.info.name
+                    if let meter = DS.LevelMeter(name: name, interpretation: factor.interpretation) {
+                        meter
+                    } else {
+                        InterpretationBlock(name: name, interpretation: factor.interpretation)
+                    }
                     Label {
                         Text(factor.nextAction)
+                            .fixedSize(horizontal: false, vertical: true)
                     } icon: {
-                        Image(systemName: "arrow.right.circle.fill").foregroundStyle(.tint)
+                        Image(systemName: "arrow.right.circle.fill").foregroundStyle(DS.Colors.accent)
                     }
-                    .font(.subheadline.weight(.medium))
-                    .padding(Spacing.m)
+                    .font(DS.Typography.subheadline.weight(.medium))
+                    .foregroundStyle(DS.Colors.textPrimary)
+                    .padding(DS.Space.m)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.accentColor.opacity(0.08),
-                                in: RoundedRectangle(cornerRadius: Radius.inner, style: .continuous))
+                    .background(DS.Colors.accentSoft, in: RoundedRectangle(cornerRadius: DS.Corner.medium, style: .continuous))
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(Text("Next step: \(factor.nextAction)"))
                 }
-                if index < result.topFactors.count - 1 { Divider() }
+                .dsCard()
             }
         }
-        .card()
     }
 
     private func missing(_ result: WellHealthScore.Result) -> some View {
-        VStack(alignment: .leading, spacing: Spacing.s) {
-            Text("Tests still needed")
-                .font(.headline)
-                .accessibilityAddTraits(.isHeader)
-            ForEach(result.missingKeyTests, id: \.self) { test in
-                Label {
-                    Text("Test for \(test.name)")
-                } icon: {
-                    Image(systemName: "circle.dashed").foregroundStyle(.secondary)
+        VStack(alignment: .leading, spacing: DS.Space.m) {
+            sectionTitle("Tests still needed")
+            VStack(alignment: .leading, spacing: DS.Space.m) {
+                ForEach(result.missingKeyTests, id: \.self) { test in
+                    Label {
+                        Text("Test for \(test.name)")
+                    } icon: {
+                        Image(systemName: "circle.dashed").foregroundStyle(DS.Colors.textSecondary)
+                    }
+                    .font(DS.Typography.headline)
+                    .foregroundStyle(DS.Colors.textPrimary)
                 }
+                Text("Your county health department or a state-certified lab can do these.")
+                    .font(DS.Typography.footnote)
+                    .foregroundStyle(DS.Colors.textSecondary)
             }
-            Text("Contact your county health department or a state-certified lab to order these tests.")
-                .font(.caption)
-                .foregroundStyle(.secondary)
+            .dsCard()
         }
-        .card()
     }
 
+    /// Band legend instead of a paragraph; the full rules sit behind "Learn why".
     private var howItWorks: some View {
-        DisclosureGroup {
-            Text("The score starts at 100. Each health-based result takes away up to 30 points depending on how close it is to its limit. Cosmetic issues like iron, hardness or pH take away less. Any result at or above a health limit caps the score at 40, and E. coli caps it at 10. Bands: Good 80–100, Fair 60–79, Poor 41–59, Unsafe 0–40.")
-                .font(.subheadline)
-                .padding(.top, Spacing.s)
-        } label: {
-            Text("How the score works")
-                .font(.subheadline.weight(.semibold))
-                .frame(minHeight: 44)
+        VStack(alignment: .leading, spacing: DS.Space.m) {
+            sectionTitle("How the score works")
+            VStack(alignment: .leading, spacing: DS.Space.s) {
+                band(.good, "80–100")
+                band(.fair, "60–79")
+                band(.poor, "41–59")
+                band(.unsafe, "0–40")
+            }
+            .dsCard()
+            DS.InfoCard(systemImage: DS.Icon.score, title: String(localized: "Starts at 100"),
+                        message: String(localized: "Each result close to its limit takes points away."),
+                        learnMore: String(localized: "Health results take away up to 30 points each. Taste and staining issues like iron, hardness or pH take away less. Any result at or above a health limit holds the score at 40 or lower. E. coli holds it at 10 or lower."))
         }
-        .card()
+    }
+
+    private func band(_ level: DS.Level, _ range: String) -> some View {
+        HStack {
+            DS.StatusBadge(level: level)
+            Spacer()
+            Text(range)
+                .font(DS.Typography.headline)
+                .monospacedDigit()
+                .foregroundStyle(DS.Colors.textPrimary)
+        }
+        .accessibilityElement(children: .combine)
+    }
+
+    private func sectionTitle(_ title: LocalizedStringKey) -> some View {
+        Text(title)
+            .font(DS.Typography.title)
+            .foregroundStyle(DS.Colors.textPrimary)
+            .accessibilityAddTraits(.isHeader)
     }
 }
 
