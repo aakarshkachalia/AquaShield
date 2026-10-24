@@ -41,6 +41,8 @@ nonisolated enum AlertCenter {
 
     struct Inputs: Sendable {
         var safety: [SafetyAlert] = []
+        /// Readings at the drinking tap at or above a health limit (germs come through `safety`).
+        var exceedances: [ClaimTarget] = []
         /// Relevant NWS alerts (event names), only when storm alerts are on.
         var weatherEvents: [String] = []
         /// Filter name and days until due.
@@ -59,6 +61,12 @@ nonisolated enum AlertCenter {
             alerts.append(AppAlert(id: "safety.\(alert.kind.rawValue)", severity: .critical, symbol: "xmark.octagon.fill",
                                    title: alert.title, detail: alert.message,
                                    actionTitle: String(localized: "What to do"), action: .safety))
+        }
+        for target in input.exceedances {
+            alerts.append(AppAlert(id: "limit.\(target.rawValue)", severity: .critical, symbol: "exclamationmark.triangle.fill",
+                                   title: String(localized: "\(target.name) is above the limit"),
+                                   detail: String(localized: "See what to do now, starting with free steps."),
+                                   actionTitle: String(localized: "What to do"), action: .remediation))
         }
         for event in input.weatherEvents {
             alerts.append(AppAlert(id: "weather.\(event)", severity: .warning, symbol: "cloud.bolt.rain.fill",
@@ -84,10 +92,14 @@ nonisolated enum AlertCenter {
                                    detail: test.detail, actionTitle: String(localized: "Find testing"), action: .findTesting))
         }
         if input.hasReadings, let first = input.missingTests.first {
-            let names = input.missingTests.prefix(2).map { $0.name.lowercased() }.formatted(.list(type: .and))
+            let count = input.missingTests.count
+            let names = input.missingTests.map { $0.name.inSentence }.formatted(.list(type: .and))
+            // Short enough for one line on the landing page; the names go in the detail.
             alerts.append(AppAlert(id: "missing.\(first.rawValue)", severity: .attention, symbol: "circle.dashed",
-                                   title: String(localized: "Test for \(names)"),
-                                   detail: String(localized: "Your score is less certain without it."),
+                                   title: count == 1 ? String(localized: "Test for \(first.name.inSentence)")
+                                                     : String(localized: "\(count) key tests missing"),
+                                   detail: count == 1 ? String(localized: "Your score is less certain without it.")
+                                                      : String(localized: "Test for \(names)."),
                                    actionTitle: String(localized: "Find testing"), action: .findTesting))
         }
         for mode in WaterMode.allCases where input.modes.contains(mode) {
@@ -113,6 +125,9 @@ extension AlertCenter.Inputs {
     static func from(_ snapshot: WaterSnapshot, weatherEvents: [String], modes: Set<WaterMode>) -> AlertCenter.Inputs {
         AlertCenter.Inputs(
             safety: snapshot.alerts,
+            exceedances: (snapshot.drinking?.items ?? []).filter {
+                $0.level == .unsafe && $0.limit?.kind == .health && !$0.target.isMicrobial
+            }.map(\.target),
             weatherEvents: weatherEvents,
             filters: snapshot.filtersByDue.compactMap { item in item.days.map { (item.filter.name, $0) } },
             tests: snapshot.testsDue,

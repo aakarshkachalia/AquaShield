@@ -60,3 +60,12 @@ nonisolated enum Wording {
         text.map { adapt($0, for: source) }
     }
 }
+
+extension String {
+    /// A name as it reads mid-sentence: "Arsenic" → "arsenic", but abbreviations and mixed case stay
+    /// ("PFOS", "GenX", "pH", "E. coli").
+    nonisolated var inSentence: String {
+        let keep = contains(".") || dropFirst().contains(where: \.isUppercase)
+        return keep ? self : lowercased()
+    }
+}

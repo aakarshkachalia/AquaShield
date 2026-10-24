@@ -94,7 +94,7 @@ nonisolated struct Interpretation: Sendable {
             let impact = (band?.isNoticeable ?? false)
                 ? String(localized: "You may notice \(info.practicalImpact ?? "").")
                 : String(localized: "You probably won't notice scale at this level.")
-            let sentence = String(localized: "Your \(info.name.lowercased()) is \(reading), which counts as \(label.lowercased()) water. There is no health limit for \(info.name.lowercased()). \(impact)")
+            let sentence = String(localized: "Your \(info.name.inSentence) is \(reading), which counts as \(label.lowercased()) water. There is no health limit for \(info.name.inSentence). \(impact)")
             return Interpretation(id: id, readingText: reading, limitText: info.limitDescription, percentOfLimit: nil,
                                   tier: .info, chipLabel: label, sentence: sentence, isHealthExceedance: false)
 
@@ -112,7 +112,7 @@ nonisolated struct Interpretation: Sendable {
 
         // A health advisory (manganese) escalates an aesthetic contaminant to a health concern.
         if let advisory = info.healthAdvisory, value >= advisory.value {
-            let sentence = String(localized: "Your \(info.name.lowercased()) is \(reading), which is at or above the \(formatNumber(advisory.value)) \(info.unit.label) \(advisory.source.lowercased()). \(info.actionIfAbove)")
+            let sentence = String(localized: "Your \(info.name.inSentence) is \(reading), which is at or above the \(formatNumber(advisory.value)) \(info.unit.label) \(advisory.source.lowercased()). \(info.actionIfAbove)")
             return Interpretation(id: info.id, readingText: reading, limitText: info.limitDescription,
                                   percentOfLimit: fraction * 100, tier: .above,
                                   chipLabel: String(localized: "Above health advisory"),
@@ -121,7 +121,7 @@ nonisolated struct Interpretation: Sendable {
 
         switch info.limitType {
         case .health:
-            let lead = String(localized: "Your \(info.name.lowercased()) is \(reading), which is \(pct)% of the \(info.limitPhrase) (\(limitWithUnit)).")
+            let lead = String(localized: "Your \(info.name.inSentence) is \(reading), which is \(pct)% of the \(info.limitPhrase) (\(limitWithUnit)).")
             let tier: Tier
             let chip: String
             let tail: String
@@ -147,7 +147,7 @@ nonisolated struct Interpretation: Sendable {
                                   sentence: "\(lead) \(tail)", isHealthExceedance: tier == .above)
 
         case .aesthetic:
-            let lead = String(localized: "Your \(info.name.lowercased()) is \(reading), which is \(pct)% of the \(limitWithUnit) \(info.limitPhrase). There is no health-based limit at this level.")
+            let lead = String(localized: "Your \(info.name.inSentence) is \(reading), which is \(pct)% of the \(limitWithUnit) \(info.limitPhrase). There is no health-based limit at this level.")
             let impact = info.practicalImpact ?? ""
             let tier: Tier
             let chip: String
@@ -181,7 +181,7 @@ nonisolated struct Interpretation: Sendable {
         let info = id.info
         if !present {
             // Keep "E. coli" capitalized; lowercase other names mid-sentence.
-            let name = id == .eColi ? info.name : info.name.lowercased()
+            let name = id == .eColi ? info.name : info.name.inSentence
             return Interpretation(
                 id: id, readingText: String(localized: "Absent"), limitText: info.limitDescription, percentOfLimit: nil,
                 tier: .safe, chipLabel: String(localized: "Not detected"),
@@ -230,7 +230,7 @@ nonisolated enum ChartCaption {
             return String(localized: "No \(info.name) results yet.")
         }
         guard sorted.count > 1 else {
-            return String(localized: "This shows your one \(info.name.lowercased()) test so far. Add results over time to see a trend.") + " "
+            return String(localized: "This shows your one \(info.name.inSentence) test so far. Add results over time to see a trend.") + " "
                 + Interpretation.interpret(id, value: last.value).nextActionSentence
         }
 
@@ -240,11 +240,11 @@ nonisolated enum ChartCaption {
         let base = max(abs(first.value), 1e-9)
         let change = (last.value - first.value) / base
         if abs(change) < 0.10 {
-            direction = String(localized: "Your \(info.name.lowercased()) stayed about the same (\(firstText) to \(lastText)) across \(sorted.count) tests.")
+            direction = String(localized: "Your \(info.name.inSentence) stayed about the same (\(firstText) to \(lastText)) across \(sorted.count) tests.")
         } else if change > 0 {
-            direction = String(localized: "Your \(info.name.lowercased()) went up from \(firstText) to \(lastText) across \(sorted.count) tests.")
+            direction = String(localized: "Your \(info.name.inSentence) went up from \(firstText) to \(lastText) across \(sorted.count) tests.")
         } else {
-            direction = String(localized: "Your \(info.name.lowercased()) went down from \(firstText) to \(lastText) across \(sorted.count) tests.")
+            direction = String(localized: "Your \(info.name.inSentence) went down from \(firstText) to \(lastText) across \(sorted.count) tests.")
         }
 
         let interpretations = sorted.map { Interpretation.interpret(id, value: $0.value) }
@@ -273,11 +273,11 @@ nonisolated enum ChartCaption {
         let comparison: String
         if risk.ratio >= 1.15 {
             let times = risk.ratio.formatted(.number.precision(.fractionLength(0...1)))
-            comparison = String(localized: "The estimated share of wells near you above the \(name.lowercased()) limit is about \(times) times the statewide rate.")
+            comparison = String(localized: "The estimated share of wells near you above the \(name.inSentence) limit is about \(times) times the statewide rate.")
         } else if risk.ratio >= 0.85 {
-            comparison = String(localized: "The estimated share of wells near you above the \(name.lowercased()) limit is about the same as the statewide rate.")
+            comparison = String(localized: "The estimated share of wells near you above the \(name.inSentence) limit is about the same as the statewide rate.")
         } else {
-            comparison = String(localized: "The estimated share of wells near you above the \(name.lowercased()) limit is lower than the statewide rate.")
+            comparison = String(localized: "The estimated share of wells near you above the \(name.inSentence) limit is lower than the statewide rate.")
         }
         return comparison + " " + String(localized: "This describes wells in your area, not your well. Only a test tells you about yours.")
     }

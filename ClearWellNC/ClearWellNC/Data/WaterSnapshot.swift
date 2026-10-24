@@ -48,7 +48,7 @@ struct WaterSnapshot {
             return String(localized: "Replace \(filter.filter.name)")
         }
         if let missing = drinking?.missingTests.first {
-            return String(localized: "Test for \(missing.name.lowercased())")
+            return String(localized: "Test for \(missing.name.inSentence)")
         }
         return String(localized: "Keep testing every year")
     }

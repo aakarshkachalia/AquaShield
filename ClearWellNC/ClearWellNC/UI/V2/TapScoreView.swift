@@ -42,7 +42,7 @@ struct TapScoreView: View {
                         DSSectionTitle(String(localized: "Tests still needed"))
                         VStack(alignment: .leading, spacing: DS.Space.s) {
                             ForEach(result.missingTests, id: \.self) { target in
-                                Label(String(localized: "Test for \(target.name.lowercased())"), systemImage: "circle.dashed")
+                                Label(String(localized: "Test for \(target.name.inSentence)"), systemImage: "circle.dashed")
                                     .font(DS.Typography.headline)
                                     .foregroundStyle(DS.Colors.textPrimary)
                             }

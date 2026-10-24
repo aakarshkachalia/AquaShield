@@ -205,9 +205,7 @@ struct DashboardView: View {
     private func nudge(_ alert: AppAlert, more: Int) -> some View {
         let critical = alert.severity == .critical
         let tint = critical ? DS.Colors.unsafe : (alert.severity == .warning ? DS.Colors.fair : DS.Colors.accent)
-        return Button {
-            if critical { showingAlerts = true } else { perform(alert.action) }
-        } label: {
+        return Button { perform(alert.action) } label: {
             HStack(spacing: DS.Space.m) {
                 Image(systemName: alert.symbol)
                     .font(.title3)
@@ -572,7 +570,15 @@ struct TrendSparkline: View {
             (analyte, results.compactMap { r in r.value(for: analyte).map { Point(date: r.date, value: $0) } }
                 .sorted { $0.date < $1.date })
         }
-        if let best = candidates.max(by: { $0.1.count < $1.1.count }), !best.1.isEmpty {
+        if let best = candidates.max(by: { $0.1.count < $1.1.count }), best.1.count == 1 {
+            // One point isn't a trend yet.
+            VStack(alignment: .leading, spacing: 2) {
+                Text("1 test").font(DS.Typography.lightTitle).foregroundStyle(DS.Colors.textPrimary)
+                Text("Trend appears after your next test").font(DS.Typography.footnote)
+                    .foregroundStyle(DS.Colors.textSecondary).lineLimit(2)
+            }
+            .accessibilityElement(children: .combine)
+        } else if let best = candidates.max(by: { $0.1.count < $1.1.count }), best.1.count >= 2 {
             let name = best.0.name
             let limit: Double? = if case .maximum(let max) = best.0.info.limit { max } else { nil }
             VStack(alignment: .leading, spacing: DS.Space.xs) {

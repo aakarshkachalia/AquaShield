@@ -35,7 +35,21 @@ final class AlertCenterTests: XCTestCase {
         input.hasReadings = true
         let alert = AlertCenter.alerts(input).first
         XCTAssertEqual(alert?.action, .findTesting)
-        XCTAssertTrue(alert?.title.contains("arsenic") ?? false)
+        XCTAssertEqual(alert?.title, "2 key tests missing", "Short enough for one line")
+        XCTAssertTrue(alert?.detail.contains("arsenic") ?? false)
+        input.missingTests = [.pfos]
+        XCTAssertEqual(AlertCenter.alerts(input).first?.title, "Test for PFOS", "Abbreviations keep their capitals")
+    }
+
+    func testReadingAboveLimitIsUrgentAndOnTop() {
+        var input = AlertCenter.Inputs()
+        input.hasReadings = true
+        input.missingTests = [.uranium, .radon]
+        input.exceedances = [.arsenic]
+        let top = AlertCenter.alerts(input).first
+        XCTAssertEqual(top?.severity, .critical)
+        XCTAssertEqual(top?.title, "Arsenic is above the limit")
+        XCTAssertEqual(top?.action, .remediation)
     }
 
     func testOverdueTestIsWarning() {

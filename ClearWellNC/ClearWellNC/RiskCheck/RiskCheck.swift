@@ -225,7 +225,7 @@ nonisolated enum RiskCheckEngine {
             for record in records {
                 guard let contaminant = record.contaminantID else { continue }
                 let pct = record.pctAboveStandard.formatted(.number.precision(.fractionLength(0...1)))
-                let text = String(localized: "In \(county) County, \(pct)% of tested wells were above the \(contaminant.info.name.lowercased()) standard.")
+                let text = String(localized: "In \(county) County, \(pct)% of tested wells were above the \(contaminant.info.name.inSentence) standard.")
                 if facts.count < maxFacts { facts.append(CountyFact(contaminant: contaminant, text: text, isSample: record.sample)) }
                 if record.pctAboveStandard >= countyFlagPercent, let test = RecommendedTestID.forContaminant(contaminant) {
                     add(test, 10, text)

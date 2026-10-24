@@ -47,3 +47,14 @@ final class WordingTests: XCTestCase {
         XCTAssertEqual(Wording.adapt("Test your well water.", for: .privateWell), "Test your well water.")
     }
 }
+
+final class InSentenceTests: XCTestCase {
+    func testAbbreviationsKeepCapitals() {
+        XCTAssertEqual("Arsenic".inSentence, "arsenic")
+        XCTAssertEqual("Total coliform".inSentence, "total coliform")
+        XCTAssertEqual("PFOS".inSentence, "PFOS")
+        XCTAssertEqual("GenX".inSentence, "GenX")
+        XCTAssertEqual("pH".inSentence, "pH")
+        XCTAssertEqual("E. coli".inSentence, "E. coli")
+    }
+}

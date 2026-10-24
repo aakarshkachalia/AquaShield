@@ -135,9 +135,9 @@ struct SeasonalOutlookView: View {
     private func personalNote(count: Int, shown: Bool) -> some View {
         Group {
             if shown {
-                Text("Your \(count) \(contaminant.info.name.lowercased()) results are shown as squares. They are not used to fit the forecast.")
+                Text("Your \(count) \(contaminant.info.name.inSentence) results are shown as squares. They are not used to fit the forecast.")
             } else {
-                Text("Add at least \(SeasonalForecast.minimumPoints) of your own \(contaminant.info.name.lowercased()) results to see them on this chart.")
+                Text("Add at least \(SeasonalForecast.minimumPoints) of your own \(contaminant.info.name.inSentence) results to see them on this chart.")
             }
         }
         .font(.caption)
