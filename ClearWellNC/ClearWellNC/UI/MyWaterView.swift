@@ -243,6 +243,7 @@ struct MyWaterView: View {
 
     private var trends: some View {
         VStack(alignment: .leading, spacing: DS.Space.m) {
+            if waterSource.showsWellCare {
             NavigationLink {
                 SeasonalOutlookView(initialCounty: county)
             } label: {
@@ -251,6 +252,7 @@ struct MyWaterView: View {
                                     systemImage: "chart.line.uptrend.xyaxis")
             }
             .buttonStyle(.plain)
+            }
             ForEach(chartedAnalytes) { analyte in
                 TrendChart(analyte: analyte, results: results)
             }
@@ -300,7 +302,7 @@ struct MyWaterView: View {
                 ReportExportView()
             } label: {
                 NavigationCardLabel(title: Text("Share a report"),
-                                    subtitle: Text("A PDF for a doctor, landlord or well contractor."),
+                                    subtitle: Text("A PDF for a doctor, landlord or contractor."),
                                     systemImage: "doc.richtext")
             }
             .buttonStyle(.plain)
@@ -312,7 +314,8 @@ struct MyWaterView: View {
                                     systemImage: "calendar.badge.clock")
             }
             .buttonStyle(.plain)
-            if let well = savedWells.first, let db = store.database, let tract = db.tract(fips: well.fips) {
+            if waterSource.showsWellCare, let well = savedWells.first, let db = store.database,
+               let tract = db.tract(fips: well.fips) {
                 NavigationLink {
                     ReportView(selection: AreaSelection(
                         tract: tract,

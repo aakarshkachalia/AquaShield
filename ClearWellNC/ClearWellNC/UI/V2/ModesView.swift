@@ -34,7 +34,7 @@ struct ModesView: View {
                 Text("Tell us, and we'll remind you to retest.")
                     .font(DS.Typography.body).foregroundStyle(DS.Colors.textSecondary)
                 ForEach(RetestEvent.Kind.allCases, id: \.self) { kind in
-                    DS.ActionCard(systemImage: icon(kind), title: kind.label,
+                    DS.ActionCard(systemImage: icon(kind), title: kind.label(for: settings.waterSource),
                                   subtitle: lastLogged(kind).map { String(localized: "Logged \($0.formatted(date: .abbreviated, time: .omitted))") }) {
                         log(kind)
                     }

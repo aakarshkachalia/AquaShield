@@ -170,7 +170,7 @@ nonisolated extension ContaminantInfo {
     /// The catalog entry, with its limit and health advisory taken from ContaminantLimits.json (versioned
     /// reference data). Text stays here so it is translated through the String Catalog.
     static func info(for id: ContaminantID) -> ContaminantInfo {
-        let compiled = compiledInfo(for: id)
+        let compiled = compiledInfo(for: id).adaptedWording()
         guard let record = ReferenceLimits.table[id], let limit = record.limit.regulatory else { return compiled }
         let advisory = record.healthAdvisory.map { value in
             SecondaryLimit(value: value, source: compiled.healthAdvisory?.source ?? record.source.sourceName)
@@ -183,6 +183,18 @@ nonisolated extension ContaminantInfo {
             practicalImpact: compiled.practicalImpact, practicalImpactHigh: compiled.practicalImpactHigh,
             seasonalContext: compiled.seasonalContext, actionIfAbove: compiled.actionIfAbove,
             actionIfWatch: compiled.actionIfWatch, classBands: compiled.classBands)
+    }
+
+    /// The same entry with its explanations worded for the confirmed water source.
+    func adaptedWording() -> ContaminantInfo {
+        guard Wording.source == .publicWater else { return self }
+        return ContaminantInfo(
+            id: id, name: name, unit: unit, limit: limit, limitSource: limitSource, limitType: limitType,
+            limitPhrase: limitPhrase, healthAdvisory: healthAdvisory, sensitiveGroups: sensitiveGroups,
+            plainSummary: Wording.adapt(plainSummary), practicalImpact: Wording.adaptOptional(practicalImpact),
+            practicalImpactHigh: Wording.adaptOptional(practicalImpactHigh), seasonalContext: Wording.adaptOptional(seasonalContext),
+            actionIfAbove: Wording.adapt(actionIfAbove), actionIfWatch: Wording.adapt(actionIfWatch),
+            classBands: classBands)
     }
 
     // swiftlint:disable function_body_length

@@ -35,7 +35,7 @@ struct RemindersView: View {
                         VStack(alignment: .leading, spacing: Spacing.s) {
                             Text("No filters yet")
                                 .font(.headline)
-                            Text("Add a pitcher, faucet, fridge or under-sink filter, or well treatment like UV or a softener, to get a reminder when it's due.")
+                            Text("Add a pitcher, faucet, fridge or under-sink filter, or whole-house treatment like UV or a softener, to get a reminder when it's due.")
                                 .foregroundStyle(.secondary)
                                 .fixedSize(horizontal: false, vertical: true)
                         }

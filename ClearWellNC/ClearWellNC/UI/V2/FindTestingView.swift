@@ -18,12 +18,14 @@ nonisolated struct TestingContact: Identifiable, Sendable {
 
     var needsVerification: Bool { source.needsVerification }
 
-    static func samples(county: String?) -> [TestingContact] {
+    static func samples(county: String?, source: WaterSource = .notSure) -> [TestingContact] {
         let countyName = county.map { String(localized: "\($0) County Health Department") }
             ?? String(localized: "Your county health department")
         return [
             TestingContact(id: "county", name: countyName,
-                           detail: String(localized: "Sample entry: most NC counties test private wells. Call to ask about kits, fees and free testing."),
+                           detail: source.showsWellCare
+                               ? String(localized: "Sample entry: most NC counties test private wells. Call to ask about kits, fees and free testing.")
+                               : String(localized: "Sample entry: ask where to test your tap for lead and other concerns."),
                            url: WellResources.ncCountyHealthDepartments,
                            source: SourceRef(String(localized: "NC DHHS county health department list"),
                                              url: WellResources.ncCountyHealthDepartments.absoluteString)),
@@ -84,10 +86,10 @@ struct FindTestingView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: DS.Space.xl) {
                 DS.InfoCard(systemImage: DS.Icon.test, title: String(localized: "Use a state-certified lab"),
-                            message: String(localized: "Start with your county health department. Many test wells for free or low cost."),
+                            message: Wording.adapt(String(localized: "Start with your county health department. Many test wells for free or low cost."), for: settings.waterSource),
                             level: nil)
                 DSSectionTitle(String(localized: "Who to call"))
-                ForEach(TestingContact.samples(county: settings.county)) { contact in
+                ForEach(TestingContact.samples(county: settings.county, source: settings.waterSource)) { contact in
                     VStack(alignment: .leading, spacing: DS.Space.s) {
                         Text(contact.name).font(DS.Typography.headline)
                         Text(contact.detail).font(DS.Typography.subheadline).foregroundStyle(DS.Colors.textSecondary)

@@ -72,7 +72,12 @@ final class AppSettings {
     var demoPersona: DemoPersona { didSet { defaults.set(demoPersona.rawValue, forKey: Keys.demoPersona); reloadScoped() } }
 
     // Scoped (real vs. demo)
-    var waterSource: WaterSource { didSet { saveScoped(waterSource.rawValue, Keys.waterSource) } }
+    var waterSource: WaterSource {
+        didSet {
+            Wording.source = waterSource
+            saveScoped(waterSource.rawValue, Keys.waterSource)
+        }
+    }
     var county: String? { didSet { saveScoped(county, Keys.county) } }
     var pregnantInHome: Bool { didSet { saveScoped(pregnantInHome, Keys.pregnant) } }
     var infantInHome: Bool { didSet { saveScoped(infantInHome, Keys.infant) } }

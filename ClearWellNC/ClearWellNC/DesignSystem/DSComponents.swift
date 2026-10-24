@@ -261,6 +261,8 @@ struct EmptyStateView: View {
 
 /// Required on score, forecast, risk, help and storm screens.
 struct DisclaimerFooter: View {
+    /// Optional so previews without settings still work.
+    @Environment(AppSettings.self) private var settings: AppSettings?
     /// Optional screen-specific sentence shown before the standard text.
     var lead: String?
     var showsLinks = true
@@ -283,9 +285,16 @@ struct DisclaimerFooter: View {
             .font(.caption)
             .foregroundStyle(Color.textSecondary)
             if showsLinks {
-                Link(destination: WellResources.ncdhhsPrivateWells) {
-                    Label("NC DHHS: private well testing", systemImage: "arrow.up.right.square")
-                        .frame(minHeight: TapTarget.minimum)
+                if settings?.waterSource.showsWellCare ?? true {
+                    Link(destination: WellResources.ncdhhsPrivateWells) {
+                        Label("NC DHHS: private well testing", systemImage: "arrow.up.right.square")
+                            .frame(minHeight: TapTarget.minimum)
+                    }
+                } else {
+                    Link(destination: WellResources.epaConsumerConfidenceReports) {
+                        Label("EPA: your water quality report", systemImage: "arrow.up.right.square")
+                            .frame(minHeight: TapTarget.minimum)
+                    }
                 }
                 Link(destination: WellResources.ncCountyHealthDepartments) {
                     Label("Find your county health department", systemImage: "arrow.up.right.square")

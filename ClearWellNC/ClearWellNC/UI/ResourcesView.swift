@@ -177,7 +177,8 @@ struct ResourcesView: View {
         VStack(alignment: .leading, spacing: Spacing.xs) {
             SectionHeader(title: "Official resources")
             VStack(alignment: .leading, spacing: 0) {
-                resourceLink("Your county health department", detail: "Well testing kits, sample pickup and advice",
+                resourceLink("Your county health department",
+                             detail: waterSource.showsWellCare ? "Well testing kits, sample pickup and advice" : "Advice on testing your tap",
                              systemImage: "cross.case", url: WellResources.ncCountyHealthDepartments)
                 Divider()
                 resourceLink("NC State Laboratory of Public Health", detail: "The state's public health lab",

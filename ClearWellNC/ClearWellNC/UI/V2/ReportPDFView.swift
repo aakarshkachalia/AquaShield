@@ -20,7 +20,7 @@ struct ReportExportView: View {
         let snapshot = WaterSnapshot.make(results: results, systems: systems, settings: settings)
         ScrollView {
             VStack(alignment: .leading, spacing: DS.Space.l) {
-                Text("Make a PDF to share with a doctor, landlord, well contractor or utility.")
+                Text("Make a PDF to share with a doctor, landlord, contractor or utility.")
                     .font(DS.Typography.body).foregroundStyle(DS.Colors.textSecondary)
                 if !snapshot.members.isEmpty {
                     DSSectionTitle(String(localized: "Include people"))

@@ -10,6 +10,10 @@ import XCTest
 @testable import ClearWellNC
 
 final class WaterSystemLookupTests: XCTestCase {
+    override func tearDown() {
+        Wording.source = .notSure
+    }
+
 
     /// Test fixture only (not real boundaries): a square system with a hole, and a two-part modeled system.
     private let fixture = """

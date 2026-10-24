@@ -10,6 +10,9 @@ import SwiftData
 import SwiftUI
 
 extension WaterSource {
+    /// Report Quest streak and badges.
+    var careTitle: String { isWell ? String(localized: "Well Care") : String(localized: "Water Care") }
+
     /// Tab and screen title.
     var homeTitle: String {
         isWell ? String(localized: "My Well") : String(localized: "My Water")

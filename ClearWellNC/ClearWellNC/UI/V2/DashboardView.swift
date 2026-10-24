@@ -47,7 +47,7 @@ struct DashboardView: View {
                     if let latest = results.first {
                         ReportQuestCard(latest: latest, context: wellCareContext)
                     }
-                    if let challenge = wellCareContext.challenge {
+                    if settings.waterSource.showsWellCare, let challenge = wellCareContext.challenge {
                         SeasonalChallengeCard(challenge: challenge)
                     }
                     if snapshot.hasReadings { DisclaimerFooter() }

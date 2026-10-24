@@ -23,17 +23,19 @@ struct LearnView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: Spacing.m) {
-                    Text("What's in well water, where it comes from, who is most at risk, and how to fix it.")
+                    Text(Wording.adapt(String(localized: "What's in well water, where it comes from, who is most at risk, and how to fix it."),
+                                       for: settings.waterSource))
                         .foregroundStyle(Color.textSecondary)
                         .padding(.bottom, Spacing.xs)
-                    SectionHeader(title: "Contaminants")
-                    ForEach(LearnLibrary.articles) { article in
-                        NavigationLink {
-                            LearnArticleView(article: article)
-                        } label: {
-                            LearnCardRow(article: article)
-                        }
-                        .buttonStyle(.plain)
+                    // Everything stays browsable; city users just see city topics first.
+                    let featured = settings.waterSource.showsWellCare ? LearnLibrary.articles
+                        : LearnLibrary.articles.filter { $0.contaminants.contains(where: Self.cityTopics.contains) }
+                    let more = LearnLibrary.articles.filter { article in !featured.contains { $0.id == article.id } }
+                    SectionHeader(title: settings.waterSource.showsWellCare ? "Contaminants" : "For city water")
+                    ForEach(featured) { articleLink($0) }
+                    if !more.isEmpty {
+                        SectionHeader(title: "More topics")
+                        ForEach(more) { articleLink($0) }
                     }
 
                     SectionHeader(title: "Badges")
@@ -94,6 +96,19 @@ private struct LearnCardRow: View {
         NavigationCardLabel(title: Text(article.title),
                             subtitle: Text(article.contaminants.first?.info.plainSummary ?? ""),
                             systemImage: article.symbol)
+    }
+}
+
+extension LearnView {
+    static let cityTopics: Set<ContaminantID> = [.lead, .copper, .pfoa, .pfos, .genx, .totalColiform, .eColi]
+
+    func articleLink(_ article: LearnArticle) -> some View {
+        NavigationLink {
+            LearnArticleView(article: article)
+        } label: {
+            LearnCardRow(article: article)
+        }
+        .buttonStyle(.plain)
     }
 }
 

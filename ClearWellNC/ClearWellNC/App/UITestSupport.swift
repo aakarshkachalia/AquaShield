@@ -9,8 +9,11 @@
 //    -uiTestSkipOnboarding  Marks onboarding as done, saved like a real user's answer.
 //    -uiTestDemo <persona>  Turns on Demo Mode with that persona (neverTested, cleanReport, arsenicProblem).
 //    -uiTestAppearance <light|dark>  Forces the color scheme, for screenshots.
+//    -uiTestSource <publicWater|privateWell|both|notSure>  Sets the confirmed water source.
+//    -uiTestSeedResults     Adds one lab result labeled "SAMPLE — UI test" if there are none.
 //
 
+import SwiftData
 import SwiftUI
 
 enum UITestSupport {
@@ -46,6 +49,22 @@ enum UITestSupport {
         #endif
     }
 
+    /// One clearly labeled sample result, so result screens have something to show in UI tests.
+    @MainActor
+    static func seedResultsIfAsked(_ context: ModelContext) {
+        guard isUITesting, ProcessInfo.processInfo.arguments.contains("-uiTestSeedResults"),
+              ((try? context.fetchCount(FetchDescriptor<LabResult>())) ?? 0) == 0 else { return }
+        let result = LabResult(date: .now.addingTimeInterval(-30 * 86_400), labName: "SAMPLE — UI test")
+        result.leadPPB = 3
+        result.copperMgL = 0.2
+        result.nitrateMgL = 1
+        result.pfoaPPT = 2
+        result.totalColiform = .absent
+        result.eColi = .absent
+        context.insert(result)
+        try? context.save()
+    }
+
     static func applyLaunchArguments(_ arguments: [String] = ProcessInfo.processInfo.arguments) {
         #if DEBUG
         guard isUITesting else { return }
@@ -58,6 +77,9 @@ enum UITestSupport {
         }
         if arguments.contains("-uiTestSkipOnboarding") {
             defaults.set(true, forKey: AppSettings.onboardingKey)
+        }
+        if let i = arguments.firstIndex(of: "-uiTestSource"), i + 1 < arguments.count {
+            defaults.set(arguments[i + 1], forKey: AppSettings.realWaterSourceKey)
         }
         if let i = arguments.firstIndex(of: "-uiTestDemo"), i + 1 < arguments.count {
             defaults.set(true, forKey: "settings.demoEnabled")

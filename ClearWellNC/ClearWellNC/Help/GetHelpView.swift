@@ -63,7 +63,13 @@ struct GetHelpView: View {
                         }
                     }
 
-                    HelpFinderSection()
+                    // Every bundled help program is for private wells.
+                    if source.showsWellCare {
+                        HelpFinderSection()
+                    } else {
+                        DS.InfoCard(systemImage: "building.2.fill", title: String(localized: "Your water utility is your first call"),
+                                    message: String(localized: "For boil notices, lead pipes or a change in your water."))
+                    }
 
                     SectionHeader(title: "More help")
                     NavigationLink {

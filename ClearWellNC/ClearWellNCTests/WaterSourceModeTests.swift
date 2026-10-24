@@ -9,6 +9,10 @@ import XCTest
 @testable import ClearWellNC
 
 final class WaterSourceModeTests: XCTestCase {
+    override func tearDown() {
+        Wording.source = .notSure
+    }
+
 
     func testWellUsersNeverSeeCityTopics() {
         let topics = WaterSource.privateWell.topics

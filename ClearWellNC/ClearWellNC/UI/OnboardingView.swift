@@ -391,6 +391,11 @@ struct OnboardingView: View {
         settings.homeLocation = draft.location
         settings.waterSourceEstimate = draft.estimate
         if let source = draft.source { settings.waterSource = source }
+        // City water: start the utility report with the system the lookup found.
+        if draft.source?.hasUtility == true, settings.utilityReport.utilityName.isEmpty,
+           let name = draft.estimate?.systemName {
+            settings.utilityReport.utilityName = name
+        }
         if let county = draft.county ?? draft.location?.county { settings.county = county }
         settings.drafts.discard(draftKey)
         if mode == .firstLaunch {

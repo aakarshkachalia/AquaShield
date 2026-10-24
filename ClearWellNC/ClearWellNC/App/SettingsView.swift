@@ -68,7 +68,7 @@ struct SettingsView: View {
                 NavigationLink("Report Quest reminders & badges") {
                     WellCareProgressView(context: WellCareContext.make(results: results, county: settings.county,
                                                                       trends: CountyTrendData.loadBundled()))
-                        .navigationTitle("Well Care")
+                        .navigationTitle(settings.waterSource.careTitle)
                 }
             }
 
@@ -98,7 +98,9 @@ struct SettingsView: View {
             Section("About") {
                 NavigationLink("Privacy & Sources") { PrivacySourcesView() }
                 NavigationLink("Sources and data") { SourcesView() }
-                NavigationLink("How the estimates work") { HowItWorksView() }
+                if settings.waterSource.showsWellCare {
+                    NavigationLink("How the estimates work") { HowItWorksView() }
+                }
                 #if DEBUG
                 NavigationLink("Design System Gallery") { DesignSystemGalleryView() }
                 #endif

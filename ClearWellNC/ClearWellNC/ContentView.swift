@@ -63,7 +63,10 @@ struct RootTabView: View {
             }
         }
         // Keep scheduled notifications in step with stored data on every launch.
-        .task { await ReminderSync.refresh(using: modelContext) }
+        .task {
+            UITestSupport.seedResultsIfAsked(modelContext)
+            await ReminderSync.refresh(using: modelContext)
+        }
         // Check NWS alerts for the saved well on launch and whenever it changes.
         .task(id: "\(wellKey ?? "")|\(settings.isOptedIn(.stormAlerts))") {
             if let well = savedWells.first, settings.isOptedIn(.stormAlerts) {
