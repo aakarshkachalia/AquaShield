@@ -5,13 +5,6 @@
   A private, on-device iOS app for North Carolina homes on city water or private wells.
 </p>
 
-<p align="center">
-  <img src="Screenshots/city/light/06-dashboard-city-light.png" width="200" alt="Dashboard">
-  <img src="Screenshots/city/light/08-tap-score-kitchen-city-light.png" width="200" alt="Kitchen tap score">
-  <img src="Screenshots/city/light/14-my-water-trends-city-light.png" width="200" alt="Trends">
-  <img src="Screenshots/city/light/10-what-to-do-city-light.png" width="200" alt="What to do">
-</p>
-
 ---
 
 ## The problem
@@ -31,12 +24,6 @@ AquaShield turns test results, utility data and filter certifications into a cle
 - Enter your address and AquaShield estimates whether the home is on **city water or a private well**, by checking it against EPA's community water system service-area boundaries **on the device**.
 - You confirm the result with one tap, and the whole app adapts. City homes never see well-only content, and vice versa.
 - Welcome and setup run once, and progress is saved at every step.
-
-<p>
-  <img src="Screenshots/city/light/02-onboarding-address-city-light.png" width="180" alt="Address">
-  <img src="Screenshots/city/light/03-onboarding-estimate-city-light.png" width="180" alt="Estimate">
-  <img src="Screenshots/city/light/04-onboarding-confirm-city-light.png" width="180" alt="Confirm">
-</p>
 
 ### Dashboard and Water Health Score
 - One screen with the overall score, active alerts, filter status, next test due and the top recommended action.
@@ -142,8 +129,7 @@ AquaShield/
 ├── step1_map.py … step6_export.py   # Well risk model pipeline
 ├── data/                        # Raw and processed inputs for the model
 ├── outputs/                     # Model maps, calibration and importance plots
-├── app/                         # Early web prototype of the tract risk map
-└── Screenshots/                 # App screenshots (city + well, light + dark)
+└── app/                         # Early web prototype of the tract risk map
 ```
 
 ---
@@ -168,17 +154,6 @@ python DataPipeline/fetch_nc_water_systems.py
 ```
 
 **Re-run the well risk model:** run `step1_map.py` through `step6_export.py` in order from the repo root.
-
----
-
-## Screenshots
-
-| City water | Private well |
-|---|---|
-| <img src="Screenshots/city/dark/06-dashboard-city-dark.png" width="220"> | <img src="Screenshots/well/dark/01-dashboard-well-dark.png" width="220"> |
-| <img src="Screenshots/city/dark/16-utility-report-city-dark.png" width="220"> | <img src="Screenshots/well/dark/11-testing-and-modes-well-dark.png" width="220"> |
-
-Full sets for both water sources in light and dark mode are in [`Screenshots/`](Screenshots/).
 
 ---
 
