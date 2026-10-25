@@ -92,7 +92,7 @@ struct CountyTrendChart: View {
                 let median = points.last?.median ?? 0
                 let share = countyData?.reportable(for: county).first { $0.contaminantID == contaminant }?.pctAboveStandard
                 HStack(spacing: 0) {
-                    stat(formatNumber(median), String(localized: "County median"))
+                    stat(median.formatted(.number.precision(.fractionLength(0...1))), String(localized: "County median"))
                     Rectangle().fill(M.Colors.line).frame(width: 1)
                     stat(share.map { "\(formatNumber($0))%" } ?? "—", String(localized: "Wells over limit"))
                     Rectangle().fill(M.Colors.line).frame(width: 1)

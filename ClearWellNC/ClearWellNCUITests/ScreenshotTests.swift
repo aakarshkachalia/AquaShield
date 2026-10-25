@@ -68,12 +68,9 @@ final class ScreenshotTests: XCTestCase {
 
         tab(app, "My Water")
         snap(app, "my-water-latest")
-        let segments = app.segmentedControls.firstMatch
-        if segments.waitForExistence(timeout: 3) {
-            segments.buttons.element(boundBy: 1).tap(); snap(app, "my-water-history")
-            segments.buttons.element(boundBy: 2).tap(); snap(app, "my-water-trends")
-            segments.buttons.element(boundBy: 0).tap()
-        }
+        if tapIfExists(app.buttons["History"]) { snap(app, "my-water-history") }
+        if tapIfExists(app.buttons["Trends"]) { snap(app, "my-water-trends") }
+        tapIfExists(app.buttons["Latest"])
         open(app, labeled(app, "Filters"), "filters")
         open(app, labeled(app, "Testing and modes"), "testing-and-modes")
         open(app, labeled(app, "Share a report"), "share-report")

@@ -381,7 +381,9 @@ struct DashboardView: View {
                             Text(row.ratio.map(M.times) ?? "—")
                                 .font(M.Font.value)
                                 .foregroundStyle(row.ratio.map { M.Zone(ratio: $0).textColor } ?? M.Colors.muted)
-                                .frame(width: 44, alignment: .trailing)
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.7)
+                                .frame(width: 54, alignment: .trailing)
                         }
                         .frame(minHeight: 40)
                         .contentShape(Rectangle())
@@ -394,8 +396,8 @@ struct DashboardView: View {
                 }
                 // Axis: positions match the log scale.
                 GeometryReader { geo in
-                    let trackX: CGFloat = 94, trackW = geo.size.width - 94 - 54
-                    ForEach([(0.1, "0.1×"), (0.5, "0.5×"), (1, String(localized: "Limit")), (2.5, "2.5×")], id: \.0) { value, label in
+                    let trackX: CGFloat = 94, trackW = geo.size.width - 94 - 64
+                    ForEach([(0.1, "0.1×"), (1, String(localized: "Limit")), (2.5, "2.5×")], id: \.0) { value, label in
                         Text(label)
                             .font(value == 1 ? M.Font.label : M.Font.tiny)
                             .foregroundStyle(value == 1 ? M.Colors.ink : M.Colors.muted)
@@ -546,6 +548,8 @@ struct DialGauge: View {
     }
 
     var body: some View {
+        // Read state here, not inside the Canvas closure, so changes redraw the dial.
+        let progress = shown
         ZStack {
             Canvas { context, _ in
                 for v in stride(from: 0, through: 100, by: 2) {
@@ -554,16 +558,16 @@ struct DialGauge: View {
                     var path = Path()
                     path.move(to: point(angle, 112))
                     path.addLine(to: point(angle, long ? 96 : 102))
-                    let lit = Double(v) <= shown
+                    let lit = Double(v) <= progress
                     context.stroke(path, with: .color(M.scoreColor(Double(v)).opacity(lit ? 1 : 0.28)),
                                    lineWidth: long ? 1.6 : 1)
                 }
                 // Needle and hub.
                 var needle = Path()
                 needle.move(to: center)
-                needle.addLine(to: point(-135 + shown * 2.7, 106))
+                needle.addLine(to: point(-135 + progress * 2.7, 106))
                 context.stroke(needle, with: .color(M.Colors.ink), lineWidth: 1.25)
-                let tip = point(-135 + shown * 2.7, 106)
+                let tip = point(-135 + progress * 2.7, 106)
                 context.fill(Path(ellipseIn: CGRect(x: tip.x - 3, y: tip.y - 3, width: 6, height: 6)),
                              with: .color(M.Colors.over))
                 context.fill(Path(ellipseIn: CGRect(x: center.x - 4, y: center.y - 4, width: 8, height: 8)),

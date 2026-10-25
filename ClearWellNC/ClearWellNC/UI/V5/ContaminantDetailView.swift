@@ -269,6 +269,8 @@ struct HalfDial: View {
 
     var body: some View {
         let ratio = value / limit
+        // Read state here, not inside the Canvas closure, so changes redraw the dial.
+        let progress = shown
         ZStack {
             Canvas { context, _ in
                 for k in 0...50 {
@@ -277,7 +279,7 @@ struct HalfDial: View {
                     var path = Path()
                     path.move(to: point(angle(v), 128))
                     path.addLine(to: point(angle(v), long ? 112 : 119))
-                    let lit = v <= shown
+                    let lit = v <= progress
                     context.stroke(path, with: .color(M.Zone(ratio: v / limit).color.opacity(lit ? 1 : 0.28)),
                                    lineWidth: long ? 1.6 : 1)
                 }
@@ -285,7 +287,7 @@ struct HalfDial: View {
                 tick.move(to: point(angle(limit), 134)); tick.addLine(to: point(angle(limit), 104))
                 context.stroke(tick, with: .color(M.Colors.ink), lineWidth: 1.5)
                 var needle = Path()
-                needle.move(to: center); needle.addLine(to: point(angle(shown), 104))
+                needle.move(to: center); needle.addLine(to: point(angle(progress), 104))
                 context.stroke(needle, with: .color(M.Colors.ink), lineWidth: 1.25)
                 context.fill(Path(ellipseIn: CGRect(x: center.x - 4, y: center.y - 4, width: 8, height: 8)), with: .color(M.Colors.ink))
             }

@@ -78,7 +78,8 @@ nonisolated enum Remediation {
         // Free fixes first.
         var fixes: [FixStep] = []
         let germs = drinkingItems.contains { $0.target.isMicrobial && $0.present == true }
-        if germs || drivers.contains(.nitrate) && members.contains(where: \.infantOnFormula) {
+        let overHealthLimit = drinkingItems.contains { $0.level == .unsafe && $0.limit?.kind == .health }
+        if germs || overHealthLimit || drivers.contains(.nitrate) && members.contains(where: \.infantOnFormula) {
             fixes.append(FixStep(kind: .bottledWater, title: String(localized: "Use bottled water for now"),
                                  detail: String(localized: "For drinking, cooking, formula and brushing teeth, until a new test is clear."),
                                  symbol: "waterbottle.fill"))
