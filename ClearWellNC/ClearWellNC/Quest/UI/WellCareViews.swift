@@ -28,7 +28,7 @@ struct WellCareProgressView: View {
                 }
                 Text("Your streak counts years in a row with at least one water test. Opening the app doesn't count. Testing does.")
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(M.Colors.muted)
                     .fixedSize(horizontal: false, vertical: true)
 
                 SectionHeader(title: "Badges")
@@ -46,7 +46,7 @@ struct WellCareProgressView: View {
                         .frame(minHeight: 44)
                     Text("Off unless you turn it on. At most one reminder a month, only about testing.")
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                 }
                 .card()
             }
@@ -73,7 +73,7 @@ struct WellCareProgressView: View {
                 .monospacedDigit()
             Text(label)
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
         }
         .card()
         .accessibilityElement(children: .combine)
@@ -83,14 +83,14 @@ struct WellCareProgressView: View {
         let earnedOn = wellCare.state.unlocked[badge.rawValue]
         return HStack(alignment: .top, spacing: Spacing.m) {
             IconTile(systemImage: earnedOn == nil ? "lock.fill" : badge.symbol,
-                     color: earnedOn == nil ? .secondary : .accentColor)
+                     color: earnedOn == nil ? M.Colors.muted : Color.accentColor)
             VStack(alignment: .leading, spacing: Spacing.xs) {
                 Text(badge.title)
                     .font(.headline)
-                    .foregroundStyle(earnedOn == nil ? .secondary : .primary)
+                    .foregroundStyle(earnedOn == nil ? M.Colors.muted : M.Colors.ink)
                 Text(badge.howToEarn)
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(M.Colors.muted)
                     .fixedSize(horizontal: false, vertical: true)
                 if let earnedOn {
                     Label("Earned \(earnedOn.formatted(date: .abbreviated, time: .omitted))", systemImage: "checkmark.seal.fill")
@@ -99,7 +99,7 @@ struct WellCareProgressView: View {
                 } else {
                     Text("Not earned yet")
                         .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                 }
             }
             Spacer(minLength: 0)
@@ -142,7 +142,7 @@ struct ReportQuestCard: View {
                          ? String(localized: "Learn to read a water test in about 3 minutes, with a sample report.")
                          : String(localized: "Learn to read your latest test in about 3 minutes, one result at a time."))
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }
@@ -222,7 +222,7 @@ struct SeasonalChallengeCard: View {
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text("Seasonal challenge")
                         .font(.caption.weight(.semibold))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                         .textCase(.uppercase)
                     Text(challenge.title)
                         .font(.headline)

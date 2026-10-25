@@ -31,7 +31,7 @@ struct InterpretationBlock: View {
                     .monospacedDigit()
                 if let percent = interpretation.percentText {
                     Text("· \(percent)")
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                 }
             }
             if let percent = interpretation.percentOfLimit {
@@ -39,7 +39,7 @@ struct InterpretationBlock: View {
             }
             Text(interpretation.limitText)
                 .font(.caption)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
             Text(interpretation.sentence)
                 .font(.subheadline)
                 .fixedSize(horizontal: false, vertical: true)
@@ -59,7 +59,7 @@ struct LimitMeter: View {
         GeometryReader { geo in
             let fraction = min(max(percent / 100, 0), 1)
             ZStack(alignment: .leading) {
-                Capsule().fill(Color.primary.opacity(0.08))
+                Capsule().fill(M.Colors.ink.opacity(0.08))
                 Capsule().fill(color)
                     .frame(width: max(geo.size.width * fraction, fraction > 0 ? 6 : 0))
             }

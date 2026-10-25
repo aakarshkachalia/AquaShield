@@ -26,7 +26,7 @@ extension DS {
         static let background = Color.appBackground
         static let surface = Color.surface
         /// A card inside a card, or a selected row.
-        static let surfaceRaised = Color(light: 0xF7FAFD, dark: 0x1F2A37)
+        static let surfaceRaised = Color(light: 0xEBE3D6, dark: 0x2B251F)
         static let separator = Color.textPrimary.opacity(0.10)
         /// Empty part of a ring or meter.
         static let track = Color.textPrimary.opacity(0.08)
@@ -36,20 +36,20 @@ extension DS {
         /// Text and icons on a filled accent shape.
         static let onAccent = Color.onBrand
         /// Tinted accent fill (selected cards, icon tiles).
-        static let accentSoft = Color(light: 0xE4EEF8, dark: 0x15304A)
-        /// Lighter water blue for decoration only (gradients, rings). Never for text.
-        static let water = Color(light: 0x38A3D9, dark: 0x5CC2F2)
+        static let accentSoft = Color(light: 0xDCCFBC, dark: 0x3A2F25)
+        /// Light tan for decoration only (gradients, rings). Never for text.
+        static let water = Color(light: 0xA8896A, dark: 0xC4A584)
 
         // Text
         static let textPrimary = Color.textPrimary
         static let textSecondary = Color.textSecondary
 
         // Status, one per level. Pick through `DS.Level.color`, never directly, so color always matches the label.
-        static let excellent = Color(light: 0x0F766E, dark: 0x2DD4BF)
-        static let good = Color(light: 0x15803D, dark: 0x4ADE80)
-        static let fair = Color(light: 0xA16207, dark: 0xFACC15)
-        static let poor = Color(light: 0xC2410C, dark: 0xFB923C)
-        static let unsafe = Color(light: 0xB91C1C, dark: 0xF87171)
+        static let excellent = Color(light: 0x1E7546, dark: 0x60BB83)
+        static let good = Color(light: 0x4F7330, dark: 0x9EC773)
+        static let fair = Color(light: 0x8F6A00, dark: 0xEEC05B)
+        static let poor = Color(light: 0xB35A00, dark: 0xF59145)
+        static let unsafe = Color(light: 0xBA0C09, dark: 0xFF7F6E)
     }
 }
 

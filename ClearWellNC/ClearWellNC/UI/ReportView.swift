@@ -44,7 +44,7 @@ struct ReportView: View {
                 saveSection
                 Text("Data: \(meta.dataSource)")
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(M.Colors.muted)
             }
             .padding(Spacing.l)
             .readableWidth()
@@ -61,10 +61,10 @@ struct ReportView: View {
                 .accessibilityAddTraits(.isHeader)
             Text("Census tract \(report.fips)")
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
             Text(selection.placeName)
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
         }
         .accessibilityElement(children: .combine)
     }
@@ -104,7 +104,7 @@ struct ReportView: View {
             .disabled(isSaved)
             Text("Saving keeps this location on this device only. Saving again replaces your saved home.")
                 .font(.caption)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
         }
     }
 
@@ -147,12 +147,12 @@ struct ContaminantCard: View {
             if let observed = risk.observedText {
                 Text(observed)
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(M.Colors.muted)
             }
 
             Text("\(risk.confidence.level.phrase). \(risk.confidence.note)")
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
 
             DisclosureGroup(isExpanded: $isExpanded) {
                 VStack(alignment: .leading, spacing: Spacing.s) {
@@ -196,14 +196,14 @@ struct RiskComparisonBar: View {
                 let width = geo.size.width
                 ZStack(alignment: .leading) {
                     Capsule()
-                        .fill(Color.primary.opacity(0.08))
+                        .fill(M.Colors.ink.opacity(0.08))
                         .frame(height: 14)
                     Capsule()
                         .fill(risk.level.color)
-                        .overlay(Capsule().strokeBorder(Color.primary.opacity(0.2)))
+                        .overlay(Capsule().strokeBorder(M.Colors.ink.opacity(0.2)))
                         .frame(width: max(6, width * risk.estimate / scaleMax), height: 14)
                     Rectangle()
-                        .fill(Color.primary)
+                        .fill(M.Colors.ink)
                         .frame(width: 2, height: 24)
                         .offset(x: width * risk.statewide / scaleMax - 1)
                 }
@@ -214,18 +214,18 @@ struct RiskComparisonBar: View {
             VStack(alignment: .leading, spacing: Spacing.xs) {
                 HStack(spacing: Spacing.s) {
                     Capsule().fill(risk.level.color)
-                        .overlay(Capsule().strokeBorder(Color.primary.opacity(0.2)))
+                        .overlay(Capsule().strokeBorder(M.Colors.ink.opacity(0.2)))
                         .frame(width: 16, height: 8)
                     Text("Your area: \(risk.oneInText)")
                 }
                 HStack(spacing: Spacing.s) {
-                    Rectangle().fill(Color.primary).frame(width: 2, height: 14)
+                    Rectangle().fill(M.Colors.ink).frame(width: 2, height: 14)
                         .frame(width: 16)
                     Text("Statewide: \(risk.statewideOneInText)")
                 }
             }
             .font(.caption)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(M.Colors.muted)
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(Text("Comparison with the statewide rate"))

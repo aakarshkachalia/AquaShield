@@ -129,7 +129,7 @@ struct UtilityReportForm: View {
 
     var body: some View {
         NavigationStack {
-            Form {
+            Form { Group {
                 Section {
                     TextField("Utility name", text: $report.utilityName)
                     TextField("Report year", value: $report.reportYear, format: .number.grouping(.never))
@@ -161,6 +161,9 @@ struct UtilityReportForm: View {
                     }
                 }
             }
+            .listRowBackground(M.Colors.surface)
+            }
+            .modernistList()
             .navigationTitle("Water report")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

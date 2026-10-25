@@ -24,7 +24,7 @@ struct AreaMapSection: View {
                 .accessibilityAddTraits(.isHeader)
             Text("Tap a census tract to see its estimate.")
                 .font(.caption)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
 
             contaminantPicker
 
@@ -115,7 +115,7 @@ struct MapLegend: View {
             .accessibilityElement(children: .combine)
             if contaminant == .lead {
                 Text("Lead depends on household plumbing, not location, so every home should test for it.")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(M.Colors.muted)
             }
         }
         .font(.caption)
@@ -124,7 +124,7 @@ struct MapLegend: View {
     private func swatch(_ color: Color) -> some View {
         RoundedRectangle(cornerRadius: Radius.chip)
             .fill(color)
-            .overlay(RoundedRectangle(cornerRadius: Radius.chip).strokeBorder(Color.primary.opacity(0.25)))
+            .overlay(RoundedRectangle(cornerRadius: Radius.chip).strokeBorder(M.Colors.ink.opacity(0.25)))
             .frame(width: 22, height: 14)
             .accessibilityHidden(true)
     }
@@ -144,7 +144,7 @@ struct SelectedTractCard: View {
                     .font(.title2.bold())
                 Text("Census tract \(report.fips)")
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(M.Colors.muted)
             }
             .accessibilityElement(children: .combine)
 
@@ -165,12 +165,12 @@ struct SelectedTractCard: View {
                 if let observed = risk.observedText {
                     Text(observed)
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                 }
                 // Spells out what the map's faded fill means, so it isn't conveyed by opacity alone.
                 Text("\(risk.confidence.level.phrase). \(risk.confidence.note)")
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(M.Colors.muted)
             }
 
             Button(action: onOpenReport) {
@@ -181,6 +181,6 @@ struct SelectedTractCard: View {
             .buttonStyle(PrimaryButtonStyle())
         }
         .padding(Spacing.l)
-        .background(Color.primary.opacity(0.05), in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
+        .background(M.Colors.ink.opacity(0.05), in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
     }
 }

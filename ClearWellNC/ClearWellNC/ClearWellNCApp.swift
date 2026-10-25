@@ -19,6 +19,7 @@ struct ClearWellNCApp: App {
 
     init() {
         UITestSupport.applyLaunchArguments()
+        M.applyAppearance()
         _settings = State(initialValue: AppSettings(defaults: UITestSupport.defaults))
     }
 
@@ -53,6 +54,7 @@ struct ClearWellNCApp: App {
                 .environment(wellCareStore)
                 // Every step flow (onboarding, Risk Check, lab entry, scanning) uses the design system look.
                 .stepFlowStyle(ClearWellStepFlowStyle())
+                .tint(Color.brandPrimary)
                 .preferredColorScheme(UITestSupport.forcedColorScheme)
                 // Parse the bundled tract data once at launch, off the main thread.
                 .task { await tractStore.load() }

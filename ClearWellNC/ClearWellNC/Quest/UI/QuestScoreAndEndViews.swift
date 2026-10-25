@@ -20,7 +20,7 @@ struct QuestScoreStopView: View {
             VStack(alignment: .leading, spacing: Spacing.l) {
                 Text("Last stop")
                     .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(M.Colors.muted)
                 Text(title)
                     .font(.largeTitle.bold())
                     .accessibilityAddTraits(.isHeader)
@@ -59,7 +59,7 @@ struct QuestScoreStopView: View {
                 .font(.title2.bold())
                 .fixedSize(horizontal: false, vertical: true)
             Text("The score runs from 0 to 100 and sums up every result on your report.")
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
                 .fixedSize(horizontal: false, vertical: true)
             ForEach(QuestEngine.scoreChoices, id: \.self) { band in
                 QuestChoiceButton(title: QuestEngine.scoreRangeText(band), detail: band.label,
@@ -136,12 +136,12 @@ struct QuestScoreStopView: View {
             Label(incompleteText(run.score), systemImage: "list.bullet.clipboard")
                 .font(.headline)
             Text("We won't guess a score for tests you haven't done.")
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
             ForEach(run.score.missingKeyTests, id: \.self) { test in
                 Label {
                     Text("Test for \(test.name)")
                 } icon: {
-                    Image(systemName: "circle.dashed").foregroundStyle(.secondary)
+                    Image(systemName: "circle.dashed").foregroundStyle(M.Colors.muted)
                 }
             }
         }
@@ -184,7 +184,7 @@ struct QuestEndView: View {
                 if run.report.isSample {
                     Label("This was sample data, so points and badges weren't saved.", systemImage: "info.circle")
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                 } else if !newBadges.isEmpty {
                     VStack(alignment: .leading, spacing: Spacing.m) {
                         Text("New badge")
@@ -195,7 +195,7 @@ struct QuestEndView: View {
                                 IconTile(systemImage: badge.symbol)
                                 VStack(alignment: .leading, spacing: Spacing.xs) {
                                     Text(badge.title).font(.body.weight(.semibold))
-                                    Text(badge.howToEarn).font(.subheadline).foregroundStyle(.secondary)
+                                    Text(badge.howToEarn).font(.subheadline).foregroundStyle(M.Colors.muted)
                                 }
                             }
                             .accessibilityElement(children: .combine)
@@ -277,7 +277,7 @@ struct QuestFullReportView: View {
                         .font(.largeTitle.bold())
                         .accessibilityAddTraits(.isHeader)
                     Text(report.date.formatted(date: .long, time: .omitted))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                 }
                 if QuestEngine.eColiPositive(report) {
                     DoNotDrinkBanner()
@@ -289,7 +289,7 @@ struct QuestFullReportView: View {
                         if let band = score.band {
                             StatusChip(tier: band.tier, label: band.label)
                         } else {
-                            Text(incompleteText(score)).font(.subheadline).foregroundStyle(.secondary)
+                            Text(incompleteText(score)).font(.subheadline).foregroundStyle(M.Colors.muted)
                         }
                     }
                 }

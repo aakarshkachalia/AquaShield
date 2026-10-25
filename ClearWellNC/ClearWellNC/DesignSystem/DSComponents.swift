@@ -209,7 +209,7 @@ struct ContaminantRow: View {
             if showsChevron {
                 Image(systemName: "chevron.right")
                     .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(.tertiary)
+                    .foregroundStyle(M.Colors.muted.opacity(0.7))
                     .padding(.top, Spacing.xs)
                     .accessibilityHidden(true)
             }
@@ -348,7 +348,7 @@ struct NavigationCardLabel: View {
             Spacer(minLength: 0)
             Image(systemName: "chevron.right")
                 .font(.subheadline.weight(.semibold))
-                .foregroundStyle(.tertiary)
+                .foregroundStyle(M.Colors.muted.opacity(0.7))
                 .accessibilityHidden(true)
         }
         .frame(minHeight: TapTarget.minimum)

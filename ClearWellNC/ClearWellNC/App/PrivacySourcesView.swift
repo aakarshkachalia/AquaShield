@@ -12,7 +12,7 @@ struct PrivacySourcesView: View {
 
     var body: some View {
         @Bindable var settings = settings
-        List {
+        List { Group {
             Section {
                 ForEach(NetworkFeature.allCases) { feature in
                     VStack(alignment: .leading, spacing: DS.Space.xs) {
@@ -59,6 +59,9 @@ struct PrivacySourcesView: View {
                 #endif
             }
         }
+        .listRowBackground(M.Colors.surface)
+        }
+        .modernistList()
         .navigationTitle("Privacy & Sources")
     }
 }

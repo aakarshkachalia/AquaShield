@@ -26,7 +26,7 @@ struct QuestSafetyAlertView: View {
                         .font(.title2.bold())
                         .accessibilityAddTraits(.isHeader)
                     Text("Read this before anything else.")
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                 }
 
                 VStack(alignment: .leading, spacing: Spacing.m) {
@@ -42,7 +42,7 @@ struct QuestSafetyAlertView: View {
                                 Text(finding.id.info.name).font(.body.weight(.semibold))
                                 Text("\(finding.readingText) · \(finding.chipLabel)")
                                     .font(.subheadline)
-                                    .foregroundStyle(.secondary)
+                                    .foregroundStyle(M.Colors.muted)
                             }
                         }
                         .accessibilityElement(children: .combine)
@@ -65,7 +65,7 @@ struct QuestSafetyAlertView: View {
                         Label {
                             Text(action).fixedSize(horizontal: false, vertical: true)
                         } icon: {
-                            Image(systemName: "arrow.right.circle.fill").foregroundStyle(.secondary)
+                            Image(systemName: "arrow.right.circle.fill").foregroundStyle(M.Colors.muted)
                         }
                         .font(.subheadline)
                     }

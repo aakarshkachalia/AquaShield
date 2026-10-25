@@ -61,7 +61,7 @@ struct SourcesView: View {
     }
 
     var body: some View {
-        List {
+        List { Group {
             Section("Data in this app") {
                 ForEach(dataSources) { source in
                     VStack(alignment: .leading, spacing: Spacing.xs) {
@@ -112,6 +112,9 @@ struct SourcesView: View {
                     .foregroundStyle(Color.textSecondary)
             }
         }
+        .listRowBackground(M.Colors.surface)
+        }
+        .modernistList()
         .navigationTitle("Sources and data")
     }
 }

@@ -23,7 +23,7 @@ struct CheckAreaView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: Spacing.xl) {
                 Text("Find out what your area's well water is likely to contain, and what to test for.")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(M.Colors.muted)
 
                 switch store.state {
                 case .loading:
@@ -79,7 +79,7 @@ struct CheckAreaView: View {
                 .onSubmit(checkAddress)
                 .padding(Spacing.m)
                 .frame(minHeight: 44)
-                .background(Color.primary.opacity(0.06), in: RoundedRectangle(cornerRadius: Radius.chip, style: .continuous))
+                .background(M.Colors.ink.opacity(0.06), in: RoundedRectangle(cornerRadius: Radius.chip, style: .continuous))
                 .accessibilityLabel(Text("Address"))
 
             Button(action: checkAddress) {
@@ -98,7 +98,7 @@ struct CheckAreaView: View {
 
             Text("Your address or location is only used to find your census tract. It is not saved unless you choose to save it.")
                 .font(.caption)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
         }
         .disabled(isWorking)
         .card()

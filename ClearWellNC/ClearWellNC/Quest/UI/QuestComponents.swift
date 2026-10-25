@@ -63,7 +63,7 @@ struct QuestChoiceButton: View {
                     if let detail {
                         Text(detail)
                             .font(.subheadline)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(M.Colors.muted)
                     }
                 }
                 Spacer(minLength: 0)
@@ -88,7 +88,7 @@ struct QuestChoiceButton: View {
     private var marker: (symbol: String, color: Color)? {
         switch state {
         case .chosenCorrect, .revealedCorrect: ("checkmark.circle.fill", .statusSafe)
-        case .chosenWrong: ("xmark.circle.fill", .secondary)
+        case .chosenWrong: ("xmark.circle.fill", M.Colors.muted)
         case .idle, .dimmed: nil
         }
     }
@@ -96,7 +96,7 @@ struct QuestChoiceButton: View {
     private var background: Color {
         switch state {
         case .chosenCorrect, .revealedCorrect: Color.statusSafe.opacity(0.10)
-        case .chosenWrong: Color.primary.opacity(0.06)
+        case .chosenWrong: M.Colors.ink.opacity(0.06)
         case .idle, .dimmed: Color.cardBackground
         }
     }
@@ -104,7 +104,7 @@ struct QuestChoiceButton: View {
     private var border: Color {
         switch state {
         case .chosenCorrect, .revealedCorrect: Color.statusSafe.opacity(0.6)
-        case .chosenWrong: Color.primary.opacity(0.25)
+        case .chosenWrong: M.Colors.ink.opacity(0.25)
         case .idle, .dimmed: Color.cardBorder
         }
     }
@@ -178,7 +178,7 @@ struct ReadingSummary: View {
                 .accessibilityAddTraits(.isHeader)
             HStack(alignment: .firstTextBaseline, spacing: Spacing.s) {
                 Text("Your reading:")
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(M.Colors.muted)
                 Text(stop.interpretation.readingText)
                     .font(.title2.bold())
                     .monospacedDigit()
@@ -186,7 +186,7 @@ struct ReadingSummary: View {
             Label {
                 Text(stop.interpretation.limitText)
             } icon: {
-                Image(systemName: "ruler").foregroundStyle(.secondary)
+                Image(systemName: "ruler").foregroundStyle(M.Colors.muted)
             }
             .font(.subheadline)
         }

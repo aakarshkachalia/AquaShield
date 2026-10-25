@@ -35,7 +35,10 @@ struct LabResultForm: View {
                           progress: { _ in draft.flow.progress(in: order) },
                           primaryAction: primaryAction,
                           onClose: { dismiss() }) { step in
-            Form { section(for: step) }
+            Form { Group { section(for: step) }
+            .listRowBackground(M.Colors.surface)
+            }
+            .modernistList()
                 .navigationTitle(existing == nil ? "Add lab result" : "Edit lab result")
                 .navigationBarTitleDisplayMode(.inline)
         }
@@ -148,13 +151,13 @@ struct LabResultForm: View {
                 } else if !analyte.unitLabel.isEmpty {
                     // Fixed units (pCi/L, mg/L as CaCO₃) can't be converted, so just show them.
                     Text(analyte.unitLabel)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                 }
             }
             .frame(minHeight: 44)
             Text(analyte.limitDescription)
                 .font(.caption)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
             if invalid {
                 Label("Enter a number of 0 or more.", systemImage: "exclamationmark.circle.fill")
                     .font(.caption)
@@ -166,7 +169,7 @@ struct LabResultForm: View {
                 HStack(spacing: Spacing.s) {
                     StatusChip(tier: interpretation.tier, label: interpretation.chipLabel)
                     if let percent = interpretation.percentText {
-                        Text(percent).font(.caption).foregroundStyle(.secondary)
+                        Text(percent).font(.caption).foregroundStyle(M.Colors.muted)
                     }
                 }
             }

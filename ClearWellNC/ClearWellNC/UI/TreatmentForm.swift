@@ -54,7 +54,7 @@ struct TreatmentForm: View {
 
     var body: some View {
         NavigationStack {
-            Form {
+            Form { Group {
                 if let restoredFrom {
                     Section {
                         Label {
@@ -137,6 +137,9 @@ struct TreatmentForm: View {
                     }
                 }
             }
+            .listRowBackground(M.Colors.surface)
+            }
+            .modernistList()
             .navigationTitle(existing == nil ? "Add filter or treatment" : "Edit filter or treatment")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

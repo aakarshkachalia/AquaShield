@@ -34,7 +34,7 @@ struct ResourcesView: View {
                 } else if let center {
                     Text(savedWells.first.map { String(localized: "Places within about 25 miles of \($0.placeName).") }
                          ?? String(localized: "Places within about 25 miles of your current location."))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                     categoryPicker
                     Text(category.hint)
                         .font(.subheadline)
@@ -46,7 +46,7 @@ struct ResourcesView: View {
                 officialResources
                 Text("Listings come from Apple Maps. \(AppName.display) does not review or endorse these businesses. For water tests, choose a lab certified by the State of North Carolina.")
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(M.Colors.muted)
             }
             .padding(Spacing.l)
             .readableWidth()
@@ -79,7 +79,7 @@ struct ResourcesView: View {
                             .font(.subheadline.weight(.semibold))
                             .padding(.horizontal, Spacing.m)
                             .frame(minHeight: 44)
-                            .foregroundStyle(selected ? Color.white : Color.primary)
+                            .foregroundStyle(selected ? Color.white : M.Colors.ink)
                             .background(selected ? Color.accentColor : Color.cardBackground, in: Capsule())
                             .overlay(Capsule().strokeBorder(selected ? Color.clear : Color.cardBorder))
                     }
@@ -153,7 +153,7 @@ struct ResourcesView: View {
                         .font(.headline)
                     Text("Save your home on the Check My Area tab, or use your current location. Your location is only used for this search.")
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }
@@ -205,12 +205,12 @@ struct ResourcesView: View {
                 IconTile(systemImage: systemImage)
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(title).font(.body.weight(.semibold)).foregroundStyle(.primary)
-                    Text(detail).font(.subheadline).foregroundStyle(.secondary)
+                    Text(detail).font(.subheadline).foregroundStyle(M.Colors.muted)
                 }
                 Spacer(minLength: 0)
                 Image(systemName: "arrow.up.right")
                     .font(.caption.weight(.semibold))
-                    .foregroundStyle(.tertiary)
+                    .foregroundStyle(M.Colors.muted.opacity(0.7))
                     .accessibilityHidden(true)
             }
             .padding(.vertical, Spacing.s)
@@ -250,13 +250,13 @@ private struct PlaceCard: View {
                     Spacer(minLength: Spacing.s)
                     Text(place.distanceText)
                         .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                         .monospacedDigit()
                 }
                 if let address = place.address {
                     Text(address)
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                 }
             }
             .accessibilityElement(children: .combine)

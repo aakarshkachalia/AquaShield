@@ -92,7 +92,7 @@ struct DataReviewView: View {
     var body: some View {
         let rows = rows
         let areas = rows.map(\.area).reduce(into: [String]()) { if !$0.contains($1) { $0.append($1) } }
-        List {
+        List { Group {
             Section {
                 Text("\(rows.count) values need a person to check them against their source.")
             }
@@ -103,13 +103,16 @@ struct DataReviewView: View {
                             Text(row.title).font(.headline)
                             if !row.detail.isEmpty { Text(row.detail).font(.subheadline) }
                             if !row.source.isEmpty {
-                                Text("Source: \(row.source)").font(.caption).foregroundStyle(.secondary)
+                                Text("Source: \(row.source)").font(.caption).foregroundStyle(M.Colors.muted)
                             }
                         }
                     }
                 }
             }
         }
+        .listRowBackground(M.Colors.surface)
+        }
+        .modernistList()
         .searchable(text: $query)
         .navigationTitle("Data review")
     }

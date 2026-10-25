@@ -20,7 +20,7 @@ struct SettingsView: View {
 
     var body: some View {
         @Bindable var settings = settings
-        Form {
+        Form { Group {
             Section {
                 Picker("County", selection: $settings.county) {
                     Text("Not set").tag(String?.none)
@@ -116,6 +116,9 @@ struct SettingsView: View {
                      : String(localized: "Deletes your lab results, address, filters, household, answers, badges and reminders from this device, and starts the welcome screens again."))
             }
         }
+        .listRowBackground(M.Colors.surface)
+        }
+        .modernistList()
         .navigationTitle("Settings")
         .fullScreenCover(isPresented: $editingHome) { HomeProfileFlow() }
         .fullScreenCover(isPresented: $changingSource) { OnboardingView(mode: .changeSource) }

@@ -89,7 +89,7 @@ struct ReportPDFPage: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("\(AppName.display) water report").font(.title.bold())
                 Text("\(snapshot.source.settingName) · made \(snapshot.now.formatted(date: .long, time: .omitted))")
-                    .font(.subheadline).foregroundStyle(.secondary)
+                    .font(.subheadline).foregroundStyle(M.Colors.muted)
             }
             section(String(localized: "Scores")) {
                 ForEach(snapshot.taps.values.sorted { $0.tap.rawValue < $1.tap.rawValue }, id: \.tap) { tap in
@@ -134,7 +134,7 @@ struct ReportPDFPage: View {
                 if snapshot.alerts.isEmpty && snapshot.plan.fixes.isEmpty { Text("• \(snapshot.topNextStep)") }
             }
             Text("\(ExposureRisk.disclaimer) \(DisclaimerFooter.standardText) Limits are from EPA and NC sources listed in the app and still need verification before release.")
-                .font(.caption2).foregroundStyle(.secondary)
+                .font(.caption2).foregroundStyle(M.Colors.muted)
         }
         .foregroundStyle(.black)
         .padding(36)

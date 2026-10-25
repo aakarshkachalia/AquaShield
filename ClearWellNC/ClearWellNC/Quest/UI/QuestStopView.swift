@@ -24,7 +24,7 @@ struct QuestStopView: View {
             VStack(alignment: .leading, spacing: Spacing.l) {
                 Text("Stop \(stop.id + 1) of \(totalStops)")
                     .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(M.Colors.muted)
                 ReadingSummary(stop: stop)
                     .card()
 
@@ -34,7 +34,7 @@ struct QuestStopView: View {
                 VStack(spacing: Spacing.m) {
                     ForEach(QuestAnswer.allCases, id: \.self) { answer in
                         QuestChoiceButton(title: answer.label, systemImage: answer.symbol,
-                                          tint: chosen == nil ? answer.tier.color : .secondary,
+                                          tint: chosen == nil ? answer.tier.color : M.Colors.muted,
                                           state: choiceState(answer)) {
                             choose(answer)
                         }
@@ -89,7 +89,7 @@ struct QuestStopView: View {
                     .font(.headline)
             } icon: {
                 Image(systemName: stop.isSerious ? "info.circle.fill" : (correct ? "checkmark.circle.fill" : "lightbulb.fill"))
-                    .foregroundStyle(stop.isSerious ? Color.secondary : (correct ? Color.statusSafe : Color.statusWatch))
+                    .foregroundStyle(stop.isSerious ? M.Colors.muted : (correct ? Color.statusSafe : Color.statusWatch))
             }
             .accessibilityAddTraits(.isHeader)
 
@@ -171,12 +171,12 @@ struct QuestStopView: View {
         return VStack(alignment: .leading, spacing: Spacing.m) {
             Text("Bonus question")
                 .font(.subheadline.weight(.semibold))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
             Text(bonus.prompt)
                 .font(.headline)
                 .fixedSize(horizontal: false, vertical: true)
             ForEach(Array(bonus.options.enumerated()), id: \.offset) { index, option in
-                QuestChoiceButton(title: option, systemImage: "circle", tint: .secondary,
+                QuestChoiceButton(title: option, systemImage: "circle", tint: M.Colors.muted,
                                   state: bonusState(index, chosen: chosen, correct: bonus.correctIndex)) {
                     run.answerBonus(stop, optionIndex: index)
                 }

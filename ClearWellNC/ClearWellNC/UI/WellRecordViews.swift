@@ -58,7 +58,7 @@ struct TrendChart: View {
                         .annotation(position: .top, alignment: .leading) {
                             Text(line.label)
                                 .font(.caption)
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(M.Colors.muted)
                         }
                         .accessibilityHidden(true)
                 }
@@ -71,7 +71,7 @@ struct TrendChart: View {
 
             Text(analyte.limitDescription)
                 .font(.caption)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
 
             ChartCaptionView(text: caption)
         }
@@ -127,7 +127,7 @@ struct RetestReminderCard: View {
                 Text("You added a \(system.displayName) on \(system.addedAt.formatted(date: .abbreviated, time: .omitted)).")
             }
             Text("Retest your water to confirm it works. Add the new result here when you get it.")
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
         }
         .card()
         .accessibilityElement(children: .combine)
@@ -142,14 +142,14 @@ struct ChartCaptionView: View {
         VStack(alignment: .leading, spacing: Spacing.xs) {
             Text("What this chart shows")
                 .font(.caption.weight(.semibold))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
             Text(text)
                 .font(.subheadline)
                 .fixedSize(horizontal: false, vertical: true)
         }
         .padding(Spacing.m)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.primary.opacity(0.05), in: RoundedRectangle(cornerRadius: Radius.chip, style: .continuous))
+        .background(M.Colors.ink.opacity(0.05), in: RoundedRectangle(cornerRadius: Radius.chip, style: .continuous))
         .accessibilityElement(children: .combine)
     }
 }

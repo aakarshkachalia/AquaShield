@@ -273,4 +273,40 @@ extension View {
         background(M.Colors.ground.ignoresSafeArea())
             .foregroundStyle(M.Colors.ink)
     }
+
+    /// A Form or List on the beige ground instead of system gray. Rows set their own surface background.
+    func modernistList() -> some View {
+        scrollContentBackground(.hidden)
+            .background(M.Colors.ground.ignoresSafeArea())
+            .foregroundStyle(M.Colors.ink)
+    }
+}
+
+extension M {
+    /// System bars and controls in the brown theme, so no system blue or gray shows through.
+    static func applyAppearance() {
+        let ground = UIColor(M.Colors.ground)
+        let ink = UIColor(M.Colors.ink)
+        let bar = UINavigationBarAppearance()
+        bar.configureWithOpaqueBackground()
+        bar.backgroundColor = ground
+        bar.shadowColor = UIColor(M.Colors.line)
+        bar.titleTextAttributes = [.foregroundColor: ink]
+        bar.largeTitleTextAttributes = [.foregroundColor: ink]
+        UINavigationBar.appearance().standardAppearance = bar
+        UINavigationBar.appearance().scrollEdgeAppearance = bar
+        UINavigationBar.appearance().compactAppearance = bar
+        UINavigationBar.appearance().tintColor = UIColor(Color.brandPrimary)
+
+        let segments = UISegmentedControl.appearance()
+        segments.backgroundColor = UIColor(M.Colors.tabBar)
+        segments.selectedSegmentTintColor = UIColor(M.Colors.surface)
+        segments.setTitleTextAttributes([.foregroundColor: ink], for: .normal)
+
+        UISwitch.appearance().onTintColor = UIColor(Color.brandPrimary)
+        UIPageControl.appearance().currentPageIndicatorTintColor = ink
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor(M.Colors.line)
+        UITableView.appearance().backgroundColor = ground
+        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor(Color.brandPrimary)
+    }
 }

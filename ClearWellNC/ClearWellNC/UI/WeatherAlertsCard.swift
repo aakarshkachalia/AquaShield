@@ -41,7 +41,7 @@ struct WeatherAlertsCard: View {
                 }
                 Text("Checked \(checkedAt.formatted(date: .omitted, time: .shortened))")
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(M.Colors.muted)
             case .failed:
                 Label {
                     Text("We couldn't check weather alerts. Check your internet connection.")
@@ -53,7 +53,7 @@ struct WeatherAlertsCard: View {
             }
             Text("Your saved location is sent to the National Weather Service to check for alerts.")
                 .font(.caption)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
         }
         .card()
     }

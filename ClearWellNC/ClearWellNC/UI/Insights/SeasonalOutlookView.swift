@@ -98,7 +98,7 @@ struct SeasonalOutlookView: View {
                      ? String(localized: "Trend: 20-month moving average.")
                      : String(localized: "Trend: \(result.window)-month moving average, using all available data (fewer than 20 months)."))
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(M.Colors.muted)
                 ChartCaptionView(text: insight.text)
             }
             .card()
@@ -141,7 +141,7 @@ struct SeasonalOutlookView: View {
             }
         }
         .font(.caption)
-        .foregroundStyle(.secondary)
+        .foregroundStyle(M.Colors.muted)
     }
 
     // MARK: Data
@@ -181,7 +181,7 @@ struct SeasonalChart: View {
             }
             ForEach(result.history, id: \.self) { p in
                 LineMark(x: .value("Month", p.date), y: .value("Median", p.value), series: .value("Series", "History"))
-                    .foregroundStyle(Color.gray)
+                    .foregroundStyle(M.Colors.muted)
                     .lineStyle(StrokeStyle(lineWidth: 1.5))
             }
             ForEach(result.movingAverage, id: \.self) { p in
@@ -206,7 +206,7 @@ struct SeasonalChart: View {
             }
             if let start = result.forecast.first?.date {
                 RuleMark(x: .value("Forecast starts", start))
-                    .foregroundStyle(Color.secondary.opacity(0.6))
+                    .foregroundStyle(M.Colors.muted.opacity(0.6))
                     .lineStyle(StrokeStyle(lineWidth: 1, dash: [2, 3]))
                     .annotation(position: .top, alignment: .leading) {
                         Text("Predicted — not a test result.")
@@ -216,7 +216,7 @@ struct SeasonalChart: View {
             ForEach(personal) { p in
                 PointMark(x: .value("Month", p.date), y: .value("Your result", p.value))
                     .symbol(BasicChartSymbolShape.square)
-                    .foregroundStyle(Color.primary)
+                    .foregroundStyle(M.Colors.ink)
             }
         }
         .chartYAxisLabel(unit.label)
@@ -238,7 +238,7 @@ struct LegendSwatch: View {
             line.addLine(to: CGPoint(x: size.width, y: mid))
             switch kind {
             case .history:
-                context.stroke(line, with: .color(.gray), lineWidth: 1.5)
+                context.stroke(line, with: .color(M.Colors.muted), lineWidth: 1.5)
             case .trend:
                 context.stroke(line, with: .color(.accentColor), style: StrokeStyle(lineWidth: 3, lineCap: .round))
             case .forecast:

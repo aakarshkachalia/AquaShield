@@ -36,7 +36,7 @@ struct RemindersView: View {
                             Text("No filters yet")
                                 .font(.headline)
                             Text("Add a pitcher, faucet, fridge or under-sink filter, or whole-house treatment like UV or a softener, to get a reminder when it's due.")
-                                .foregroundStyle(.secondary)
+                                .foregroundStyle(M.Colors.muted)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                     }
@@ -175,12 +175,12 @@ struct TreatmentRow: View {
                         }
                         Text(detail)
                             .font(.subheadline)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(M.Colors.muted)
                         dueLabel(days: days)
                     }
                     Spacer()
                     Image(systemName: "chevron.right")
-                        .foregroundStyle(.tertiary)
+                        .foregroundStyle(M.Colors.muted.opacity(0.7))
                         .accessibilityHidden(true)
                 }
                 .contentShape(Rectangle())
@@ -239,11 +239,11 @@ struct CareRow: View {
                         .font(.headline)
                     Text(task.frequency)
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                     if let last {
                         Text("Last done \(last.formatted(date: .abbreviated, time: .omitted))")
                             .font(.subheadline)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(M.Colors.muted)
                     }
                     Label {
                         Text(last == nil ? String(localized: "Not recorded yet: due now") : DueText.careText(daysRemaining: days))

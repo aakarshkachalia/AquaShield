@@ -35,7 +35,7 @@ struct HowItWorksView: View {
                 if let meta = store.database?.meta {
                     Text("Data: \(meta.dataSource). Tract estimates generated \(meta.generated).")
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                 }
                 Text(RiskReport.disclaimer)
                     .font(.caption.weight(.semibold))
@@ -162,7 +162,7 @@ private struct ScoresTable: View {
                 ForEach(columns.indices, id: \.self) { Text(columns[$0]) }
             }
             .font(.subheadline.weight(.semibold))
-            .foregroundStyle(.secondary)
+            .foregroundStyle(M.Colors.muted)
             Divider()
             ForEach(scores) { score in
                 GridRow {
@@ -200,7 +200,7 @@ private struct ScoresTable: View {
     private var bestNote: some View {
         Text("Bold with a star: best of the first three methods.")
             .font(.caption)
-            .foregroundStyle(.secondary)
+            .foregroundStyle(M.Colors.muted)
     }
 
     /// Best among the three methods compared on unseen tracts (the stress test is reported separately).
@@ -221,12 +221,12 @@ private struct ScoresTable: View {
             .monospacedDigit()
         return ViewThatFits(in: .horizontal) {
             HStack(alignment: .firstTextBaseline) {
-                Text(label).foregroundStyle(.secondary)
+                Text(label).foregroundStyle(M.Colors.muted)
                 Spacer()
                 valueText
             }
             VStack(alignment: .leading, spacing: Spacing.xs) {
-                Text(label).foregroundStyle(.secondary)
+                Text(label).foregroundStyle(M.Colors.muted)
                 valueText
             }
         }
@@ -254,7 +254,7 @@ private struct FigureView: View {
             }
             Text(caption)
                 .font(.caption)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
         }
         .card()
     }

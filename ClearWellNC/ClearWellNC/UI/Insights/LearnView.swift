@@ -94,7 +94,7 @@ struct LearnView: View {
                     }
                     Text(LearnArticle.footer)
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                         .padding(.top, Spacing.s)
                 }
                 .padding(Spacing.l)
@@ -230,7 +230,7 @@ struct LearnArticleView: View {
                         .font(.subheadline)
                     Text(info.limitType == .health ? String(localized: "Health-based limit") : String(localized: "Cosmetic guideline (no health-based limit)"))
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                 }
                 .accessibilityElement(children: .combine)
             }
@@ -246,14 +246,14 @@ struct LearnArticleView: View {
                     Text(treatment.name).font(.body.weight(.semibold))
                     Text(treatment.effectiveness).font(.subheadline)
                     if let note = treatment.note {
-                        Text(note).font(.caption).foregroundStyle(.secondary)
+                        Text(note).font(.caption).foregroundStyle(M.Colors.muted)
                     }
                 }
                 .accessibilityElement(children: .combine)
             }
             Text("Effectiveness is approximate and depends on your water and on maintenance. Choose products certified for the contaminant you need to remove.")
                 .font(.caption)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(M.Colors.muted)
         }
         .card()
     }
@@ -432,14 +432,14 @@ struct QuizView: View {
     }
 
     private func optionFill(chosen: Int?, optionIndex: Int, correct: Int) -> Color {
-        guard let chosen else { return Color.primary.opacity(0.04) }
+        guard let chosen else { return M.Colors.ink.opacity(0.04) }
         if optionIndex == correct { return Color.statusSafe.opacity(0.12) }
         if optionIndex == chosen { return Color.statusAbove.opacity(0.12) }
-        return Color.primary.opacity(0.04)
+        return M.Colors.ink.opacity(0.04)
     }
 
     private func optionBorder(chosen: Int?, optionIndex: Int, correct: Int) -> Color {
-        guard let chosen else { return Color.primary.opacity(0.08) }
+        guard let chosen else { return M.Colors.ink.opacity(0.08) }
         if optionIndex == correct { return Color.statusSafe.opacity(0.5) }
         if optionIndex == chosen { return Color.statusAbove.opacity(0.5) }
         return .clear

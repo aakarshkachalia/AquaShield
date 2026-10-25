@@ -23,7 +23,7 @@ struct QuestMapView: View {
                             .font(.largeTitle.bold())
                             .accessibilityAddTraits(.isHeader)
                         Text("Read your report one result at a time.")
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(M.Colors.muted)
                     }
                     Spacer(minLength: Spacing.s)
                     PointsChip(points: run.points)
@@ -78,17 +78,17 @@ struct QuestMapView: View {
                     .frame(width: 56, height: 56)
                     if !isLast {
                         Rectangle()
-                            .fill(Color.primary.opacity(0.12))
+                            .fill(M.Colors.ink.opacity(0.12))
                             .frame(width: 3, height: 20)
                     }
                 }
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(title)
                         .font(.headline)
-                        .foregroundStyle(state == .locked ? .secondary : .primary)
+                        .foregroundStyle(state == .locked ? M.Colors.muted : M.Colors.ink)
                     Text(stateText(state))
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(M.Colors.muted)
                 }
                 .padding(.bottom, isLast ? 0 : 20)
                 Spacer(minLength: 0)
@@ -124,16 +124,16 @@ struct QuestMapView: View {
                 Text("\(number)").font(.title2.bold()).foregroundStyle(.white)
             }
         case .locked:
-            Image(systemName: symbol ?? "lock.fill").font(.headline).foregroundStyle(.secondary)
+            Image(systemName: symbol ?? "lock.fill").font(.headline).foregroundStyle(M.Colors.muted)
         }
     }
 
     private func fill(_ state: NodeState) -> Color {
         switch state {
         case .correct: .statusSafe
-        case .tried: .secondary
+        case .tried: M.Colors.muted
         case .current: .accentColor
-        case .locked: Color.primary.opacity(0.08)
+        case .locked: M.Colors.ink.opacity(0.08)
         }
     }
 
