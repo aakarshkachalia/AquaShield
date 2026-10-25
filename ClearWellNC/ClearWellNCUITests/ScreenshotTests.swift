@@ -89,7 +89,7 @@ final class ScreenshotTests: XCTestCase {
         snap(app, "learn")
 
         tab(app, "Home")
-        if tapIfExists(app.navigationBars.buttons["Settings"]) {
+        if tapIfExists(app.buttons["dashboard.settings"]) {
             snap(app, "settings")
             open(app, labeled(app, "Privacy & Sources"), "privacy-and-sources")
             back(app)
@@ -117,7 +117,8 @@ final class ScreenshotTests: XCTestCase {
 
     @MainActor
     private func tab(_ app: XCUIApplication, _ name: String) {
-        tapIfExists(app.tabBars.buttons[name])
+        let ids = ["Home": "tab.home", "My Water": "tab.water", "Get Help": "tab.help", "Learn": "tab.learn"]
+        tapIfExists(app.buttons[ids[name] ?? name])
     }
 
     /// Opens a screen, snaps it, and comes back.

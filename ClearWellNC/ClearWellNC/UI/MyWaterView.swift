@@ -45,54 +45,38 @@ struct MyWaterView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: DS.Space.xl) {
+                VStack(alignment: .leading, spacing: 0) {
+                    header
+                    M.UnderlineTabs(tabs: Pane.allCases.map { ($0, $0.title) }, selection: $section)
+                        .padding(.horizontal, 20)
                     if let latest = results.first {
-                        if latest.eColi == .present { EColiUrgentCard() }
-                        Picker("Show", selection: $section) {
-                            ForEach(Pane.allCases) { Text($0.title).tag($0) }
-                        }
-                        .pickerStyle(.segmented)
+                        if latest.eColi == .present { EColiUrgentCard().padding(.horizontal, 16).padding(.top, 16) }
                         switch section {
-                        case .latest:
-                            latestReport(latest)
-                            more
-                        case .history:
-                            history
-                        case .trends:
-                            trends
+                        case .latest: latestList(latest).padding(.horizontal, 20)
+                        case .history: historyTimeline.padding(.leading, 46).padding(.trailing, 20).padding(.top, 22)
+                        case .trends: trendsSection.padding(.horizontal, 20).padding(.top, 22)
                         }
                     } else {
-                        DS.EmptyStateView(systemImage: "doc.text.magnifyingglass",
-                                          message: String(localized: "Add your lab report and we'll explain every result."),
-                                          actionTitle: String(localized: "Scan a report"), actionImage: DS.Icon.scan) {
-                            router.showingScanner = true
+                        VStack(alignment: .leading, spacing: 14) {
+                            Text("Add your lab report and we'll explain every result.")
+                                .font(.system(.title3, weight: .light))
+                            Button("Scan a report →") { router.showingScanner = true }
+                                .buttonStyle(M.InkButtonStyle())
                         }
-                        more
+                        .padding(16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(M.Colors.surface)
+                        .padding(16)
                     }
+                    more.padding(.horizontal, 16).padding(.top, 24)
+                    M.Footer(sample: section == .trends).padding(.horizontal, 20)
                 }
-                .dsScreen()
+                .frame(maxWidth: DS.Size.readableWidth)
+                .frame(maxWidth: .infinity)
             }
-            .background(DS.Colors.background)
-            .navigationTitle("My Water")
+            .modernistScreen()
+            .toolbarVisibility(.hidden, for: .navigationBar)
             .refreshable { await refreshAlerts() }
-            .toolbar {
-                if !results.isEmpty {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button("Scan Report", systemImage: DS.Icon.scan) { router.showingScanner = true }
-                    }
-                }
-                if savedWells.first != nil {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Menu {
-                            Button("Remove saved location", systemImage: "trash", role: .destructive) {
-                                confirmingRemove = true
-                            }
-                        } label: {
-                            Label("More", systemImage: "ellipsis.circle")
-                        }
-                    }
-                }
-            }
             .confirmationDialog("Remove saved location?", isPresented: $confirmingRemove, titleVisibility: .visible) {
                 Button("Remove saved location", role: .destructive, action: removeSavedWell)
             } message: {
@@ -107,161 +91,263 @@ struct MyWaterView: View {
         }
     }
 
-    // MARK: Latest report
+    // MARK: Header
 
-    private func latestReport(_ latest: LabResult) -> some View {
-        let report = QuestReport(result: latest)
+    private var header: some View {
+        HStack(alignment: .lastTextBaseline) {
+            Text("Water").font(M.Font.screenTitle).accessibilityAddTraits(.isHeader)
+            Spacer()
+            if let latest = results.first {
+                Label(subtitle(for: latest), systemImage: "doc.text")
+                    .font(M.Font.small).foregroundStyle(M.Colors.muted).lineLimit(1)
+            }
+            if savedWells.first != nil {
+                Menu {
+                    Button("Remove saved location", systemImage: "trash", role: .destructive) { confirmingRemove = true }
+                } label: {
+                    Image(systemName: "ellipsis").frame(width: DS.Size.tapTarget, height: DS.Size.tapTarget)
+                }
+                .accessibilityLabel(Text("More"))
+            }
+        }
+        .padding(.horizontal, 20)
+        .padding(.top, 10)
+        .padding(.bottom, 12)
+    }
+
+    // MARK: Latest
+
+    private func subtitle(for result: LabResult) -> String {
+        let date = result.date.formatted(date: .abbreviated, time: .omitted)
+        return result.labName.isEmpty ? date : "\(date) · \(result.labName)"
+    }
+
+    /// Short chemical-style marks for the reading rings.
+    static func mark(_ id: ContaminantID) -> String {
+        switch id {
+        case .arsenic: "As"
+        case .lead: "Pb"
+        case .nitrate: "NO₃"
+        case .nitrite: "NO₂"
+        case .uranium: "U"
+        case .manganese: "Mn"
+        case .iron: "Fe"
+        case .copper: "Cu"
+        case .fluoride: "F"
+        case .totalColiform: "TC"
+        case .eColi: "EC"
+        case .pH: "pH"
+        case .hardness: "H"
+        case .radon: "Rn"
+        case .pfoa: "PFOA"
+        case .pfos: "PFOS"
+        case .genx: "GX"
+        }
+    }
+
+    private func zone(_ interpretation: Interpretation) -> M.Zone {
+        if let percent = interpretation.percentOfLimit { return M.Zone(ratio: percent / 100) }
+        switch interpretation.tier {
+        case .above: return .over
+        case .watch, .nuisance: return .watch
+        case .safe, .info: return .low
+        }
+    }
+
+    private func latestList(_ latest: LabResult) -> some View {
         let readings = latest.displayInterpretations
         let score = WellHealthScore.compute(results.latestScoreInput)
-        return VStack(alignment: .leading, spacing: DS.Space.m) {
-            Text(subtitle(for: latest))
-                .font(DS.Typography.subheadline)
-                .foregroundStyle(DS.Colors.textSecondary)
-
-            NavigationLink {
-                WellScoreView()
-            } label: {
-                HStack(spacing: DS.Space.l) {
-                    DS.ScoreRing(result: score, scale: 0.55)
-                    VStack(alignment: .leading, spacing: DS.Space.xs) {
-                        Text(waterSource.scoreTitle)
-                            .font(DS.Typography.headline)
-                        Text("See what's behind it")
-                            .font(DS.Typography.subheadline)
-                            .foregroundStyle(DS.Colors.accent)
-                        if !score.isComplete {
-                            Text(incompleteText(score))
-                                .font(DS.Typography.footnote)
-                                .foregroundStyle(DS.Colors.textSecondary)
-                                .fixedSize(horizontal: false, vertical: true)
-                        }
+        let report = QuestReport(result: latest)
+        return VStack(spacing: 0) {
+            NavigationLink { WellScoreView() } label: {
+                HStack(spacing: 14) {
+                    Text(score.score.map(String.init) ?? "—").font(M.Font.thin(40))
+                        .foregroundStyle(score.score.map { M.scoreColor(Double($0)) } ?? M.Colors.muted)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(waterSource.scoreTitle).font(M.Font.section)
+                        Text(score.isComplete ? String(localized: "All key tests on file") : incompleteText(score))
+                            .font(M.Font.small).foregroundStyle(M.Colors.muted)
                     }
-                    Spacer(minLength: 0)
-                    Image(systemName: "chevron.right")
-                        .foregroundStyle(.tertiary)
-                        .accessibilityHidden(true)
+                    Spacer()
+                    Image(systemName: "chevron.right").font(.system(.footnote, weight: .light)).foregroundStyle(M.Colors.muted)
                 }
-                .foregroundStyle(DS.Colors.textPrimary)
+                .padding(14)
+                .background(M.Colors.surface)
                 .contentShape(Rectangle())
-                .dsCard()
-                .accessibilityElement(children: .combine)
             }
-            .buttonStyle(DS.PressableCardStyle())
-
-            Text("Your results")
-                .font(DS.Typography.title)
-                .foregroundStyle(DS.Colors.textPrimary)
-                .accessibilityAddTraits(.isHeader)
-                .padding(.top, DS.Space.s)
+            .buttonStyle(.plain)
+            .padding(.top, 16)
+            .padding(.bottom, 6)
             ForEach(Array(readings.enumerated()), id: \.offset) { _, interpretation in
-                NavigationLink {
-                    ContaminantDetailView(id: interpretation.id)
-                } label: {
-                    readingCard(interpretation)
+                NavigationLink { ContaminantDetailView(id: interpretation.id) } label: {
+                    readingRow(interpretation)
                 }
-                .buttonStyle(DS.PressableCardStyle())
+                .buttonStyle(.plain)
                 .accessibilityHint(Text("Opens details, trend and what to do"))
             }
-
             Button {
                 questSession = QuestSession(report: report.markingSample(settings.demoEnabled))
             } label: {
-                NavigationCardLabel(title: Text("Play Report Quest"),
-                                    subtitle: Text("Learn to read this report in about 3 minutes."),
-                                    systemImage: "map.fill")
+                HStack {
+                    Image(systemName: "map").font(.system(.body, weight: .light))
+                    Text("Play Report Quest").font(M.Font.section)
+                    Spacer()
+                    Text("3 min").font(M.Font.small).foregroundStyle(M.Colors.muted)
+                }
+                .frame(minHeight: 52)
+                .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
         }
     }
 
-    /// A meter when the reading has a single limit; otherwise the name, status and reading.
-    @ViewBuilder
-    private func readingCard(_ interpretation: Interpretation) -> some View {
-        let name = interpretation.id.info.name
-        if let meter = DS.LevelMeter(name: name, interpretation: interpretation) {
-            meter.dsCard()
-        } else {
-            ContaminantRow(name: name, interpretation: interpretation, showsChevron: false)
-                .dsCard()
+    private func readingRow(_ interpretation: Interpretation) -> some View {
+        let zone = zone(interpretation)
+        let fraction = (interpretation.percentOfLimit ?? (interpretation.tier == .above ? 100 : 0)) / 100
+        return HStack(spacing: 12) {
+            ZStack {
+                Circle().stroke(M.Colors.line, lineWidth: 1.5)
+                Circle().trim(from: 0, to: min(max(fraction, 0.02), 1))
+                    .stroke(zone.color, style: StrokeStyle(lineWidth: 1.5, lineCap: .round))
+                    .rotationEffect(.degrees(-90))
+                Text(Self.mark(interpretation.id))
+                    .font(.system(size: 9.5, weight: .semibold))
+                    .foregroundStyle(zone.textColor)
+                    .minimumScaleFactor(0.6)
+                    .padding(4)
+            }
+            .frame(width: 40, height: 40)
+            .accessibilityHidden(true)
+            VStack(alignment: .leading, spacing: 3) {
+                Text(interpretation.id.info.name).font(.system(.body, weight: .regular))
+                Text(verbatim: "\(interpretation.readingText) · \(interpretation.limitText)")
+                    .font(M.Font.small).foregroundStyle(M.Colors.muted).lineLimit(1)
+            }
+            Spacer(minLength: 8)
+            HStack(spacing: 6) {
+                M.Dot(color: zone.color, size: 6)
+                Text(interpretation.chipLabel)
+            }
+            .font(M.Font.label)
+            .foregroundStyle(zone.textColor)
         }
-    }
-
-    private func subtitle(for result: LabResult) -> String {
-        let date = result.date.formatted(date: .long, time: .omitted)
-        return result.labName.isEmpty ? date : "\(date) · \(result.labName)"
+        .frame(minHeight: 64)
+        .overlay(alignment: .bottom) { M.Rule(color: M.Colors.hairline) }
+        .contentShape(Rectangle())
+        .accessibilityElement(children: .combine)
     }
 
     // MARK: History
 
-    private var history: some View {
-        VStack(alignment: .leading, spacing: DS.Space.m) {
-            VStack(alignment: .leading, spacing: 0) {
-                ForEach(results) { result in
-                    Button {
-                        editingResult = result
-                    } label: {
-                        HStack {
-                            VStack(alignment: .leading, spacing: DS.Space.xs) {
-                                Text(result.date.formatted(date: .abbreviated, time: .omitted))
-                                    .font(.headline)
-                                let findings = result.healthFindings.count
-                                Label {
-                                    Text(findings == 0 ? String(localized: "No health limits exceeded")
-                                                       : String(localized: "\(findings) above a health limit"))
-                                } icon: {
-                                    let tier: Interpretation.Tier = findings == 0 ? .safe : .above
-                                    Image(systemName: tier.symbol).foregroundStyle(tier.color)
-                                }
-                                .font(.subheadline)
-                                .foregroundStyle(DS.Colors.textSecondary)
-                            }
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(.tertiary)
-                                .accessibilityHidden(true)
-                        }
-                        .foregroundStyle(DS.Colors.textPrimary)
-                        .frame(minHeight: DS.Size.tapTarget)
-                        .padding(.vertical, DS.Space.s)
-                        .contentShape(Rectangle())
+    private var historyTimeline: some View {
+        let snapshot = WaterSnapshot.make(results: results, systems: systems, settings: settings)
+        return ZStack(alignment: .topLeading) {
+            Rectangle().fill(M.Colors.line).frame(width: 1).padding(.top, 6).offset(x: -21)
+            VStack(alignment: .leading, spacing: 26) {
+                if let next = snapshot.nextTest {
+                    let days = max(0, Calendar.current.dateComponents([.day], from: .now, to: next.due).day ?? 0)
+                    node(.dashed) {
+                        Text(next.isOverdue(at: .now) ? String(localized: "Due now")
+                             : String(localized: "\(next.due.formatted(.dateTime.month(.abbreviated).year())) · due in \(days) days"))
+                            .font(M.Font.small).foregroundStyle(M.Colors.muted)
+                        Text(next.title).font(M.Font.section)
                     }
-                    .buttonStyle(.plain)
-                    .accessibilityElement(children: .combine)
-                    .accessibilityHint(Text("Edit or delete this report"))
-                    if result.persistentModelID != results.last?.persistentModelID { Divider() }
+                }
+                ForEach(results) { result in
+                    let input = [result].latestScoreInput
+                    let score = WellHealthScore.compute(input)
+                    let finding = result.healthFindings.first
+                    node(finding == nil ? .good : .over) {
+                        Text(subtitle(for: result)).font(M.Font.small).foregroundStyle(M.Colors.muted)
+                        Button { editingResult = result } label: {
+                            HStack(spacing: 16) {
+                                Text(score.score.map(String.init) ?? "—").font(M.Font.thin(40))
+                                    .foregroundStyle(score.score.map { M.scoreColor(Double($0)) } ?? M.Colors.muted)
+                                VStack(alignment: .leading, spacing: 6) {
+                                    Text("\(score.keyTestsOnFile) of \(score.keyTestsTotal) key tests").font(M.Font.small)
+                                    if let finding, let percent = finding.percentOfLimit {
+                                        Text("\(finding.id.info.name) \(M.times(percent / 100))")
+                                            .font(M.Font.value).foregroundStyle(M.Colors.overText)
+                                    } else if finding != nil {
+                                        Text(finding!.id.info.name).font(M.Font.value).foregroundStyle(M.Colors.overText)
+                                    } else {
+                                        Text("No health limits exceeded").font(M.Font.small).foregroundStyle(M.Colors.muted)
+                                    }
+                                }
+                                Spacer(minLength: 0)
+                            }
+                            .padding(14)
+                            .background(M.Colors.surface)
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityHint(Text("Edit or delete this report"))
+                    }
+                }
+                node(.empty) {
+                    Text("Before").font(M.Font.small).foregroundStyle(M.Colors.muted)
+                    Button("Scan an old report to add one") { router.showingScanner = true }
+                        .font(M.Font.row).buttonStyle(.plain)
                 }
             }
-            .dsCard()
         }
+    }
+
+    private enum NodeStyle { case dashed, good, over, empty }
+
+    private func node<Content: View>(_ style: NodeStyle, @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 4) { content() }
+            .overlay(alignment: .topLeading) {
+                Group {
+                    switch style {
+                    case .dashed: Circle().stroke(M.Colors.ink, style: StrokeStyle(lineWidth: 1, dash: [2, 2]))
+                    case .good: Circle().fill(M.Colors.good)
+                    case .over: Circle().fill(M.Colors.over)
+                    case .empty: Circle().stroke(M.Colors.line, lineWidth: 1)
+                    }
+                }
+                .background(Circle().fill(M.Colors.ground))
+                .frame(width: 11, height: 11)
+                .offset(x: -26, y: 3)
+                .accessibilityHidden(true)
+            }
     }
 
     // MARK: Trends
 
-    private var chartedAnalytes: [Analyte] {
-        Analyte.allCases.filter { a in results.contains { $0.value(for: a) != nil } }
-    }
-
-    private var trends: some View {
-        VStack(alignment: .leading, spacing: DS.Space.m) {
-            if waterSource.showsWellCare {
-            NavigationLink {
-                SeasonalOutlookView(initialCounty: county)
-            } label: {
-                NavigationCardLabel(title: Text("Seasonal outlook"),
-                                    subtitle: Text("When levels in your county usually rise or fall, and what to expect next."),
-                                    systemImage: "chart.line.uptrend.xyaxis")
-            }
-            .buttonStyle(.plain)
-            }
-            ForEach(chartedAnalytes) { analyte in
-                TrendChart(analyte: analyte, results: results)
+    @ViewBuilder
+    private var trendsSection: some View {
+        let focus = trendFocus
+        VStack(alignment: .leading, spacing: 0) {
+            if let focus, let county {
+                CountyTrendChart(contaminant: focus.id, county: county, yours: focus.value)
             }
             if !chartedAnalytes.isEmpty {
+                M.SectionHeader(title: String(localized: "Your results over time")).padding(.top, 24)
+                ForEach(chartedAnalytes) { analyte in
+                    TrendChart(analyte: analyte, results: results).padding(.top, 12)
+                }
                 Text("Triangles mark results above the limit. Dashed lines show limits.")
-                    .font(.caption)
-                    .foregroundStyle(DS.Colors.textSecondary)
+                    .font(M.Font.tiny).foregroundStyle(M.Colors.muted).padding(.top, 8)
             }
         }
+    }
+
+    /// The reading closest to (or furthest over) its limit, for the county chart.
+    private var trendFocus: (id: ContaminantID, value: Double)? {
+        guard let latest = results.first else { return nil }
+        return latest.displayInterpretations
+            .compactMap { i -> (ContaminantID, Double, Double)? in
+                guard let p = i.percentOfLimit, let analyte = Analyte.allCases.first(where: { $0.contaminant == i.id }),
+                      let v = latest.value(for: analyte) else { return nil }
+                return (i.id, p, v)
+            }
+            .max { $0.1 < $1.1 }
+            .map { ($0.0, $0.2) }
+    }
+
+    private var chartedAnalytes: [Analyte] {
+        Analyte.allCases.filter { a in results.contains { $0.value(for: a) != nil } }
     }
 
     // MARK: More
@@ -342,85 +428,3 @@ struct MyWaterView: View {
     }
 }
 
-/// One contaminant: value vs. limit, what it means, its trend, and a link to its Learn card.
-struct ContaminantDetailView: View {
-    let id: ContaminantID
-
-    @Environment(AppRouter.self) private var router
-    @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
-
-    private var analyte: Analyte? { Analyte.allCases.first { $0.contaminant == id } }
-
-    /// Latest reading of this contaminant across all reports.
-    private var latest: (interpretation: Interpretation, date: Date)? {
-        for result in results {
-            if let analyte, let value = result.value(for: analyte) {
-                if let limit = result.nonDetects[analyte] {
-                    return (Interpretation.interpretNonDetect(id, detectionLimit: limit), result.date)
-                }
-                return (Interpretation.interpret(id, value: value), result.date)
-            }
-            if id == .totalColiform, let c = result.totalColiform { return (.interpret(id, present: c == .present), result.date) }
-            if id == .eColi, let e = result.eColi { return (.interpret(id, present: e == .present), result.date) }
-        }
-        return nil
-    }
-
-    var body: some View {
-        let info = id.info
-        ScrollView {
-            VStack(alignment: .leading, spacing: Spacing.xl) {
-                if let latest {
-                    VStack(alignment: .leading, spacing: Spacing.s) {
-                        InterpretationBlock(name: info.name, interpretation: latest.interpretation)
-                        Text("Tested \(latest.date.formatted(date: .long, time: .omitted))")
-                            .font(.caption)
-                            .foregroundStyle(Color.textSecondary)
-                    }
-                    .card()
-
-                    InfoCard(systemImage: "lightbulb.fill", title: String(localized: "What it means"),
-                             message: info.plainSummary) {
-                        if !info.sensitiveGroups.isEmpty {
-                            Text("Most at risk: \(info.sensitiveGroups.map(\.label).formatted(.list(type: .and)))")
-                                .font(.subheadline)
-                        }
-                    }
-
-                    InfoCard(style: .status(latest.interpretation.tier), systemImage: "arrow.right.circle.fill",
-                             title: String(localized: "What to do"), message: latest.interpretation.nextAction) {
-                        if latest.interpretation.isHealthExceedance {
-                            PrimaryButton(title: "Get help paying for a fix", systemImage: "dollarsign.circle") {
-                                router.openHelp(.contaminant(id))
-                            }
-                        }
-                    }
-                } else {
-                    EmptyStateView(systemImage: "testtube.2", title: "No results for this yet",
-                                   message: "Add a lab report that includes this test.")
-                }
-
-                if let analyte, results.contains(where: { $0.value(for: analyte) != nil }) {
-                    TrendChart(analyte: analyte, results: results)
-                }
-
-                if let article = LearnLibrary.article(for: id) {
-                    NavigationLink {
-                        LearnArticleView(article: article)
-                    } label: {
-                        NavigationCardLabel(title: Text("Learn about \(article.title.lowercased())"),
-                                            subtitle: Text("Where it comes from, health effects, treatment and a quick quiz."),
-                                            systemImage: article.symbol)
-                    }
-                    .buttonStyle(.plain)
-                }
-
-                DisclaimerFooter()
-            }
-            .screenContainer()
-        }
-        .background(Color.appBackground)
-        .navigationTitle(info.name)
-        .navigationBarTitleDisplayMode(.inline)
-    }
-}

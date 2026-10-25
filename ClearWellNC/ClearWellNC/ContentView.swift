@@ -47,19 +47,25 @@ struct RootTabView: View {
 
     var body: some View {
         @Bindable var router = router
+        // The system tab bar is hidden; ModernistTabBar draws the redesign's five-slot bar (Scan in the middle).
         TabView(selection: $router.selectedTab) {
-            Tab("Home", systemImage: "house.fill", value: AppTab.home) {
-                DashboardView()
+            Tab("Home", systemImage: "house", value: AppTab.home) {
+                DashboardView().toolbarVisibility(.hidden, for: .tabBar)
             }
-            .badge(settings.isOptedIn(.stormAlerts) ? alertsStore.relevantAlerts.count : 0)
-            Tab("My Water", systemImage: "drop.fill", value: AppTab.myWater) {
-                MyWaterView()
+            Tab("Water", systemImage: "drop", value: AppTab.myWater) {
+                MyWaterView().toolbarVisibility(.hidden, for: .tabBar)
             }
-            Tab("Get Help", systemImage: "lifepreserver.fill", value: AppTab.help) {
-                GetHelpView()
+            Tab("Help", systemImage: "lifepreserver", value: AppTab.help) {
+                GetHelpView().toolbarVisibility(.hidden, for: .tabBar)
             }
-            Tab("Learn", systemImage: "book.fill", value: AppTab.learn) {
-                LearnView()
+            Tab("Learn", systemImage: "book", value: AppTab.learn) {
+                LearnView().toolbarVisibility(.hidden, for: .tabBar)
+            }
+        }
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            ModernistTabBar(selection: $router.selectedTab,
+                            homeBadge: settings.isOptedIn(.stormAlerts) ? alertsStore.relevantAlerts.count : 0) {
+                router.showingScanner = true
             }
         }
         // Keep scheduled notifications in step with stored data on every launch.

@@ -61,7 +61,7 @@ final class ClearWellNCUITests: XCTestCase {
 
     @MainActor
     private func openRiskCheck(_ app: XCUIApplication) {
-        let helpTab = app.tabBars.buttons["Get Help"]
+        let helpTab = app.buttons["tab.help"]
         tap(helpTab)
         tap(app.buttons["getHelp.riskCheck"])
     }

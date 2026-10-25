@@ -53,11 +53,11 @@ final class SourceAndPersistenceTests: XCTestCase {
         tap(app.descendants(matching: .any)["onboarding.source.publicWater"])
         tap(app.buttons["flow.next"])                                        // confirm
         tap(app.buttons["onboarding.finish"])                                // household
-        XCTAssertTrue(app.tabBars.buttons["Home"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["tab.home"].waitForExistence(timeout: 5))
 
         app.terminate()
         let again = launch([])
-        XCTAssertTrue(again.tabBars.buttons["Home"].waitForExistence(timeout: 5), "Dashboard after relaunch")
+        XCTAssertTrue(again.buttons["tab.home"].waitForExistence(timeout: 5), "Dashboard after relaunch")
         XCTAssertFalse(again.descendants(matching: .any)["onboarding.welcome"].exists, "Welcome must not come back")
     }
 
@@ -79,19 +79,19 @@ final class SourceAndPersistenceTests: XCTestCase {
     @MainActor
     func testDemoModeDoesNotBringBackOnboarding() {
         let app = launch(["-uiTestReset", "-uiTestSkipOnboarding"])
-        tap(app.tabBars.buttons["Home"])
-        tap(app.navigationBars.buttons["Settings"])
+        tap(app.buttons["tab.home"])
+        tap(app.buttons["dashboard.settings"])
         let demo = app.switches["Demo Mode"]
         XCTAssertTrue(reveal(app, demo))
         toggle(demo)
-        let settingsAgain = app.navigationBars.buttons["Settings"]
+        let settingsAgain = app.buttons["dashboard.settings"]
         if settingsAgain.waitForExistence(timeout: 3) { settingsAgain.tap() }
         let demoAgain = app.switches["Demo Mode"]
         if reveal(app, demoAgain) { toggle(demoAgain) }
 
         app.terminate()
         let again = launch([])
-        XCTAssertTrue(again.tabBars.buttons["Home"].waitForExistence(timeout: 5))
+        XCTAssertTrue(again.buttons["tab.home"].waitForExistence(timeout: 5))
         XCTAssertFalse(again.descendants(matching: .any)["onboarding.welcome"].exists)
     }
 
@@ -113,12 +113,12 @@ final class SourceAndPersistenceTests: XCTestCase {
             check(name)
             for _ in 0..<3 { app.swipeUp(); check(name) }
         }
-        tap(app.tabBars.buttons["Home"]); visit("Dashboard")
-        tap(app.tabBars.buttons["My Water"]); visit("My Water")
-        tap(app.tabBars.buttons["Get Help"]); visit("Get Help")
-        tap(app.tabBars.buttons["Learn"]); visit("Learn")
-        tap(app.tabBars.buttons["Home"])
-        if tapIfExists(app.navigationBars.buttons["Settings"]) { visit("Settings") }
+        tap(app.buttons["tab.home"]); visit("Dashboard")
+        tap(app.buttons["tab.water"]); visit("My Water")
+        tap(app.buttons["tab.help"]); visit("Get Help")
+        tap(app.buttons["tab.learn"]); visit("Learn")
+        tap(app.buttons["tab.home"])
+        if tapIfExists(app.buttons["dashboard.settings"]) { visit("Settings") }
     }
 
     /// Visible text containing the whole word "well" or "wells" (not "as well", not "wellness").
