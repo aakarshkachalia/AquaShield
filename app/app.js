@@ -1,4 +1,4 @@
-/* ClearWell NC - runs entirely in the browser. Data comes from step6_export.py. */
+/* AquaShield - runs entirely in the browser. Data comes from step6_export.py. */
 (function () {
   "use strict";
 
@@ -185,7 +185,7 @@
   }
   function goToPoint(lat, lon, matched) {
     const f = findTract(lat, lon);
-    if (!f) return setStatus("That location is outside North Carolina. ClearWell covers NC only.", true);
+    if (!f) return setStatus("That location is outside North Carolina. AquaShield covers NC only.", true);
     setStatus("");
     select(f, [lat, lon], matched);
   }
@@ -270,7 +270,7 @@
       const td = (v) => `<td class="${v === best ? "best" : ""}">${pct(v)}</td>`;
       return `<tr><td>${INFO[s.contaminant].name}</td>${td(s.county_average)}${td(s.neighbors_only)}${td(s.MODEL_unseen_tract)}<td>${pct(s.model_unseen_county)}</td></tr>`;
     }).join("");
-    $("scores").innerHTML = `<thead><tr><th>Contaminant</th><th>County average</th><th>Nearby tracts only</th><th>ClearWell model</th><th>Stress test: unseen county</th></tr></thead><tbody>${rows}</tbody>`;
+    $("scores").innerHTML = `<thead><tr><th>Contaminant</th><th>County average</th><th>Nearby tracts only</th><th>AquaShield model</th><th>Stress test: unseen county</th></tr></thead><tbody>${rows}</tbody>`;
   }
 
   // ------------------------------------------------------------ start

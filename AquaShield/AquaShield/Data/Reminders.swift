@@ -1,0 +1,138 @@
+//
+//  Reminders.swift
+//  AquaShield
+//
+
+import Foundation
+import SwiftData
+import UserNotifications
+
+nonisolated struct PlannedReminder: Sendable, Equatable {
+    let id: String
+    let title: String
+    let body: String
+    let fireDate: Date
+}
+
+nonisolated enum ReminderPlanner {
+    static let hour = 9
+
+    /// 9:00 on the due day. Overdue items fire at 9:00 tomorrow instead, so each app launch
+    /// schedules at most one nudge rather than none.
+    static func fireDate(due: Date, now: Date = .now, calendar: Calendar = .current) -> Date {
+        let onDueDay = calendar.date(bySettingHour: hour, minute: 0, second: 0, of: due) ?? due
+        if onDueDay > now { return onDueDay }
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: now) ?? now
+        return calendar.date(bySettingHour: hour, minute: 0, second: 0, of: tomorrow) ?? tomorrow
+    }
+}
+
+@MainActor
+enum NotificationScheduler {
+    static let idPrefix = "aquashield."
+    /// Reminders scheduled before the rename to AquaShield; cleared on the next reschedule.
+    static let legacyPrefix = "clearwell."
+
+    static func authorizationStatus() async -> UNAuthorizationStatus {
+        await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
+    }
+
+    @discardableResult
+    static func requestAuthorization() async -> Bool {
+        (try? await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge])) ?? false
+    }
+
+    /// Replaces every pending AquaShield notification with `reminders`.
+    static func reschedule(_ reminders: [PlannedReminder]) async {
+        let center = UNUserNotificationCenter.current()
+        let status = await authorizationStatus()
+        guard status == .authorized || status == .provisional else { return }
+
+        let ours = await center.pendingNotificationRequests()
+            .map(\.identifier)
+            .filter { $0.hasPrefix(idPrefix) || $0.hasPrefix(legacyPrefix) }
+        center.removePendingNotificationRequests(withIdentifiers: ours)
+
+        for reminder in reminders {
+            let content = UNMutableNotificationContent()
+            content.title = reminder.title
+            content.body = reminder.body
+            content.sound = .default
+            let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: reminder.fireDate)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            try? await center.add(UNNotificationRequest(identifier: idPrefix + reminder.id, content: content, trigger: trigger))
+        }
+    }
+}
+
+/// Recomputes all reminders from stored data and reschedules notifications.
+@MainActor
+enum ReminderSync {
+    static func refresh(using context: ModelContext) async {
+        // Demo personas run on in-memory stores; their data must never replace the real reminders.
+        guard !context.container.configurations.contains(where: \.isStoredInMemoryOnly) else { return }
+        let systems = (try? context.fetch(FetchDescriptor<TreatmentSystem>())) ?? []
+        let results = (try? context.fetch(FetchDescriptor<LabResult>())) ?? []
+        let products = ReferenceDataStore.shared.filterProducts(custom: AppSettings.realCustomFilterProducts())
+        var reminders = plan(systems: systems, results: results, includeWellCare: AppSettings.realWaterSource().showsWellCare,
+                             products: products)
+        reminders += WellTestingCalendar.reminders(results: results, source: AppSettings.realWaterSource(),
+                                                   events: AppSettings.realRetestEvents(), now: .now)
+
+        // Report Quest test reminder: opt-in, at most one a month.
+        var wellCare = WellCareState.load()
+        if let fire = wellCare.planReminder(testDates: results.map(\.date)) {
+            reminders.append(PlannedReminder(
+                id: "quest.test",
+                title: String(localized: "Time to test your water"),
+                body: String(localized: "It's been about a year since your last test. A new test keeps your Well Care streak going."),
+                fireDate: fire))
+        }
+        wellCare.save()
+
+        await NotificationScheduler.reschedule(reminders)
+    }
+
+    /// Filters remind 2 weeks before and on the due date (the earlier of months or gallons).
+    static let earlyReminderDays = 14
+
+    static func plan(systems: [TreatmentSystem], results: [LabResult], includeWellCare: Bool = true,
+                     products: [FilterProduct] = [], now: Date = .now) -> [PlannedReminder] {
+        var reminders: [PlannedReminder] = []
+        for system in systems {
+            let product = products.first { $0.id == system.productID }
+            let due = system.installed(product: product).dueDate() ?? system.dueDate
+            reminders.append(PlannedReminder(
+                id: "treatment.\(system.reminderID.uuidString)",
+                title: system.displayName,
+                body: system.kind.isCheck
+                    ? String(localized: "Time to check your water softener salt.")
+                    : String(localized: "Time to replace this. Mark it replaced in \(AppName.display) to reset the reminder."),
+                fireDate: ReminderPlanner.fireDate(due: due, now: now)))
+            if !system.kind.isCheck,
+               let early = Calendar.current.date(byAdding: .day, value: -earlyReminderDays, to: due), early > now {
+                reminders.append(PlannedReminder(
+                    id: "treatment.\(system.reminderID.uuidString).soon",
+                    title: system.displayName,
+                    body: String(localized: "Due in 2 weeks. Order a replacement now."),
+                    fireDate: ReminderPlanner.fireDate(due: early, now: now)))
+            }
+        }
+        for task in WellCareTask.allCases where includeWellCare {
+            reminders.append(PlannedReminder(
+                id: "care.\(task.rawValue)",
+                title: task.title,
+                body: careBody(task),
+                fireDate: ReminderPlanner.fireDate(due: task.dueDate(results: results, now: now), now: now)))
+        }
+        return reminders
+    }
+
+    private static func careBody(_ task: WellCareTask) -> String {
+        switch task {
+        case .bacteriaTest: String(localized: "Time for your yearly bacteria test (total coliform / E. coli).")
+        case .wellheadInspection: String(localized: "Time for your yearly wellhead inspection.")
+        case .metalsNitrateTest: String(localized: "Time for your metals and nitrate test (every 2 years).")
+        }
+    }
+}

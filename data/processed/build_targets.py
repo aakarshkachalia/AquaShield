@@ -1,7 +1,7 @@
-"""ClearWell NC - build model-ready targets from NCWELL tract-level data.
+"""AquaShield - build model-ready targets from NCWELL tract-level data.
 
 Input : NCwelldata_distributions_tract_level.csv  (UNC Dataverse, Eaves et al. 2021)
-Output: clearwell_targets.csv  (one row per 2010 census tract)
+Output: aquashield_targets.csv  (one row per 2010 census tract)
 
 For each contaminant we keep COUNTS (tests, exceedances) rather than percentages,
 so the model can weight tracts by how many tests back them up.
@@ -37,9 +37,9 @@ for metal, (std, _, _) in TARGETS.items():
 n_as = out["arsenic_n"]
 out["data_confidence"] = np.select([n_as >= 30, n_as >= 10, n_as >= 1], ["high", "medium", "low"], "none")
 
-out.to_csv("clearwell_targets.csv", index=False)
+out.to_csv("aquashield_targets.csv", index=False)
 
-print(f"Wrote clearwell_targets.csv: {len(out)} tracts")
+print(f"Wrote aquashield_targets.csv: {len(out)} tracts")
 print(out["data_confidence"].value_counts().to_string())
 for metal, (_, _, label) in TARGETS.items():
     key = metal.lower()

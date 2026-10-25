@@ -1,11 +1,11 @@
-"""ClearWell NC - Step 1: put the NCWELL tract data on a map.
+"""AquaShield - Step 1: put the NCWELL tract data on a map.
 
-Run from the clearwell/ project folder:
+Run from the project folder:
     python step1_map.py
 
 Needs:
     data/raw/tl_2010_37_tract10.shp     (2010 NC census tracts, unzipped)
-    data/processed/clearwell_targets.csv (from build_targets.py)
+    data/processed/aquashield_targets.csv (from build_targets.py)
 Makes:
     data/processed/tracts_with_targets.gpkg  (map + data in one file, used in later steps)
     outputs/arsenic_map.png, lead_map.png, manganese_map.png, nitrate_map.png
@@ -23,7 +23,7 @@ tracts = gpd.read_file("data/raw/tl_2010_37_tract10.shp")
 tracts = tracts[["GEOID10", "COUNTYFP10", "geometry"]].rename(columns={"GEOID10": "FIPS"})
 
 # 2. Load the targets. Read FIPS as TEXT so leading zeros and the join key match.
-targets = pd.read_csv("data/processed/clearwell_targets.csv", dtype={"FIPS": str, "county_fips": str})
+targets = pd.read_csv("data/processed/aquashield_targets.csv", dtype={"FIPS": str, "county_fips": str})
 
 # 3. Join shapes to data on FIPS.
 gdf = tracts.merge(targets, on="FIPS", how="left")

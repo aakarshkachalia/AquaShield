@@ -1,6 +1,6 @@
-"""ClearWell NC - Step 2: baseline scores the ML model has to beat.
+"""AquaShield - Step 2: baseline scores the ML model has to beat.
 
-Run from the clearwell/ project folder:
+Run from the project folder:
     python step2_baseline.py
 
 For every tract we "predict" its exceedance rate two simple ways, then score them:
@@ -21,7 +21,7 @@ import pandas as pd
 
 CONTAMINANTS = ["arsenic", "lead", "manganese", "nitrate"]
 
-df = pd.read_csv("data/processed/clearwell_targets.csv", dtype={"FIPS": str, "county_fips": str})
+df = pd.read_csv("data/processed/aquashield_targets.csv", dtype={"FIPS": str, "county_fips": str})
 
 
 def brier_per_test(p, k, n):

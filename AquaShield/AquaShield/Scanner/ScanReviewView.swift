@@ -1,0 +1,230 @@
+//
+//  ScanReviewView.swift
+//  AquaShield
+//
+//  Required before saving: every parsed row, editable, with low-confidence rows flagged. Save lives in
+//  the scanner flow's action bar.
+//
+
+import SwiftUI
+
+struct ScanReviewView: View {
+    /// Rows and details, owned by the scanner's draft so every edit is saved.
+    @Binding var draft: ScanReviewDraft
+    let images: [UIImage]
+
+    @State private var showingOriginal = false
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: Spacing.xl) {
+                summary
+                PrivacyNote()
+
+                VStack(alignment: .leading, spacing: Spacing.m) {
+                    DatePicker("Test date", selection: $draft.date, in: ...Date.now, displayedComponents: .date)
+                        .frame(minHeight: TapTarget.minimum)
+                    TextField("Lab name (optional)", text: $draft.labName)
+                        .frame(minHeight: TapTarget.minimum)
+                }
+                .card()
+
+                if !images.isEmpty {
+                    Toggle("Show original photo", isOn: $showingOriginal)
+                        .frame(minHeight: TapTarget.minimum)
+                        .card()
+                    if showingOriginal {
+                        ForEach(images.indices, id: \.self) { i in
+                            Image(uiImage: images[i])
+                                .resizable()
+                                .scaledToFit()
+                                .clipShape(RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
+                                .accessibilityLabel(Text("Original report photo, page \(i + 1)"))
+                        }
+                    }
+                }
+
+                SectionHeader(title: "Results we found")
+                ForEach($draft.rows) { $row in
+                    ReviewRowEditor(row: $row) { draft.rows.removeAll { $0.id == row.id } }
+                }
+                SecondaryButton(title: "Add a result", systemImage: "plus") {
+                    draft.rows.append(ReviewRow())
+                }
+
+                DisclaimerFooter(showsLinks: false)
+            }
+            .screenContainer()
+        }
+        .background(Color.appBackground)
+        .navigationTitle("Check your results")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    private var summary: some View {
+        let found = draft.rows.filter { $0.contaminant != nil }.count
+        let flaggedCount = draft.flaggedCount
+        return InfoCard(style: flaggedCount > 0 ? .status(.watch) : .status(.safe),
+                        systemImage: flaggedCount > 0 ? "exclamationmark.circle.fill" : "checkmark.circle.fill",
+                        title: String(localized: "We read \(found) results"),
+                        message: flaggedCount > 0
+                            ? String(localized: "\(flaggedCount) need a quick check. Compare them with your report and fix anything we misread.")
+                            : String(localized: "Compare them with your report before saving."))
+    }
+}
+
+private struct ReviewRowEditor: View {
+    @Binding var row: ReviewRow
+    let onDelete: () -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.m) {
+            if row.needsReview {
+                Label(row.contaminant == nil ? "We don't recognize this test" : "Please check this",
+                      systemImage: "exclamationmark.triangle.fill")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Color.textPrimary)
+                    .symbolRenderingMode(.multicolor)
+            }
+
+            HStack {
+                Picker("Test", selection: edited(\.contaminant)) {
+                    Text("Choose a test").tag(ContaminantID?.none)
+                    ForEach(ContaminantID.allCases) { id in
+                        Text(id.info.name).tag(Optional(id))
+                    }
+                }
+                .pickerStyle(.menu)
+                .labelsHidden()
+                .font(M.Font.section)
+                Spacer()
+                Button(role: .destructive, action: onDelete) {
+                    Image(systemName: "trash")
+                        .frame(minWidth: TapTarget.minimum, minHeight: TapTarget.minimum)
+                }
+                .accessibilityLabel(Text("Remove this result"))
+            }
+
+            if row.contaminant != nil {
+                ReviewValueEditor(row: $row)
+            } else {
+                Text("\(AppName.display) doesn't track this test, so it won't be saved. If we misread the name, choose the right test above.")
+                    .font(.subheadline)
+                    .foregroundStyle(Color.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            if row.needsReview {
+                ForEach(row.notes, id: \.self) { note in
+                    Text("• \(note)")
+                        .font(.caption)
+                        .foregroundStyle(Color.textSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            if !row.rawText.isEmpty {
+                Text("Read as: \(row.rawText)")
+                    .font(.caption)
+                    .foregroundStyle(Color.textSecondary)
+            }
+        }
+        .padding(Spacing.l)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(row.needsReview ? Color.statusWatch.opacity(0.12) : Color.surface,
+                    in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: Radius.card, style: .continuous)
+            .strokeBorder(row.needsReview ? Color.statusWatch : Color.cardBorder, lineWidth: row.needsReview ? 2 : 1))
+    }
+
+    /// A binding that also marks the row as checked by the user.
+    private func edited<T>(_ keyPath: WritableKeyPath<ReviewRow, T>) -> Binding<T> {
+        Binding {
+            row[keyPath: keyPath]
+        } set: { newValue in
+            row[keyPath: keyPath] = newValue
+            row.edited = true
+            if keyPath == \ReviewRow.contaminant, row.isPresenceTest, row.kind != .present, row.kind != .absent {
+                row.kind = .absent
+            }
+        }
+    }
+}
+
+/// Result type, value, unit and the live status preview for one row.
+private struct ReviewValueEditor: View {
+    @Binding var row: ReviewRow
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Spacing.m) {
+            if row.isPresenceTest {
+                presencePicker
+            } else {
+                numericEditor
+            }
+            if let preview = row.preview {
+                HStack(spacing: Spacing.s) {
+                    StatusChip(tier: preview.tier, label: preview.chipLabel)
+                    Text(preview.readingText)
+                        .font(.subheadline)
+                        .foregroundStyle(Color.textSecondary)
+                }
+            }
+        }
+    }
+
+    private var presencePicker: some View {
+        Picker("Result", selection: binding(\.kind)) {
+            Text(ReviewRow.Kind.absent.label).tag(ReviewRow.Kind.absent)
+            Text(ReviewRow.Kind.present.label).tag(ReviewRow.Kind.present)
+        }
+        .pickerStyle(.segmented)
+        .frame(minHeight: TapTarget.minimum)
+    }
+
+    @ViewBuilder
+    private var numericEditor: some View {
+        Picker("Result type", selection: binding(\.kind)) {
+            ForEach([ReviewRow.Kind.number, .belowDetection, .notDetected]) { kind in
+                Text(kind.label).tag(kind)
+            }
+        }
+        .frame(minHeight: TapTarget.minimum)
+        if row.kind != .notDetected {
+            HStack {
+                valueField
+                unitPicker
+            }
+        }
+    }
+
+    private var valueField: some View {
+        let title: LocalizedStringKey = row.kind == .belowDetection ? "Detection limit" : "Value"
+        return TextField(title, text: binding(\.valueText))
+            .keyboardType(.decimalPad)
+            .frame(minHeight: TapTarget.minimum)
+            .accessibilityLabel(Text(title))
+    }
+
+    @ViewBuilder
+    private var unitPicker: some View {
+        if !row.unitChoices.isEmpty {
+            Picker("Unit", selection: binding(\.unit)) {
+                Text("Unit?").tag(LabReportParser.ReportedUnit?.none)
+                ForEach(row.unitChoices) { unit in
+                    Text(unit.label).tag(Optional(unit))
+                }
+            }
+            .pickerStyle(.menu)
+            .accessibilityLabel(Text("Unit"))
+        }
+    }
+
+    private func binding<T>(_ keyPath: WritableKeyPath<ReviewRow, T>) -> Binding<T> {
+        Binding {
+            row[keyPath: keyPath]
+        } set: { newValue in
+            row[keyPath: keyPath] = newValue
+            row.edited = true
+        }
+    }
+}

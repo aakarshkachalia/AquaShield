@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Builds ClearWellNC/ClearWellNC/nc_water_systems.geojson from EPA's Community Water System Service Area
+Builds AquaShield/AquaShield/nc_water_systems.geojson from EPA's Community Water System Service Area
 Boundaries (https://www.epa.gov/ground-water-and-drinking-water/community-water-system-service-area-boundaries).
 
 Source service: EPA Water_System_Boundaries FeatureServer (layer 0, "Final").
@@ -20,7 +20,7 @@ from pathlib import Path
 SERVICE = "https://services.arcgis.com/cJ9YHowT8TU7DUyn/arcgis/rest/services/Water_System_Boundaries/FeatureServer/0"
 PAGE = 100
 OFFSET = float(sys.argv[1]) if len(sys.argv) > 1 else 0.0005
-OUT_DIR = Path(__file__).resolve().parent.parent / "ClearWellNC" / "ClearWellNC"
+OUT_DIR = Path(__file__).resolve().parent.parent / "AquaShield" / "AquaShield"
 
 
 def get(url, params):

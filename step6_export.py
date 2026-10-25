@@ -1,6 +1,6 @@
-"""ClearWell NC - Step 6a: package the model's results for the website.
+"""AquaShield - Step 6a: package the model's results for the website.
 
-Run from the clearwell/ project folder (after step4_model.py):
+Run from the project folder (after step4_model.py):
     python step6_export.py
 
 Makes (everything the website needs - no server or Python required after this):
@@ -24,7 +24,7 @@ os.makedirs("app/data", exist_ok=True)
 os.makedirs("app/img", exist_ok=True)
 
 preds = pd.read_csv("data/processed/predictions.csv", dtype={"FIPS": str, "county_fips": str})
-targets = pd.read_csv("data/processed/clearwell_targets.csv", dtype={"FIPS": str})
+targets = pd.read_csv("data/processed/aquashield_targets.csv", dtype={"FIPS": str})
 tracts = gpd.read_file("data/raw/tl_2010_37_tract10.shp")[["GEOID10", "geometry"]]
 tracts = tracts.rename(columns={"GEOID10": "FIPS"}).merge(preds, on="FIPS").merge(
     targets[["FIPS"] + [f"{c}_exceed" for c in CONTAMINANTS]], on="FIPS")
