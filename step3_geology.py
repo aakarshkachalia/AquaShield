@@ -1,6 +1,6 @@
-"""ClearWell NC - Step 3a: bedrock geology features for every census tract.
+"""AquaShield - Step 3a: bedrock geology features for every census tract.
 
-Run from the clearwell/ project folder (after Step 1 made tracts_with_targets.gpkg):
+Run from the project folder (after Step 1 made tracts_with_targets.gpkg):
     python step3_geology.py
 
 Needs:
@@ -124,7 +124,7 @@ print(f"\nSaved data/processed/features_geology.csv: {len(features)} tracts x {f
 print(f"Tracts with no geology match: {features['geo_dominant_rock'].isna().sum()} (should be near 0)")
 
 # 7. Sanity check: arsenic rate by dominant rock type. Expect metavolcanic / slate-type rocks near the top.
-targets = pd.read_csv("data/processed/clearwell_targets.csv", dtype={"FIPS": str})
+targets = pd.read_csv("data/processed/aquashield_targets.csv", dtype={"FIPS": str})
 check = targets.merge(features[["geo_dominant_rock"]].reset_index(), on="FIPS")
 summary = check.groupby("geo_dominant_rock")[["arsenic_n", "arsenic_exceed"]].sum()
 summary = summary[summary["arsenic_n"] >= 200]

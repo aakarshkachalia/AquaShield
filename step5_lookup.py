@@ -1,13 +1,13 @@
-"""ClearWell NC - Step 5: turn an address into a well-water risk report.
+"""AquaShield - Step 5: turn an address into a well-water risk report.
 
-Run from the clearwell/ project folder:
+Run from the project folder:
     python step5_lookup.py "3200 Old Monroe Rd, Monroe, NC"
     python step5_lookup.py --fips 37179020403          (skip geocoding - look up a tract directly)
     python step5_lookup.py --latlon 35.02 -80.55       (skip geocoding - use coordinates)
 
 Needs:
     data/processed/predictions.csv       (from step4_model.py)
-    data/processed/clearwell_targets.csv (from build_targets.py)
+    data/processed/aquashield_targets.csv (from build_targets.py)
     data/raw/tl_2010_37_tract10.shp      (2010 tract shapes, from Step 1)
 Makes:
     outputs/report_<tract>.json  - the same report as machine-readable data (the app will use this)
@@ -107,7 +107,7 @@ def confidence(tests):
 
 def risk_for_tract(fips):
     preds = pd.read_csv("data/processed/predictions.csv", dtype={"FIPS": str, "county_fips": str})
-    targets = pd.read_csv("data/processed/clearwell_targets.csv", dtype={"FIPS": str})
+    targets = pd.read_csv("data/processed/aquashield_targets.csv", dtype={"FIPS": str})
     row = preds.loc[preds["FIPS"] == fips]
     if row.empty:
         sys.exit(f"Tract {fips} not found - is it a 2010 North Carolina tract ID?")
@@ -164,7 +164,7 @@ def risk_for_tract(fips):
 
 def print_report(report, where=""):
     print("\n" + "=" * 72)
-    print(f"ClearWell NC report{' for ' + where if where else ''}")
+    print(f"AquaShield report{' for ' + where if where else ''}")
     print(f"{report['county']} County  |  census tract {report['tract']}")
     print("=" * 72)
     for r in report["results"]:
@@ -181,7 +181,7 @@ def print_report(report, where=""):
 
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser(description="ClearWell NC well-water risk lookup")
+    ap = argparse.ArgumentParser(description="AquaShield well-water risk lookup")
     ap.add_argument("address", nargs="?", help='e.g. "123 Main St, Monroe, NC 28112"')
     ap.add_argument("--fips", help="11-digit 2010 census tract ID")
     ap.add_argument("--latlon", nargs=2, type=float, metavar=("LAT", "LON"))

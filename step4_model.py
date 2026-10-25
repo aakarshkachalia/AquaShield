@@ -1,6 +1,6 @@
-"""ClearWell NC - Step 4: the risk model.
+"""AquaShield - Step 4: the risk model.
 
-Run from the clearwell/ project folder:
+Run from the project folder:
     pip install scikit-learn        (first time only)
     python step4_model.py
 
@@ -41,7 +41,7 @@ COUNTY_REPEATS = 5   # stress test is averaged over this many random county grou
 SEED = 0
 
 # ---------------------------------------------------------------- 1. load and join
-targets = pd.read_csv("data/processed/clearwell_targets.csv", dtype={"FIPS": str, "county_fips": str})
+targets = pd.read_csv("data/processed/aquashield_targets.csv", dtype={"FIPS": str, "county_fips": str})
 geology = pd.read_csv("data/processed/features_geology.csv", dtype={"FIPS": str})
 info = gpd.read_file("data/raw/tl_2010_37_tract10.shp", ignore_geometry=True)
 info = pd.DataFrame({
