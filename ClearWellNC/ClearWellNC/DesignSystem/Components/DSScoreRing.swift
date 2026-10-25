@@ -52,6 +52,9 @@ extension DS {
                     .font(DS.Typography.score)
                     .foregroundStyle(DS.Colors.textPrimary)
                     .contentTransition(.numericText())
+                if score != nil {
+                    Text("out of 100").font(DS.Typography.caption).foregroundStyle(DS.Colors.textSecondary)
+                }
                 if let level {
                     Label(level.label, systemImage: level.symbol)
                         .font(DS.Typography.caption)

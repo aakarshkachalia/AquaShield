@@ -268,10 +268,11 @@ struct DashboardView: View {
         return VStack(spacing: 0) {
             M.Rule()
             HStack(spacing: 0) {
-                metric(symbol: "drop", value: "\(drinking.score)", label: String(localized: "Drinking"),
+                metric(symbol: "drop", value: "\(drinking.score)", outOf: "/100", label: String(localized: "Drinking water"),
                        bar: Double(drinking.score) / 100, color: M.scoreColor(Double(drinking.score)))
                 Rectangle().fill(M.Colors.line).frame(width: 1)
-                metric(symbol: "shower", value: shower.map(String.init) ?? "—", label: String(localized: "Shower"),
+                metric(symbol: "shower", value: shower.map(String.init) ?? "—", outOf: shower == nil ? nil : "/100",
+                       label: String(localized: "Shower water"),
                        bar: Double(shower ?? 0) / 100, color: M.scoreColor(Double(shower ?? 0)))
                 Rectangle().fill(M.Colors.line).frame(width: 1)
                 VStack(alignment: .leading, spacing: 8) {
@@ -285,6 +286,7 @@ struct DashboardView: View {
                             Rectangle().fill(i < done ? M.Colors.ink : M.Colors.line).frame(height: 2)
                         }
                     }
+                    Text("Key tests done").font(M.Font.tiny).foregroundStyle(M.Colors.muted)
                 }
                 .padding(12)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -296,10 +298,13 @@ struct DashboardView: View {
         }
     }
 
-    private func metric(symbol: String, value: String, label: String, bar: Double, color: Color) -> some View {
+    private func metric(symbol: String, value: String, outOf: String?, label: String, bar: Double, color: Color) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Image(systemName: symbol).font(.system(.title3, weight: .ultraLight)).accessibilityHidden(true)
-            Text(value).font(M.Font.number)
+            HStack(alignment: .firstTextBaseline, spacing: 0) {
+                Text(value).font(M.Font.number)
+                if let outOf { Text(outOf).font(M.Font.row).foregroundStyle(M.Colors.muted) }
+            }
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
                     Rectangle().fill(M.Colors.line)
@@ -307,6 +312,7 @@ struct DashboardView: View {
                 }
             }
             .frame(height: 2)
+            Text(label).font(M.Font.tiny).foregroundStyle(M.Colors.muted)
         }
         .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -531,7 +537,7 @@ struct DashboardView: View {
 
 // MARK: - Dial gauge
 
-/// 270° dial: zone-colored ticks lit up to the score, a needle, zone labels, and a big thin number.
+/// 270° dial: zone-colored ticks lit up to the score, zone labels, and a big thin number out of 100.
 struct DialGauge: View {
     let score: Int
     let worst: (name: String, ratio: Double)?
@@ -562,16 +568,6 @@ struct DialGauge: View {
                     context.stroke(path, with: .color(M.scoreColor(Double(v)).opacity(lit ? 1 : 0.28)),
                                    lineWidth: long ? 1.6 : 1)
                 }
-                // Needle and hub.
-                var needle = Path()
-                needle.move(to: center)
-                needle.addLine(to: point(-135 + progress * 2.7, 106))
-                context.stroke(needle, with: .color(M.Colors.ink), lineWidth: 1.25)
-                let tip = point(-135 + progress * 2.7, 106)
-                context.fill(Path(ellipseIn: CGRect(x: tip.x - 3, y: tip.y - 3, width: 6, height: 6)),
-                             with: .color(M.Colors.over))
-                context.fill(Path(ellipseIn: CGRect(x: center.x - 4, y: center.y - 4, width: 8, height: 8)),
-                             with: .color(M.Colors.ink))
             }
             ForEach([(20.0, String(localized: "UNSAFE")), (50, String(localized: "POOR")),
                      (70, String(localized: "FAIR")), (90, String(localized: "GOOD"))], id: \.0) { value, text in
@@ -583,9 +579,12 @@ struct DialGauge: View {
             Text("0").font(M.Font.tiny).foregroundStyle(M.Colors.muted).position(x: 56, y: 232)
             Text("100").font(M.Font.tiny).foregroundStyle(M.Colors.muted).position(x: 250, y: 232)
             VStack(spacing: 4) {
-                Text("\(score)")
-                    .font(M.Font.thin(min(numberSize, 80)))
-                    .contentTransition(.numericText())
+                HStack(alignment: .firstTextBaseline, spacing: 2) {
+                    Text("\(score)")
+                        .font(M.Font.thin(min(numberSize, 80)))
+                        .contentTransition(.numericText())
+                    Text("/100").font(M.Font.row).foregroundStyle(M.Colors.muted)
+                }
                 if let worst, worst.ratio >= 1 {
                     HStack(spacing: 6) {
                         M.Dot(color: M.Colors.over, size: 6)

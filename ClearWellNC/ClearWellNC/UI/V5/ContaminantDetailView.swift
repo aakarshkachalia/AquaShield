@@ -247,7 +247,7 @@ struct ContaminantDetailView: View {
     }
 }
 
-/// Half-dial from 0 to 2.5× the limit: zone-colored ticks lit up to your value, a needle, the limit tick.
+/// Half-dial from 0 to 2.5× the limit: zone-colored ticks lit up to your value and the limit tick.
 struct HalfDial: View {
     let value: Double
     let limit: Double
@@ -286,10 +286,6 @@ struct HalfDial: View {
                 var tick = Path()
                 tick.move(to: point(angle(limit), 134)); tick.addLine(to: point(angle(limit), 104))
                 context.stroke(tick, with: .color(M.Colors.ink), lineWidth: 1.5)
-                var needle = Path()
-                needle.move(to: center); needle.addLine(to: point(angle(progress), 104))
-                context.stroke(needle, with: .color(M.Colors.ink), lineWidth: 1.25)
-                context.fill(Path(ellipseIn: CGRect(x: center.x - 4, y: center.y - 4, width: 8, height: 8)), with: .color(M.Colors.ink))
             }
             ForEach([0, limit, limit * 2, maxValue], id: \.self) { v in
                 let p = point(angle(v), 146)
