@@ -16,18 +16,18 @@ struct InterpretationBlock: View {
         VStack(alignment: .leading, spacing: Spacing.s) {
             ViewThatFits(in: .horizontal) {
                 HStack(alignment: .firstTextBaseline) {
-                    Text(name).font(.body.weight(.semibold))
+                    Text(name).font(M.Font.section)
                     Spacer()
                     StatusChip(tier: interpretation.tier, label: interpretation.chipLabel)
                 }
                 VStack(alignment: .leading, spacing: Spacing.xs) {
-                    Text(name).font(.body.weight(.semibold))
+                    Text(name).font(M.Font.section)
                     StatusChip(tier: interpretation.tier, label: interpretation.chipLabel)
                 }
             }
             HStack(alignment: .firstTextBaseline, spacing: Spacing.s) {
                 Text(interpretation.readingText)
-                    .font(.title2.weight(.semibold))
+                    .font(M.Font.heading)
                     .monospacedDigit()
                 if let percent = interpretation.percentText {
                     Text("· \(percent)")

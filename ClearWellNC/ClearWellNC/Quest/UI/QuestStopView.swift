@@ -29,7 +29,7 @@ struct QuestStopView: View {
                     .card()
 
                 Text("Is this Safe, Watch, or Above limit?")
-                    .font(.title2.bold())
+                    .font(M.Font.heading)
                     .accessibilityAddTraits(.isHeader)
                 VStack(spacing: Spacing.m) {
                     ForEach(QuestAnswer.allCases, id: \.self) { answer in
@@ -49,7 +49,7 @@ struct QuestStopView: View {
                     bonusSection
                     Button(action: onNext) {
                         Text("Next")
-                            .font(.headline)
+                            .font(M.Font.section)
                             .frame(maxWidth: .infinity, minHeight: 52)
                     }
                     .buttonStyle(PrimaryButtonStyle())
@@ -86,7 +86,7 @@ struct QuestStopView: View {
         VStack(alignment: .leading, spacing: Spacing.m) {
             Label {
                 Text(headline(correct: correct))
-                    .font(.headline)
+                    .font(M.Font.section)
             } icon: {
                 Image(systemName: stop.isSerious ? "info.circle.fill" : (correct ? "checkmark.circle.fill" : "lightbulb.fill"))
                     .foregroundStyle(stop.isSerious ? M.Colors.muted : (correct ? Color.statusSafe : Color.statusWatch))
@@ -136,7 +136,7 @@ struct QuestStopView: View {
     private var factCard: some View {
         Label {
             VStack(alignment: .leading, spacing: Spacing.xs) {
-                Text("Did you know?").font(.headline)
+                Text("Did you know?").font(M.Font.section)
                 Text(stop.fact).fixedSize(horizontal: false, vertical: true)
             }
         } icon: {
@@ -158,7 +158,7 @@ struct QuestStopView: View {
                     showingBonus = true
                 } label: {
                     Label("Bonus question (optional)", systemImage: "plus.circle")
-                        .font(.headline)
+                        .font(M.Font.section)
                         .frame(maxWidth: .infinity, minHeight: 52)
                 }
                 .buttonStyle(SecondaryButtonStyle())
@@ -173,7 +173,7 @@ struct QuestStopView: View {
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(M.Colors.muted)
             Text(bonus.prompt)
-                .font(.headline)
+                .font(M.Font.section)
                 .fixedSize(horizontal: false, vertical: true)
             ForEach(Array(bonus.options.enumerated()), id: \.offset) { index, option in
                 QuestChoiceButton(title: option, systemImage: "circle", tint: M.Colors.muted,

@@ -68,7 +68,7 @@ struct WellCareProgressView: View {
                 .foregroundStyle(.tint)
                 .accessibilityHidden(true)
             Text(value)
-                .font(.largeTitle.bold())
+                .font(M.Font.screenTitle)
                 .fontDesign(.rounded)
                 .monospacedDigit()
             Text(label)
@@ -86,7 +86,7 @@ struct WellCareProgressView: View {
                      color: earnedOn == nil ? M.Colors.muted : Color.accentColor)
             VStack(alignment: .leading, spacing: Spacing.xs) {
                 Text(badge.title)
-                    .font(.headline)
+                    .font(M.Font.section)
                     .foregroundStyle(earnedOn == nil ? M.Colors.muted : M.Colors.ink)
                 Text(badge.howToEarn)
                     .font(.subheadline)
@@ -136,7 +136,7 @@ struct ReportQuestCard: View {
                 IconTile(systemImage: "map.fill")
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text("Report Quest")
-                        .font(.headline)
+                        .font(M.Font.section)
                         .accessibilityAddTraits(.isHeader)
                     Text(latest == nil
                          ? String(localized: "Learn to read a water test in about 3 minutes, with a sample report.")
@@ -151,7 +151,7 @@ struct ReportQuestCard: View {
                     playing = QuestSession(report: QuestReport(result: latest).markingSample(settings.demoEnabled))
                 } label: {
                     Text("Play with my latest test")
-                        .font(.headline)
+                        .font(M.Font.section)
                         .frame(maxWidth: .infinity, minHeight: 44)
                 }
                 .buttonStyle(PrimaryButtonStyle())
@@ -167,7 +167,7 @@ struct ReportQuestCard: View {
                 }
             } label: {
                 Label("Try a sample report", systemImage: "doc.badge.ellipsis")
-                    .font(.headline)
+                    .font(M.Font.section)
                     .frame(maxWidth: .infinity, minHeight: 44)
             }
             .buttonStyle(SecondaryButtonStyle())
@@ -225,7 +225,7 @@ struct SeasonalChallengeCard: View {
                         .foregroundStyle(M.Colors.muted)
                         .textCase(.uppercase)
                     Text(challenge.title)
-                        .font(.headline)
+                        .font(M.Font.section)
                     Text(challenge.detail)
                         .font(.subheadline)
                         .fixedSize(horizontal: false, vertical: true)

@@ -82,7 +82,7 @@ struct InfoCard<Content: View>: View {
                     .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(title)
-                        .font(.headline)
+                        .font(M.Font.section)
                         .accessibilityAddTraits(.isHeader)
                     if let message {
                         Text(message)
@@ -181,18 +181,18 @@ struct ContaminantRow: View {
             VStack(alignment: .leading, spacing: Spacing.xs) {
                 ViewThatFits(in: .horizontal) {
                     HStack(alignment: .firstTextBaseline) {
-                        Text(name).font(.headline)
+                        Text(name).font(M.Font.section)
                         Spacer(minLength: Spacing.s)
                         StatusChip(tier: interpretation.tier, label: interpretation.chipLabel)
                     }
                     VStack(alignment: .leading, spacing: Spacing.xs) {
-                        Text(name).font(.headline)
+                        Text(name).font(M.Font.section)
                         StatusChip(tier: interpretation.tier, label: interpretation.chipLabel)
                     }
                 }
                 HStack(spacing: Spacing.s) {
                     Text(interpretation.readingText)
-                        .font(.body.weight(.semibold))
+                        .font(M.Font.section)
                         .monospacedDigit()
                     if let percent = interpretation.percentText {
                         Text(percent)
@@ -238,7 +238,7 @@ struct EmptyStateView: View {
                 .foregroundStyle(Color.brandPrimary)
                 .accessibilityHidden(true)
             Text(title)
-                .font(.headline)
+                .font(M.Font.section)
                 .multilineTextAlignment(.center)
             Text(message)
                 .font(.subheadline)
@@ -337,7 +337,7 @@ struct NavigationCardLabel: View {
             IconTile(systemImage: systemImage)
             VStack(alignment: .leading, spacing: Spacing.xs) {
                 title
-                    .font(.headline)
+                    .font(M.Font.section)
                     .foregroundStyle(Color.textPrimary)
                 subtitle
                     .font(.subheadline)

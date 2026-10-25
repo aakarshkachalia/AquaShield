@@ -23,7 +23,7 @@ struct QuestSafetyAlertView: View {
                         .foregroundStyle(Color.statusAbove)
                         .accessibilityHidden(true)
                     Text("Important: your test found a problem")
-                        .font(.title2.bold())
+                        .font(M.Font.heading)
                         .accessibilityAddTraits(.isHeader)
                     Text("Read this before anything else.")
                         .foregroundStyle(M.Colors.muted)
@@ -31,7 +31,7 @@ struct QuestSafetyAlertView: View {
 
                 VStack(alignment: .leading, spacing: Spacing.m) {
                     Text("What we found")
-                        .font(.headline)
+                        .font(M.Font.section)
                         .accessibilityAddTraits(.isHeader)
                     ForEach(findings, id: \.id) { finding in
                         HStack(alignment: .firstTextBaseline, spacing: Spacing.s) {
@@ -39,7 +39,7 @@ struct QuestSafetyAlertView: View {
                                 .foregroundStyle(Color.statusAbove)
                                 .accessibilityHidden(true)
                             VStack(alignment: .leading, spacing: Spacing.xs) {
-                                Text(finding.id.info.name).font(.body.weight(.semibold))
+                                Text(finding.id.info.name).font(M.Font.section)
                                 Text("\(finding.readingText) · \(finding.chipLabel)")
                                     .font(.subheadline)
                                     .foregroundStyle(M.Colors.muted)
@@ -52,14 +52,14 @@ struct QuestSafetyAlertView: View {
 
                 VStack(alignment: .leading, spacing: Spacing.m) {
                     Text("What to do now")
-                        .font(.headline)
+                        .font(M.Font.section)
                         .accessibilityAddTraits(.isHeader)
                     // SOURCE vr-061 (needs verification, see VerificationRegister.json): CDC / NC DHHS guidance after a positive E. coli test: use bottled (or boiled) water
                     // for drinking, cooking and brushing teeth until the well is disinfected and retested.
                     Text(QuestEngine.eColiPositive(report)
                          ? String(localized: "Don't drink untreated water. Use bottled water for drinking, cooking and brushing teeth.")
                          : String(localized: "Don't drink this water untreated. Use bottled water for drinking and cooking until it's fixed."))
-                        .font(.body.weight(.semibold))
+                        .font(M.Font.section)
                         .fixedSize(horizontal: false, vertical: true)
                     ForEach(actions, id: \.self) { action in
                         Label {
@@ -83,7 +83,7 @@ struct QuestSafetyAlertView: View {
                             .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                     }
                 }
-                .font(.body.weight(.semibold))
+                .font(M.Font.section)
                 .card()
 
                 if let first = findings.first {
@@ -98,7 +98,7 @@ struct QuestSafetyAlertView: View {
 
                 Button(action: onUnderstand) {
                     Text("I understand")
-                        .font(.headline)
+                        .font(M.Font.section)
                         .frame(maxWidth: .infinity, minHeight: 52)
                 }
                 .buttonStyle(PrimaryButtonStyle())

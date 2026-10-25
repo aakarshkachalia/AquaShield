@@ -101,7 +101,7 @@ struct StormModeView: View {
                     .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text("\(step.id). \(step.title)")
-                        .font(.headline)
+                        .font(M.Font.section)
                         .strikethrough(checked)
                     Text(step.detail)
                         .font(.subheadline)

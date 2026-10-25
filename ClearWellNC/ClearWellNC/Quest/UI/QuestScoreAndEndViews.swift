@@ -22,7 +22,7 @@ struct QuestScoreStopView: View {
                     .font(.subheadline.weight(.semibold))
                     .foregroundStyle(M.Colors.muted)
                 Text(title)
-                    .font(.largeTitle.bold())
+                    .font(M.Font.screenTitle)
                     .accessibilityAddTraits(.isHeader)
 
                 if run.hasScoreGuess {
@@ -38,7 +38,7 @@ struct QuestScoreStopView: View {
                 if run.isFinished {
                     Button(action: onNext) {
                         Text("See your results")
-                            .font(.headline)
+                            .font(M.Font.section)
                             .frame(maxWidth: .infinity, minHeight: 52)
                     }
                     .buttonStyle(PrimaryButtonStyle())
@@ -56,7 +56,7 @@ struct QuestScoreStopView: View {
     private var guessQuestion: some View {
         VStack(alignment: .leading, spacing: Spacing.m) {
             Text("Which range do you think your score is in?")
-                .font(.title2.bold())
+                .font(M.Font.heading)
                 .fixedSize(horizontal: false, vertical: true)
             Text("The score runs from 0 to 100 and sums up every result on your report.")
                 .foregroundStyle(M.Colors.muted)
@@ -83,7 +83,7 @@ struct QuestScoreStopView: View {
                 StatusChip(tier: band.tier, label: band.label)
             }
             Text(revealText(correct: correct, guess: guess))
-                .font(.headline)
+                .font(M.Font.section)
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
         }
@@ -94,12 +94,12 @@ struct QuestScoreStopView: View {
         if !run.score.topFactors.isEmpty {
             VStack(alignment: .leading, spacing: Spacing.m) {
                 Text("What's pulling it down")
-                    .font(.headline)
+                    .font(M.Font.section)
                     .accessibilityAddTraits(.isHeader)
                 ForEach(Array(run.score.topFactors.enumerated()), id: \.element.id) { index, factor in
                     VStack(alignment: .leading, spacing: Spacing.xs) {
                         HStack {
-                            Text("\(index + 1). \(factor.id.info.name)").font(.body.weight(.semibold))
+                            Text("\(index + 1). \(factor.id.info.name)").font(M.Font.section)
                             Spacer()
                             StatusChip(tier: factor.interpretation.tier, label: factor.interpretation.chipLabel)
                         }
@@ -134,7 +134,7 @@ struct QuestScoreStopView: View {
     private var incomplete: some View {
         VStack(alignment: .leading, spacing: Spacing.s) {
             Label(incompleteText(run.score), systemImage: "list.bullet.clipboard")
-                .font(.headline)
+                .font(M.Font.section)
             Text("We won't guess a score for tests you haven't done.")
                 .foregroundStyle(M.Colors.muted)
             ForEach(run.score.missingKeyTests, id: \.self) { test in
@@ -169,7 +169,7 @@ struct QuestEndView: View {
                         .accessibilityHidden(true)
                         .overlay { SparkleBurst(trigger: celebration) }
                     Text("Quest complete")
-                        .font(.largeTitle.bold())
+                        .font(M.Font.screenTitle)
                         .accessibilityAddTraits(.isHeader)
                     PointsChip(points: run.points)
                     Text("You can now read \(run.stops.count) of \(run.report.interpretations.count) results on your report.")
@@ -188,13 +188,13 @@ struct QuestEndView: View {
                 } else if !newBadges.isEmpty {
                     VStack(alignment: .leading, spacing: Spacing.m) {
                         Text("New badge")
-                            .font(.headline)
+                            .font(M.Font.section)
                             .accessibilityAddTraits(.isHeader)
                         ForEach(newBadges) { badge in
                             HStack(spacing: Spacing.m) {
                                 IconTile(systemImage: badge.symbol)
                                 VStack(alignment: .leading, spacing: Spacing.xs) {
-                                    Text(badge.title).font(.body.weight(.semibold))
+                                    Text(badge.title).font(M.Font.section)
                                     Text(badge.howToEarn).font(.subheadline).foregroundStyle(M.Colors.muted)
                                 }
                             }
@@ -206,13 +206,13 @@ struct QuestEndView: View {
 
                 Button(action: onDone) {
                     Text("Done")
-                        .font(.headline)
+                        .font(M.Font.section)
                         .frame(maxWidth: .infinity, minHeight: 52)
                 }
                 .buttonStyle(PrimaryButtonStyle())
                 Button(action: onFullReport) {
                     Text("See full report")
-                        .font(.headline)
+                        .font(M.Font.section)
                         .frame(maxWidth: .infinity, minHeight: 44)
                 }
             }
@@ -231,11 +231,11 @@ struct QuestEndView: View {
         let urgent = next.kind == .urgent
         return VStack(alignment: .leading, spacing: Spacing.s) {
             Text("Your next step")
-                .font(.headline)
+                .font(M.Font.section)
                 .accessibilityAddTraits(.isHeader)
             Label {
                 Text(QuestText.firstSentences(next.text, max: 2))
-                    .font(.body.weight(.semibold))
+                    .font(M.Font.section)
                     .fixedSize(horizontal: false, vertical: true)
             } icon: {
                 Image(systemName: symbol(next.kind))
@@ -274,7 +274,7 @@ struct QuestFullReportView: View {
             VStack(alignment: .leading, spacing: Spacing.l) {
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text("Full report")
-                        .font(.largeTitle.bold())
+                        .font(M.Font.screenTitle)
                         .accessibilityAddTraits(.isHeader)
                     Text(report.date.formatted(date: .long, time: .omitted))
                         .foregroundStyle(M.Colors.muted)
@@ -285,7 +285,7 @@ struct QuestFullReportView: View {
                 HStack(spacing: Spacing.l) {
                     ScoreNumber(result: score, size: .compact)
                     VStack(alignment: .leading, spacing: Spacing.xs) {
-                        Text(scoreTitle).font(.headline)
+                        Text(scoreTitle).font(M.Font.section)
                         if let band = score.band {
                             StatusChip(tier: band.tier, label: band.label)
                         } else {

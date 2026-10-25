@@ -20,7 +20,7 @@ struct AreaMapSection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.m) {
             Text("Explore the map")
-                .font(.headline)
+                .font(M.Font.section)
                 .accessibilityAddTraits(.isHeader)
             Text("Tap a census tract to see its estimate.")
                 .font(.caption)
@@ -141,7 +141,7 @@ struct SelectedTractCard: View {
         VStack(alignment: .leading, spacing: Spacing.m) {
             VStack(alignment: .leading, spacing: Spacing.xs) {
                 Text(report.countyName.map { String(localized: "\($0) County") } ?? String(localized: "North Carolina"))
-                    .font(.title2.bold())
+                    .font(M.Font.heading)
                 Text("Census tract \(report.fips)")
                     .font(.subheadline)
                     .foregroundStyle(M.Colors.muted)
@@ -151,12 +151,12 @@ struct SelectedTractCard: View {
             if let risk = report.risk(for: contaminant) {
                 ViewThatFits(in: .horizontal) {
                     HStack(alignment: .firstTextBaseline) {
-                        Text(contaminant.name).font(.headline)
+                        Text(contaminant.name).font(M.Font.section)
                         Spacer()
                         RiskBadge(level: risk.level)
                     }
                     VStack(alignment: .leading, spacing: Spacing.s) {
-                        Text(contaminant.name).font(.headline)
+                        Text(contaminant.name).font(M.Font.section)
                         RiskBadge(level: risk.level)
                     }
                 }
@@ -175,7 +175,7 @@ struct SelectedTractCard: View {
 
             Button(action: onOpenReport) {
                 Text("View full report")
-                    .font(.headline)
+                    .font(M.Font.section)
                     .frame(maxWidth: .infinity, minHeight: 44)
             }
             .buttonStyle(PrimaryButtonStyle())

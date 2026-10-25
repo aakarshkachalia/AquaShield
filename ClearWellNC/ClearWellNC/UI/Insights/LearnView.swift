@@ -115,7 +115,7 @@ struct LearnView: View {
                         .font(.title2)
                         .foregroundStyle(earned ? Color.brandPrimary : Color.statusUnknown)
                         .accessibilityHidden(true)
-                    Text(badge.title).font(.headline)
+                    Text(badge.title).font(M.Font.section)
                     Text(earned ? String(localized: "Earned") : badge.howToEarn)
                         .font(.caption)
                         .foregroundStyle(Color.textSecondary)
@@ -225,7 +225,7 @@ struct LearnArticleView: View {
             ForEach(article.contaminants) { id in
                 let info = id.info
                 VStack(alignment: .leading, spacing: Spacing.xs) {
-                    Text(info.name).font(.headline)
+                    Text(info.name).font(M.Font.section)
                     Text(info.limitDescription)
                         .font(.subheadline)
                     Text(info.limitType == .health ? String(localized: "Health-based limit") : String(localized: "Cosmetic guideline (no health-based limit)"))
@@ -243,7 +243,7 @@ struct LearnArticleView: View {
             sectionTitle("Treatment options", systemImage: "wrench.and.screwdriver")
             ForEach(article.treatments) { treatment in
                 VStack(alignment: .leading, spacing: Spacing.xs) {
-                    Text(treatment.name).font(.body.weight(.semibold))
+                    Text(treatment.name).font(M.Font.section)
                     Text(treatment.effectiveness).font(.subheadline)
                     if let note = treatment.note {
                         Text(note).font(.caption).foregroundStyle(M.Colors.muted)
@@ -286,7 +286,7 @@ struct LearnArticleView: View {
         } icon: {
             Image(systemName: systemImage).foregroundStyle(.tint)
         }
-        .font(.headline)
+        .font(M.Font.section)
         .accessibilityAddTraits(.isHeader)
     }
 
@@ -327,7 +327,7 @@ struct QuizView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.l) {
             Label("Quick quiz", systemImage: "questionmark.circle")
-                .font(.headline)
+                .font(M.Font.section)
                 .accessibilityAddTraits(.isHeader)
             let step = draft.flow.current
             if questions.indices.contains(step) {
@@ -336,7 +336,7 @@ struct QuizView: View {
                 questionView(index: step, question: questions[step])
             } else {
                 Text("You got \(correctCount) of \(questions.count) right.")
-                    .font(.headline)
+                    .font(M.Font.section)
             }
             HStack(spacing: Spacing.m) {
                 if draft.flow.canGoBack {
@@ -386,7 +386,7 @@ struct QuizView: View {
         let chosen = answers[question.id]
         return VStack(alignment: .leading, spacing: Spacing.s) {
             Text("\(index + 1). \(question.prompt)")
-                .font(.body.weight(.semibold))
+                .font(M.Font.section)
             ForEach(Array(question.options.enumerated()), id: \.offset) { optionIndex, option in
                 Button {
                     if chosen == nil { draft.answers[question.id] = optionIndex }

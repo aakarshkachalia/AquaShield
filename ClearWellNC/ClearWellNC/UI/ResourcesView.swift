@@ -150,7 +150,7 @@ struct ResourcesView: View {
                 IconTile(systemImage: "location.fill")
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text("Where should we look?")
-                        .font(.headline)
+                        .font(M.Font.section)
                     Text("Save your home on the Check My Area tab, or use your current location. Your location is only used for this search.")
                         .font(.subheadline)
                         .foregroundStyle(M.Colors.muted)
@@ -159,7 +159,7 @@ struct ResourcesView: View {
             }
             Button(action: useMyLocation) {
                 Label("Use my location", systemImage: "location.fill")
-                    .font(.headline)
+                    .font(M.Font.section)
                     .frame(maxWidth: .infinity, minHeight: 44)
             }
             .buttonStyle(PrimaryButtonStyle())
@@ -204,7 +204,7 @@ struct ResourcesView: View {
             HStack(spacing: Spacing.m) {
                 IconTile(systemImage: systemImage)
                 VStack(alignment: .leading, spacing: Spacing.xs) {
-                    Text(title).font(.body.weight(.semibold)).foregroundStyle(.primary)
+                    Text(title).font(M.Font.section).foregroundStyle(.primary)
                     Text(detail).font(.subheadline).foregroundStyle(M.Colors.muted)
                 }
                 Spacer(minLength: 0)
@@ -246,7 +246,7 @@ private struct PlaceCard: View {
             VStack(alignment: .leading, spacing: Spacing.xs) {
                 HStack(alignment: .firstTextBaseline) {
                     Text(place.name)
-                        .font(.headline)
+                        .font(M.Font.section)
                     Spacer(minLength: Spacing.s)
                     Text(place.distanceText)
                         .font(.subheadline.weight(.semibold))

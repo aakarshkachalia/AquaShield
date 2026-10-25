@@ -219,7 +219,7 @@ struct MyWaterView: View {
             .frame(width: 40, height: 40)
             .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 3) {
-                Text(interpretation.id.info.name).font(.system(.body, weight: .regular))
+                Text(interpretation.id.info.name).font(M.Font.row)
                 Text(verbatim: "\(interpretation.readingText) · \(interpretation.limitText)")
                     .font(M.Font.small).foregroundStyle(M.Colors.muted).lineLimit(1)
             }

@@ -71,7 +71,7 @@ struct CheckAreaView: View {
     private var searchCard: some View {
         VStack(alignment: .leading, spacing: Spacing.m) {
             Text("Your address")
-                .font(.headline)
+                .font(M.Font.section)
             TextField("Street address, city or ZIP", text: $address)
                 .textContentType(.fullStreetAddress)
                 .submitLabel(.search)
@@ -84,14 +84,14 @@ struct CheckAreaView: View {
 
             Button(action: checkAddress) {
                 Text("Check this address")
-                    .font(.headline)
+                    .font(M.Font.section)
                     .frame(maxWidth: .infinity, minHeight: 44)
             }
             .buttonStyle(PrimaryButtonStyle())
 
             Button(action: useMyLocation) {
                 Label("Use my location", systemImage: "location.fill")
-                    .font(.headline)
+                    .font(M.Font.section)
                     .frame(maxWidth: .infinity, minHeight: 44)
             }
             .buttonStyle(SecondaryButtonStyle())

@@ -176,7 +176,7 @@ struct DoNotDrinkBanner: View {
         UrgentBanner {
             VStack(alignment: .leading, spacing: Spacing.s) {
                 Label("Do not drink untreated", systemImage: "exclamationmark.octagon.fill")
-                    .font(.title2.bold())
+                    .font(M.Font.heading)
                     .accessibilityAddTraits(.isHeader)
                 Text(ContaminantID.eColi.info.actionIfAbove)
             }

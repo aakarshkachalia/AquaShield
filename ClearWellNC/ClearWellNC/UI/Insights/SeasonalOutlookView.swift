@@ -48,7 +48,7 @@ struct SeasonalOutlookView: View {
     private var sampleBanner: some View {
         Label {
             VStack(alignment: .leading, spacing: Spacing.xs) {
-                Text("Sample data").font(.headline)
+                Text("Sample data").font(M.Font.section)
                 Text("These charts use made-up placeholder numbers for testing the app. They are not real well-test results.")
                     .font(.subheadline)
             }
@@ -85,7 +85,7 @@ struct SeasonalOutlookView: View {
 
             VStack(alignment: .leading, spacing: Spacing.m) {
                 Text("\(contaminant.info.name), \(county) County")
-                    .font(.headline)
+                    .font(M.Font.section)
                     .accessibilityAddTraits(.isHeader)
                 SeasonalChart(result: result, limit: contaminant.info.maximumLimit, unit: contaminant.info.unit,
                               personal: showPersonal ? personal : [])

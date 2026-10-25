@@ -43,6 +43,8 @@ extension M {
     /// System font in the design's weights; every style follows Dynamic Type.
     enum Font {
         static let screenTitle = SwiftUI.Font.system(.largeTitle, weight: .light)
+        /// Step and sheet headings: one size below the screen title.
+        static let heading = SwiftUI.Font.system(.title2, weight: .light)
         static let bigNumber = SwiftUI.Font.system(.title, weight: .light).monospacedDigit()
         static let number = SwiftUI.Font.system(.title2, weight: .regular).monospacedDigit()
         static let section = SwiftUI.Font.system(.subheadline, weight: .semibold)

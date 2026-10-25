@@ -57,7 +57,7 @@ struct ReportView: View {
     private func header(_ report: RiskReport) -> some View {
         VStack(alignment: .leading, spacing: Spacing.xs) {
             Text(report.countyName.map { String(localized: "\($0) County") } ?? String(localized: "North Carolina"))
-                .font(.largeTitle.bold())
+                .font(M.Font.screenTitle)
                 .accessibilityAddTraits(.isHeader)
             Text("Census tract \(report.fips)")
                 .font(.subheadline)
@@ -97,7 +97,7 @@ struct ReportView: View {
             Button(action: save) {
                 Label(isSaved ? waterSource.savedLocationTitle : waterSource.saveLocationTitle,
                       systemImage: isSaved ? "checkmark.circle.fill" : "house.fill")
-                    .font(.headline)
+                    .font(M.Font.section)
                     .frame(maxWidth: .infinity, minHeight: 44)
             }
             .buttonStyle(PrimaryButtonStyle())
@@ -175,7 +175,7 @@ struct ContaminantCard: View {
 
     private var title: some View {
         Text(risk.contaminant.name)
-            .font(.title2.bold())
+            .font(M.Font.heading)
             .accessibilityAddTraits(.isHeader)
     }
 }
@@ -237,7 +237,7 @@ struct InfantNitrateNote: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.s) {
             Label("A baby under 6 months lives here", systemImage: "exclamationmark.triangle.fill")
-                .font(.headline)
+                .font(M.Font.section)
             Text("Nitrate is most dangerous for babies under 6 months. Test your well for nitrate before using it to mix infant formula, and use bottled water for formula until you know your result. Never boil water to remove nitrate; boiling concentrates it.")
         }
         .foregroundStyle(.white)
@@ -254,7 +254,7 @@ struct TestPlanCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.m) {
             Text("Your test plan")
-                .font(.title2.bold())
+                .font(M.Font.heading)
                 .accessibilityAddTraits(.isHeader)
             ForEach(Array(plan.enumerated()), id: \.offset) { index, step in
                 HStack(alignment: .firstTextBaseline, spacing: Spacing.m) {

@@ -38,7 +38,7 @@ struct TrendChart: View {
         let points = points
         VStack(alignment: .leading, spacing: Spacing.s) {
             Text(analyte.name)
-                .font(.headline)
+                .font(M.Font.section)
                 .accessibilityAddTraits(.isHeader)
             Chart {
                 ForEach(points) { point in
@@ -87,7 +87,7 @@ struct EColiUrgentCard: View {
         UrgentBanner {
             VStack(alignment: .leading, spacing: Spacing.m) {
                 Label("E. coli was found in your latest test", systemImage: "exclamationmark.octagon.fill")
-                    .font(.headline)
+                    .font(M.Font.section)
                     .accessibilityAddTraits(.isHeader)
                 VStack(alignment: .leading, spacing: Spacing.s) {
                     if waterSource.showsWellCare {
@@ -121,7 +121,7 @@ struct RetestReminderCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.s) {
             Label("Retest to confirm your treatment works", systemImage: "testtube.2")
-                .font(.headline)
+                .font(M.Font.section)
                 .foregroundStyle(.tint)
             ForEach(systems) { system in
                 Text("You added a \(system.displayName) on \(system.addedAt.formatted(date: .abbreviated, time: .omitted)).")

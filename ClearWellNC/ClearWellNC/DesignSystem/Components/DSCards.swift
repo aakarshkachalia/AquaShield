@@ -128,7 +128,7 @@ extension DS {
 
         var body: some View {
             Image(systemName: systemImage)
-                .font(.title3.weight(.semibold))
+                .font(M.Font.section)
                 .foregroundStyle(color)
                 .frame(width: size, height: size)
                 .background(color.opacity(0.12), in: RoundedRectangle(cornerRadius: DS.Corner.medium, style: .continuous))
@@ -173,7 +173,7 @@ extension DS {
                     .fixedSize(horizontal: false, vertical: true)
                     Spacer(minLength: DS.Space.s)
                     Image(systemName: "arrow.right")
-                        .font(.body.weight(.bold))
+                        .font(M.Font.section)
                         .accessibilityHidden(true)
                 }
                 .foregroundStyle(style == .prominent ? DS.Colors.onAccent : DS.Colors.textPrimary)
@@ -189,7 +189,7 @@ extension DS {
         private var icon: some View {
             if style == .prominent {
                 Image(systemName: systemImage)
-                    .font(.title3.weight(.semibold))
+                    .font(M.Font.section)
                     .frame(width: 44, height: 44)
                     .background(DS.Colors.onAccent.opacity(0.18), in: RoundedRectangle(cornerRadius: DS.Corner.medium, style: .continuous))
                     .accessibilityHidden(true)

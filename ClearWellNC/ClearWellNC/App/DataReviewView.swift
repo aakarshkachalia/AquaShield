@@ -100,7 +100,7 @@ struct DataReviewView: View {
                 Section(area) {
                     ForEach(rows.filter { $0.area == area }) { row in
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(row.title).font(.headline)
+                            Text(row.title).font(M.Font.section)
                             if !row.detail.isEmpty { Text(row.detail).font(.subheadline) }
                             if !row.source.isEmpty {
                                 Text("Source: \(row.source)").font(.caption).foregroundStyle(M.Colors.muted)

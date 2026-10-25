@@ -163,7 +163,7 @@ struct HelpProgramCard: View {
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(program.type == .emergency ? Color.statusDanger : Color.brandPrimary)
                 Text(program.name)
-                    .font(.headline)
+                    .font(M.Font.section)
                     .fixedSize(horizontal: false, vertical: true)
                     .accessibilityAddTraits(.isHeader)
                 Text(program.agency)
@@ -171,7 +171,7 @@ struct HelpProgramCard: View {
                     .foregroundStyle(Color.textSecondary)
             }
             Text(program.eligibilitySummary)
-                .font(.body)
+                .font(M.Font.row)
                 .fixedSize(horizontal: false, vertical: true)
 
             VStack(alignment: .leading, spacing: Spacing.xs) {

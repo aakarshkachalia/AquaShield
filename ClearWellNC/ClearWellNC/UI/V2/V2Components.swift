@@ -19,7 +19,7 @@ struct DashboardTile: View {
         VStack(alignment: .leading, spacing: DS.Space.s) {
             HStack {
                 Image(systemName: systemImage)
-                    .font(.headline)
+                    .font(M.Font.section)
                     .foregroundStyle(level?.color ?? DS.Colors.accent)
                     .accessibilityHidden(true)
                 Text(title)

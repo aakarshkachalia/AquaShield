@@ -135,31 +135,32 @@ extension DS.Level {
 
 extension DS {
     /// Every style is built on a Dynamic Type text style, so it scales with the user's text size.
+    /// Older DS names, mapped onto the Modernist type scale (`M.Font`) so every screen uses the same sizes.
     enum Typography {
-        /// Big screen titles and hero numbers.
-        static let display = Font.system(.largeTitle, design: .rounded, weight: .bold)
-        static let title = Font.system(.title2, design: .rounded, weight: .bold)
-        static let headline = Font.headline
-        static let body = Font.body
-        static let callout = Font.callout
-        static let subheadline = Font.subheadline
+        /// Big screen titles.
+        static let display = M.Font.screenTitle
+        static let title = M.Font.heading
+        static let headline = M.Font.section
+        static let body = M.Font.row
+        static let callout = M.Font.row
+        static let subheadline = M.Font.row
         static let footnote = Font.footnote
         static let caption = Font.caption.weight(.semibold)
         /// Readings and values ("6.2 mg/L").
-        static let metric = Font.system(.title3, design: .rounded, weight: .semibold).monospacedDigit()
+        static let metric = M.Font.number
         /// The number inside the score ring.
-        static let score = Font.system(.largeTitle, design: .rounded, weight: .bold).monospacedDigit()
+        static let score = Font.system(.largeTitle, weight: .light).monospacedDigit()
 
-        // Light weights for the landing page: thin at large sizes, never below regular at small sizes.
-        static let lightTitle = Font.system(.title, design: .rounded, weight: .light)
-        static let lightTitle2 = Font.system(.title2, design: .rounded, weight: .light)
-        static let lightBody = Font.system(.body, design: .rounded, weight: .light)
+        // Light weights: thin at large sizes, never below regular at small sizes.
+        static let lightTitle = Font.system(.title, weight: .light)
+        static let lightTitle2 = M.Font.heading
+        static let lightBody = Font.system(.subheadline, weight: .light)
         /// Small uppercase section labels.
-        static let eyebrow = Font.system(.caption, design: .rounded, weight: .semibold)
+        static let eyebrow = M.Font.label
 
         /// A big thin number that still follows Dynamic Type (size from @ScaledMetric).
         static func thinNumber(size: CGFloat) -> Font {
-            .system(size: size, weight: .thin, design: .rounded).monospacedDigit()
+            .system(size: size, weight: .thin).monospacedDigit()
         }
     }
 }

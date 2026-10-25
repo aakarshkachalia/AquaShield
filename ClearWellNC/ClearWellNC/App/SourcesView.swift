@@ -66,7 +66,7 @@ struct SourcesView: View {
                 ForEach(dataSources) { source in
                     VStack(alignment: .leading, spacing: Spacing.xs) {
                         HStack {
-                            Text(source.name).font(.headline)
+                            Text(source.name).font(M.Font.section)
                             Spacer()
                             if source.isSample { SampleDataTag() }
                         }
@@ -83,7 +83,7 @@ struct SourcesView: View {
             Section("Help programs") {
                 ForEach(programs) { program in
                     VStack(alignment: .leading, spacing: Spacing.xs) {
-                        Text(program.name).font(.headline)
+                        Text(program.name).font(M.Font.section)
                         Text(program.agency).font(.subheadline).foregroundStyle(Color.textSecondary)
                         if let phone = program.phone { Text(phone).font(.subheadline) }
                         if let email = program.email { Text(email).font(.subheadline) }

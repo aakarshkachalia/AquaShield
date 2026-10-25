@@ -20,7 +20,7 @@ struct QuestMapView: View {
                 HStack(alignment: .firstTextBaseline) {
                     VStack(alignment: .leading, spacing: Spacing.xs) {
                         Text("Report Quest")
-                            .font(.largeTitle.bold())
+                            .font(M.Font.screenTitle)
                             .accessibilityAddTraits(.isHeader)
                         Text("Read your report one result at a time.")
                             .foregroundStyle(M.Colors.muted)
@@ -84,7 +84,7 @@ struct QuestMapView: View {
                 }
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(title)
-                        .font(.headline)
+                        .font(M.Font.section)
                         .foregroundStyle(state == .locked ? M.Colors.muted : M.Colors.ink)
                     Text(stateText(state))
                         .font(.subheadline)
@@ -114,17 +114,17 @@ struct QuestMapView: View {
     private func icon(state: NodeState, number: Int, symbol: String?) -> some View {
         switch state {
         case .correct:
-            Image(systemName: "checkmark").font(.title2.bold()).foregroundStyle(.white)
+            Image(systemName: "checkmark").font(M.Font.heading).foregroundStyle(.white)
         case .tried:
-            Image(systemName: "checkmark").font(.title2.bold()).foregroundStyle(.white)
+            Image(systemName: "checkmark").font(M.Font.heading).foregroundStyle(.white)
         case .current:
             if let symbol {
-                Image(systemName: symbol).font(.title2.bold()).foregroundStyle(.white)
+                Image(systemName: symbol).font(M.Font.heading).foregroundStyle(.white)
             } else {
-                Text("\(number)").font(.title2.bold()).foregroundStyle(.white)
+                Text("\(number)").font(M.Font.heading).foregroundStyle(.white)
             }
         case .locked:
-            Image(systemName: symbol ?? "lock.fill").font(.headline).foregroundStyle(M.Colors.muted)
+            Image(systemName: symbol ?? "lock.fill").font(M.Font.section).foregroundStyle(M.Colors.muted)
         }
     }
 
@@ -162,7 +162,7 @@ struct QuestMapView: View {
     private func bigButton(_ title: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Text(title)
-                .font(.headline)
+                .font(M.Font.section)
                 .frame(maxWidth: .infinity, minHeight: 52)
         }
         .buttonStyle(PrimaryButtonStyle())

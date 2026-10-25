@@ -97,7 +97,7 @@ struct ScanReportSheet: View {
             ProgressView()
                 .controlSize(.large)
             Text("Reading your report…")
-                .font(.headline)
+                .font(M.Font.section)
             Text("This happens on your phone. Nothing is uploaded.")
                 .font(.subheadline)
                 .foregroundStyle(Color.textSecondary)

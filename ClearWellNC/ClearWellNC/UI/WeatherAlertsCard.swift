@@ -26,7 +26,7 @@ struct WeatherAlertsCard: View {
     private var statusCard: some View {
         VStack(alignment: .leading, spacing: Spacing.s) {
             Text("Weather alerts")
-                .font(.headline)
+                .font(M.Font.section)
                 .accessibilityAddTraits(.isHeader)
             switch store.state {
             case .idle, .loading:
@@ -65,13 +65,13 @@ struct WeatherAlertsCard: View {
             Label(waterSource.showsWellCare ? String(localized: "Weather alert for your well")
                                             : String(localized: "Weather alert for your home"),
                   systemImage: "cloud.bolt.rain.fill")
-                .font(.headline)
+                .font(M.Font.section)
                 .accessibilityAddTraits(.isHeader)
 
             ForEach(alerts) { alert in
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(alert.event)
-                        .font(.body.weight(.semibold))
+                        .font(M.Font.section)
                     if let headline = alert.headline {
                         Text(headline)
                             .font(.subheadline)
@@ -112,7 +112,7 @@ struct WeatherAlertsCard: View {
     private func checklist(title: LocalizedStringKey, items: [LocalizedStringKey]) -> some View {
         VStack(alignment: .leading, spacing: Spacing.s) {
             Text(title)
-                .font(.subheadline.weight(.bold))
+                .font(M.Font.section)
                 .accessibilityAddTraits(.isHeader)
             ForEach(items.indices, id: \.self) { index in
                 HStack(alignment: .firstTextBaseline, spacing: Spacing.s) {

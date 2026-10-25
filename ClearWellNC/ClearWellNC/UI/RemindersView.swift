@@ -34,7 +34,7 @@ struct RemindersView: View {
                         IconTile(systemImage: "line.3.horizontal.decrease.circle")
                         VStack(alignment: .leading, spacing: Spacing.s) {
                             Text("No filters yet")
-                                .font(.headline)
+                                .font(M.Font.section)
                             Text("Add a pitcher, faucet, fridge or under-sink filter, or whole-house treatment like UV or a softener, to get a reminder when it's due.")
                                 .foregroundStyle(M.Colors.muted)
                                 .fixedSize(horizontal: false, vertical: true)
@@ -52,7 +52,7 @@ struct RemindersView: View {
 
                 if waterSource.showsWellCare {
                     Text("Well care")
-                        .font(.title2.bold())
+                        .font(M.Font.heading)
                         .accessibilityAddTraits(.isHeader)
                         .padding(.top, Spacing.s)
                     ForEach(WellCareTask.allCases) { task in
@@ -92,7 +92,7 @@ struct RemindersView: View {
         case .notDetermined?:
             VStack(alignment: .leading, spacing: Spacing.m) {
                 Label("Get reminders on time", systemImage: "bell.badge")
-                    .font(.headline)
+                    .font(M.Font.section)
                 Text(waterSource.showsWellCare
                      ? String(localized: "\(AppName.display) can send a notification when a filter is due or it's time to test your well.")
                      : String(localized: "\(AppName.display) can send a notification when a filter is due."))
@@ -104,7 +104,7 @@ struct RemindersView: View {
                     }
                 } label: {
                     Text("Turn on notifications")
-                        .font(.headline)
+                        .font(M.Font.section)
                         .frame(maxWidth: .infinity, minHeight: 44)
                 }
                 .buttonStyle(PrimaryButtonStyle())
@@ -113,7 +113,7 @@ struct RemindersView: View {
         case .denied?:
             VStack(alignment: .leading, spacing: Spacing.m) {
                 Label("Notifications are off", systemImage: "bell.slash")
-                    .font(.headline)
+                    .font(M.Font.section)
                 Text("Reminders still show here, but you won't get alerts. You can turn notifications on in Settings.")
                 if let url = URL(string: UIApplication.openSettingsURLString) {
                     Button("Open Settings") { openURL(url) }
@@ -128,7 +128,7 @@ struct RemindersView: View {
 
     private func sectionHeader(_ title: LocalizedStringKey, action: @escaping () -> Void,
                                actionLabel: LocalizedStringKey) -> some View {
-        let titleView = Text(title).font(.title2.bold()).accessibilityAddTraits(.isHeader)
+        let titleView = Text(title).font(M.Font.heading).accessibilityAddTraits(.isHeader)
         let button = Button(action: action) {
             Label(actionLabel, systemImage: "plus").frame(minHeight: 44)
         }
@@ -168,7 +168,7 @@ struct TreatmentRow: View {
                         .accessibilityHidden(true)
                     VStack(alignment: .leading, spacing: Spacing.xs) {
                         Text(system.displayName)
-                            .font(.headline)
+                            .font(M.Font.section)
                         if let product = system.trimmedProductName {
                             Text(product)
                                 .font(.subheadline)
@@ -236,7 +236,7 @@ struct CareRow: View {
                     .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(task.title)
-                        .font(.headline)
+                        .font(M.Font.section)
                     Text(task.frequency)
                         .font(.subheadline)
                         .foregroundStyle(M.Colors.muted)

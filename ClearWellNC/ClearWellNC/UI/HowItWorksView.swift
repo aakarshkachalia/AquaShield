@@ -68,7 +68,7 @@ struct HowItWorksView: View {
     private func accuracySection(_ meta: Meta) -> some View {
         VStack(alignment: .leading, spacing: Spacing.m) {
             Text("How accurate is it?")
-                .font(.title2.bold())
+                .font(M.Font.heading)
                 .accessibilityAddTraits(.isHeader)
             Text("Tested on census tracts the model never saw. The score is how much of the gap between a statewide guess (0%) and the best possible area-level estimate (100%) each method closes.")
             ScoresTable(scores: meta.modelScores)
@@ -95,7 +95,7 @@ struct HowItWorksView: View {
     private var auditNote: some View {
         VStack(alignment: .leading, spacing: Spacing.s) {
             Text("Data we checked and excluded")
-                .font(.title2.bold())
+                .font(M.Font.heading)
                 .accessibilityAddTraits(.isHeader)
             Text("While auditing the public data, we found three columns where the lab's reporting limit is above the state standard (silver, cadmium and chromium), which makes almost every test look contaminated. We excluded them. The tract file's manganese health-limit column also duplicates the 50 ppb column, so \(AppName.display) uses the 50 ppb NC standard.")
         }
@@ -166,7 +166,7 @@ private struct ScoresTable: View {
             Divider()
             ForEach(scores) { score in
                 GridRow {
-                    Text(score.contaminant.name).font(.body.weight(.medium))
+                    Text(score.contaminant.name).font(M.Font.section)
                     cell(score.countyAverage, best: isBest(score.countyAverage, in: score))
                     cell(score.neighborsOnly, best: isBest(score.neighborsOnly, in: score))
                     cell(score.model, best: isBest(score.model, in: score))
@@ -184,7 +184,7 @@ private struct ScoresTable: View {
             ForEach(scores) { score in
                 VStack(alignment: .leading, spacing: Spacing.s) {
                     Text(score.contaminant.name)
-                        .font(.headline)
+                        .font(M.Font.section)
                         .accessibilityAddTraits(.isHeader)
                     row(columns[0], value: ModelScore.percent(score.countyAverage), best: isBest(score.countyAverage, in: score))
                     row(columns[1], value: ModelScore.percent(score.neighborsOnly), best: isBest(score.neighborsOnly, in: score))

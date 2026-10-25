@@ -96,7 +96,7 @@ private struct ReviewRowEditor: View {
                 }
                 .pickerStyle(.menu)
                 .labelsHidden()
-                .font(.headline)
+                .font(M.Font.section)
                 Spacer()
                 Button(role: .destructive, action: onDelete) {
                     Image(systemName: "trash")

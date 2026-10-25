@@ -58,7 +58,7 @@ struct QuestChoiceButton: View {
                     .accessibilityHidden(true)
                 VStack(alignment: .leading, spacing: Spacing.xs) {
                     Text(title)
-                        .font(.title2.weight(.semibold))
+                        .font(M.Font.heading)
                         .foregroundStyle(.primary)
                     if let detail {
                         Text(detail)
@@ -157,7 +157,7 @@ struct PointsChip: View {
 
     var body: some View {
         Label("\(points) points", systemImage: "star.fill")
-            .font(.subheadline.weight(.bold))
+            .font(M.Font.section)
             .monospacedDigit()
             .padding(.horizontal, Spacing.m)
             .padding(.vertical, Spacing.s)
@@ -174,13 +174,13 @@ struct ReadingSummary: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.s) {
             Text(stop.name)
-                .font(.largeTitle.bold())
+                .font(M.Font.screenTitle)
                 .accessibilityAddTraits(.isHeader)
             HStack(alignment: .firstTextBaseline, spacing: Spacing.s) {
                 Text("Your reading:")
                     .foregroundStyle(M.Colors.muted)
                 Text(stop.interpretation.readingText)
-                    .font(.title2.bold())
+                    .font(M.Font.heading)
                     .monospacedDigit()
             }
             Label {
