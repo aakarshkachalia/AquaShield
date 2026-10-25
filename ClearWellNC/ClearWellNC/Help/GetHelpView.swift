@@ -16,70 +16,108 @@ struct GetHelpView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: DS.Space.xl) {
-                    Text("Testing, help paying for fixes, emergencies.")
-                        .font(DS.Typography.lightBody)
-                        .foregroundStyle(DS.Colors.textSecondary)
-
-                    TileGrid(columns: 2, spacing: DS.Space.m) {
-                        NavigationLink { FindTestingView() } label: {
-                            ShortcutTile(title: String(localized: "Find testing"), systemImage: "testtube.2",
-                                         caption: String(localized: "Who to call"))
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("Help").font(M.Font.screenTitle).accessibilityAddTraits(.isHeader)
+                        .padding(.horizontal, 20).padding(.top, 10).padding(.bottom, 14)
+                    NavigationLink { ResourcesView() } label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: "magnifyingglass").font(.system(.subheadline, weight: .light))
+                            Text("Labs, programs, plumbers…").font(M.Font.row).foregroundStyle(M.Colors.muted)
+                            Spacer()
                         }
-                        .buttonStyle(DS.PressableCardStyle())
+                        .padding(.horizontal, 12)
+                        .frame(minHeight: DS.Size.tapTarget)
+                        .overlay(Rectangle().strokeBorder(M.Colors.line, lineWidth: 1))
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .padding(.horizontal, 16)
+
+                    TileGrid(columns: 2, spacing: 8) {
+                        NavigationLink { FindTestingView() } label: {
+                            cell("testtube.2", String(localized: "Find testing"), String(localized: "Who to call"))
+                        }
+                        .buttonStyle(.plain)
                         .accessibilityIdentifier("getHelp.findTesting")
                         if source.showsWellCare {
                             Button { router.showingRiskCheck = true } label: {
-                                ShortcutTile(title: String(localized: "Should I test my well?"), systemImage: "checklist",
-                                             caption: String(localized: "7 questions"))
+                                cell("checklist", String(localized: "Should I test?"), String(localized: "7 questions"))
                             }
-                            .buttonStyle(DS.PressableCardStyle())
+                            .buttonStyle(.plain)
                             .accessibilityIdentifier("getHelp.riskCheck")
                             NavigationLink { StormModeView() } label: {
-                                ShortcutTile(title: String(localized: "My well flooded"), systemImage: "water.waves",
-                                             caption: String(localized: "Step by step"), tint: DS.Colors.fair)
+                                cell("water.waves", String(localized: "Well flooded"), String(localized: "Step by step"))
                             }
-                            .buttonStyle(DS.PressableCardStyle())
+                            .buttonStyle(.plain)
                         }
                         if source.showsCityContent {
                             NavigationLink { UtilityReportView() } label: {
-                                ShortcutTile(title: String(localized: "My water utility"), systemImage: "building.2",
-                                             caption: String(localized: "Boil notices, lead"))
+                                cell("building.2", String(localized: "My water utility"), String(localized: "Boil notices, lead"))
                             }
-                            .buttonStyle(DS.PressableCardStyle())
+                            .buttonStyle(.plain)
                         }
                         NavigationLink { ResourcesView() } label: {
-                            ShortcutTile(title: String(localized: "Help near you"), systemImage: "mappin.and.ellipse",
-                                         caption: String(localized: "Labs and plumbers"))
-                        }
-                        .buttonStyle(DS.PressableCardStyle())
-                    }
-
-                    // Every bundled help program is for private wells.
-                    if source.showsWellCare {
-                        HelpFinderSection()
-                    } else {
-                        DS.InfoCard(systemImage: "building.2.fill", title: String(localized: "Your water utility is your first call"),
-                                    message: String(localized: "For boil notices, lead pipes or a change in your water."))
-                    }
-
-                    if source.showsWellCare {
-                        NavigationLink {
-                            CheckAreaView()
-                        } label: {
-                            NavigationCardLabel(title: Text("Well risk in my area"),
-                                                subtitle: Text("Look up any NC address on the risk map."),
-                                                systemImage: "map.fill")
+                            cell("mappin.and.ellipse", String(localized: "Help near you"), String(localized: "Labs & plumbers"))
                         }
                         .buttonStyle(.plain)
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.top, 12)
 
-                    DisclaimerFooter()
+                    VStack(alignment: .leading, spacing: 12) {
+                        M.SectionHeader(title: String(localized: "Programs"), note: settings.county.map { String(localized: "\($0) County") })
+                        // Every bundled help program is for private wells.
+                        if source.showsWellCare {
+                            HelpFinderSection()
+                        } else {
+                            HStack(alignment: .top, spacing: 12) {
+                                Image(systemName: "building.2").font(.system(.body, weight: .light))
+                                VStack(alignment: .leading, spacing: 3) {
+                                    Text("Your water utility is your first call").font(M.Font.section)
+                                    Text("For boil notices, lead pipes or a change in your water.")
+                                        .font(M.Font.small).foregroundStyle(M.Colors.muted)
+                                }
+                            }
+                            .padding(14)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(M.Colors.surface)
+                        }
+                        if source.showsWellCare {
+                            NavigationLink { CheckAreaView() } label: {
+                                HStack {
+                                    Image(systemName: "map").font(.system(.body, weight: .light))
+                                    Text("Well risk in my area").font(M.Font.section)
+                                    Spacer()
+                                    Text("→")
+                                }
+                                .frame(minHeight: 48)
+                                .overlay(alignment: .top) { M.Rule() }
+                                .contentShape(Rectangle())
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.top, 24)
+                    M.Footer().padding(.horizontal, 20)
                 }
-                .dsScreen()
+                .frame(maxWidth: DS.Size.readableWidth)
+                .frame(maxWidth: .infinity)
             }
-            .background(DS.Colors.background)
-            .navigationTitle("Get Help")
+            .modernistScreen()
+            .toolbarVisibility(.hidden, for: .navigationBar)
         }
+    }
+
+    private func cell(_ symbol: String, _ title: String, _ caption: String) -> some View {
+        M.Cell {
+            VStack(alignment: .leading, spacing: 6) {
+                Image(systemName: symbol).font(.system(.title3, weight: .light)).accessibilityHidden(true)
+                Text(title).font(M.Font.section).lineLimit(2)
+                Text(caption).font(M.Font.tiny).foregroundStyle(M.Colors.muted)
+            }
+        }
+        .contentShape(Rectangle())
+        .accessibilityElement(children: .combine)
     }
 }

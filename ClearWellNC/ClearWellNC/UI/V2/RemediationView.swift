@@ -9,7 +9,8 @@
 import SwiftData
 import SwiftUI
 
-struct RemediationView: View {
+/// Every option in detail: free fixes, certified matches by type with compare, shower and skin care.
+struct FilterOptionsView: View {
     @Environment(AppRouter.self) private var router
     @Environment(AppSettings.self) private var settings
     @Query(sort: \LabResult.date, order: .reverse) private var results: [LabResult]
@@ -105,7 +106,7 @@ struct RemediationView: View {
             .dsScreen()
         }
         .background(DS.Colors.background)
-        .navigationTitle("What to do")
+        .navigationTitle("Filters and fixes")
         .sheet(isPresented: $showingCompare) {
             CompareProductsView(matches: plan.allMatches.filter { compare.contains($0.id) })
         }

@@ -60,6 +60,8 @@ final class ScreenshotTests: XCTestCase {
         snap(app, "dashboard")
         scroll(app); snap(app, "dashboard-lower")
         open(app, element(app, "dashboard.score"), "tap-score-kitchen")
+        // "Fix →" lives in the expanded alert bar.
+        if reveal(app, element(app, "dashboard.alerts")) { element(app, "dashboard.alerts").tap(); snap(app, "dashboard-alerts-open") }
         open(app, element(app, "dashboard.nextStep"), "what-to-do")
         let household = element(app, "dashboard.household")
         open(app, household, "household")

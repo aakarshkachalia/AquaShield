@@ -23,20 +23,59 @@ struct LearnView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: Spacing.m) {
-                    Text(Wording.adapt(String(localized: "What's in well water, where it comes from, who is most at risk, and how to fix it."),
-                                       for: settings.waterSource))
-                        .foregroundStyle(Color.textSecondary)
-                        .padding(.bottom, Spacing.xs)
-                    // Everything stays browsable; city users just see city topics first.
-                    let featured = settings.waterSource.showsWellCare ? LearnLibrary.articles
-                        : LearnLibrary.articles.filter { $0.contaminants.contains(where: Self.cityTopics.contains) }
-                    let more = LearnLibrary.articles.filter { article in !featured.contains { $0.id == article.id } }
-                    SectionHeader(title: settings.waterSource.showsWellCare ? "Contaminants" : "For city water")
-                    ForEach(featured) { articleLink($0) }
-                    if !more.isEmpty {
-                        SectionHeader(title: "More topics")
-                        ForEach(more) { articleLink($0) }
+                    Text("Learn").font(M.Font.screenTitle).accessibilityAddTraits(.isHeader)
+                    let ranked = rankedArticles
+                    if let top = ranked.first {
+                        NavigationLink { LearnArticleView(article: top.article) } label: {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("MATCHES YOUR RESULT").font(M.Font.label).tracking(0.8).foregroundStyle(M.Colors.overText)
+                                Text(top.article.title).font(.system(.title, weight: .light))
+                                Text("Where it comes from · how to remove it · 4 min")
+                                    .font(M.Font.small).foregroundStyle(M.Colors.muted)
+                            }
+                            .padding(16)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(M.Colors.surface)
+                            .overlay(alignment: .leading) { Rectangle().fill(M.Colors.over).frame(width: 3) }
+                            .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("learn.featured")
                     }
+                    if ranked.count > 1 {
+                        M.SectionHeader(title: String(localized: "In your water"),
+                                        note: results.first.map { String(localized: "from \($0.date.formatted(.dateTime.month(.abbreviated).day())) test") })
+                            .padding(.top, 8)
+                        VStack(spacing: 0) {
+                            ForEach(ranked.dropFirst(), id: \.article.id) { entry in
+                                NavigationLink { LearnArticleView(article: entry.article) } label: {
+                                    HStack {
+                                        Text(entry.article.title).font(M.Font.row)
+                                        Spacer()
+                                        HStack(spacing: 5) { M.Dot(color: entry.zone.color, size: 6); Text(entry.zone.label) }
+                                            .font(M.Font.label).foregroundStyle(entry.zone.textColor)
+                                        Image(systemName: "chevron.right").font(.system(.caption, weight: .light))
+                                            .foregroundStyle(M.Colors.muted)
+                                    }
+                                    .frame(minHeight: 46)
+                                    .overlay(alignment: .bottom) { M.Rule(color: M.Colors.hairline) }
+                                    .contentShape(Rectangle())
+                                }
+                                .buttonStyle(.plain)
+                            }
+                        }
+                    }
+                    // Everything stays browsable; city users see city topics first when there are no results.
+                    let shown = Set(ranked.map(\.article.id))
+                    let rest = LearnLibrary.articles.filter { !shown.contains($0.id) }
+                    let featured = settings.waterSource.showsWellCare || !ranked.isEmpty ? rest
+                        : rest.filter { $0.contaminants.contains(where: Self.cityTopics.contains) }
+                    let more = rest.filter { article in !featured.contains { $0.id == article.id } }
+                    M.SectionHeader(title: ranked.isEmpty
+                                    ? (settings.waterSource.showsWellCare ? String(localized: "Contaminants") : String(localized: "For city water"))
+                                    : String(localized: "More topics"))
+                        .padding(.top, 8)
+                    ForEach(featured + more) { articleLink($0) }
 
                     SectionHeader(title: "Badges")
                     badgeStrip
@@ -61,8 +100,8 @@ struct LearnView: View {
                 .padding(Spacing.l)
                 .readableWidth()
             }
-            .background(Color.appBackground)
-            .navigationTitle("Learn")
+            .modernistScreen()
+            .toolbarVisibility(.hidden, for: .navigationBar)
         }
     }
 
@@ -102,6 +141,21 @@ private struct LearnCardRow: View {
 }
 
 extension LearnView {
+    /// Articles for contaminants in your latest test, worst result first.
+    var rankedArticles: [(article: LearnArticle, zone: M.Zone)] {
+        guard let latest = results.first else { return [] }
+        var seen: Set<String> = []
+        return latest.displayInterpretations
+            .compactMap { i -> (LearnArticle, M.Zone, Double)? in
+                guard let article = LearnLibrary.article(for: i.id) else { return nil }
+                let ratio = (i.percentOfLimit ?? (i.tier == .above ? 100 : 0)) / 100
+                return (article, M.Zone(ratio: ratio), ratio)
+            }
+            .sorted { $0.2 > $1.2 }
+            .filter { seen.insert($0.0.id).inserted }
+            .map { ($0.0, $0.1) }
+    }
+
     static let cityTopics: Set<ContaminantID> = [.lead, .copper, .pfoa, .pfos, .genx, .totalColiform, .eColi]
 
     func articleLink(_ article: LearnArticle) -> some View {

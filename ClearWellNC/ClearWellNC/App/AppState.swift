@@ -131,6 +131,10 @@ final class AppSettings {
     var homeProfile: HomeProfile {
         didSet { guard !isReloading else { return }; setCodable(homeProfile, forScopedKey: HomeProfile.storageKey) }
     }
+    /// What-to-do steps the user marked done (FixStep.Kind raw values).
+    var fixesDone: Set<String> {
+        didSet { guard !isReloading else { return }; setCodable(fixesDone, forScopedKey: "fixesDone") }
+    }
     /// Flood, infant and boil-water modes the user turned on.
     var activeModes: Set<WaterMode> {
         didSet { guard !isReloading else { return }; setCodable(activeModes, forScopedKey: "activeModes") }
@@ -172,6 +176,7 @@ final class AppSettings {
         householdMembers = []
         homeProfile = HomeProfile()
         activeModes = []
+        fixesDone = []
         networkOptIns = []
         savedProgramIDs = []
         stormChecked = []
@@ -225,6 +230,7 @@ final class AppSettings {
         householdMembers = codable([HouseholdMember].self, forScopedKey: "householdMembers") ?? []
         homeProfile = codable(HomeProfile.self, forScopedKey: HomeProfile.storageKey) ?? HomeProfile()
         activeModes = codable(Set<WaterMode>.self, forScopedKey: "activeModes") ?? []
+        fixesDone = codable(Set<String>.self, forScopedKey: "fixesDone") ?? []
         networkOptIns = codable(Set<NetworkFeature>.self, forScopedKey: "networkOptIns") ?? []
         savedProgramIDs = data(forScopedKey: "savedPrograms")
             .flatMap { try? JSONDecoder().decode(Set<String>.self, from: $0) } ?? []
