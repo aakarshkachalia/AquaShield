@@ -38,9 +38,10 @@ nonisolated struct AquaShieldStepFlowStyle: StepFlowStyle {
         .accessibilityIdentifier(action.identifier)
         .padding(.horizontal, DS.Space.l)
         .padding(.top, DS.Space.m)
-        .padding(.bottom, DS.Space.s)
+        .padding(.bottom, DS.Space.xs)
         .frame(maxWidth: DS.Size.readableWidth)
         .frame(maxWidth: .infinity)
+        .safeAreaInset(edge: .bottom, spacing: 0) { M.Credit().padding(.bottom, DS.Space.xs) }
         .background(M.Colors.tabBar)
         .overlay(alignment: .top) { Divider().opacity(0.6) }
     }

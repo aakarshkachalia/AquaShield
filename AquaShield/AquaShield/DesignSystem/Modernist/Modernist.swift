@@ -269,6 +269,18 @@ extension M {
     }
 }
 
+extension M {
+    /// The maker's credit, shown at the bottom of every screen.
+    struct Credit: View {
+        var body: some View {
+            Text("Built by Aakarsh Kachalia")
+                .font(M.Font.tiny)
+                .foregroundStyle(M.Colors.muted)
+                .frame(maxWidth: .infinity)
+        }
+    }
+}
+
 extension View {
     /// The Modernist screen: beige ground, ink text.
     func modernistScreen() -> some View {

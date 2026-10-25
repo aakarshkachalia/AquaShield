@@ -68,6 +68,9 @@ struct ModernistTabBar: View {
                 }
             }
             .padding(.top, 8)
+            M.Credit()
+                .padding(.top, 2)
+                .padding(.bottom, 4)
         }
         .background(M.Colors.tabBar.ignoresSafeArea(edges: .bottom))
     }
