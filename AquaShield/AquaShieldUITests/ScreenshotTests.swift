@@ -5,7 +5,7 @@
 //  Captures every main screen in light and dark mode for review. Screenshots are attached to the test
 //  result, and on the simulator also written as PNGs to SCREENSHOT_DIR (default /tmp/AquaShieldScreenshots).
 //  Run:
-//    TEST_RUNNER_SCREENSHOT_DIR=~/clearwell/Screenshots xcodebuild test -scheme AquaShield \
+//    TEST_RUNNER_SCREENSHOT_DIR=~/AquaShield/Screenshots xcodebuild test -scheme AquaShield \
 //      -destination 'platform=iOS Simulator,name=iPhone 18 Pro' -only-testing:AquaShieldUITests/ScreenshotTests
 //
 

@@ -30,8 +30,6 @@ nonisolated enum ReminderPlanner {
 @MainActor
 enum NotificationScheduler {
     static let idPrefix = "aquashield."
-    /// Reminders scheduled before the rename to AquaShield; cleared on the next reschedule.
-    static let legacyPrefix = "clearwell."
 
     static func authorizationStatus() async -> UNAuthorizationStatus {
         await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
@@ -50,7 +48,7 @@ enum NotificationScheduler {
 
         let ours = await center.pendingNotificationRequests()
             .map(\.identifier)
-            .filter { $0.hasPrefix(idPrefix) || $0.hasPrefix(legacyPrefix) }
+            .filter { $0.hasPrefix(idPrefix) }
         center.removePendingNotificationRequests(withIdentifiers: ours)
 
         for reminder in reminders {
