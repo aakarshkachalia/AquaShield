@@ -537,7 +537,7 @@ struct DashboardView: View {
 
 // MARK: - Dial gauge
 
-/// 270° dial: zone-colored ticks lit up to the score, zone labels, and a big thin number out of 100.
+/// 270° dial: zone-colored ticks lit up to the score, zone labels, and the score as a big thin number in the middle.
 struct DialGauge: View {
     let score: Int
     let worst: (name: String, ratio: Double)?
@@ -578,26 +578,10 @@ struct DialGauge: View {
             }
             Text("0").font(M.Font.tiny).foregroundStyle(M.Colors.muted).position(x: 56, y: 232)
             Text("100").font(M.Font.tiny).foregroundStyle(M.Colors.muted).position(x: 250, y: 232)
-            VStack(spacing: 4) {
-                HStack(alignment: .firstTextBaseline, spacing: 2) {
-                    Text("\(score)")
-                        .font(M.Font.thin(min(numberSize, 80)))
-                        .contentTransition(.numericText())
-                    Text("/100").font(M.Font.row).foregroundStyle(M.Colors.muted)
-                }
-                if let worst, worst.ratio >= 1 {
-                    HStack(spacing: 6) {
-                        M.Dot(color: M.Colors.over, size: 6)
-                        Text("\(worst.name) \(M.times(worst.ratio)) limit")
-                    }
-                    .font(M.Font.label)
-                    .foregroundStyle(M.Colors.overText)
-                } else {
-                    Text(WellHealthScore.Band.from(score: score).label.uppercased())
-                        .font(M.Font.label).tracking(0.8).foregroundStyle(M.scoreColor(Double(score)))
-                }
-            }
-            .position(x: 150, y: 190)
+            Text("\(score)")
+                .font(M.Font.thin(min(numberSize, 80)))
+                .contentTransition(.numericText())
+                .position(x: 150, y: 150)
         }
         .frame(width: 300, height: 250)
         .frame(maxWidth: .infinity)

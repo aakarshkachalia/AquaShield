@@ -41,7 +41,7 @@ nonisolated struct AquaShieldStepFlowStyle: StepFlowStyle {
         .padding(.bottom, DS.Space.s)
         .frame(maxWidth: DS.Size.readableWidth)
         .frame(maxWidth: .infinity)
-        .background(.bar)
+        .background(M.Colors.tabBar)
         .overlay(alignment: .top) { Divider().opacity(0.6) }
     }
 

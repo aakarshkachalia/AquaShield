@@ -157,7 +157,7 @@ nonisolated struct DefaultStepFlowStyle: StepFlowStyle {
             .padding(.horizontal, Spacing.l)
             .padding(.vertical, Spacing.m)
             .readableWidth()
-            .background(.bar)
+            .background(M.Colors.tabBar)
     }
 
     @MainActor func makeResumePrompt(_ configuration: StepFlowResumeConfiguration) -> some View {
